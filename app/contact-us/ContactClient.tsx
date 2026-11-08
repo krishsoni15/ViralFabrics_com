@@ -650,7 +650,7 @@ export default function ContactClient() {
              =================================================================== */}
           <div className="max-w-[1360px] mx-auto space-y-6 pt-10 sm:pt-14">
             
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#D8E6F3] pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D8E6F3] pb-4">
               <div>
                 <span className="font-sans text-[11px] font-bold tracking-[0.24em] uppercase text-[#1665C1] block">
                   SURAT WEAVING MILL COORDINATES
@@ -660,46 +660,21 @@ export default function ContactClient() {
                 </h3>
               </div>
               <div className="flex items-center gap-3">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11.5px] font-semibold">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>Looms Operational: Mon–Sat 9AM–7:30PM IST</span>
-                </span>
-              </div>
-            </div>
-
-            {/* Elevated Map Showcase Container */}
-            <div className="relative w-full h-[430px] sm:h-[490px] lg:h-[530px] rounded-[24px] sm:rounded-[28px] overflow-hidden border border-[#D8E6F3] shadow-[0_16px_40px_rgba(17,50,89,0.08)]">
-              
-              {/* Floating Translucent Coordinates Pill (Top Left) */}
-              <div className="absolute top-4 left-4 z-20 hidden sm:flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-md">
-                <div className="relative w-8 h-8 rounded-lg bg-[#F8FAFD] border border-[#D8E6F3] p-1 flex items-center justify-center shadow-xs">
-                  <Image
-                    src="/assets/brand/viral-mark.png"
-                    alt="Viral Fabrics Emblem"
-                    width={22}
-                    height={22}
-                    className="object-contain"
-                  />
-                </div>
-                <div>
-                  <p className="font-sans text-xs font-bold text-[#113259] leading-tight">
-                    Viral Fabrics Surat Facility
-                  </p>
-                  <p className="font-sans text-[10.5px] text-slate-500">
-                    21.1442° N, 72.8258° E &bull; Pandesara Industrial Cluster
-                  </p>
-                </div>
                 <a
                   href={COMPANY_INFO.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="ml-2 text-xs text-[#1665C1] hover:underline font-semibold inline-flex items-center gap-0.5"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#006DB6] hover:bg-[#0A192F] text-white text-[12.5px] font-medium tracking-wide shadow-xs hover:shadow-md transition-all duration-200 group"
                 >
-                  <span>Open</span>
-                  <ExternalLink className="w-3 h-3" />
+                  <MapPin className="w-3.5 h-3.5 text-white/90 group-hover:scale-110 transition-transform" />
+                  <span>Open in Google Maps</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-white/70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
               </div>
+            </div>
 
+            {/* Elevated Map Showcase Container */}
+            <div className="relative w-full h-[430px] sm:h-[490px] lg:h-[530px] rounded-[24px] sm:rounded-[28px] overflow-hidden border border-[#D8E6F3] shadow-[0_16px_40px_rgba(17,50,89,0.08)] bg-slate-100">
               {/* Real Google Map Embed */}
               <iframe
                 src={COMPANY_INFO.mapsUrl}
