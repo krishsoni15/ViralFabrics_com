@@ -227,7 +227,6 @@ export function Navbar() {
   const isHeroTransparentPage =
     pathname === '/' ||
     pathname === '/about-us' ||
-    pathname === '/enquiry' ||
     pathname === '/contact-us' ||
     pathname === '/network' ||
     pathname.startsWith('/fabrics');

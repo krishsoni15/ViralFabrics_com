@@ -467,22 +467,10 @@ export default function EnquiryPage() {
   return (
     <main className="min-h-screen bg-[#FAF7F2]">
       
-      {/* Hero Banner with Agnes Toth directional unblur sweep & Breadcrumbs */}
-      <PageHeroBanner
-        title="Enquiry"
-        subtitle="From Around The Fabrics World"
-        bgAlt="Viral Fabrics Sourcing & Sampling Desk"
-        badges={[
-          { icon: Gauge, label: 'Quick Response' },
-          { icon: ShieldCheck, label: 'Confidential Discussion' },
-          { icon: Headphones, label: 'Expert Support' },
-        ]}
-      />
-
       {/* =====================================================================
-          3. LUXURY SILK CANVAS BODY (Centered Form in Middle)
+          LUXURY SILK CANVAS BODY & DIRECT CONSULTATION DESK
          ===================================================================== */}
-      <section ref={sectionRef} className="relative min-h-[calc(100vh-360px)] overflow-hidden py-12 sm:py-16 lg:py-20">
+      <section ref={sectionRef} className="relative min-h-screen overflow-hidden pt-28 sm:pt-32 lg:pt-36 pb-16 sm:pb-20 lg:pb-24">
         
         {/* Authentic Silk Waves Background Canvas (Blue Drape at Bottom-Left, Ivory Drape at Top-Right) */}
         <div className="absolute inset-0 z-0 pointer-events-none">
