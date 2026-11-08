@@ -216,29 +216,17 @@ export function WhoWeAreSection() {
     <section 
       id="who-we-are" 
       ref={sectionRef}
-      className="relative w-full text-[#2e3937] pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-22 lg:pb-28 xl:pb-32 selection:bg-[#375785] selection:text-white"
+      className="relative w-full text-[#2e3937] pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-22 lg:pb-28 xl:pb-32 overflow-hidden selection:bg-[#375785] selection:text-white"
     >
-      {/* 1. TOP TORN / FRAYED SILK FABRIC EDGE (Transparent above, organic torn edge overlapping hero) */}
-      <div className="absolute -top-6 sm:-top-10 md:-top-13 lg:-top-16 left-0 right-0 w-full h-12 sm:h-18 md:h-22 lg:h-28 z-20 pointer-events-none select-none">
+      {/* Authentic One-Piece Torn Silk Canvas Background (Single Image, 100% Clean) */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none">
         <Image
-          src="/images/who-we-are-torn-top.png"
-          alt="Viral Fabrics Organic Torn Silk Edge"
+          src="/images/who-we-are-bg.png"
+          alt="Viral Fabrics Who We Are Background Canvas"
           fill
           priority
           sizes="100vw"
-          className="w-full h-full object-fill object-bottom"
-        />
-      </div>
-
-      {/* 2. SILK FABRIC BACKGROUND CANVAS (Soft white silk with blue & champagne waves) */}
-      <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden bg-[#FAF9F7]">
-        <Image
-          src="/images/who-we-are-torn-center.png"
-          alt="Viral Fabrics Flowing Silk Canvas"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-bottom opacity-95"
+          className="w-full h-full object-fill pointer-events-none"
         />
       </div>
 
@@ -439,18 +427,6 @@ export function WhoWeAreSection() {
 
         </div>
 
-      </div>
-
-      {/* 3. BOTTOM TORN / FRAYED SILK FABRIC EDGE (Transparent below, organic torn edge overlapping portfolio) */}
-      <div className="absolute -bottom-6 sm:-bottom-10 md:-bottom-13 lg:-bottom-16 left-0 right-0 w-full h-12 sm:h-18 md:h-22 lg:h-28 z-20 pointer-events-none select-none">
-        <Image
-          src="/images/who-we-are-torn-bottom.png"
-          alt="Viral Fabrics Organic Torn Silk Edge"
-          fill
-          priority
-          sizes="100vw"
-          className="w-full h-full object-fill object-top"
-        />
       </div>
     </section>
   );
