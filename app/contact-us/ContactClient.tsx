@@ -456,11 +456,15 @@ export default function ContactClient() {
                           href="https://wa.me/919427988999?text=Hello%20Viral%20Fabrics%2C%20I%20would%20like%20to%20inquire%20about%20fabric%20sourcing."
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-8 h-8 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white flex items-center justify-center shadow-xs hover:scale-110 active:scale-95 transition-all duration-200"
+                          className="flex items-center justify-center hover:scale-110 active:scale-95 transition-transform duration-200"
                           title="Chat directly on WhatsApp"
                           aria-label="Chat directly on WhatsApp"
                         >
-                          <MessageCircle className="w-4 h-4 fill-white" />
+                          {/* Official Real WhatsApp Brand Emblem */}
+                          <svg viewBox="0 0 24 24" className="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-xs" aria-hidden="true">
+                            <path fill="#25D366" d="M12 0C5.373 0 0 5.373 0 12c0 2.118.552 4.108 1.517 5.836L.055 24l6.326-1.424A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+                            <path fill="#FFF" fillRule="evenodd" clipRule="evenodd" d="M18.42 16.71c-.24.68-1.4 1.3-1.95 1.38-.5.07-1.12.1-3.23-.77-2.69-1.12-4.43-3.86-4.56-4.04-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.26.54-.33.72-.33.18 0 .36 0 .52.01.17.01.4-.06.62.48.23.54.78 1.9.85 2.04.07.14.12.3.02.49-.09.19-.14.3-.27.46-.14.16-.29.35-.42.47-.14.14-.29.29-.12.58.16.29.73 1.2 1.57 1.95 1.08.96 1.98 1.26 2.27 1.4.28.14.45.12.62-.07.17-.19.72-.84.92-1.13.19-.29.39-.24.65-.15.26.1.1.66 1.63 1.42.26.1.43.15.5.26.07.12.07.7-.17 1.38z"/>
+                          </svg>
                         </a>
                       </div>
 
@@ -487,8 +491,12 @@ export default function ContactClient() {
                           href="https://wa.me/919427988999"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[11px] font-semibold text-[#25D366] hover:underline inline-flex items-center gap-1"
+                          className="text-[11px] font-semibold text-[#128C7E] hover:text-[#075E54] hover:underline inline-flex items-center gap-1"
                         >
+                          <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" aria-hidden="true">
+                            <path fill="#25D366" d="M12 0C5.373 0 0 5.373 0 12c0 2.118.552 4.108 1.517 5.836L.055 24l6.326-1.424A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+                            <path fill="#FFF" fillRule="evenodd" clipRule="evenodd" d="M18.42 16.71c-.24.68-1.4 1.3-1.95 1.38-.5.07-1.12.1-3.23-.77-2.69-1.12-4.43-3.86-4.56-4.04-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.26.54-.33.72-.33.18 0 .36 0 .52.01.17.01.4-.06.62.48.23.54.78 1.9.85 2.04.07.14.12.3.02.49-.09.19-.14.3-.27.46-.14.16-.29.35-.42.47-.14.14-.29.29-.12.58.16.29.73 1.2 1.57 1.95 1.08.96 1.98 1.26 2.27 1.4.28.14.45.12.62-.07.17-.19.72-.84.92-1.13.19-.29.39-.24.65-.15.26.1.1.66 1.63 1.42.26.1.43.15.5.26.07.12.07.7-.17 1.38z"/>
+                          </svg>
                           <span>WhatsApp</span>
                           <ExternalLink className="w-2.5 h-2.5" />
                         </a>
@@ -901,9 +909,11 @@ export default function ContactClient() {
                       href="https://wa.me/919427988999?text=Hello%20Viral%20Fabrics%2C%20I%20would%20like%20to%20inquire%20about%20export%20fabrics."
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#25D366] text-white text-[11.5px] font-semibold hover:bg-[#1EBE5D] transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#25D366] text-white text-[11.5px] font-semibold hover:bg-[#1EBE5D] transition-colors"
                     >
-                      <MessageCircle className="w-3 h-3" />
+                      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-white" aria-hidden="true">
+                        <path d="M17.472 14.382c-.301-.15-1.777-.877-2.052-.977-.275-.1-.475-.15-.675.15-.2.3-.775.976-.95 1.176-.175.2-.35.225-.65.075-.3-.15-1.267-.467-2.413-1.488-.893-.796-1.496-1.78-1.671-2.08-.175-.3-.019-.462.131-.611.135-.134.3-.35.45-.525.15-.175.2-.3.3-.5.1-.2.05-.375-.025-.525-.075-.15-.675-1.625-.925-2.225-.244-.585-.492-.505-.675-.515-.175-.01-.375-.01-.575-.01-.2 0-.525.075-.8.375s-1.05 1.025-1.05 2.5 1.075 2.9 1.225 3.1c.15.2 2.117 3.233 5.129 4.534.716.31 1.275.495 1.71.634.72.23 1.375.197 1.893.12.578-.087 1.777-.726 2.027-1.426.25-.7.25-1.3.175-1.425-.075-.125-.275-.2-.575-.35zm-5.465 7.618h-.006a9.97 9.97 0 01-5.083-1.39l-.364-.216-3.778.99.99-3.68-.236-.375A9.97 9.97 0 012.015 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm0-22C5.383 0 0 5.383 0 12c0 2.112.553 4.18 1.603 6.008L0 24l6.166-1.564A11.954 11.954 0 0012.007 24C18.625 24 24 18.617 24 12 24 5.383 18.625 0 12.007 0z"/>
+                      </svg>
                       <span>WhatsApp</span>
                     </a>
                     <button
