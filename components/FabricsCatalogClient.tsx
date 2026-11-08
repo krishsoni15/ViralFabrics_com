@@ -146,24 +146,6 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
                     className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-106 select-none"
                   />
 
-                  {/* Top Left: Export Grade Badge */}
-                  <div className="absolute top-3.5 left-3.5 z-10">
-                    <span className="bg-white/95 backdrop-blur-md px-3 py-1 text-[10.5px] font-bold tracking-[0.16em] uppercase text-[#0A192F] rounded-full shadow-xs border border-white/80">
-                      Export Grade
-                    </span>
-                  </div>
-
-                  {/* Top Right: GSM Pill */}
-                  <div className="absolute top-3.5 right-3.5 z-10">
-                    <span className="bg-white/95 backdrop-blur-md px-3 py-1 text-[11px] font-semibold text-[#0A192F] rounded-full shadow-xs border border-white/80 flex items-center gap-1.5">
-                      <span
-                        className="w-2 h-2 rounded-full shrink-0"
-                        style={{ backgroundColor: accentColor }}
-                      />
-                      {fabric.gsmRange}
-                    </span>
-                  </div>
-
                   {/* Subtle hover gradient wash */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A192F]/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </div>

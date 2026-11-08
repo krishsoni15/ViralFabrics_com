@@ -405,17 +405,6 @@ const PortfolioRow: React.FC<{
 
             {/* Subtle Inner Highlight Ring */}
             <div className="absolute inset-0 rounded-[24px] sm:rounded-[28px] ring-1 ring-inset ring-black/5 pointer-events-none" />
-
-            {/* GSM Badge Pill with Glassmorphic Depth */}
-            <div className="absolute bottom-4 right-4 sm:bottom-5 sm:right-5 z-20 bg-white/95 backdrop-blur-md px-4 py-1.5 rounded-full border border-slate-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.08)] flex items-center gap-2">
-              <span
-                className="w-2 h-2 rounded-full shrink-0"
-                style={{ backgroundColor: item.circleColor }}
-              />
-              <span className="font-sans text-[11.5px] sm:text-[12px] font-bold text-[#0A192F] tracking-wide">
-                {item.gsm}
-              </span>
-            </div>
           </Interactive3DCard>
 
         </div>
