@@ -25,6 +25,9 @@ import {
   PackageCheck,
   Leaf,
   Factory,
+  Home,
+  Gauge,
+  Globe,
 } from 'lucide-react';
 import { QualityPracticesSection } from '@/components/QualityPracticesSection';
 
@@ -166,102 +169,86 @@ const EditorialBlock: React.FC<{
 };
 
 export default function AboutUsPage() {
-  const [isHeroLoaded, setIsHeroLoaded] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsHeroLoaded(true), 60);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div className="min-h-screen bg-white selection:bg-[#1E5FA8] selection:text-white">
 
-      {/* =================================================================
-          1. STATUESQUE AGNES TOTH EDITORIAL HERO
-             - 100svh / 100vh Full Viewport Height
-             - Transparent Navbar on top
-             - Bottom-left positioned typography:
-               Eyebrow: ABOUT US • MORE COMPANY INFORMATION
-               Heading: Viral Fabrics
-               Subtitle: Established 2012 in Surat, Gujarat, India by Mr. Viral Patel
-         ================================================================= */}
-      <section className="relative w-full h-screen h-[100dvh] min-h-[640px] flex items-end bg-[#071120] overflow-hidden z-0">
+      {/* =====================================================================
+          1. TOP HERO BANNER (Compact & Minimalist - Exact 1:1 Match with Enquiry, Contact & Network)
+         ===================================================================== */}
+      <section className="relative pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 flex items-center overflow-hidden bg-[#0A192F]">
         
-        {/* Full-bleed Facility Background Image */}
-        <div
-          className={`absolute inset-0 z-0 will-change-transform ${
-            isHeroLoaded ? 'scale-100 opacity-95 blur-0' : 'scale-108 opacity-75 blur-md'
-          }`}
-          style={{ transition: 'all 1.6s cubic-bezier(0.16, 1, 0.3, 1)' }}
-        >
+        {/* Banner Graphic: Stacked folded luxury fabrics on right, deep navy silk on left */}
+        <div className="absolute inset-0 z-0 pointer-events-none select-none">
           <Image
-            src="/craftsmanship-poster.jpg"
-            alt="Viral Fabrics Surat Weaving Mill"
+            src="/images/enquiry/enquiry-hero-bg.jpg"
+            alt="About Viral Fabrics - Surat Fabric Manufacturer"
             fill
-            priority
             sizes="100vw"
             className="object-cover object-center"
+            priority
           />
-          {/* Subtle Agnes Toth luxury gradient scrims */}
-          <span className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/25 pointer-events-none" />
-          <span className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent pointer-events-none" />
+          {/* Subtle top scrim for crystal-clear contrast of transparent navbar links */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#061426]/75 via-[#061426]/20 to-transparent pointer-events-none" />
         </div>
 
-        {/* Bottom-Left Positioned Content Container */}
-        <div className="relative z-10 max-w-[1720px] w-full mx-auto px-5 sm:px-8 lg:px-14 pb-12 sm:pb-16 lg:pb-20 text-white">
-          <div className="max-w-3xl space-y-3 sm:space-y-4">
+        {/* Content Aligned with Main Container */}
+        <div className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12">
+          <div className="max-w-2xl text-white">
             
-            {/* Agnes Eyebrow */}
-            <p
-              className="font-sans text-[12px] sm:text-[13px] font-normal leading-[1.35] tracking-[0.22em] uppercase text-white/90 drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]"
-              style={{
-                transition: 'opacity 1100ms cubic-bezier(0.16, 1, 0.3, 1) 120ms, transform 1100ms cubic-bezier(0.16, 1, 0.3, 1) 120ms',
-                opacity: isHeroLoaded ? 1 : 0,
-                transform: isHeroLoaded ? 'translate3d(0, 0, 0)' : 'translate3d(0, 16px, 0)',
-              }}
-            >
-              About Us &bull; <em className="italic font-normal normal-case text-white tracking-normal">More Company Information</em>
-            </p>
+            {/* Title with Vertical Blue Accent Bar */}
+            <div className="flex items-start gap-3 sm:gap-3.5">
+              <div className="w-[3.5px] sm:w-1 h-9 sm:h-11 bg-[#0084D1] rounded-full flex-shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,132,209,0.7)]" />
+              <div className="space-y-0.5 sm:space-y-1">
+                <h1 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[42px] font-normal text-white tracking-tight leading-none drop-shadow-sm">
+                  About Us
+                </h1>
+                <p className="font-sans text-[12.5px] sm:text-[13.5px] text-white/90 font-light tracking-wide drop-shadow-sm">
+                  From Around The Fabrics World
+                </p>
+              </div>
+            </div>
 
-            {/* Statuesque Editorial Headline: Viral Fabrics */}
-            <h1
-              className="font-heading text-[48px] xs:text-[54px] sm:text-[64px] md:text-[72px] lg:text-[84px] xl:text-[92px] font-normal text-white leading-[1.04] tracking-[-0.015em] drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)]"
-              style={{
-                transition: 'opacity 1200ms cubic-bezier(0.16, 1, 0.3, 1) 200ms, transform 1200ms cubic-bezier(0.16, 1, 0.3, 1) 200ms, filter 1200ms cubic-bezier(0.16, 1, 0.3, 1) 200ms',
-                opacity: isHeroLoaded ? 1 : 0,
-                filter: isHeroLoaded ? 'blur(0px)' : 'blur(16px)',
-                transform: isHeroLoaded ? 'translate3d(0, 0, 0)' : 'translate3d(0, 20px, 0)',
-              }}
-            >
-              Viral Fabrics
-            </h1>
-
-            {/* Subtitle */}
-            <p
-              className="font-sans text-white/90 text-sm sm:text-base md:text-lg font-light leading-relaxed max-w-2xl drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)]"
-              style={{
-                transition: 'opacity 1200ms cubic-bezier(0.16, 1, 0.3, 1) 320ms, transform 1200ms cubic-bezier(0.16, 1, 0.3, 1) 320ms',
-                opacity: isHeroLoaded ? 1 : 0,
-                transform: isHeroLoaded ? 'translate3d(0, 0, 0)' : 'translate3d(0, 16px, 0)',
-              }}
-            >
-              Surat, Gujarat, India &bull; Manufacturers and Suppliers of Export-Quality Fabric &bull; Est. 2012 by Mr. Viral A. Patel
-            </p>
+            {/* 3 Trust Badges with Dividers */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 sm:mt-5 text-[11.5px] sm:text-[12.5px] font-sans font-medium text-white/90">
+              <div className="flex items-center gap-1.5">
+                <Gauge className="w-3.5 h-3.5 text-white stroke-[2.2]" />
+                <span>Quick Response</span>
+              </div>
+              <span className="text-white/30 select-none text-xs">|</span>
+              <div className="flex items-center gap-1.5">
+                <Building2 className="w-3.5 h-3.5 text-white stroke-[2.2]" />
+                <span>Surat Textile Hub</span>
+              </div>
+              <span className="text-white/30 select-none text-xs">|</span>
+              <div className="flex items-center gap-1.5">
+                <Globe className="w-3.5 h-3.5 text-white stroke-[2.2]" />
+                <span>Global Export Desk</span>
+              </div>
+            </div>
 
           </div>
         </div>
+
       </section>
 
-      {/* =================================================================
-          MINIMALIST BREADCRUMB (Home » About Us)
-         ================================================================= */}
-      <div className="bg-[#FAF8F5] border-b border-slate-200/60 py-3.5">
-        <div className="max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
-          <p className="font-sans text-[11.5px] font-medium tracking-[0.18em] uppercase text-slate-500 flex items-center gap-2">
-            <Link href="/" className="hover:text-slate-900 transition-colors">Home</Link>
-            <ChevronRight className="w-3 h-3 text-slate-400 stroke-[1.8]" />
-            <span className="text-slate-900 font-semibold">About Us</span>
-          </p>
+      {/* =====================================================================
+          2. MINIMALIST BREADCRUMBS BAR (Home > About Us)
+         ===================================================================== */}
+      <div className="bg-white border-b border-slate-200/70 py-2 sm:py-2.5 shadow-sm">
+        <div className="max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12 text-left">
+          <nav aria-label="Breadcrumb" className="inline-flex items-center gap-1.5 sm:gap-2 text-[12px] sm:text-[12.5px] font-sans">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1 text-[#006DB6] hover:text-[#0A192F] transition-colors font-medium tracking-wide"
+            >
+              <Home className="w-3.5 h-3.5 fill-[#006DB6] text-[#006DB6]" />
+              <span>Home</span>
+            </Link>
+            <span className="text-slate-400 select-none text-[11px]">&gt;</span>
+            <span className="text-[#006DB6] font-medium tracking-wide" aria-current="page">
+              About Us
+            </span>
+          </nav>
         </div>
       </div>
 
