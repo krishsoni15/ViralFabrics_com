@@ -22,6 +22,8 @@ export default function FabricsPage() {
       <PageHeroBanner
         title="Fabrics Portfolio"
         subtitle="From Around The Fabrics World"
+        bgVideo="/videos/fabrics-hero.mp4"
+        bgVideoPoster="/assets/uploads/2025/09/bsy-fabrics-banner.png"
         bgImage="/assets/uploads/2025/09/bsy-fabrics-banner.png"
         bgAlt="Fabrics Portfolio - Viral Fabrics"
         breadcrumbs={[

@@ -165,18 +165,19 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
       </div>
 
       {/* =========================================================
-          2. DYNAMIC FABRIC CARDS GRID
+          2. DYNAMIC FABRIC CARDS GRID (MINIMAL, CLEAN & HAUTE-COUTURE)
          ========================================================= */}
       {filteredFabrics.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 pt-4">
-          {filteredFabrics.map((fabric) => {
+          {filteredFabrics.map((fabric, index) => {
             const accentColor = getAccentColorForFabric(fabric.slug);
             const categoryName = getCategoryForFabric(fabric.slug);
 
             return (
               <div
                 key={fabric.slug}
-                className="group flex flex-col bg-white rounded-[24px] overflow-hidden border border-slate-200/90 shadow-[0_6px_24px_rgba(15,23,42,0.04)] hover:shadow-[0_20px_45px_rgba(15,23,42,0.12)] hover:-translate-y-1.5 transition-all duration-500 ease-out flex-grow"
+                style={{ animationDelay: `${index * 45}ms` }}
+                className="group flex flex-col bg-white rounded-[24px] overflow-hidden border border-slate-200/90 shadow-[0_6px_24px_rgba(15,23,42,0.04)] hover:shadow-[0_20px_45px_rgba(15,23,42,0.12)] hover:-translate-y-1.5 transition-all duration-500 ease-out flex-grow animate-in fade-in-50 slide-in-from-bottom-3 fill-mode-backwards"
               >
                 {/* Fabric Image Container with Hover Scale */}
                 <div className="relative w-full aspect-[4/3] bg-slate-100 overflow-hidden">
@@ -234,24 +235,10 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
                       </Link>
                     </h3>
 
-                    {/* Description */}
+                    {/* Description (Clean, Uncluttered, Minimal) */}
                     <p className="text-[13.5px] sm:text-[14px] text-slate-600 line-clamp-3 leading-relaxed font-normal">
                       {fabric.description}
                     </p>
-
-                    {/* Applications Tags */}
-                    {fabric.applications && fabric.applications.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 pt-1">
-                        {fabric.applications.slice(0, 3).map((app, i) => (
-                          <span
-                            key={i}
-                            className="bg-[#FAF8F5] text-slate-600 text-[11px] px-2.5 py-0.5 rounded-md border border-slate-200/80"
-                          >
-                            {app}
-                          </span>
-                        ))}
-                      </div>
-                    )}
                   </div>
 
                   {/* Action Row: 2-in-1 Enquiry Button + Details Link */}
@@ -385,24 +372,31 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setSelectedFabricForEnquiry(null)}
-                className="group flex items-start gap-4 p-4.5 rounded-2xl border-2 border-emerald-500/20 bg-emerald-50/40 hover:bg-emerald-50 hover:border-emerald-500 transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md"
+                className="group flex items-start gap-4 p-4.5 rounded-2xl border-2 border-[#25D366]/30 bg-[#25D366]/[0.06] hover:bg-[#25D366]/[0.12] hover:border-[#25D366] transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md"
               >
-                <div className="w-12 h-12 rounded-2xl bg-emerald-500 flex items-center justify-center text-white shrink-0 group-hover:scale-105 transition-transform shadow-[0_4px_14px_rgba(16,185,129,0.35)]">
-                  <MessageCircle className="w-6 h-6 fill-white stroke-none" />
+                <div className="w-12 h-12 rounded-2xl bg-[#25D366] flex items-center justify-center text-white shrink-0 group-hover:scale-105 transition-transform shadow-[0_4px_14px_rgba(37,211,102,0.4)]">
+                  {/* Real Official WhatsApp Logo */}
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="w-6 h-6 fill-white"
+                    aria-hidden="true"
+                  >
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                  </svg>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
-                    <h4 className="font-heading font-serif text-[17px] font-bold text-[#0A192F] group-hover:text-emerald-700 transition-colors">
+                    <h4 className="font-heading font-serif text-[17px] font-bold text-[#0A192F] group-hover:text-[#128C7E] transition-colors">
                       Chat via WhatsApp
                     </h4>
-                    <span className="bg-emerald-100 text-emerald-800 text-[9.5px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full shrink-0">
+                    <span className="bg-[#25D366]/20 text-[#128C7E] text-[9.5px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full shrink-0">
                       INSTANT
                     </span>
                   </div>
                   <p className="text-[12.5px] text-slate-600 leading-snug mt-1">
                     Direct chat with Mr. Viral Patel. Pre-filled with fabric specs, GSM range, and quote request.
                   </p>
-                  <span className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-emerald-700 tracking-wide mt-2">
+                  <span className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-[#128C7E] tracking-wide mt-2">
                     <span>Open WhatsApp Message</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </span>
