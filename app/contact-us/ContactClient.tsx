@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import gsap from 'gsap';
 import {
   MapPin,
   Phone,
@@ -30,23 +29,12 @@ import {
 import QRCode from 'qrcode';
 import { COMPANY_INFO } from '@/data/company';
 
-// Character-by-character unblur structure matching home page
-const HEADLINE_WORDS = [
-  { word: 'Quality', chars: ['Q', 'u', 'a', 'l', 'i', 't', 'y'] },
-  { word: 'Fabrics', chars: ['F', 'a', 'b', 'r', 'i', 'c', 's'] },
-  { word: 'From', chars: ['F', 'r', 'o', 'm'] },
-  { word: 'Around', chars: ['A', 'r', 'o', 'u', 'n', 'd'] },
-  { word: 'The', chars: ['T', 'h', 'e'] },
-  { word: 'World', chars: ['W', 'o', 'r', 'l', 'd'] },
-];
-
 export default function ContactClient() {
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [activeQrModal, setActiveQrModal] = useState<'location' | 'phone' | 'email' | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [cardsVisible, setCardsVisible] = useState(false);
 
-  const headlineRef = useRef<HTMLHeadingElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const heroMediaRef = useRef<HTMLDivElement>(null);
   const cardsSectionRef = useRef<HTMLDivElement>(null);
@@ -107,62 +95,6 @@ export default function ContactClient() {
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 60);
     return () => clearTimeout(timer);
-  }, []);
-
-  // Directional left-to-right character unblur sweep (matching home page)
-  useEffect(() => {
-    let ctx: gsap.Context | null = null;
-    let fallbackTimer: NodeJS.Timeout | null = null;
-
-    const animateChars = () => {
-      if (!headlineRef.current) return;
-      const chars = headlineRef.current.querySelectorAll<HTMLElement>('.hero-headline-char');
-      if (!chars || chars.length === 0) return;
-
-      const pos: number[] = [];
-      chars.forEach((c) => {
-        const r = c.getBoundingClientRect();
-        pos.push(r.left);
-      });
-      const min = Math.min(...pos);
-      const max = Math.max(...pos);
-      const span = Math.max(max - min, 1);
-
-      ctx = gsap.context(() => {
-        gsap.fromTo(
-          chars,
-          {
-            opacity: 0,
-            filter: 'blur(16px)',
-            y: 10,
-          },
-          {
-            opacity: 1,
-            filter: 'blur(0px)',
-            y: 0,
-            duration: 1.2,
-            ease: 'power2.out',
-            delay: 0.15,
-            stagger: (i) => ((pos[i] - min) / span) * 1.2,
-            clearProps: 'transform,willChange',
-            onComplete: () => {
-              gsap.set(chars, { clearProps: 'all' });
-            },
-          }
-        );
-      }, headlineRef);
-    };
-
-    if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(animateChars);
-    } else {
-      fallbackTimer = setTimeout(animateChars, 100);
-    }
-
-    return () => {
-      if (fallbackTimer) clearTimeout(fallbackTimer);
-      if (ctx) ctx.revert();
-    };
   }, []);
 
   // Scroll effect: Hero text dissolve, blur & parallax drift (matching agnestoth / home page)
@@ -243,69 +175,43 @@ export default function ContactClient() {
     <main className="min-h-screen bg-white">
       
       {/* =====================================================================
-          1. TOP HERO BANNER WITH SCROLL DISSOLVE, PARALLAX & UNBLUR ANIMATION
+          1. TOP HERO BANNER (Compact & Minimalist - Exact 1:1 Match with Enquiry)
          ===================================================================== */}
-      <section className="relative pt-24 sm:pt-28 lg:pt-30 pb-9 sm:pb-11 lg:pb-12 flex items-center overflow-hidden bg-[#0A192F] min-h-[290px] sm:min-h-[320px] lg:min-h-[340px]">
+      <section className="relative pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 flex items-center overflow-hidden bg-[#0A192F]">
         
-        {/* Parallax Background Media Container (Static Editorial Image) */}
-        <div
-          ref={heroMediaRef}
-          className="absolute -top-[12%] inset-x-0 h-[124%] z-0 will-change-transform overflow-hidden"
-        >
+        {/* Banner Graphic: Stacked folded luxury fabrics on right, deep navy silk on left */}
+        <div className="absolute inset-0 z-0 pointer-events-none select-none">
           <Image
-            src="/images/about/about-banner-models.webp"
+            src="/images/enquiry/enquiry-hero-bg.jpg"
             alt="Viral Fabrics Sourcing & Consultation Desk"
             fill
             sizes="100vw"
-            className="object-cover object-center scale-105"
+            className="object-cover object-center"
             priority
           />
-          {/* Subtle Agnes Toth Luxury Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#061426]/90 via-[#061426]/60 to-[#061426]/75 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#061426]/95 via-[#061426]/75 to-[#061426]/35 pointer-events-none" />
+          {/* Subtle top scrim for crystal-clear contrast of transparent navbar links */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#061426]/75 via-[#061426]/20 to-transparent pointer-events-none" />
         </div>
 
-        {/* Hero Content with Scroll Dissolve & Directional Character Unblur Sweep */}
-        <div
-          ref={heroContentRef}
-          className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12 will-change-[transform,opacity,filter]"
-        >
-          <div className="w-full text-white space-y-3 sm:space-y-3.5">
+        {/* Content Aligned with Main Container */}
+        <div className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12">
+          <div className="max-w-2xl text-white">
             
-            {/* Agnes Eyebrow with Vertical Sapphire Accent Bar */}
-            <div className="flex items-center gap-3">
-              <div className="w-[3.5px] sm:w-1 h-6 sm:h-7 bg-[#0084D1] rounded-full flex-shrink-0 shadow-[0_0_12px_rgba(0,132,209,0.85)]" />
-              <p className="font-sans text-[11.5px] sm:text-[12.5px] font-semibold tracking-[0.24em] uppercase text-white/95 drop-shadow-sm">
-                Viral Fabrics &bull; <span className="text-[#64B5F6] font-normal normal-case italic">est. Surat, India</span>
-              </p>
+            {/* Title with Vertical Blue Accent Bar */}
+            <div className="flex items-start gap-3 sm:gap-3.5">
+              <div className="w-[3.5px] sm:w-1 h-9 sm:h-11 bg-[#0084D1] rounded-full flex-shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,132,209,0.7)]" />
+              <div className="space-y-0.5 sm:space-y-1">
+                <h1 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[42px] font-normal text-white tracking-tight leading-none drop-shadow-sm">
+                  Contact Us
+                </h1>
+                <p className="font-sans text-[12.5px] sm:text-[13.5px] text-white/90 font-light tracking-wide drop-shadow-sm">
+                  From Around The Fabrics World
+                </p>
+              </div>
             </div>
 
-            {/* Statuesque Headline: Directional Unblur Character Sweep */}
-            <h1
-              ref={headlineRef}
-              className="font-heading font-serif text-3xl xs:text-4xl sm:text-5xl lg:text-[52px] font-normal text-white tracking-tight leading-[1.08] drop-shadow-[0_2px_14px_rgba(0,0,0,0.65)] select-none"
-            >
-              {HEADLINE_WORDS.map((w, wIdx) => (
-                <span key={wIdx} className="inline-block whitespace-nowrap mr-[0.28em] last:mr-0">
-                  {w.chars.map((char, cIdx) => (
-                    <span
-                      key={cIdx}
-                      className="hero-headline-char inline-block will-change-[transform,opacity,filter]"
-                    >
-                      {char}
-                    </span>
-                  ))}
-                </span>
-              ))}
-            </h1>
-
-            {/* Subtitle Matching User Reference (No CTA Button) */}
-            <p className="font-sans text-sm sm:text-base lg:text-[16.5px] text-white/90 font-light leading-relaxed max-w-2xl drop-shadow-sm pt-0.5">
-              Manufacturer and Supplier of all types of Export Fabrics &bull; <span className="font-normal text-white">Direct Sourcing &amp; Mill Consultation Desk</span>
-            </p>
-
             {/* 3 Trust Badges with Dividers */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1 sm:pt-1.5 text-[11px] sm:text-[12px] font-sans font-medium text-white/90">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 sm:mt-5 text-[11.5px] sm:text-[12.5px] font-sans font-medium text-white/90">
               <div className="flex items-center gap-1.5">
                 <Gauge className="w-3.5 h-3.5 text-white stroke-[2.2]" />
                 <span>Quick Response</span>
@@ -324,23 +230,24 @@ export default function ContactClient() {
 
           </div>
         </div>
+
       </section>
 
       {/* =====================================================================
           2. MINIMALIST BREADCRUMBS BAR (Home > Contact Us)
          ===================================================================== */}
-      <div className="bg-white border-b border-slate-200/80 py-2.5 sm:py-3 shadow-xs">
+      <div className="bg-white border-b border-slate-200/70 py-2 sm:py-2.5 shadow-sm">
         <div className="max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12 text-left">
           <nav aria-label="Breadcrumb" className="inline-flex items-center gap-1.5 sm:gap-2 text-[12px] sm:text-[12.5px] font-sans">
             <Link
               href="/"
-              className="inline-flex items-center gap-1 text-[#1665C1] hover:text-[#0C2544] transition-colors font-medium tracking-wide"
+              className="inline-flex items-center gap-1 text-[#006DB6] hover:text-[#0A192F] transition-colors font-medium tracking-wide"
             >
-              <Home className="w-3.5 h-3.5 fill-[#1665C1] text-[#1665C1]" />
+              <Home className="w-3.5 h-3.5 fill-[#006DB6] text-[#006DB6]" />
               <span>Home</span>
             </Link>
             <span className="text-slate-400 select-none text-[11px]">&gt;</span>
-            <span className="text-[#1665C1] font-semibold tracking-wide" aria-current="page">
+            <span className="text-[#006DB6] font-medium tracking-wide" aria-current="page">
               Contact Us
             </span>
           </nav>
