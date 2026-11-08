@@ -2,11 +2,16 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Calendar,
   Layers,
   Globe2,
   Users2,
+  Home,
+  Gauge,
+  Building2,
+  Globe,
 } from 'lucide-react';
 
 export default function NetworkPage() {
@@ -15,10 +20,90 @@ export default function NetworkPage() {
   return (
     <div className="min-h-screen bg-[#FAF4F0] flex flex-col justify-between selection:bg-[#006DB6] selection:text-white">
 
+      {/* =====================================================================
+          1. TOP HERO BANNER (Compact & Minimalist - Exact 1:1 Match with Enquiry & Contact)
+         ===================================================================== */}
+      <section className="relative pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 flex items-center overflow-hidden bg-[#0A192F]">
+        
+        {/* Banner Graphic: Stacked folded luxury fabrics on right, deep navy silk on left */}
+        <div className="absolute inset-0 z-0 pointer-events-none select-none">
+          <Image
+            src="/images/enquiry/enquiry-hero-bg.jpg"
+            alt="Viral Fabrics Global Network & Export Distribution"
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+            priority
+          />
+          {/* Subtle top scrim for crystal-clear contrast of transparent navbar links */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#061426]/75 via-[#061426]/20 to-transparent pointer-events-none" />
+        </div>
+
+        {/* Content Aligned with Main Container */}
+        <div className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12">
+          <div className="max-w-2xl text-white">
+            
+            {/* Title with Vertical Blue Accent Bar */}
+            <div className="flex items-start gap-3 sm:gap-3.5">
+              <div className="w-[3.5px] sm:w-1 h-9 sm:h-11 bg-[#0084D1] rounded-full flex-shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,132,209,0.7)]" />
+              <div className="space-y-0.5 sm:space-y-1">
+                <h1 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[42px] font-normal text-white tracking-tight leading-none drop-shadow-sm">
+                  Network
+                </h1>
+                <p className="font-sans text-[12.5px] sm:text-[13.5px] text-white/90 font-light tracking-wide drop-shadow-sm">
+                  From Around The Fabrics World
+                </p>
+              </div>
+            </div>
+
+            {/* 3 Trust Badges with Dividers */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 sm:mt-5 text-[11.5px] sm:text-[12.5px] font-sans font-medium text-white/90">
+              <div className="flex items-center gap-1.5">
+                <Gauge className="w-3.5 h-3.5 text-white stroke-[2.2]" />
+                <span>Quick Response</span>
+              </div>
+              <span className="text-white/30 select-none text-xs">|</span>
+              <div className="flex items-center gap-1.5">
+                <Building2 className="w-3.5 h-3.5 text-white stroke-[2.2]" />
+                <span>Surat Textile Hub</span>
+              </div>
+              <span className="text-white/30 select-none text-xs">|</span>
+              <div className="flex items-center gap-1.5">
+                <Globe className="w-3.5 h-3.5 text-white stroke-[2.2]" />
+                <span>Global Export Desk</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      {/* =====================================================================
+          2. MINIMALIST BREADCRUMBS BAR (Home > Network)
+         ===================================================================== */}
+      <div className="bg-white border-b border-slate-200/70 py-2 sm:py-2.5 shadow-sm">
+        <div className="max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12 text-left">
+          <nav aria-label="Breadcrumb" className="inline-flex items-center gap-1.5 sm:gap-2 text-[12px] sm:text-[12.5px] font-sans">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1 text-[#006DB6] hover:text-[#0A192F] transition-colors font-medium tracking-wide"
+            >
+              <Home className="w-3.5 h-3.5 fill-[#006DB6] text-[#006DB6]" />
+              <span>Home</span>
+            </Link>
+            <span className="text-slate-400 select-none text-[11px]">&gt;</span>
+            <span className="text-[#006DB6] font-medium tracking-wide" aria-current="page">
+              Network
+            </span>
+          </nav>
+        </div>
+      </div>
+
       {/* ========================================================================= */}
       {/* GLOBAL NETWORK SHOWCASE - LUXURY SILK BACKGROUND & WORLD DISTRIBUTION MAP */}
       {/* ========================================================================= */}
-      <section className="relative w-full overflow-hidden bg-[#FAF4F0] min-h-[calc(100vh-80px)] flex flex-col justify-between pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-12">
+      <section className="relative w-full overflow-hidden bg-[#FAF4F0] flex flex-col justify-between py-12 sm:py-16 lg:py-20">
         
         {/* Luxury Silk Fabric Canvas Background (High-res wave) */}
         <div className="absolute inset-0 pointer-events-none select-none z-0">
@@ -50,9 +135,9 @@ export default function NetworkPage() {
               </div>
 
               {/* Main Title */}
-              <h1 className="font-heading font-serif text-4xl sm:text-5xl lg:text-[56px] xl:text-[64px] font-bold text-[#0A192F] tracking-tight leading-[1.05]">
-                Network
-              </h1>
+              <h2 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold text-[#0A192F] tracking-tight leading-[1.08]">
+                Worldwide Distribution
+              </h2>
 
               {/* Comprehensive Editorial Story Copy */}
               <div className="space-y-3.5 text-[#334155] text-[13.5px] sm:text-[14px] lg:text-[14.5px] leading-[1.72] font-normal">
