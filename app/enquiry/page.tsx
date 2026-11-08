@@ -15,7 +15,10 @@ import {
   ArrowRight,
   Check,
   Loader2,
-  ShieldCheck
+  ShieldCheck,
+  Gauge,
+  Headphones,
+  Home
 } from 'lucide-react';
 
 // Fabric product categories
@@ -434,53 +437,77 @@ export default function EnquiryPage() {
     <main className="min-h-screen bg-[#FAF7F2]">
       
       {/* =====================================================================
-          1. TOP BANNER WITH TRANSPARENT FLOATING NAVBAR (Hero Transparent)
+          1. TOP BANNER WITH FABRIC ROLLS & TRUST BADGES (Matching Reference)
          ===================================================================== */}
-      <section className="relative pt-28 sm:pt-32 lg:pt-36 pb-12 sm:pb-16 min-h-[250px] sm:min-h-[280px] lg:min-h-[300px] flex items-center overflow-hidden bg-slate-950">
+      <section className="relative pt-24 sm:pt-28 lg:pt-30 pb-7 sm:pb-8 flex items-center overflow-hidden bg-[#0A192F]">
         
-        {/* Banner Photo: Sourcing desk photo with woman on phone and laptop */}
+        {/* Banner Graphic: Stacked folded luxury fabrics on right, deep navy silk on left */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/uploads/2025/09/enquiry-banner.png"
+            src="/images/enquiry/enquiry-hero-bg.jpg"
             alt="Viral Fabrics Sourcing & Sampling Desk"
             fill
             sizes="100vw"
-            className="object-cover object-[center_right] sm:object-right"
+            className="object-cover object-center"
             priority
           />
-          {/* Dark luxury gradient scrim across the left */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/65 to-transparent sm:w-[70%]" />
-          <div className="absolute inset-0 bg-slate-950/25" />
         </div>
 
         {/* Content Aligned with Main Container */}
         <div className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="max-w-xl space-y-1.5 text-white">
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-[52px] font-normal text-white tracking-tight leading-tight drop-shadow-sm">
-              Enquiry
-            </h1>
-            <p className="font-sans text-[13.5px] sm:text-[14.5px] text-white/90 font-light tracking-wide drop-shadow-sm">
-              From Around The Fabrics World
-            </p>
+          <div className="max-w-2xl text-white">
+            
+            {/* Title with Vertical Blue Accent Bar */}
+            <div className="flex items-start gap-3 sm:gap-3.5">
+              <div className="w-[3.5px] sm:w-1 h-9 sm:h-11 bg-[#0084D1] rounded-full flex-shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,132,209,0.7)]" />
+              <div className="space-y-0.5 sm:space-y-1">
+                <h1 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[42px] font-normal text-white tracking-tight leading-none drop-shadow-sm">
+                  Enquiry
+                </h1>
+                <p className="font-sans text-[12.5px] sm:text-[13.5px] text-white/90 font-light tracking-wide drop-shadow-sm">
+                  From Around The Fabrics World
+                </p>
+              </div>
+            </div>
+
+            {/* 3 Trust Badges with Dividers */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 sm:mt-5 text-[11.5px] sm:text-[12.5px] font-sans font-medium text-white/90">
+              <div className="flex items-center gap-1.5">
+                <Gauge className="w-3.5 h-3.5 text-white stroke-[2.2]" />
+                <span>Quick Response</span>
+              </div>
+              <span className="text-white/30 select-none text-xs">|</span>
+              <div className="flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-white stroke-[2.2]" />
+                <span>Confidential Discussion</span>
+              </div>
+              <span className="text-white/30 select-none text-xs">|</span>
+              <div className="flex items-center gap-1.5">
+                <Headphones className="w-3.5 h-3.5 text-white stroke-[2.2]" />
+                <span>Expert Support</span>
+              </div>
+            </div>
+
           </div>
         </div>
 
       </section>
 
       {/* =====================================================================
-          2. MINIMALIST BREADCRUMBS BAR (Home » Enquiry)
+          2. MINIMALIST BREADCRUMBS BAR (Home > Enquiry)
          ===================================================================== */}
-      <div className="bg-[#FAF8F5] border-b border-slate-200/70 py-3 sm:py-3.5">
-        <div className="max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12 text-center sm:text-left">
-          <nav aria-label="Breadcrumb" className="inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-sans">
+      <div className="bg-white border-b border-slate-200/70 py-2 sm:py-2.5 shadow-sm">
+        <div className="max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12 text-left">
+          <nav aria-label="Breadcrumb" className="inline-flex items-center gap-1.5 sm:gap-2 text-[12px] sm:text-[12.5px] font-sans">
             <Link
               href="/"
-              className="text-slate-600 hover:text-[#1E5FA8] transition-colors font-normal tracking-wide"
+              className="inline-flex items-center gap-1 text-[#006DB6] hover:text-brand-blue-hover transition-colors font-medium tracking-wide"
             >
-              Home
+              <Home className="w-3.5 h-3.5 fill-[#006DB6] text-[#006DB6]" />
+              <span>Home</span>
             </Link>
-            <span className="text-slate-400 select-none text-[11px]">»</span>
-            <span className="text-[#1E5FA8] font-semibold tracking-wide" aria-current="page">
+            <span className="text-slate-400 select-none text-[11px]">&gt;</span>
+            <span className="text-[#006DB6] font-medium tracking-wide" aria-current="page">
               Enquiry
             </span>
           </nav>

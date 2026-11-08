@@ -206,7 +206,11 @@ export function Navbar() {
   const col2 = liveFabrics.slice(half);
 
   // Is the navbar currently transparent over the hero?
-  const isHeroTransparentPage = pathname === '/' || pathname === '/about-us';
+  const isHeroTransparentPage =
+    pathname === '/' ||
+    pathname === '/about-us' ||
+    pathname === '/enquiry' ||
+    pathname === '/contact-us';
   const isTransparent = isHeroTransparentPage && !scrolled;
 
   return (
