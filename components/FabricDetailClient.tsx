@@ -10,8 +10,6 @@ import {
   Phone,
   Mail,
   FileText,
-  ChevronRight,
-  Sparkles,
 } from 'lucide-react';
 import type { LiveFabric } from '@/lib/fabricsService';
 
@@ -56,7 +54,7 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
 
   return (
     <>
-      <main className="relative min-h-screen bg-white pt-28 sm:pt-36 lg:pt-40 pb-20 sm:pb-32 overflow-hidden">
+      <main className="relative min-h-[calc(100vh-90px)] flex items-center justify-center bg-white pt-28 sm:pt-32 pb-16 sm:pb-24 overflow-hidden">
         
         {/* Soft Ambient Radial Light in Background */}
         <div 
@@ -68,43 +66,15 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
           aria-hidden="true" 
         />
 
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 my-auto">
           
           {/* =========================================================
-              1. QUIET LUXURY BREADCRUMBS BAR (ANIMATED ON MOUNT)
-             ========================================================= */}
-          <nav
-            aria-label="Breadcrumbs"
-            className={`mb-8 sm:mb-12 flex items-center gap-2 text-[12px] sm:text-[12.5px] tracking-wide text-slate-500 font-medium transition-all duration-700 ease-out ${
-              isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-            }`}
-          >
-            <Link 
-              href="/" 
-              className="text-slate-500 hover:text-[#006DB6] transition-colors"
-            >
-              Home
-            </Link>
-            <span className="text-slate-300">/</span>
-            <Link 
-              href="/fabrics" 
-              className="text-slate-500 hover:text-[#006DB6] transition-colors"
-            >
-              Fabrics
-            </Link>
-            <span className="text-slate-300">/</span>
-            <span className="text-[#0A192F] font-semibold">
-              {fabric.name}
-            </span>
-          </nav>
-
-          {/* =========================================================
-              2. MAIN HERO SHOWCASE: PHOTO + TITLE, DESC & BUTTONS
+              MAIN HERO SHOWCASE: PHOTO + TITLE, DESC & BUTTONS (VERTICALLY CENTERED)
              ========================================================= */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             
             {/* -------------------------------------------------------
-                LEFT COLUMN: FABRIC PHOTO WITH SIGNATURE ACCENT DISC
+                1. LEFT COLUMN: PURE FABRIC PHOTO WITH SIGNATURE ACCENT DISC
                ------------------------------------------------------- */}
             <div 
               className={`lg:col-span-6 relative transition-all duration-800 ease-out ${
@@ -118,7 +88,7 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
                 aria-hidden="true"
               />
 
-              {/* Main Fabric Photo Frame */}
+              {/* Main Pure Fabric Photo Frame (No badge clutter) */}
               <div className="group relative w-full aspect-[4/3] rounded-[24px] sm:rounded-[30px] overflow-hidden bg-slate-100 border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.08)]">
                 
                 <Image
@@ -131,31 +101,14 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
                 />
 
                 {/* Subtle Luxury Vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/25 via-transparent to-transparent pointer-events-none" />
-
-                {/* Overlaid Badge: Top Left Export Grade */}
-                <div className="absolute top-4 left-4 z-10">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-semibold tracking-[0.16em] uppercase border border-white/20 shadow-md">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    EXPORT GRADE
-                  </span>
-                </div>
-
-                {/* Overlaid Badge: Bottom Right Dynamic GSM */}
-                {fabric.gsmRange && (
-                  <div className="absolute bottom-4 right-4 z-10">
-                    <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-slate-900 text-[11px] font-semibold tracking-wider border border-white/70 shadow-md">
-                      {fabric.gsmRange}
-                    </span>
-                  </div>
-                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent pointer-events-none" />
 
               </div>
 
             </div>
 
             {/* -------------------------------------------------------
-                RIGHT COLUMN: EDITORIAL TITLE, DIVIDER & DESCRIPTION
+                2. RIGHT COLUMN: EDITORIAL TITLE, DIVIDER & DESCRIPTION
                ------------------------------------------------------- */}
             <div 
               className={`lg:col-span-6 space-y-6 transition-all duration-800 delay-150 ease-out ${
@@ -163,12 +116,8 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
               }`}
             >
               
-              {/* Category Eyebrow & Title */}
+              {/* 2. Title & Diamond Accent Divider */}
               <div className="space-y-3">
-                <span className="text-[11px] font-bold tracking-[0.22em] uppercase text-[#006DB6] block">
-                  SURAT TEXTILE HUB &bull; WATER-JET WEAVES
-                </span>
-
                 <h1 className="font-heading font-serif text-4xl sm:text-5xl lg:text-[56px] leading-[1.08] font-light text-[#0A192F] tracking-tight">
                   {fabric.name}
                 </h1>
@@ -182,14 +131,14 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
                 </div>
               </div>
 
-              {/* Description (Clean Left Blue Accent Line from original design) */}
+              {/* 3. Description (Clean Left Blue Accent Line from original design) */}
               <div className="border-l-2 border-[#006DB6] pl-5 sm:pl-6 py-1">
                 <p className="text-slate-700 text-base sm:text-[17.5px] font-light leading-relaxed">
                   {fabric.description}
                 </p>
               </div>
 
-              {/* Action Buttons: Signature Who We Are Polygon ENQUIRE NOW + Back */}
+              {/* 4. Action Buttons: Signature Who We Are Polygon ENQUIRE NOW + Back */}
               <div className="pt-4 flex flex-wrap items-center gap-4">
                 
                 {/* Primary: Who We Are Signature Polygon ENQUIRE NOW Button */}
