@@ -273,12 +273,11 @@ export default function HomePage() {
 
       {/* ----------------------------------------------------------------
           2. REST OF SECTIONS: STACKING CURTAIN REVEAL OVER HERO (1:1 AGNES TOTH)
-             - relative z-10 bg-white
-             - Slides UP over the pinned hero like a card/sheet as you scroll
-             - Luxury top shadow provides clear depth elevation
-             - Zero white gap on initial load (starts at exactly top: 100vh)
+             - relative z-10 bg-transparent
+             - Slides UP over the pinned hero with organic torn fabric edge
+             - Zero flat cut on initial load
       ----------------------------------------------------------------- */}
-      <div className="relative z-10 bg-white shadow-[0_-25px_60px_rgba(0,0,0,0.2)]">
+      <div className="relative z-10 bg-transparent">
         <WhoWeAreSection />
         <FabricsPortfolioSection />
         <QualityPracticesSection />

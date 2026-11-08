@@ -216,16 +216,31 @@ export function WhoWeAreSection() {
     <section 
       id="who-we-are" 
       ref={sectionRef}
-      className="relative w-full bg-white text-[#2e3937] pt-14 sm:pt-18 lg:pt-20 pb-16 sm:pb-22 lg:pb-28 xl:pb-32 overflow-hidden selection:bg-[#375785] selection:text-white"
+      className="relative w-full text-[#2e3937] pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-22 lg:pb-28 xl:pb-32 selection:bg-[#375785] selection:text-white"
     >
-      {/* Flowing Silk Wave Background Canvas - Full Vibrancy Edge-to-Edge */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-no-repeat bg-bottom pointer-events-none"
-        style={{
-          backgroundImage: 'url("/images/viral-fabrics-bg.webp?v=3")',
-        }}
-        aria-hidden="true"
-      />
+      {/* 1. TOP TORN / FRAYED SILK FABRIC EDGE (Transparent above, organic torn edge overlapping hero) */}
+      <div className="absolute -top-6 sm:-top-10 md:-top-13 lg:-top-16 left-0 right-0 w-full h-12 sm:h-18 md:h-22 lg:h-28 z-20 pointer-events-none select-none">
+        <Image
+          src="/images/who-we-are-torn-top.png"
+          alt="Viral Fabrics Organic Torn Silk Edge"
+          fill
+          priority
+          sizes="100vw"
+          className="w-full h-full object-fill object-bottom"
+        />
+      </div>
+
+      {/* 2. SILK FABRIC BACKGROUND CANVAS (Soft white silk with blue & champagne waves) */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden bg-[#FAF9F7]">
+        <Image
+          src="/images/who-we-are-torn-center.png"
+          alt="Viral Fabrics Flowing Silk Canvas"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-bottom opacity-95"
+        />
+      </div>
 
       <div className="relative z-10 max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-14">
         
@@ -426,20 +441,16 @@ export function WhoWeAreSection() {
 
       </div>
 
-      {/* Haute-Couture Pinking Shears Fabric Cut Edge Divider (Matching Reference Image 2) */}
-      <div 
-        className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none z-20 pointer-events-none"
-        style={{ height: '6px' }}
-        aria-hidden="true"
-      >
-        <svg className="w-full h-full block" preserveAspectRatio="none">
-          <defs>
-            <pattern id="who-we-are-pinking-divider" width="8" height="6" patternUnits="userSpaceOnUse">
-              <polygon points="0,6 4,1 8,6" fill="#F5F5F5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="6" fill="url(#who-we-are-pinking-divider)" />
-        </svg>
+      {/* 3. BOTTOM TORN / FRAYED SILK FABRIC EDGE (Transparent below, organic torn edge overlapping portfolio) */}
+      <div className="absolute -bottom-6 sm:-bottom-10 md:-bottom-13 lg:-bottom-16 left-0 right-0 w-full h-12 sm:h-18 md:h-22 lg:h-28 z-20 pointer-events-none select-none">
+        <Image
+          src="/images/who-we-are-torn-bottom.png"
+          alt="Viral Fabrics Organic Torn Silk Edge"
+          fill
+          priority
+          sizes="100vw"
+          className="w-full h-full object-fill object-top"
+        />
       </div>
     </section>
   );
