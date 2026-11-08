@@ -47,7 +47,6 @@ export function PageHeroBanner({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const bannerRef = useRef<HTMLDivElement>(null);
-  const barRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const badgesRef = useRef<HTMLDivElement>(null);
@@ -97,16 +96,7 @@ export function PageHeroBanner({
       const span = Math.max(max - min, 1);
 
       ctx = gsap.context(() => {
-        // 1. Accent Cyan Bar entrance
-        if (barRef.current) {
-          gsap.fromTo(
-            barRef.current,
-            { scaleY: 0, opacity: 0, transformOrigin: 'top center' },
-            { scaleY: 1, opacity: 1, duration: 0.7, ease: 'power2.out', delay: 0.05 }
-          );
-        }
-
-        // 2. Exact Agnes Toth directional left-to-right character unblur sweep
+        // 1. Exact Agnes Toth directional left-to-right character unblur sweep
         gsap.fromTo(
           chars,
           {
@@ -126,7 +116,7 @@ export function PageHeroBanner({
           }
         );
 
-        // 3. Subtitle soft float & unblur
+        // 2. Subtitle soft float & unblur
         if (subtitleRef.current) {
           gsap.fromTo(
             subtitleRef.current,
@@ -143,7 +133,7 @@ export function PageHeroBanner({
           );
         }
 
-        // 4. Badges soft staggered fade-in
+        // 3. Badges soft staggered fade-in
         if (badgesRef.current) {
           gsap.fromTo(
             badgesRef.current,
@@ -179,7 +169,7 @@ export function PageHeroBanner({
       {/* =====================================================================
           1. TOP HERO BANNER (Luxurious Editorial Height with Agnes Toth Unblur Sweep)
          ===================================================================== */}
-      <section className="relative pt-28 sm:pt-36 lg:pt-40 pb-12 sm:pb-16 lg:pb-20 min-h-[340px] sm:min-h-[390px] lg:min-h-[430px] flex items-center overflow-hidden bg-[#0A192F]">
+      <section className="relative pt-28 sm:pt-36 lg:pt-40 pb-12 sm:pb-16 lg:pb-20 min-h-[340px] sm:min-h-[390px] lg:min-h-[430px] flex items-center overflow-hidden bg-black">
         {/* Banner Graphic Canvas (Poster Image + Optional Smooth Streaming Background Video) */}
         <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
           {/* Base Fallback Image (always loads fast with priority, visible before video is buffered) */}
@@ -210,50 +200,43 @@ export function PageHeroBanner({
             />
           )}
 
-          {/* Subtle horizontal, top, and bottom scrims for transparent navbar clarity, rich shade & text legibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#061426]/90 via-[#061426]/60 to-transparent pointer-events-none z-10" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#061426]/80 via-[#061426]/20 to-transparent pointer-events-none z-10" />
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#061426]/60 to-transparent pointer-events-none z-10" />
+          {/* Neutral cinema scrims: ZERO blue tint, 100% natural video & image colors with high contrast */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent pointer-events-none z-10" />
         </div>
 
         {/* Content Aligned with Main Container */}
         <div className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12">
           <div className="max-w-2xl text-white">
-            {/* Title with Vertical Blue Accent Bar */}
-            <div className="flex items-start gap-3 sm:gap-4">
-              <div
-                ref={barRef}
-                className="w-[3.5px] sm:w-1 h-10 sm:h-12 lg:h-14 bg-[#0084D1] rounded-full flex-shrink-0 mt-0.5 shadow-[0_0_12px_rgba(0,132,209,0.7)] will-change-transform"
-              />
-              <div className="space-y-1 sm:space-y-1.5">
-                <h1
-                  ref={headlineRef}
-                  className="font-heading font-serif text-3xl sm:text-4xl lg:text-[46px] font-normal text-white tracking-tight leading-[1.1] drop-shadow-sm select-none"
-                >
-                  {words.map((item, wordIdx) => (
-                    <span
-                      key={`${item.word}-${wordIdx}`}
-                      className="inline-block whitespace-nowrap mr-[0.26em] last:mr-0"
-                    >
-                      {item.chars.map((char, charIdx) => (
-                        <span
-                          key={`${char}-${charIdx}`}
-                          className="hero-banner-char inline-block will-change-[transform,opacity,filter]"
-                        >
-                          {char}
-                        </span>
-                      ))}
-                    </span>
-                  ))}
-                </h1>
+            {/* Pure Haute-Couture Title (Clean Minimalist Typography, No Blue Accent Bar) */}
+            <div className="space-y-1.5 sm:space-y-2">
+              <h1
+                ref={headlineRef}
+                className="font-heading font-serif text-3xl sm:text-4xl lg:text-[46px] font-normal text-white tracking-tight leading-[1.1] drop-shadow-sm select-none"
+              >
+                {words.map((item, wordIdx) => (
+                  <span
+                    key={`${item.word}-${wordIdx}`}
+                    className="inline-block whitespace-nowrap mr-[0.26em] last:mr-0"
+                  >
+                    {item.chars.map((char, charIdx) => (
+                      <span
+                        key={`${char}-${charIdx}`}
+                        className="hero-banner-char inline-block will-change-[transform,opacity,filter]"
+                      >
+                        {char}
+                      </span>
+                    ))}
+                  </span>
+                ))}
+              </h1>
 
-                <p
-                  ref={subtitleRef}
-                  className="font-sans text-[13px] sm:text-[14px] lg:text-[15px] text-white/90 font-light tracking-wide drop-shadow-sm will-change-[transform,opacity,filter]"
-                >
-                  {subtitle}
-                </p>
-              </div>
+              <p
+                ref={subtitleRef}
+                className="font-sans text-[13px] sm:text-[14px] lg:text-[15px] text-white/90 font-light tracking-wide drop-shadow-sm will-change-[transform,opacity,filter]"
+              >
+                {subtitle}
+              </p>
             </div>
 
             {/* Trust Badges with Dividers */}
@@ -296,13 +279,13 @@ export function PageHeroBanner({
                   {crumb.href && !isLast ? (
                     <Link
                       href={crumb.href}
-                      className="inline-flex items-center gap-1 text-[#006DB6] hover:text-[#0A192F] transition-colors font-medium tracking-wide"
+                      className="inline-flex items-center gap-1 text-slate-600 hover:text-slate-900 transition-colors font-medium tracking-wide"
                     >
-                      {isFirst && <Home className="w-3.5 h-3.5 fill-[#006DB6] text-[#006DB6]" />}
+                      {isFirst && <Home className="w-3.5 h-3.5 text-slate-500" />}
                       <span>{crumb.label}</span>
                     </Link>
                   ) : (
-                    <span className="text-[#006DB6] font-medium tracking-wide" aria-current="page">
+                    <span className="text-slate-800 font-medium tracking-wide" aria-current="page">
                       {crumb.label}
                     </span>
                   )}
