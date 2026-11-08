@@ -533,14 +533,15 @@ export function Navbar() {
         {/* 1. Backdrop Scrim Overlay with Dark Frosted Blur */}
         <div
           onClick={() => setIsOpen(false)}
-          className={`absolute inset-0 bg-[#071120]/70 backdrop-blur-md transition-opacity duration-500 ease-out ${
+          onTouchMove={(e) => e.preventDefault()}
+          className={`absolute inset-0 bg-[#071120]/70 backdrop-blur-md transition-opacity duration-500 ease-out touch-none ${
             isOpen ? 'opacity-100' : 'opacity-0'
           }`}
         />
 
         {/* 2. Left Slide-In Drawer Panel (Solid Prestigious #FAF4F0 Silk Canvas) */}
         <aside
-          className={`relative w-[320px] sm:w-[380px] max-w-[85vw] h-full bg-[#FAF4F0] text-slate-900 shadow-[0_0_60px_rgba(0,0,0,0.35)] flex flex-col justify-between overflow-y-auto transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`relative w-[320px] sm:w-[380px] max-w-[85vw] h-full bg-[#FAF4F0] text-slate-900 shadow-[0_0_60px_rgba(0,0,0,0.35)] flex flex-col justify-between overflow-y-auto overscroll-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             isOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >

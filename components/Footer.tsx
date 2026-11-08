@@ -91,15 +91,15 @@ export const Footer: React.FC = () => {
              - Data: STRICTLY authentic Viral Fabrics content:
                Quick Links, Contact Details, Newsletter, Copyright
           ================================================================= */}
-      <div className="relative bg-[#e8f3e5] text-[#2e3937] pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 border-t border-[#2e3937]/10">
+      <div className="relative bg-[#e8f3e5] text-[#2e3937] pt-10 sm:pt-12 md:pt-14 lg:pt-28 pb-10 sm:pb-12 md:pb-16 border-t border-[#2e3937]/10">
 
         <div className="max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
 
           {/* Top Grid: Newsletter Module (Left) + Authentic Columns (Right) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 xl:gap-16 pb-16 sm:pb-20 lg:pb-24 border-b border-[#2e3937]/15">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 lg:gap-14 xl:gap-16 pb-12 sm:pb-16 lg:pb-24 border-b border-[#2e3937]/15">
 
             {/* LEFT COLUMN: Agnes Toth Newsletter Subscription */}
-            <div className="lg:col-span-6 space-y-6">
+            <div className="md:col-span-6 lg:col-span-6 space-y-5 sm:space-y-6">
 
               {/* Agnes Toth Editorial Headline */}
               <h2 className="font-heading font-light text-[28px] sm:text-[38px] lg:text-[44px] leading-[1.12] sm:leading-[1.1] text-[#2e3937] tracking-tight max-w-[500px]">
@@ -122,10 +122,10 @@ export const Footer: React.FC = () => {
                     className="flex-1 h-12 bg-transparent border border-[#2e3937] rounded-[2px] px-4 text-[14px] font-sans text-[#2e3937] placeholder-[#2e3937]/65 focus:outline-none focus:ring-1 focus:ring-[#2e3937] transition-all"
                   />
 
-                  {/* Desktop Submit Button: Original Angled Luminous Blue Button (Refined Medium Slate-Blue Gradient) */}
+                  {/* Desktop & Tablet Submit Button */}
                   <button
                     type="submit"
-                    className="hidden lg:inline-flex relative items-center justify-center gap-2 h-12 pl-6 pr-9 text-[12px] font-semibold tracking-[0.16em] uppercase text-white bg-gradient-to-r from-[#3b6294] via-[#4873aa] to-[#5986bf] hover:from-[#4873aa] hover:via-[#5986bf] hover:to-[#6a97ce] transition-all duration-300 group shadow-[0_2px_12px_rgba(72,115,170,0.3)] hover:shadow-[0_4px_18px_rgba(72,115,170,0.45)] hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap cursor-pointer overflow-hidden"
+                    className="hidden md:inline-flex relative items-center justify-center gap-2 h-12 pl-6 pr-9 text-[12px] font-semibold tracking-[0.16em] uppercase text-white bg-gradient-to-r from-[#3b6294] via-[#4873aa] to-[#5986bf] hover:from-[#4873aa] hover:via-[#5986bf] hover:to-[#6a97ce] transition-all duration-300 group shadow-[0_2px_12px_rgba(72,115,170,0.3)] hover:shadow-[0_4px_18px_rgba(72,115,170,0.45)] hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap cursor-pointer overflow-hidden"
                     style={{
                       clipPath: 'polygon(0 0, 100% 0, calc(100% - 16px) 100%, 0 100%)',
                     }}
@@ -141,7 +141,7 @@ export const Footer: React.FC = () => {
                   {/* Mobile Submit Button */}
                   <button
                     type="submit"
-                    className="lg:hidden w-[130px] h-11 bg-gradient-to-r from-[#3b6294] to-[#5986bf] hover:from-[#4873aa] hover:to-[#6a97ce] active:scale-[0.98] text-white rounded-[2px] text-[12px] font-sans font-medium tracking-[0.16em] uppercase transition-all flex items-center justify-center cursor-pointer shadow-sm"
+                    className="md:hidden w-[130px] h-11 bg-gradient-to-r from-[#3b6294] to-[#5986bf] hover:from-[#4873aa] hover:to-[#6a97ce] active:scale-[0.98] text-white rounded-[2px] text-[12px] font-sans font-medium tracking-[0.16em] uppercase transition-all flex items-center justify-center cursor-pointer shadow-sm"
                   >
                     SUBSCRIBE
                   </button>
@@ -166,14 +166,14 @@ export const Footer: React.FC = () => {
                 )}
               </form>
 
-              {/* Exact Copy on Desktop */}
-              <p className="hidden lg:block text-[13px] text-[#707c7a] font-light max-w-sm pt-1">
+              {/* Exact Copy on Desktop & Tablet */}
+              <p className="hidden md:block text-[13px] text-[#707c7a] font-light max-w-sm pt-1">
                 Subscribe to our newsletter for regular updates.
               </p>
             </div>
 
-            {/* DESKTOP NAVIGATION: Original Clean 2-Column Side-by-Side Layout (Zero Desktop Gaps) */}
-            <nav className="hidden lg:grid lg:col-span-6 grid-cols-2 gap-10 sm:gap-12 lg:gap-16" aria-label="Desktop Footer Navigation">
+            {/* DESKTOP & TABLET NAVIGATION: Clean 2-Column Side-by-Side Layout */}
+            <nav className="hidden md:grid md:col-span-6 lg:col-span-6 grid-cols-2 gap-8 sm:gap-10 lg:gap-16" aria-label="Desktop and Tablet Footer Navigation">
 
               {/* Column 1: Quick Links */}
               <div className="space-y-4">
@@ -372,7 +372,7 @@ export const Footer: React.FC = () => {
             </nav>
 
             {/* MOBILE NAVIGATION: Symmetrical 2x2 Grid Matching Agnes Toth Reference */}
-            <nav className="lg:hidden col-span-1 grid grid-cols-2 gap-x-5 sm:gap-x-8 gap-y-9 pt-2" aria-label="Mobile Footer Navigation">
+            <nav className="md:hidden col-span-1 grid grid-cols-2 gap-x-5 sm:gap-x-8 gap-y-8 pt-2" aria-label="Mobile Footer Navigation">
 
               {/* Mobile Col 1: Navigation */}
               <div className="space-y-3.5">
@@ -538,8 +538,8 @@ export const Footer: React.FC = () => {
 
           </div>
 
-          {/* DESKTOP BOTTOM LEGAL BAR: Original 3-Column Horizontal Grid */}
-          <div className="hidden lg:grid lg:grid-cols-3 items-center pt-8 sm:pt-10 gap-6 text-[13px] text-[#707c7a]">
+          {/* DESKTOP & TABLET BOTTOM LEGAL BAR: 3-Column Horizontal Grid */}
+          <div className="hidden md:grid md:grid-cols-3 items-center pt-6 sm:pt-8 lg:pt-10 gap-6 text-[13px] text-[#707c7a]">
 
             {/* Legal Copyright */}
             <div className="text-left">
@@ -580,7 +580,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* MOBILE BOTTOM LEGAL BAR: Exact Agnes Toth Centered Monogram & Links */}
-          <div className="lg:hidden pt-12 pb-2 flex flex-col items-center justify-center text-center space-y-3.5 text-[#707c7a]">
+          <div className="md:hidden pt-8 pb-2 flex flex-col items-center justify-center text-center space-y-3.5 text-[#707c7a]">
 
             {/* Centered Brand Emblem (Matching Agnes Toth monogram emblem) */}
             <Link

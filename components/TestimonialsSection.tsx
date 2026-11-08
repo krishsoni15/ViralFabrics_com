@@ -86,10 +86,10 @@ export const TestimonialsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Responsive mobile/tablet threshold (< 860px displays single center card)
+  // Responsive mobile/tablet threshold (< 640px displays single center card)
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 860);
+      setIsMobile(window.innerWidth < 640);
     };
     handleResize();
     window.addEventListener('resize', handleResize);
