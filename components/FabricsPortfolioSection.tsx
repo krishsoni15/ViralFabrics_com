@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import gsap from 'gsap';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
 interface PortfolioItem {
@@ -222,30 +223,137 @@ function Interactive3DCard({
   );
 }
 
-// Single Item Component with Directional Unblur, 3D Orb, and Haute-Couture Action Button
+// Single Item Component with Directional Unblur, 3D Orb, and Title Character Sweep
 const PortfolioRow: React.FC<{
   item: PortfolioItem;
   index: number;
 }> = ({ item, index }) => {
   const rowRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const imageColRef = useRef<HTMLDivElement>(null);
+  const textColRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const detailsRef = useRef<HTMLDivElement>(null);
+
+  // Split title into word tokens & chars for the directional character unblur sweep
+  const titleWords = React.useMemo(() => {
+    return item.title.split(' ').map((word) => ({
+      word,
+      chars: Array.from(word),
+    }));
+  }, [item.title]);
 
   useEffect(() => {
     const el = rowRef.current;
     if (!el) return;
 
+    let ctx: gsap.Context | null = null;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          observer.disconnect();
+
+          ctx = gsap.context(() => {
+            // 1. Directional Image Column Animation:
+            // If image is on the left -> slides in from left (-45px to 0)
+            // If image is on the right -> slides in from right (45px to 0)
+            if (imageColRef.current) {
+              const fromX = item.imageOnLeft ? -45 : 45;
+              gsap.fromTo(
+                imageColRef.current,
+                { opacity: 0, filter: 'blur(14px)', x: fromX },
+                {
+                  opacity: 1,
+                  filter: 'blur(0px)',
+                  x: 0,
+                  duration: 0.65,
+                  ease: 'power3.out',
+                  clearProps: 'transform,filter',
+                }
+              );
+            }
+
+            // 2. Directional Text Column Animation:
+            // If text is on the right -> slides in from right (45px to 0)
+            // If text is on the left -> slides in from left (-45px to 0)
+            if (textColRef.current) {
+              const fromX = item.imageOnLeft ? 45 : -45;
+              gsap.fromTo(
+                textColRef.current,
+                { opacity: 0, filter: 'blur(14px)', x: fromX },
+                {
+                  opacity: 1,
+                  filter: 'blur(0px)',
+                  x: 0,
+                  duration: 0.65,
+                  ease: 'power3.out',
+                  clearProps: 'transform,filter',
+                }
+              );
+            }
+
+            // 3. Agnes Toth Directional Character Unblur Sweep (matching Quality Fabrics From Around The World)
+            if (titleRef.current) {
+              const chars = titleRef.current.querySelectorAll<HTMLElement>('.fabric-title-char');
+              if (chars && chars.length > 0) {
+                const pos: number[] = [];
+                chars.forEach((c) => {
+                  const r = c.getBoundingClientRect();
+                  pos.push(r.left);
+                });
+                const min = Math.min(...pos);
+                const max = Math.max(...pos);
+                const span = Math.max(max - min, 1);
+
+                gsap.fromTo(
+                  chars,
+                  {
+                    opacity: 0,
+                    filter: 'blur(14px)',
+                    y: 6,
+                  },
+                  {
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    y: 0,
+                    duration: 0.55,
+                    ease: 'power3.out',
+                    delay: 0.08,
+                    stagger: (i) => ((pos[i] - min) / span) * 0.35,
+                    clearProps: 'transform,filter',
+                  }
+                );
+              }
+            }
+
+            // 4. Accent line, description & button stagger entrance
+            if (detailsRef.current) {
+              gsap.fromTo(
+                detailsRef.current.children,
+                { opacity: 0, y: 12 },
+                {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.55,
+                  ease: 'power3.out',
+                  delay: 0.16,
+                  stagger: 0.08,
+                  clearProps: 'transform',
+                }
+              );
+            }
+          }, rowRef);
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      observer.disconnect();
+      if (ctx) ctx.revert();
+    };
+  }, [item.imageOnLeft]);
 
   return (
     <div
@@ -254,21 +362,20 @@ const PortfolioRow: React.FC<{
       className={`grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center will-change-[transform,opacity,filter] ${
         index > 0 ? 'mt-16 sm:mt-24 lg:mt-28' : ''
       }`}
-      style={{
-        transition:
-          'opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1), transform 1000ms cubic-bezier(0.16, 1, 0.3, 1), filter 1000ms cubic-bezier(0.16, 1, 0.3, 1)',
-        opacity: isVisible ? 1 : 0,
-        filter: isVisible ? 'blur(0px)' : 'blur(14px)',
-        transform: isVisible ? 'translate3d(0, 0, 0)' : 'translate3d(0, 30px, 0)',
-      }}
     >
       {/* -------------------------------------------------------------
           IMAGE CONTAINER WITH LIVING 3D ORB BEHIND CORNER
          ------------------------------------------------------------- */}
       <div
-        className={`lg:col-span-6 relative flex justify-center ${
+        ref={imageColRef}
+        className={`lg:col-span-6 relative flex justify-center will-change-[transform,opacity,filter] ${
           item.imageOnLeft ? 'order-1' : 'order-1 lg:order-2'
         }`}
+        style={{
+          opacity: 0,
+          filter: 'blur(14px)',
+          transform: `translate3d(${item.imageOnLeft ? -45 : 45}px, 0, 0)`,
+        }}
       >
         <div className="relative w-full max-w-[560px] group">
           
@@ -315,19 +422,40 @@ const PortfolioRow: React.FC<{
       </div>
 
       {/* -------------------------------------------------------------
-          TEXT BLOCK: TITLE, ACCENT COLOR BAR, DESCRIPTION, READ MORE
+          TEXT BLOCK: TITLE (CHARACTER SWEEP), ACCENT COLOR BAR, DESCRIPTION, READ MORE
          ------------------------------------------------------------- */}
       <div
-        className={`lg:col-span-6 flex flex-col justify-center ${
+        ref={textColRef}
+        className={`lg:col-span-6 flex flex-col justify-center will-change-[transform,opacity,filter] ${
           item.imageOnLeft ? 'order-2 pl-0 lg:pl-4 xl:pl-8' : 'order-2 lg:order-1 pr-0 lg:pr-4 xl:pr-8'
         }`}
+        style={{
+          opacity: 0,
+          filter: 'blur(14px)',
+          transform: `translate3d(${item.imageOnLeft ? 45 : -45}px, 0, 0)`,
+        }}
       >
         <div className="max-w-xl space-y-4 sm:space-y-5">
           
-          {/* Fabric Heading */}
+          {/* Fabric Heading with Directional Character Sweep */}
           <div>
-            <h3 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[44px] font-normal text-[#0A192F] tracking-tight leading-[1.12]">
-              {item.title}
+            <h3
+              ref={titleRef}
+              className="font-heading font-serif text-3xl sm:text-4xl lg:text-[44px] font-normal text-[#0A192F] tracking-tight leading-[1.12]"
+            >
+              {titleWords.map((w, wIdx) => (
+                <span key={wIdx} className="inline-block whitespace-nowrap mr-[0.28em] last:mr-0">
+                  {w.chars.map((char, cIdx) => (
+                    <span
+                      key={cIdx}
+                      className="fabric-title-char inline-block will-change-[transform,opacity,filter]"
+                      style={{ opacity: 0, filter: 'blur(14px)' }}
+                    >
+                      {char}
+                    </span>
+                  ))}
+                </span>
+              ))}
             </h3>
 
             {/* Accent Line Color Match */}
@@ -337,28 +465,30 @@ const PortfolioRow: React.FC<{
             />
           </div>
 
-          {/* Description Body */}
-          <p className="font-sans text-[15px] sm:text-[15.5px] lg:text-[16px] text-slate-600 font-normal leading-[1.8]">
-            {item.description}
-          </p>
+          <div ref={detailsRef} className="space-y-4 sm:space-y-5">
+            {/* Description Body */}
+            <p className="font-sans text-[15px] sm:text-[15.5px] lg:text-[16px] text-slate-600 font-normal leading-[1.8]">
+              {item.description}
+            </p>
 
-          {/* Polygon Cut Brand Navy READ MORE Button (matching Who We Are standard) */}
-          <div className="pt-2">
-            <Link
-              href={`/fabrics/${item.slug}`}
-              className="relative inline-flex items-center justify-center gap-2.5 h-11 pl-6 pr-8 text-[11.5px] font-semibold tracking-[0.16em] uppercase text-white bg-gradient-to-r from-[#2c4973] via-[#375785] to-[#436b9e] hover:from-[#375785] hover:via-[#436b9e] hover:to-[#5581ba] transition-all duration-300 group shadow-[0_2px_12px_rgba(55,87,133,0.3)] hover:shadow-[0_4px_18px_rgba(55,87,133,0.45)] hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap cursor-pointer overflow-hidden"
-              style={{
-                clipPath: 'polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%)',
-              }}
-            >
-              {/* Smooth Luminous Shine Sweep */}
-              <span
-                className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12 pointer-events-none group-hover:translate-x-[250%] transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                aria-hidden="true"
-              />
-              <span className="relative z-10 font-sans">READ MORE</span>
-              <ArrowRight className="relative z-10 w-3.5 h-3.5 stroke-[2.2] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1" />
-            </Link>
+            {/* Polygon Cut Brand Navy READ MORE Button (matching Who We Are standard) */}
+            <div className="pt-2">
+              <Link
+                href={`/fabrics/${item.slug}`}
+                className="relative inline-flex items-center justify-center gap-2.5 h-11 pl-6 pr-8 text-[11.5px] font-semibold tracking-[0.16em] uppercase text-white bg-gradient-to-r from-[#2c4973] via-[#375785] to-[#436b9e] hover:from-[#375785] hover:via-[#436b9e] hover:to-[#5581ba] transition-all duration-300 group shadow-[0_2px_12px_rgba(55,87,133,0.3)] hover:shadow-[0_4px_18px_rgba(55,87,133,0.45)] hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap cursor-pointer overflow-hidden"
+                style={{
+                  clipPath: 'polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%)',
+                }}
+              >
+                {/* Smooth Luminous Shine Sweep */}
+                <span
+                  className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12 pointer-events-none group-hover:translate-x-[250%] transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  aria-hidden="true"
+                />
+                <span className="relative z-10 font-sans">READ MORE</span>
+                <ArrowRight className="relative z-10 w-3.5 h-3.5 stroke-[2.2] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1" />
+              </Link>
+            </div>
           </div>
 
         </div>

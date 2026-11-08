@@ -101,10 +101,10 @@ export default function HomePage() {
             opacity: 1,
             filter: 'blur(0px)',
             y: 0,
-            duration: 1.2,
-            ease: 'power2.out',
-            delay: 0.15,
-            stagger: (i) => ((pos[i] - min) / span) * 1.3,
+            duration: 0.7,
+            ease: 'power3.out',
+            delay: 0.08,
+            stagger: (i) => ((pos[i] - min) / span) * 0.45,
             clearProps: 'transform,willChange',
           }
         );
