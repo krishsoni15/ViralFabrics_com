@@ -191,7 +191,7 @@ export default function AboutUsPage() {
          ================================================================= */}
       <div className="relative z-10 bg-[#FAF6F1] shadow-[0_-25px_60px_rgba(0,0,0,0.22)]">
         {/* 2A. OUR STORY (ABOUT VIRAL FABRICS + VISION & MISSION) - FULL HORIZONTAL WIDTH */}
-        <section id="our-story" className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#FAF6F1] border-b border-[#EAE0D5] overflow-hidden">
+        <section id="our-story" className="relative w-full pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 lg:pb-18 bg-[#FAF6F1] overflow-hidden">
         {/* Authentic Silk Background Canvas with Leaf Shadow - 100% Full Bleed */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
@@ -318,59 +318,56 @@ export default function AboutUsPage() {
       </section>
 
       {/* =================================================================
-          2B. OUR CAPABILITIES: INFRASTRUCTURE (HAUTE-COUTURE S-CURVE BANNER)
-          - Single Unified Contained Banner matching reference 1:1
-          - Left: Water-Jet Loom Machinery photo with purple fabric roll
-          - Center: Organic S-Wave divider with Champagne Gold stroke (#D8B388)
-          - Right: Dark Chocolate Mocha panel (#3E2420)
+          2B. OUR CAPABILITIES: INFRASTRUCTURE (FULL-BLEED HAUTE-COUTURE S-CURVE BANNER)
+          - Edge-to-edge 100% full-bleed mocha canvas with zero left/top white margins
+          - Left: Water-Jet Loom Machinery photo with purple fabric roll (flush to left screen edge)
+          - Center: Organic S-Wave divider with Champagne Gold hairline stroke (#D8B388)
+          - Right: Dark Chocolate Mocha panel (#3E2420) flush to right screen edge
           - Eyebrow: OUR CAPABILITIES —
           - Factory Architectural Line Icon + "Infrastructure" Headline
-          - Clean editorial narrative (No cluttered stat columns)
+          - Clean editorial narrative aligned within site container
          ================================================================= */}
-      <section className="relative w-full py-8 sm:py-12 lg:py-14 bg-[#FAF6F1] overflow-hidden">
-        <div className="w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
-          <EditorialBlock>
-            {/* Desktop Haute-Couture S-Curve Split Banner (hidden on mobile, block on lg+) */}
-            <div className="hidden lg:block relative w-full rounded-[28px] xl:rounded-[36px] overflow-hidden shadow-[0_16px_44px_rgba(40,20,15,0.12)] border border-[#EAE0D5] bg-[#3E2420] min-h-[360px] xl:min-h-[390px]">
-              
-              {/* SVG Layer: Clipping mask for machine image + Champagne Gold Divider Stroke */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none z-20" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
-                <defs>
-                  <clipPath id="infraLoomClip" clipPathUnits="objectBoundingBox">
-                    {/* Normalized coordinates fitting detected points:
-                        P0=(0.945, 0), P1=(0.836, 0.08), P2=(0.818, 0.80), P3=(0.718, 1.0)
-                        applied to 55% container width -> x ranges from 52.0% down to 39.5% of total card */}
-                    <path d="M 0 0 L 0.945 0 C 0.836 0.08, 0.818 0.80, 0.718 1 L 0 1 Z" />
-                  </clipPath>
-                </defs>
-                {/* Champagne Gold Hairline Accent Stroke along the S-wave */}
-                <path
-                  d="M 520,0 C 460,40 450,400 395,500"
-                  fill="none"
-                  stroke="#D8B388"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                />
-              </svg>
+      <section className="relative w-full bg-[#3E2420] overflow-hidden">
+        <EditorialBlock>
+          {/* Desktop Haute-Couture S-Curve Split Banner (hidden on mobile, block on lg+) */}
+          <div className="hidden lg:block relative w-full overflow-hidden bg-[#3E2420] min-h-[380px] xl:min-h-[420px] 2xl:min-h-[450px] flex items-center">
+            
+            {/* SVG Layer: Full-Bleed Clipping mask for machine image + Champagne Gold Divider Stroke */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none z-20" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <clipPath id="infraLoomClip" clipPathUnits="objectBoundingBox">
+                  <path d="M 0 0 L 0.945 0 C 0.836 0.08, 0.818 0.80, 0.718 1 L 0 1 Z" />
+                </clipPath>
+              </defs>
+              {/* Champagne Gold Hairline Accent Stroke along the S-wave */}
+              <path
+                d="M 520,0 C 460,40 450,400 395,500"
+                fill="none"
+                stroke="#D8B388"
+                strokeWidth="4"
+                strokeLinecap="round"
+              />
+            </svg>
 
-              {/* Left Side: Water-Jet Weaving Machinery (clipped to organic S-curve) */}
-              <div
-                className="absolute inset-y-0 left-0 w-[55%] overflow-hidden z-10"
-                style={{ clipPath: 'url(#infraLoomClip)', WebkitClipPath: 'url(#infraLoomClip)' }}
-              >
-                <Image
-                  src="/images/about/water-jet-loom.jpg"
-                  alt="Viral Fabrics High Speed Water-Jet Weaving Machinery with Purple Fabric Roll"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 55vw"
-                  className="object-cover object-center"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/15 via-transparent to-black/25 pointer-events-none" />
-              </div>
+            {/* Left Side: Water-Jet Weaving Machinery (clipped to organic S-curve, flush to left screen edge) */}
+            <div
+              className="absolute inset-y-0 left-0 w-[53%] xl:w-[51%] overflow-hidden z-10"
+              style={{ clipPath: 'url(#infraLoomClip)', WebkitClipPath: 'url(#infraLoomClip)' }}
+            >
+              <Image
+                src="/images/about/water-jet-loom.jpg"
+                alt="Viral Fabrics High Speed Water-Jet Weaving Machinery with Purple Fabric Roll"
+                fill
+                sizes="(max-width: 1024px) 100vw, 55vw"
+                className="object-cover object-center"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/15 via-transparent to-black/25 pointer-events-none" />
+            </div>
 
-              {/* Right Side: Dark Mocha Editorial Content */}
-              <div className="relative z-10 ml-[46%] xl:ml-[47%] w-[54%] xl:w-[53%] py-12 xl:py-16 pl-8 pr-10 xl:pl-12 xl:pr-14 flex flex-col justify-center text-white">
+            {/* Right Side: Dark Mocha Editorial Content Aligned With Site Container */}
+            <div className="relative z-10 w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14 flex justify-end">
+              <div className="w-[50%] xl:w-[48%] py-12 xl:py-16 pl-6 sm:pl-10 text-white">
                 
                 {/* Eyebrow: OUR CAPABILITIES — */}
                 <div className="flex items-center gap-3 mb-4">
@@ -413,69 +410,69 @@ export default function AboutUsPage() {
                   We own a well-developed manufacturing unit. It is fully equipped with the latest and automatic high speed machinery. In Polyester Fabrics We have our Own Unit High Speed Water-jet Machine having Production of 6 Lac Meter Per Month.
                 </p>
               </div>
-
             </div>
 
-            {/* Mobile / Tablet Responsive Layout (visible below lg, hidden on lg+) */}
-            <div className="block lg:hidden relative w-full rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-[0_12px_36px_rgba(40,20,15,0.12)] border border-[#EAE0D5] bg-[#3E2420]">
-              
-              {/* Machine Image on Mobile */}
-              <div className="relative w-full h-[220px] sm:h-[280px]">
-                <Image
-                  src="/images/about/water-jet-loom.jpg"
-                  alt="Viral Fabrics High Speed Water-Jet Weaving Machinery with Purple Fabric Roll"
-                  fill
-                  sizes="100vw"
-                  className="object-cover object-center"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#3E2420] via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-0 inset-x-0 h-[2px] bg-[#D8B388]" />
-              </div>
+          </div>
 
-              {/* Mocha Content Area on Mobile */}
-              <div className="p-6 sm:p-8 text-white space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="font-sans text-[11px] font-bold tracking-[0.24em] uppercase text-[#E2B892]">
-                    OUR CAPABILITIES
-                  </span>
-                  <div className="w-8 h-[1.5px] bg-[#E2B892]" />
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <svg
-                    width="36"
-                    height="36"
-                    viewBox="0 0 48 48"
-                    fill="none"
-                    stroke="#F1E6DE"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="shrink-0 text-[#F1E6DE]"
-                    aria-hidden="true"
-                  >
-                    <path d="M 4 42 H 44" />
-                    <path d="M 6 42 V 22 L 17 28 V 22 L 28 28 V 12 H 38 V 42" />
-                    <path d="M 27 12 H 39" />
-                    <path d="M 11 42 V 33 H 16 V 42" />
-                    <path d="M 20 42 V 33 H 25 V 42" />
-                    <path d="M 29 42 V 33 H 34 V 42" />
-                    <path d="M 32 8 C 30 6 36 4 34 2" />
-                    <path d="M 35 9 C 34 7 40 5 38 3" />
-                  </svg>
-                  <h2 className="font-heading text-2xl sm:text-3xl font-normal text-white tracking-tight">
-                    Infrastructure
-                  </h2>
-                </div>
-
-                <p className="font-sans text-[13.5px] sm:text-[14.5px] text-[#F1E6DE] leading-[1.75] font-light">
-                  We own a well-developed manufacturing unit. It is fully equipped with the latest and automatic high speed machinery. In Polyester Fabrics We have our Own Unit High Speed Water-jet Machine having Production of 6 Lac Meter Per Month.
-                </p>
-              </div>
-
+          {/* Mobile / Tablet Responsive Layout (visible below lg, hidden on lg+) */}
+          <div className="block lg:hidden relative w-full overflow-hidden bg-[#3E2420]">
+            
+            {/* Machine Image on Mobile */}
+            <div className="relative w-full h-[240px] sm:h-[300px]">
+              <Image
+                src="/images/about/water-jet-loom.jpg"
+                alt="Viral Fabrics High Speed Water-Jet Weaving Machinery with Purple Fabric Roll"
+                fill
+                sizes="100vw"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#3E2420] via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 inset-x-0 h-[2px] bg-[#D8B388]" />
             </div>
-          </EditorialBlock>
-        </div>
+
+            {/* Mocha Content Area on Mobile */}
+            <div className="p-6 sm:p-8 text-white space-y-4 max-w-xl mx-auto">
+              <div className="flex items-center gap-3">
+                <span className="font-sans text-[11px] font-bold tracking-[0.24em] uppercase text-[#E2B892]">
+                  OUR CAPABILITIES
+                </span>
+                <div className="w-8 h-[1.5px] bg-[#E2B892]" />
+              </div>
+
+              <div className="flex items-center gap-3">
+                <svg
+                  width="36"
+                  height="36"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  stroke="#F1E6DE"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="shrink-0 text-[#F1E6DE]"
+                  aria-hidden="true"
+                >
+                  <path d="M 4 42 H 44" />
+                  <path d="M 6 42 V 22 L 17 28 V 22 L 28 28 V 12 H 38 V 42" />
+                  <path d="M 27 12 H 39" />
+                  <path d="M 11 42 V 33 H 16 V 42" />
+                  <path d="M 20 42 V 33 H 25 V 42" />
+                  <path d="M 29 42 V 33 H 34 V 42" />
+                  <path d="M 32 8 C 30 6 36 4 34 2" />
+                  <path d="M 35 9 C 34 7 40 5 38 3" />
+                </svg>
+                <h2 className="font-heading text-2xl sm:text-3xl font-normal text-white tracking-tight">
+                  Infrastructure
+                </h2>
+              </div>
+
+              <p className="font-sans text-[13.5px] sm:text-[14.5px] text-[#F1E6DE] leading-[1.75] font-light">
+                We own a well-developed manufacturing unit. It is fully equipped with the latest and automatic high speed machinery. In Polyester Fabrics We have our Own Unit High Speed Water-jet Machine having Production of 6 Lac Meter Per Month.
+              </p>
+            </div>
+
+          </div>
+        </EditorialBlock>
       </section>
 
       {/* =================================================================
