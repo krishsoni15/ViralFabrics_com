@@ -391,7 +391,7 @@ function EnquiryForm() {
         <button
           type="submit"
           disabled={loading}
-          className="relative inline-flex items-center justify-center gap-2.5 h-12 px-8 text-[13.5px] font-semibold text-white bg-gradient-to-r from-[#0C2D50] via-[#0E3B68] to-[#164E87] hover:from-[#081F38] hover:via-[#0A2E52] hover:to-[#0F3B66] active:scale-[0.98] transition-all duration-300 shadow-[0_6px_20px_rgba(14,59,104,0.35)] hover:shadow-[0_8px_26px_rgba(14,59,104,0.5)] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed group overflow-hidden"
+          className="relative inline-flex items-center justify-center gap-2.5 h-12 pl-7 pr-9 text-[13.5px] font-semibold text-white bg-gradient-to-r from-[#0C2D50] via-[#0E3B68] to-[#164E87] hover:from-[#081F38] hover:via-[#0A2E52] hover:to-[#0F3B66] active:scale-[0.98] transition-all duration-300 shadow-[0_6px_20px_rgba(14,59,104,0.35)] hover:shadow-[0_8px_26px_rgba(14,59,104,0.5)] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed group overflow-hidden"
           style={{
             clipPath: 'polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)',
           }}
@@ -410,7 +410,7 @@ function EnquiryForm() {
             aria-hidden="true"
           />
 
-          <span className="relative z-10 flex items-center gap-2">
+          <span className="relative z-10 flex items-center gap-2.5">
             {loading ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -418,9 +418,8 @@ function EnquiryForm() {
               </>
             ) : (
               <>
-                <Send className="w-4 h-4 stroke-[2.2] group-hover:translate-x-0.5 transition-transform" />
-                <span>Submit Enquiry</span>
-                <ArrowRight className="w-3.5 h-3.5 stroke-[2] ml-0.5 group-hover:translate-x-0.5 transition-transform" />
+                <span className="tracking-wide font-medium">Submit Enquiry</span>
+                <ArrowRight className="w-4 h-4 stroke-[2.2] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1" />
               </>
             )}
           </span>
@@ -451,6 +450,9 @@ export default function EnquiryPage() {
             className="object-cover object-center"
             priority
           />
+          {/* Top Scrim Gradient to ensure navbar items have 100% crystal contrast against the light folded rolls */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#061426]/90 via-[#061426]/40 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#061426]/35 pointer-events-none" />
         </div>
 
         {/* Content Aligned with Main Container */}
