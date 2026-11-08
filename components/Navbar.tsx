@@ -233,7 +233,8 @@ export function Navbar() {
   const isTransparent = isHeroTransparentPage && !scrolled;
 
   return (
-    <header
+    <>
+      <header
       className={`fixed top-0 left-0 right-0 z-50 anim-nav-enter transition-transform duration-500 ease-agnes border-0 shadow-none will-change-transform ${isHidden ? '-translate-y-full' : 'translate-y-0'
         } ${isTransparent
           ? 'bg-transparent py-5 sm:py-6 lg:py-7 text-white'
@@ -243,7 +244,7 @@ export function Navbar() {
         WebkitBackdropFilter: isTransparent ? 'none' : 'blur(20px)',
       }}
     >
-      <div className="max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14 flex items-center justify-between">
+      <div className="max-w-[1720px] mx-auto px-3.5 sm:px-8 lg:px-14 flex items-center justify-between">
 
         {/* 1. LEFT COLUMN: Mobile Hamburger (Agnes Toth Style) & Desktop Navigation Links */}
         <div className="flex-1 flex items-center justify-start">
@@ -399,7 +400,7 @@ export function Navbar() {
             href="/"
             className="relative flex items-center justify-center transition-opacity hover:opacity-90 py-1"
           >
-            <div className="relative w-[130px] sm:w-[155px] md:w-[175px] lg:w-[190px] xl:w-[215px] 2xl:w-[245px] h-[32px] sm:h-[36px] md:h-[40px] lg:h-[44px] xl:h-[48px] 2xl:h-[52px]">
+            <div className="relative w-[112px] sm:w-[155px] md:w-[175px] lg:w-[190px] xl:w-[215px] 2xl:w-[245px] h-[28px] sm:h-[36px] md:h-[40px] lg:h-[44px] xl:h-[48px] 2xl:h-[52px]">
               <Image
                 src={isTransparent ? "/assets/uploads/2025/08/footer-logo.png" : "/assets/uploads/2025/08/logo.png"}
                 alt="Viral Fabrics"
@@ -411,79 +412,57 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* 3. RIGHT COLUMN: Modern Minimalist Phone + Email + Enquire (No 1280px Overflow) */}
-        <div className="flex-1 flex items-center justify-end gap-2.5 sm:gap-3 xl:gap-3.5 2xl:gap-6 flex-shrink-0">
+        {/* 3. RIGHT COLUMN: Phone Icon + Email Icon + Enquire Button (Mobile, Tablet, Desktop) */}
+        <div className="flex-1 flex items-center justify-end gap-1 sm:gap-2 lg:gap-3 xl:gap-3.5 2xl:gap-6 flex-shrink-0">
 
-          {/* Phone Link: Minimalist Bare Icon to Copy / Text to Call */}
-          <div className="hidden lg:flex items-center gap-1.5 group/phone flex-shrink-0">
-            <button
-              type="button"
-              onClick={(e) => handleCopy('phone', COMPANY_INFO.phoneDisplay, e)}
-              className="relative group/copy p-1 flex items-center justify-center focus:outline-none cursor-pointer transition-transform hover:scale-110"
-              title="Click icon to copy phone number"
-              aria-label="Copy phone number"
-            >
-              {copiedField === 'phone' ? (
-                <Check className="w-4 h-4 text-emerald-400 stroke-[2.4]" />
-              ) : (
-                <Phone className={`w-4 h-4 stroke-[1.65] transition-colors ${isTransparent
-                  ? 'text-white/80 group-hover/copy:text-white'
-                  : 'text-slate-500 group-hover/copy:text-brand-blue'
-                  }`} />
-              )}
-
-              {/* Minimalist Floating Tooltip */}
-              <span className={`absolute -bottom-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded text-[10px] font-sans font-medium whitespace-nowrap shadow-md pointer-events-none transition-all duration-200 z-50 ${copiedField === 'phone'
-                ? 'bg-emerald-600 text-white opacity-100 translate-y-0'
-                : 'bg-slate-900/90 text-white backdrop-blur-sm opacity-0 -translate-y-1 group-hover/copy:opacity-100 group-hover/copy:translate-y-0'
-                }`}>
-                {copiedField === 'phone' ? 'Copied!' : 'Copy'}
-              </span>
-            </button>
-
-            {/* Direct Dial Link */}
+          {/* Phone Link (Visible on mobile, tablet, desktop - direct tap to dial on tablet/phone) */}
+          <div className="flex items-center gap-1 sm:gap-1.5 group/phone flex-shrink-0">
             <a
               href={`tel:${COMPANY_INFO.phoneTel}`}
-              className={`text-[12.5px] xl:text-[13px] 2xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-colors hover:underline underline-offset-4 hidden xl:inline ${isTransparent ? 'text-white/95 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
-                }`}
+              className={`p-1 sm:p-2 rounded-full transition-all duration-300 flex items-center justify-center hover:scale-110 active:scale-95 ${
+                isTransparent
+                  ? 'text-white/90 hover:text-white hover:bg-white/10'
+                  : 'text-slate-700 hover:text-brand-blue hover:bg-slate-100/80'
+              }`}
+              title={`Call ${COMPANY_INFO.phoneDisplay}`}
+              aria-label="Call Viral Fabrics"
+            >
+              <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[1.8]" />
+            </a>
+
+            {/* Direct Dial Text (Shown on xl+) */}
+            <a
+              href={`tel:${COMPANY_INFO.phoneTel}`}
+              className={`text-[12.5px] xl:text-[13px] 2xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-colors hover:underline underline-offset-4 hidden xl:inline ${
+                isTransparent ? 'text-white/95 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
+              }`}
               title="Click to dial directly"
             >
               <span>{COMPANY_INFO.phoneDisplay}</span>
             </a>
           </div>
 
-          {/* Email Link: Minimalist Bare Icon to Copy / Text to Email */}
-          <div className="hidden lg:flex items-center gap-1.5 group/email flex-shrink-0">
-            <button
-              type="button"
-              onClick={(e) => handleCopy('email', COMPANY_INFO.email, e)}
-              className="relative group/copy p-1 flex items-center justify-center focus:outline-none cursor-pointer transition-transform hover:scale-110"
-              title="Click icon to copy email address"
-              aria-label="Copy email address"
-            >
-              {copiedField === 'email' ? (
-                <Check className="w-4 h-4 text-emerald-400 stroke-[2.4]" />
-              ) : (
-                <Mail className={`w-4 h-4 stroke-[1.65] transition-colors ${isTransparent
-                  ? 'text-white/80 group-hover/copy:text-white'
-                  : 'text-slate-500 group-hover/copy:text-brand-blue'
-                  }`} />
-              )}
-
-              {/* Minimalist Floating Tooltip */}
-              <span className={`absolute -bottom-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded text-[10px] font-sans font-medium whitespace-nowrap shadow-md pointer-events-none transition-all duration-200 z-50 ${copiedField === 'email'
-                ? 'bg-emerald-600 text-white opacity-100 translate-y-0'
-                : 'bg-slate-900/90 text-white backdrop-blur-sm opacity-0 -translate-y-1 group-hover/copy:opacity-100 group-hover/copy:translate-y-0'
-                }`}>
-                {copiedField === 'email' ? 'Copied!' : 'Copy'}
-              </span>
-            </button>
-
-            {/* Direct Email Compose Link (Shown on 2xl+ to guarantee zero overflow on 1280px-1440px) */}
+          {/* Email Link (Visible on mobile, tablet, desktop - direct tap to compose on tablet/phone) */}
+          <div className="flex items-center gap-1 sm:gap-1.5 group/email flex-shrink-0">
             <a
               href={`mailto:${COMPANY_INFO.email}`}
-              className={`text-[12.5px] xl:text-[13px] 2xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-colors hover:underline underline-offset-4 hidden 2xl:inline ${isTransparent ? 'text-white/95 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
-                }`}
+              className={`p-1 sm:p-2 rounded-full transition-all duration-300 flex items-center justify-center hover:scale-110 active:scale-95 ${
+                isTransparent
+                  ? 'text-white/90 hover:text-white hover:bg-white/10'
+                  : 'text-slate-700 hover:text-brand-blue hover:bg-slate-100/80'
+              }`}
+              title={`Email ${COMPANY_INFO.email}`}
+              aria-label="Email Viral Fabrics"
+            >
+              <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[1.8]" />
+            </a>
+
+            {/* Direct Email Compose Text (Shown on 2xl+) */}
+            <a
+              href={`mailto:${COMPANY_INFO.email}`}
+              className={`text-[12.5px] xl:text-[13px] 2xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-colors hover:underline underline-offset-4 hidden 2xl:inline ${
+                isTransparent ? 'text-white/95 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
+              }`}
               title="Click to compose email"
             >
               <span>{COMPANY_INFO.email}</span>
@@ -491,25 +470,29 @@ export function Navbar() {
           </div>
 
           {/* Subtle Hairline Separator (Shown on 2xl+) */}
-          <div className={`h-4 w-[1px] hidden 2xl:block transition-colors ${isTransparent ? 'bg-white/25' : 'bg-slate-300/80'
-            }`} />
+          <div
+            className={`h-4 w-[1px] hidden 2xl:block transition-colors ${
+              isTransparent ? 'bg-white/25' : 'bg-slate-300/80'
+            }`}
+          />
 
-          {/* Minimalist Transparent Glass Button with Angled Cut & Luminous Shine Sweep (Mobile & Desktop) */}
+          {/* Minimalist Transparent Glass Button with Angled Cut & Luminous Shine Sweep */}
           <Link
             href="/enquiry"
-            className={`relative inline-flex items-center justify-center h-8 sm:h-8.5 lg:h-9 pl-3.5 pr-5 sm:pl-4 sm:pr-6 lg:pl-5 lg:pr-7 text-[10px] sm:text-[10.5px] lg:text-[11px] font-medium tracking-[0.16em] lg:tracking-[0.18em] uppercase whitespace-nowrap transition-all duration-300 group cursor-pointer overflow-hidden flex-shrink-0 hover:-translate-y-0.5 active:translate-y-0 ${isTransparent
+            className={`relative inline-flex items-center justify-center h-7 sm:h-8.5 lg:h-9 pl-2.5 pr-3.5 sm:pl-4 sm:pr-6 lg:pl-5 lg:pr-7 text-[9px] sm:text-[10.5px] lg:text-[11px] font-medium tracking-[0.14em] sm:tracking-[0.16em] lg:tracking-[0.18em] uppercase whitespace-nowrap transition-all duration-300 group cursor-pointer overflow-hidden flex-shrink-0 hover:-translate-y-0.5 active:translate-y-0 ${
+              isTransparent
                 ? 'text-white bg-white/[0.06] hover:bg-white/[0.16] backdrop-blur-[8px]'
                 : 'text-[#203a61] bg-transparent hover:bg-[#375785] hover:text-white'
-              }`}
+            }`}
             style={{
-              clipPath: 'polygon(0 0, 100% 0, calc(100% - 11px) 100%, 0 100%)',
+              clipPath: 'polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%)',
             }}
           >
             {/* 100% Transparent Center with Razor-Sharp 1px Border Following Cut Corner */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
               <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke={isTransparent ? 'rgba(255,255,255,0.75)' : 'rgba(55,87,133,0.75)'} strokeWidth="1" />
-              <line x1="100%" y1="0" x2="calc(100% - 11px)" y2="100%" stroke={isTransparent ? 'rgba(255,255,255,0.75)' : 'rgba(55,87,133,0.75)'} strokeWidth="1.2" />
-              <line x1="calc(100% - 11px)" y1="calc(100% - 0.5px)" x2="0" y2="calc(100% - 0.5px)" stroke={isTransparent ? 'rgba(255,255,255,0.75)' : 'rgba(55,87,133,0.75)'} strokeWidth="1" />
+              <line x1="100%" y1="0" x2="calc(100% - 10px)" y2="100%" stroke={isTransparent ? 'rgba(255,255,255,0.75)' : 'rgba(55,87,133,0.75)'} strokeWidth="1.2" />
+              <line x1="calc(100% - 10px)" y1="calc(100% - 0.5px)" x2="0" y2="calc(100% - 0.5px)" stroke={isTransparent ? 'rgba(255,255,255,0.75)' : 'rgba(55,87,133,0.75)'} strokeWidth="1" />
               <line x1="0.5" y1="100%" x2="0.5" y2="0" stroke={isTransparent ? 'rgba(255,255,255,0.75)' : 'rgba(55,87,133,0.75)'} strokeWidth="1" />
             </svg>
 
@@ -524,27 +507,32 @@ export function Navbar() {
         </div>
 
       </div>
+    </header>
 
-      {/* ================================================================= */}
-      {/* LUXURY LEFT-HAND SLIDE-IN MOBILE DRAWER (AGNES TOTH HAUTE-COUTURE) */}
-      {/* ================================================================= */}
+    {/* ================================================================= */}
+    {/* LUXURY LEFT-HAND SLIDE-IN MOBILE DRAWER (PORTALED DIRECTLY TO BODY) */}
+    {/* ================================================================= */}
+    {mounted && typeof document !== 'undefined' && createPortal(
       <div
-        className={`lg:hidden fixed inset-0 z-[100] transition-opacity duration-300 ${isOpen ? 'pointer-events-auto visible' : 'pointer-events-none invisible'
-          }`}
+        className={`fixed inset-0 z-[999999] transition-opacity duration-300 ${
+          isOpen ? 'pointer-events-auto visible' : 'pointer-events-none invisible'
+        }`}
         aria-hidden={!isOpen}
       >
         {/* 1. Backdrop Scrim Overlay with Dark Frosted Blur */}
         <div
           onClick={() => setIsOpen(false)}
           onTouchMove={(e) => e.preventDefault()}
-          className={`absolute inset-0 bg-[#071120]/70 backdrop-blur-md transition-opacity duration-500 ease-out touch-none ${isOpen ? 'opacity-100' : 'opacity-0'
-            }`}
+          className={`fixed inset-0 bg-[#071120]/75 backdrop-blur-md transition-opacity duration-500 ease-out touch-none ${
+            isOpen ? 'opacity-100' : 'opacity-0'
+          }`}
         />
 
         {/* 2. Left Slide-In Drawer Panel (Solid Prestigious #FAF4F0 Silk Canvas) */}
         <aside
-          className={`relative w-[320px] sm:w-[380px] max-w-[85vw] h-full bg-[#FAF4F0] text-slate-900 shadow-[0_0_60px_rgba(0,0,0,0.35)] flex flex-col justify-between overflow-y-auto overscroll-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? 'translate-x-0' : '-translate-x-full'
-            }`}
+          className={`fixed top-0 left-0 bottom-0 w-[320px] sm:w-[380px] max-w-[85vw] h-screen bg-[#FAF4F0] text-slate-900 shadow-[0_0_60px_rgba(0,0,0,0.5)] flex flex-col justify-between overflow-y-auto overscroll-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-[1000000] ${
+            isOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
         >
           {/* Top Bar: Brand Logo & Close Icon Button */}
           <div className="p-6 border-b border-slate-200/80 flex items-center justify-between bg-white/60 backdrop-blur-sm sticky top-0 z-10">
@@ -581,10 +569,11 @@ export function Navbar() {
               <Link
                 href="/"
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${pathname === '/'
+                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${
+                  pathname === '/'
                     ? 'bg-[#006DB6]/10 text-[#006DB6] font-semibold'
                     : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#006DB6]'
-                  }`}
+                }`}
               >
                 <span>Home</span>
                 {pathname === '/' && <span className="w-1.5 h-1.5 rounded-full bg-[#006DB6]" />}
@@ -593,10 +582,11 @@ export function Navbar() {
               <Link
                 href="/about-us"
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${pathname === '/about-us'
+                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${
+                  pathname === '/about-us'
                     ? 'bg-[#006DB6]/10 text-[#006DB6] font-semibold'
                     : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#006DB6]'
-                  }`}
+                }`}
               >
                 <span>About Us</span>
                 {pathname === '/about-us' && <span className="w-1.5 h-1.5 rounded-full bg-[#006DB6]" />}
@@ -616,8 +606,9 @@ export function Navbar() {
                     </span>
                   </span>
                   <ChevronDown
-                    className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${mobileFabricsOpen ? 'rotate-180 text-[#006DB6]' : ''
-                      }`}
+                    className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${
+                      mobileFabricsOpen ? 'rotate-180 text-[#006DB6]' : ''
+                    }`}
                   />
                 </button>
 
@@ -628,10 +619,11 @@ export function Navbar() {
                         key={fabric.slug}
                         href={`/fabrics/${fabric.slug}`}
                         onClick={() => setIsOpen(false)}
-                        className={`block py-1.5 px-2 text-[13px] rounded transition-colors ${pathname === `/fabrics/${fabric.slug}`
+                        className={`block py-1.5 px-2 text-[13px] rounded transition-colors ${
+                          pathname === `/fabrics/${fabric.slug}`
                             ? 'text-[#006DB6] font-semibold bg-[#006DB6]/5'
                             : 'text-slate-600 hover:text-[#006DB6] hover:bg-slate-100/60'
-                          }`}
+                        }`}
                       >
                         {fabric.title}
                       </Link>
@@ -650,10 +642,11 @@ export function Navbar() {
               <Link
                 href="/network"
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${pathname === '/network'
+                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${
+                  pathname === '/network'
                     ? 'bg-[#006DB6]/10 text-[#006DB6] font-semibold'
                     : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#006DB6]'
-                  }`}
+                }`}
               >
                 <span>Network</span>
                 {pathname === '/network' && <span className="w-1.5 h-1.5 rounded-full bg-[#006DB6]" />}
@@ -662,10 +655,11 @@ export function Navbar() {
               <Link
                 href="/contact-us"
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${pathname === '/contact-us'
+                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${
+                  pathname === '/contact-us'
                     ? 'bg-[#006DB6]/10 text-[#006DB6] font-semibold'
                     : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#006DB6]'
-                  }`}
+                }`}
               >
                 <span>Contact Us</span>
                 {pathname === '/contact-us' && <span className="w-1.5 h-1.5 rounded-full bg-[#006DB6]" />}
@@ -684,13 +678,12 @@ export function Navbar() {
                   <Phone className="w-3.5 h-3.5 text-[#006DB6]" />
                   <span>{COMPANY_INFO.phoneDisplay}</span>
                 </a>
-                <button
-                  type="button"
-                  onClick={(e) => handleCopy('phone', COMPANY_INFO.phoneDisplay, e)}
-                  className="text-[11px] text-slate-500 hover:text-[#006DB6] font-medium cursor-pointer"
+                <a
+                  href={`tel:${COMPANY_INFO.phoneTel}`}
+                  className="text-[11px] text-[#006DB6] font-semibold uppercase tracking-wider"
                 >
-                  {copiedField === 'phone' ? 'Copied!' : 'Copy'}
-                </button>
+                  Call
+                </a>
               </div>
 
               <div className="flex items-center justify-between text-[12.5px]">
@@ -701,13 +694,12 @@ export function Navbar() {
                   <Mail className="w-3.5 h-3.5 text-[#006DB6] flex-shrink-0" />
                   <span className="truncate">{COMPANY_INFO.email}</span>
                 </a>
-                <button
-                  type="button"
-                  onClick={(e) => handleCopy('email', COMPANY_INFO.email, e)}
-                  className="text-[11px] text-slate-500 hover:text-[#006DB6] font-medium cursor-pointer flex-shrink-0 ml-2"
+                <a
+                  href={`mailto:${COMPANY_INFO.email}`}
+                  className="text-[11px] text-[#006DB6] font-semibold uppercase tracking-wider flex-shrink-0 ml-2"
                 >
-                  {copiedField === 'email' ? 'Copied!' : 'Copy'}
-                </button>
+                  Email
+                </a>
               </div>
             </div>
 
@@ -721,8 +713,9 @@ export function Navbar() {
             </Link>
           </div>
         </aside>
-      </div>
-
-    </header>
+      </div>,
+      document.body
+    )}
+  </>
   );
 }
