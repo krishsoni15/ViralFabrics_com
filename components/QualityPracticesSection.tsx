@@ -11,6 +11,7 @@ interface QualityStep {
   subtitle: string;
   imageSrc: string;
   imageAlt: string;
+  videoSrc: string;
   icon: React.ComponentType<{ className?: string }>;
   items: string[];
 }
@@ -23,6 +24,7 @@ const QUALITY_STEPS: QualityStep[] = [
     subtitle: 'Raw Weave Inspection',
     imageSrc: '/images/quality/greige-level.jpg',
     imageAlt: 'Greige Level fabric weave inspection under magnifying glass',
+    videoSrc: '/videos/quality/greige-level.mp4',
     icon: Layers,
     items: [
       'Reed-Pick Checking',
@@ -37,6 +39,7 @@ const QUALITY_STEPS: QualityStep[] = [
     subtitle: 'Board & Fault Inspection',
     imageSrc: '/images/quality/finished-level.jpg',
     imageAlt: 'Finished Level board checking for fault rejections with digital inspection monitor',
+    videoSrc: '/videos/quality/finished-level.mp4',
     icon: ClipboardList,
     items: [
       'Board Checking for Fault Rejections',
@@ -51,6 +54,7 @@ const QUALITY_STEPS: QualityStep[] = [
     subtitle: 'Lab Dips & Print Accuracy',
     imageSrc: '/images/quality/processing-level.jpg',
     imageAlt: 'Processing Level laboratory testing with color solutions, swatches and dyeing machinery',
+    videoSrc: '/videos/quality/processing-level.mp4',
     icon: FlaskConical,
     items: [
       'Lab Dips for Color Accuracy',
@@ -64,6 +68,7 @@ const QUALITY_STEPS: QualityStep[] = [
     subtitle: 'Warehousing & Dispatch',
     imageSrc: '/images/quality/packing-level.jpg',
     imageAlt: 'Packing Level warehousing and dispatch with forklift and wrapped fabric rolls on pallets',
+    videoSrc: '/videos/quality/packing-level.mp4',
     icon: Package,
     items: [
       'High Quality Packing Material',
@@ -79,9 +84,33 @@ const InteractiveCard: React.FC<{
   isVisible: boolean;
 }> = ({ step, index, isVisible }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0, glareX: 50, glareY: 50, isHovered: false });
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const IconComponent = step.icon;
   const delayMs = index * 130 + 150;
+
+  // Video hover playback control with safe promise handling
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (tilt.isHovered) {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsVideoPlaying(true);
+          })
+          .catch(() => {
+            // Handled gracefully (e.g. user hovered away quickly)
+          });
+      }
+    } else {
+      video.pause();
+      setIsVideoPlaying(false);
+    }
+  }, [tilt.isHovered]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const card = cardRef.current;
@@ -145,17 +174,50 @@ const InteractiveCard: React.FC<{
       {/* Subtle Brand Blue Ambient Glow at base of card */}
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#1E5FA8]/[0.07] via-[#3B82F6]/[0.02] to-transparent pointer-events-none rounded-b-[22px] sm:rounded-b-[24px]" />
 
-      {/* 1. Arched Fabric Process Photo Top */}
-      <div className="relative w-full h-36 sm:h-40 lg:h-38 xl:h-44 2xl:h-48 overflow-hidden rounded-t-[50px] sm:rounded-t-[58px] lg:rounded-t-[62px] xl:rounded-t-[70px] bg-slate-100 flex-shrink-0">
+      {/* 1. Arched Fabric Process Photo / Video Top */}
+      <div 
+        className="relative w-full h-36 sm:h-40 lg:h-38 xl:h-44 2xl:h-48 overflow-hidden rounded-t-[50px] sm:rounded-t-[58px] lg:rounded-t-[62px] xl:rounded-t-[70px] bg-slate-900 flex-shrink-0"
+        style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}
+      >
+        {/* Base Poster Image */}
         <Image
           src={step.imageSrc}
           alt={step.imageAlt}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          className="object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+          className={`object-cover object-center transition-all duration-700 ease-out ${
+            isVideoPlaying ? 'opacity-0 scale-105' : 'opacity-100 group-hover:scale-108'
+          }`}
+          priority={index < 2}
         />
+
+        {/* Cinematic Quality Process Video (Plays on Card Hover, Loops) */}
+        <video
+          ref={videoRef}
+          src={step.videoSrc}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className={`absolute inset-0 w-full h-full object-cover object-center pointer-events-none transition-opacity duration-500 ease-out ${
+            isVideoPlaying ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+
+        {/* Top-Right Badge: Live Process on Hover */}
+        <div
+          className={`absolute top-3.5 right-3.5 z-20 transition-all duration-300 pointer-events-none flex items-center gap-1.5 px-2.5 py-1 rounded-full backdrop-blur-md text-[10px] font-medium tracking-wide ${
+            tilt.isHovered
+              ? 'bg-[#0A192F]/85 text-white shadow-md ring-1 ring-sky-400/30 opacity-100 translate-y-0'
+              : 'bg-black/35 text-white/90 opacity-0 translate-y-1'
+          }`}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+          <span>Live Process</span>
+        </div>
+
         {/* Subtle arched top shadow ring */}
-        <div className="absolute inset-0 rounded-t-[50px] sm:rounded-t-[58px] lg:rounded-t-[62px] xl:rounded-t-[70px] ring-1 ring-inset ring-black/10 pointer-events-none" />
+        <div className="absolute inset-0 rounded-t-[50px] sm:rounded-t-[58px] lg:rounded-t-[62px] xl:rounded-t-[70px] ring-1 ring-inset ring-black/10 pointer-events-none z-10" />
       </div>
 
       {/* 2. Floating Circular Icon Badge (Crystalline Glass Jewel) */}
