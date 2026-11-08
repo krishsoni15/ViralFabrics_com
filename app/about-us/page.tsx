@@ -369,56 +369,38 @@ export default function AboutUsPage() {
 
       {/* =================================================================
           2B. OUR CAPABILITIES: STATE-OF-THE-ART MANUFACTURING
-          - Deep Midnight Navy Card with S-Curve Divider & Cyan Hairline
+          - Deep Midnight Navy Card with S-Curve Divider & Luxury Golden Hairline
           - Left: Water-Jet Loom Machinery with Purple Fabric Roll
-          - Right: State-of-the-Art Manufacturing (Enlarged Luxury Scale, Button Removed)
-          - Framed with Haute-Couture Torn Paper Borders & Crisp Pure White Canvas
+          - Right: State-of-the-Art Manufacturing
+          - Perfectly Balanced Vertical Spacing
          ================================================================= */}
-      <section className="relative w-full py-12 sm:py-16 lg:py-20 bg-white overflow-visible">
-        {/* Top Torn Paper Border Strip (Overlapping the top edge into Section 2A) */}
-        <div className="absolute -top-3 sm:-top-4 lg:-top-5 inset-x-0 h-14 sm:h-18 lg:h-22 z-20 pointer-events-none select-none">
-          <Image
-            src="/images/about/torn-paper-top.png?v=2"
-            alt="Torn Paper Top Border"
-            fill
-            sizes="100vw"
-            className="w-full h-full object-fill object-top drop-shadow-[0_6px_14px_rgba(0,0,0,0.1)]"
-            priority
-          />
-        </div>
-
-        {/* Bottom Torn Paper Border Strip (Overlapping the bottom edge into Section 3) */}
-        <div className="absolute -bottom-3 sm:-bottom-4 lg:-bottom-5 inset-x-0 h-14 sm:h-18 lg:h-22 z-20 pointer-events-none select-none">
-          <Image
-            src="/images/about/torn-paper-bottom.png?v=2"
-            alt="Torn Paper Bottom Border"
-            fill
-            sizes="100vw"
-            className="w-full h-full object-fill object-bottom drop-shadow-[0_-6px_14px_rgba(0,0,0,0.1)]"
-            priority
-          />
-        </div>
-
+      <section className="relative w-full pt-6 sm:pt-8 lg:pt-10 pb-6 sm:pb-8 lg:pb-10 bg-[#FAF6F1] overflow-hidden">
         <div className="relative z-10 w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
           <EditorialBlock>
             {/* Desktop Haute-Couture S-Curve Split Banner (hidden on mobile, block on lg+) */}
             <div className="hidden lg:block relative w-full rounded-[28px] xl:rounded-[36px] overflow-hidden shadow-[0_20px_50px_rgba(10,25,47,0.25)] border border-[#1E3A5F]/40 bg-gradient-to-r from-[#07172B] via-[#0A2240] to-[#0D2E54] min-h-[420px] xl:min-h-[460px] 2xl:min-h-[500px]">
               
-              {/* SVG Layer: Clipping mask for machine image + Cyan/Ice Blue Divider Stroke */}
+              {/* SVG Layer: Clipping mask for machine image + Metallic Golden Divider Stroke */}
               <svg className="absolute inset-0 w-full h-full pointer-events-none z-20" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
                 <defs>
                   <clipPath id="infraLoomClip" clipPathUnits="objectBoundingBox">
                     <path d="M 0 0 L 0.945 0 C 0.836 0.08, 0.818 0.80, 0.718 1 L 0 1 Z" />
                   </clipPath>
+                  <linearGradient id="goldCurveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#FDE68A" />
+                    <stop offset="35%" stopColor="#D4AF37" />
+                    <stop offset="70%" stopColor="#F59E0B" />
+                    <stop offset="100%" stopColor="#B45309" />
+                  </linearGradient>
                 </defs>
-                {/* Cyan/Ice Blue Hairline Accent Stroke along the S-wave */}
+                {/* Metallic Champagne Gold Hairline Accent Stroke along the S-wave */}
                 <path
                   d="M 520,0 C 460,40 450,400 395,500"
                   fill="none"
-                  stroke="#38BDF8"
+                  stroke="url(#goldCurveGrad)"
                   strokeWidth="3.5"
                   strokeLinecap="round"
-                  opacity="0.85"
+                  opacity="0.95"
                 />
               </svg>
 
@@ -441,9 +423,9 @@ export default function AboutUsPage() {
               {/* Right Side: Dark Navy Editorial Content (Enlarged & Highly Legible) */}
               <div className="relative z-10 ml-[46%] xl:ml-[47%] w-[54%] xl:w-[53%] py-14 xl:py-18 pl-10 pr-12 xl:pl-16 xl:pr-18 flex flex-col justify-center text-white">
                 
-                {/* Eyebrow: OUR CAPABILITIES */}
+                {/* Eyebrow: OUR CAPABILITIES in Golden */}
                 <div className="flex items-center gap-3 mb-3.5">
-                  <span className="font-sans text-[12px] sm:text-[13px] font-bold tracking-[0.28em] uppercase text-[#38BDF8]">
+                  <span className="font-sans text-[12px] sm:text-[13px] font-bold tracking-[0.28em] uppercase text-[#FDE68A]">
                     OUR CAPABILITIES
                   </span>
                 </div>
@@ -458,14 +440,14 @@ export default function AboutUsPage() {
                   We own a well-developed manufacturing unit. It is fully equipped with the latest and automatic high speed machinery. In Polyester Fabrics We have our Own Unit High Speed Water-jet Machine having Production of 6 Lac Meter Per Month.
                 </p>
 
-                {/* Infrastructure Highlights Pill Row (Enlarged Presence) */}
+                {/* Infrastructure Highlights Pill Row with Golden Accents */}
                 <div className="flex flex-wrap items-center gap-3 sm:gap-3.5">
                   <div className="inline-flex items-center gap-2.5 px-4.5 py-2 sm:px-5 sm:py-2.5 rounded-full bg-white/[0.1] border border-white/15 text-white text-[13px] sm:text-[13.5px] font-sans font-medium shadow-xs">
-                    <span className="w-2 h-2 rounded-full bg-[#38BDF8] shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-[#F59E0B] shrink-0 shadow-[0_0_8px_rgba(245,158,11,0.6)]" />
                     <span>Automatic Water-Jet Machinery</span>
                   </div>
                   <div className="inline-flex items-center gap-2.5 px-4.5 py-2 sm:px-5 sm:py-2.5 rounded-full bg-white/[0.1] border border-white/15 text-white text-[13px] sm:text-[13.5px] font-sans font-medium shadow-xs">
-                    <span className="w-2 h-2 rounded-full bg-[#38BDF8] shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-[#F59E0B] shrink-0 shadow-[0_0_8px_rgba(245,158,11,0.6)]" />
                     <span>6 Lac Meters / Month</span>
                   </div>
                 </div>
@@ -484,15 +466,15 @@ export default function AboutUsPage() {
                   alt="Viral Fabrics High Speed Water-Jet Weaving Machinery with Purple Fabric Roll"
                   fill
                   sizes="100vw"
-                  className="object-cover object-center"
+                  className="object-cover object-[10%_center]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A2240] via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-0 inset-x-0 h-[2px] bg-[#38BDF8]" />
+                <div className="absolute bottom-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#F59E0B] to-transparent" />
               </div>
 
               {/* Dark Navy Content Area on Mobile (Enlarged & Highly Legible) */}
               <div className="p-7 sm:p-9 text-white space-y-4 sm:space-y-5">
-                <span className="font-sans text-[12px] font-bold tracking-[0.24em] uppercase text-[#38BDF8] block">
+                <span className="font-sans text-[12px] font-bold tracking-[0.24em] uppercase text-[#FDE68A] block">
                   OUR CAPABILITIES
                 </span>
 
@@ -506,11 +488,11 @@ export default function AboutUsPage() {
 
                 <div className="flex flex-wrap items-center gap-2.5 pt-1">
                   <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.1] border border-white/15 text-white text-[12.5px] font-sans font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B] shadow-[0_0_6px_rgba(245,158,11,0.6)]" />
                     <span>Automatic Water-Jet Machinery</span>
                   </div>
                   <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.1] border border-white/15 text-white text-[12.5px] font-sans font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B] shadow-[0_0_6px_rgba(245,158,11,0.6)]" />
                     <span>6 Lac Meters / Month</span>
                   </div>
                 </div>
