@@ -73,26 +73,19 @@ const TESTIMONIALS: Testimonial[] = [
 const TOTAL = TESTIMONIALS.length; // 6
 
 export const TestimonialsSection: React.FC = () => {
-  // Active testimonial index (0..5) - always pointing to the center zoomed card
+  // Active testimonial index (0..5) - always locked DEAD CENTER
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Animation direction & offset state
-  // 0: idle at center; -1: sliding next (moving left); 1: sliding prev (moving right)
-  const [slideDirection, setSlideDirection] = useState<'idle' | 'next' | 'prev'>('idle');
   const [isPaused, setIsPaused] = useState(false);
-  const isAnimatingRef = useRef(false);
-
-  // Responsive: on small screens, center card takes 100% width
   const [isMobile, setIsMobile] = useState(false);
 
-  // Touch Swipe for Mobile
+  // Mobile swipe support
   const touchStartXRef = useRef<number | null>(null);
   const touchEndXRef = useRef<number | null>(null);
 
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Detect mobile viewport
+  // Responsive mobile detection
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -102,7 +95,7 @@ export const TestimonialsSection: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Intersection Observer for smooth entrance
+  // Intersection Observer for graceful entrance
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -118,45 +111,17 @@ export const TestimonialsSection: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Smooth circular NEXT action (Glitch-Free)
+  // Butter-Smooth Navigation Actions (Pure GPU transition, zero timers)
   const handleNext = useCallback(() => {
-    if (isAnimatingRef.current) return;
-    isAnimatingRef.current = true;
-    setSlideDirection('next');
-
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % TOTAL);
-      setSlideDirection('idle');
-      isAnimatingRef.current = false;
-    }, 460);
+    setCurrentIndex((prev) => (prev + 1) % TOTAL);
   }, []);
 
-  // Smooth circular PREV action (Glitch-Free)
   const handlePrev = useCallback(() => {
-    if (isAnimatingRef.current) return;
-    isAnimatingRef.current = true;
-    setSlideDirection('prev');
-
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev - 1 + TOTAL) % TOTAL);
-      setSlideDirection('idle');
-      isAnimatingRef.current = false;
-    }, 460);
+    setCurrentIndex((prev) => (prev - 1 + TOTAL) % TOTAL);
   }, []);
 
-  // Direct dot navigation
   const goToSlide = (targetIdx: number) => {
-    if (isAnimatingRef.current || targetIdx === currentIndex) return;
-    isAnimatingRef.current = true;
-    const diff = (targetIdx - currentIndex + TOTAL) % TOTAL;
-    const direction = diff <= TOTAL / 2 ? 'next' : 'prev';
-    setSlideDirection(direction);
-
-    setTimeout(() => {
-      setCurrentIndex(targetIdx);
-      setSlideDirection('idle');
-      isAnimatingRef.current = false;
-    }, 460);
+    setCurrentIndex(targetIdx);
   };
 
   // Autoplay every 5s (pauses on hover)
@@ -190,20 +155,87 @@ export const TestimonialsSection: React.FC = () => {
     touchEndXRef.current = null;
   };
 
-  // 5-slot circular window relative to currentIndex
-  // Slots: -2 (off left), -1 (left visible), 0 (center zoomed), 1 (right visible), 2 (off right)
-  const slotOffsets = isMobile ? [-1, 0, 1] : [-2, -1, 0, 1, 2];
-  const slotWidth = isMobile ? 100 : 33.333333;
+  // Calculate circular distance from currentIndex (-2, -1, 0, 1, 2, 3)
+  const getDiff = (itemIndex: number) => {
+    let diff = (itemIndex - currentIndex) % TOTAL;
+    if (diff > TOTAL / 2) diff -= TOTAL;
+    if (diff <= -TOTAL / 2) diff += TOTAL;
+    return diff;
+  };
 
-  // Track transform calculation based on direction
-  // Base transform keeps slot 0 in the center
-  const basePercent = isMobile ? -100 : -33.333333;
-  let transformTranslate = basePercent;
-  if (slideDirection === 'next') {
-    transformTranslate = basePercent - slotWidth;
-  } else if (slideDirection === 'prev') {
-    transformTranslate = basePercent + slotWidth;
-  }
+  // Get exact GPU-accelerated 3D slot position for each card
+  const getCardStyle = (diff: number) => {
+    if (isMobile) {
+      if (diff === 0) {
+        return {
+          left: '50%',
+          transform: 'translate3d(-50%, -50%, 0) scale(1)',
+          opacity: 1,
+          zIndex: 20,
+          pointerEvents: 'auto' as const,
+        };
+      }
+      return {
+        left: diff > 0 ? '160%' : '-60%',
+        transform: 'translate3d(-50%, -50%, 0) scale(0.85)',
+        opacity: 0,
+        zIndex: 1,
+        pointerEvents: 'none' as const,
+      };
+    }
+
+    // Desktop / Tablet layout (3 visible cards: Left, Center, Right)
+    if (diff === 0) {
+      // Center active card: Dead Center (50%), zoomed, elevated, blue highlight
+      return {
+        left: '50%',
+        transform: 'translate3d(-50%, -50%, 0) scale(1.08)',
+        opacity: 1,
+        zIndex: 20,
+        pointerEvents: 'auto' as const,
+      };
+    }
+    if (diff === -1) {
+      // Left card: symmetrically placed on left
+      return {
+        left: 'calc(50% - clamp(290px, 32vw, 410px))',
+        transform: 'translate3d(-50%, -50%, 0) scale(0.90)',
+        opacity: 0.75,
+        zIndex: 10,
+        pointerEvents: 'auto' as const,
+        cursor: 'pointer',
+      };
+    }
+    if (diff === 1) {
+      // Right card: symmetrically placed on right
+      return {
+        left: 'calc(50% + clamp(290px, 32vw, 410px))',
+        transform: 'translate3d(-50%, -50%, 0) scale(0.90)',
+        opacity: 0.75,
+        zIndex: 10,
+        pointerEvents: 'auto' as const,
+        cursor: 'pointer',
+      };
+    }
+    if (diff <= -2) {
+      // Hidden off-stage left
+      return {
+        left: 'calc(50% - clamp(580px, 64vw, 840px))',
+        transform: 'translate3d(-50%, -50%, 0) scale(0.75)',
+        opacity: 0,
+        zIndex: 1,
+        pointerEvents: 'none' as const,
+      };
+    }
+    // diff >= 2: Hidden off-stage right
+    return {
+      left: 'calc(50% + clamp(580px, 64vw, 840px))',
+      transform: 'translate3d(-50%, -50%, 0) scale(0.75)',
+      opacity: 0,
+      zIndex: 1,
+      pointerEvents: 'none' as const,
+    };
+  };
 
   return (
     <section
@@ -229,7 +261,7 @@ export const TestimonialsSection: React.FC = () => {
       </div>
 
       {/* =========================================================
-          CONTENT CANVAS (Centered Editorial Layout matching Mockup)
+          CONTENT CANVAS (Centered Editorial Layout)
          ========================================================= */}
       <div className="relative z-10 w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-14">
 
@@ -266,7 +298,7 @@ export const TestimonialsSection: React.FC = () => {
         </div>
 
         {/* -------------------------------------------------------------
-            2. CAROUSEL STAGE WITH CENTER ZOOM & LATERAL NAVIGATION BUTTONS
+            2. BUTTER-SMOOTH 3D CAROUSEL STAGE (Original Clean Editorial Vibe)
            ------------------------------------------------------------- */}
         <div className="relative max-w-6xl xl:max-w-7xl mx-auto flex items-center justify-center gap-2 sm:gap-4 lg:gap-5">
 
@@ -274,120 +306,111 @@ export const TestimonialsSection: React.FC = () => {
           <button
             type="button"
             onClick={handlePrev}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white shadow-[0_4px_18px_rgba(15,23,42,0.12)] border border-slate-200/90 flex items-center justify-center text-[#1E3A5F] hover:bg-[#1E5FA8] hover:text-white hover:border-[#1E5FA8] transition-all duration-300 flex-shrink-0 z-30 cursor-pointer hover:scale-105 active:scale-95 focus:outline-none"
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white shadow-[0_4px_18px_rgba(15,23,42,0.12)] border border-slate-200/90 flex items-center justify-center text-[#1E3A5F] hover:bg-[#1E5FA8] hover:text-white hover:border-[#1E5FA8] transition-all duration-300 flex-shrink-0 z-30 cursor-pointer hover:scale-105 active:scale-95 focus:outline-none"
             aria-label="Previous testimonial"
           >
-            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
           </button>
 
-          {/* Carousel Window */}
+          {/* Carousel Stage Container */}
           <div
-            className="flex-1 overflow-hidden py-6 sm:py-8"
+            className="relative flex-1 h-[390px] sm:h-[410px] lg:h-[420px] overflow-hidden"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            <div
-              className="flex items-center"
-              style={{
-                transform: `translateX(${transformTranslate}%)`,
-                transition:
-                  slideDirection !== 'idle'
-                    ? 'transform 450ms cubic-bezier(0.16, 1, 0.3, 1)'
-                    : 'none',
-              }}
-            >
-              {slotOffsets.map((offset) => {
-                // Circular wrapping guarantees an authentic testimonial is always present
-                const itemIndex = (currentIndex + offset + TOTAL * 10) % TOTAL;
-                const item = TESTIMONIALS[itemIndex];
-                const isCenter = offset === 0;
+            {TESTIMONIALS.map((item, idx) => {
+              const diff = getDiff(idx);
+              const isCenter = diff === 0;
+              const cardStyle = getCardStyle(diff);
 
-                return (
-                  <div
-                    key={`${item.id}-${offset}`}
-                    className="flex-shrink-0 px-2 sm:px-3 lg:px-3.5 transition-all duration-450"
-                    style={{
-                      width: `${slotWidth}%`,
-                    }}
-                    onClick={() => {
-                      if (offset === -1) handlePrev();
-                      if (offset === 1) handleNext();
-                    }}
-                  >
-                    <div
-                      className={`group relative h-full min-h-[280px] sm:min-h-[300px] flex flex-col justify-between p-6 sm:p-7 lg:p-8 rounded-[24px] sm:rounded-[28px] transition-all duration-500 ease-out ${
-                        isCenter
-                          ? 'scale-105 sm:scale-108 lg:scale-110 bg-white border-2 border-[#1E5FA8]/50 shadow-[0_22px_50px_rgba(30,95,168,0.20)] z-20 opacity-100 ring-4 ring-[#1E5FA8]/5'
-                          : 'scale-92 sm:scale-90 bg-white/95 backdrop-blur-xs border border-slate-200/80 shadow-[0_6px_22px_rgba(15,23,42,0.06)] opacity-75 hover:opacity-90 z-10 cursor-pointer hover:shadow-[0_10px_28px_rgba(15,23,42,0.08)]'
-                      }`}
-                    >
-                      {/* Top Row: Blue Quote Icon + 5 Gold Stars */}
-                      <div className="flex items-center justify-between mb-4">
-                        {/* Custom Blue Double Quote Icon */}
-                        <div className="text-[#1E5FA8] opacity-95 group-hover:scale-110 transition-transform duration-300">
-                          <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
-                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                          </svg>
-                        </div>
+              return (
+                <div
+                  key={item.id}
+                  style={cardStyle}
+                  onClick={() => {
+                    if (diff === -1) handlePrev();
+                    if (diff === 1) handleNext();
+                  }}
+                  className={`absolute top-1/2 w-[330px] sm:w-[370px] lg:w-[395px] xl:w-[415px] min-h-[290px] sm:min-h-[310px] flex flex-col justify-between p-6 sm:p-7 lg:p-8 rounded-[26px] sm:rounded-[28px] transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] select-none ${
+                    isCenter
+                      ? 'bg-white border-2 border-[#1E5FA8]/60 shadow-[0_22px_50px_rgba(30,95,168,0.20)] ring-4 ring-[#1E5FA8]/5 z-20 opacity-100'
+                      : 'bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-[0_6px_22px_rgba(15,23,42,0.06)] hover:shadow-[0_10px_28px_rgba(15,23,42,0.10)] hover:opacity-90 z-10'
+                  }`}
+                >
+                  {/* Top Row: Blue Quote Icon + 5 Gold Stars (Matching Original Clean Vibe) */}
+                  <div className="flex items-center justify-between mb-4">
+                    {/* Custom Blue Double Quote Icon */}
+                    <div className="text-[#1E5FA8] opacity-95 group-hover:scale-110 transition-transform duration-300">
+                      <svg
+                        className="w-8 h-8 fill-current drop-shadow-[0_2px_4px_rgba(30,95,168,0.15)]"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                      </svg>
+                    </div>
 
-                        {/* 5 Golden Stars */}
-                        <div className="flex items-center gap-1 text-[#F59E0B]">
-                          {[...Array(item.stars)].map((_, sIdx) => (
-                            <svg
-                              key={sIdx}
-                              className="w-4 h-4 fill-current drop-shadow-[0_1px_2px_rgba(245,158,11,0.25)]"
-                              viewBox="0 0 20 20"
-                            >
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Middle: Client Quote */}
-                      <p className="font-sans text-[13px] sm:text-[13.5px] lg:text-[14px] text-slate-700 font-normal leading-[1.65] my-auto">
-                        &ldquo;{item.quote}&rdquo;
-                      </p>
-
-                      {/* Bottom: Client Profile with Round Avatar & Details (Matching Mockup) */}
-                      <div className="pt-4 mt-4 border-t border-slate-100 flex items-center gap-3">
-                        {/* Circular Avatar / Monogram */}
-                        <div
-                          className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-[13px] tracking-wider shrink-0 transition-transform ${
-                            isCenter
-                              ? 'bg-gradient-to-br from-[#1E5FA8] to-[#0A2E52] text-white shadow-sm ring-2 ring-[#1E5FA8]/20'
-                              : 'bg-slate-100 text-slate-700'
-                          }`}
+                    {/* 5 Golden Stars */}
+                    <div className="flex items-center gap-1 text-[#F59E0B]">
+                      {[...Array(item.stars)].map((_, sIdx) => (
+                        <svg
+                          key={sIdx}
+                          className="w-4 h-4 fill-current drop-shadow-[0_1px_2px_rgba(245,158,11,0.25)]"
+                          viewBox="0 0 20 20"
                         >
-                          {item.initials}
-                        </div>
-
-                        {/* Name & Role */}
-                        <div className="text-left min-w-0">
-                          <p className="font-heading text-[15px] sm:text-[16px] font-bold text-[#1E3A5F] tracking-tight truncate">
-                            {item.author}
-                          </p>
-                          <p className="font-sans text-[11.5px] sm:text-[12px] text-slate-500 font-normal truncate mt-0.5">
-                            {item.role}
-                          </p>
-                        </div>
-                      </div>
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
                     </div>
                   </div>
-                );
-              })}
-            </div>
+
+                  {/* Middle: Client Quote */}
+                  <p
+                    className={`font-sans leading-[1.65] my-auto ${
+                      isCenter
+                        ? 'text-[13.5px] lg:text-[14px] text-slate-700 font-normal'
+                        : 'text-[13px] sm:text-[13.5px] text-slate-600 font-normal line-clamp-4'
+                    }`}
+                  >
+                    &ldquo;{item.quote}&rdquo;
+                  </p>
+
+                  {/* Bottom: Client Profile with Round Avatar & Details (Original Clean Vibe) */}
+                  <div className="pt-4 mt-4 border-t border-slate-100 flex items-center gap-3">
+                    {/* Circular Avatar / Monogram */}
+                    <div
+                      className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-[13px] tracking-wider shrink-0 transition-transform ${
+                        isCenter
+                          ? 'bg-gradient-to-br from-[#1E5FA8] to-[#0A2E52] text-white shadow-sm ring-2 ring-[#1E5FA8]/20'
+                          : 'bg-slate-100 text-slate-700'
+                      }`}
+                    >
+                      {item.initials}
+                    </div>
+
+                    {/* Name & Role */}
+                    <div className="text-left min-w-0">
+                      <p className="font-heading text-[15px] sm:text-[16px] font-bold text-[#1E3A5F] tracking-tight truncate">
+                        {item.author}
+                      </p>
+                      <p className="font-sans text-[11.5px] sm:text-[12px] text-slate-500 font-normal truncate mt-0.5">
+                        {item.role}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           {/* Right Arrow Button */}
           <button
             type="button"
             onClick={handleNext}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white shadow-[0_4px_18px_rgba(15,23,42,0.12)] border border-slate-200/90 flex items-center justify-center text-[#1E3A5F] hover:bg-[#1E5FA8] hover:text-white hover:border-[#1E5FA8] transition-all duration-300 flex-shrink-0 z-30 cursor-pointer hover:scale-105 active:scale-95 focus:outline-none"
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white shadow-[0_4px_18px_rgba(15,23,42,0.12)] border border-slate-200/90 flex items-center justify-center text-[#1E3A5F] hover:bg-[#1E5FA8] hover:text-white hover:border-[#1E5FA8] transition-all duration-300 flex-shrink-0 z-30 cursor-pointer hover:scale-105 active:scale-95 focus:outline-none"
             aria-label="Next testimonial"
           >
-            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+            <ChevronRight className="w-5 h-5 stroke-[2.2]" />
           </button>
         </div>
 
