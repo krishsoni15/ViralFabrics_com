@@ -177,9 +177,9 @@ export function PageHeroBanner({
   return (
     <div ref={bannerRef} className="w-full">
       {/* =====================================================================
-          1. TOP HERO BANNER (Compact & Minimalist with Agnes Toth Unblur Sweep)
+          1. TOP HERO BANNER (Luxurious Editorial Height with Agnes Toth Unblur Sweep)
          ===================================================================== */}
-      <section className="relative pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 flex items-center overflow-hidden bg-[#0A192F]">
+      <section className="relative pt-28 sm:pt-36 lg:pt-40 pb-12 sm:pb-16 lg:pb-20 min-h-[340px] sm:min-h-[390px] lg:min-h-[430px] flex items-center overflow-hidden bg-[#0A192F]">
         {/* Banner Graphic Canvas (Poster Image + Optional Smooth Streaming Background Video) */}
         <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
           {/* Base Fallback Image (always loads fast with priority, visible before video is buffered) */}
@@ -210,24 +210,25 @@ export function PageHeroBanner({
             />
           )}
 
-          {/* Subtle horizontal and top scrims for transparent navbar clarity and text legibility */}
+          {/* Subtle horizontal, top, and bottom scrims for transparent navbar clarity, rich shade & text legibility */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#061426]/90 via-[#061426]/60 to-transparent pointer-events-none z-10" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#061426]/75 via-[#061426]/20 to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#061426]/80 via-[#061426]/20 to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#061426]/60 to-transparent pointer-events-none z-10" />
         </div>
 
         {/* Content Aligned with Main Container */}
         <div className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12">
           <div className="max-w-2xl text-white">
             {/* Title with Vertical Blue Accent Bar */}
-            <div className="flex items-start gap-3 sm:gap-3.5">
+            <div className="flex items-start gap-3 sm:gap-4">
               <div
                 ref={barRef}
-                className="w-[3.5px] sm:w-1 h-9 sm:h-11 bg-[#0084D1] rounded-full flex-shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,132,209,0.7)] will-change-transform"
+                className="w-[3.5px] sm:w-1 h-10 sm:h-12 lg:h-14 bg-[#0084D1] rounded-full flex-shrink-0 mt-0.5 shadow-[0_0_12px_rgba(0,132,209,0.7)] will-change-transform"
               />
-              <div className="space-y-0.5 sm:space-y-1">
+              <div className="space-y-1 sm:space-y-1.5">
                 <h1
                   ref={headlineRef}
-                  className="font-heading font-serif text-3xl sm:text-4xl lg:text-[42px] font-normal text-white tracking-tight leading-none drop-shadow-sm select-none"
+                  className="font-heading font-serif text-3xl sm:text-4xl lg:text-[46px] font-normal text-white tracking-tight leading-[1.1] drop-shadow-sm select-none"
                 >
                   {words.map((item, wordIdx) => (
                     <span
@@ -248,7 +249,7 @@ export function PageHeroBanner({
 
                 <p
                   ref={subtitleRef}
-                  className="font-sans text-[12.5px] sm:text-[13.5px] text-white/90 font-light tracking-wide drop-shadow-sm will-change-[transform,opacity,filter]"
+                  className="font-sans text-[13px] sm:text-[14px] lg:text-[15px] text-white/90 font-light tracking-wide drop-shadow-sm will-change-[transform,opacity,filter]"
                 >
                   {subtitle}
                 </p>
@@ -259,7 +260,7 @@ export function PageHeroBanner({
             {badges && badges.length > 0 && (
               <div
                 ref={badgesRef}
-                className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 sm:mt-5 text-[11.5px] sm:text-[12.5px] font-sans font-medium text-white/90 will-change-[transform,opacity,filter]"
+                className="flex flex-wrap items-center gap-3 sm:gap-4 mt-5 sm:mt-6 text-[12px] sm:text-[13px] font-sans font-medium text-white/90 will-change-[transform,opacity,filter]"
               >
                 {badges.map((badge, idx) => {
                   const Icon = badge.icon;
