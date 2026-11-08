@@ -216,7 +216,7 @@ export function WhoWeAreSection() {
     <section 
       id="who-we-are" 
       ref={sectionRef}
-      className="relative w-full text-[#2e3937] pt-36 sm:pt-42 md:pt-46 lg:pt-50 xl:pt-54 pb-40 sm:pb-48 md:pb-52 lg:pb-60 xl:pb-64 overflow-hidden selection:bg-[#375785] selection:text-white"
+      className="relative w-full text-[#2e3937] pt-48 sm:pt-56 md:pt-64 lg:pt-72 xl:pt-80 pb-36 sm:pb-44 md:pb-48 lg:pb-52 xl:pb-56 overflow-hidden selection:bg-[#375785] selection:text-white"
     >
       {/* Seamless transition underlay for the bottom torn edge into Fabrics Portfolio (#F5F5F5) */}
       <div 
@@ -373,7 +373,7 @@ export function WhoWeAreSection() {
         </div>
 
         {/* FOUR MINIMALIST METRIC ITEMS - Darker, High-Contrast Typography for 100% Visibility */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8 pt-7 sm:pt-9 lg:pt-10 border-t border-slate-300/80 mt-12 sm:mt-16 lg:mt-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8 pt-7 sm:pt-9 lg:pt-10 border-t border-slate-300/80 mt-8 sm:mt-11 lg:mt-14">
           
           {/* Metric 01: Monthly Capacity */}
           <div className="space-y-1.5 group">
