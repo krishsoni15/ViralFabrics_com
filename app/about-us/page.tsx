@@ -177,6 +177,9 @@ export default function AboutUsPage() {
       <PageHeroBanner
         title="About Us"
         subtitle="From Around The Fabrics World"
+        bgVideo="/videos/about-hero-720p.mp4"
+        bgVideoPoster="/images/about/about-hero-poster.webp"
+        bgImage="/images/about/about-hero-poster.webp"
         bgAlt="About Viral Fabrics - Surat Fabric Manufacturer"
       />
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import gsap from 'gsap';
@@ -20,6 +20,8 @@ export interface PageHeroBannerProps {
   title: string;
   subtitle?: string;
   bgImage?: string;
+  bgVideo?: string;
+  bgVideoPoster?: string;
   bgAlt?: string;
   badges?: TrustBadgeItem[];
   breadcrumbs?: BreadcrumbItem[];
@@ -35,15 +37,32 @@ export function PageHeroBanner({
   title,
   subtitle = 'From Around The Fabrics World',
   bgImage = '/images/enquiry/enquiry-hero-bg.jpg',
+  bgVideo,
+  bgVideoPoster,
   bgAlt = 'Viral Fabrics - Surat Synthetic Textile Manufacturer',
   badges = DEFAULT_BADGES,
   breadcrumbs,
 }: PageHeroBannerProps) {
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const bannerRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const badgesRef = useRef<HTMLDivElement>(null);
+
+  // Attempt video autoplay safely without throwing unhandled exceptions
+  useEffect(() => {
+    if (bgVideo && videoRef.current) {
+      const v = videoRef.current;
+      v.play()
+        .then(() => setVideoPlaying(true))
+        .catch(() => {
+          // Autoplay policy or low power mode prevented playback, fallback poster stays cleanly visible
+        });
+    }
+  }, [bgVideo]);
 
   // Split title into words and characters for the Agnes Toth directional left-to-right unblur sweep
   const words = React.useMemo(() => {
@@ -161,19 +180,39 @@ export function PageHeroBanner({
           1. TOP HERO BANNER (Compact & Minimalist with Agnes Toth Unblur Sweep)
          ===================================================================== */}
       <section className="relative pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 flex items-center overflow-hidden bg-[#0A192F]">
-        {/* Banner Graphic Canvas */}
-        <div className="absolute inset-0 z-0 pointer-events-none select-none">
+        {/* Banner Graphic Canvas (Poster Image + Optional Smooth Streaming Background Video) */}
+        <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+          {/* Base Fallback Image (always loads fast with priority, visible before video is buffered) */}
           <Image
-            src={bgImage}
+            src={bgVideoPoster || bgImage}
             alt={bgAlt}
             fill
             sizes="100vw"
             className="object-cover object-center"
             priority
           />
-          {/* Subtle horizontal and top scrims for transparent navbar clarity */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#061426]/90 via-[#061426]/55 to-transparent pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#061426]/75 via-[#061426]/20 to-transparent pointer-events-none" />
+
+          {/* Optional Web-Optimized Background Video */}
+          {bgVideo && (
+            <video
+              ref={videoRef}
+              src={bgVideo}
+              poster={bgVideoPoster || bgImage}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              onPlaying={() => setVideoPlaying(true)}
+              className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-out ${
+                videoPlaying ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          )}
+
+          {/* Subtle horizontal and top scrims for transparent navbar clarity and text legibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#061426]/90 via-[#061426]/60 to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#061426]/75 via-[#061426]/20 to-transparent pointer-events-none z-10" />
         </div>
 
         {/* Content Aligned with Main Container */}
