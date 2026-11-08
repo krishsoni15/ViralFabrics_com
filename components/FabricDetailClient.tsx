@@ -6,16 +6,10 @@ import Link from 'next/link';
 import {
   ArrowRight,
   ArrowLeft,
-  CheckCircle2,
-  Sparkles,
-  Layers,
-  SlidersHorizontal,
   X,
   Phone,
   Mail,
   FileText,
-  ShieldCheck,
-  Check,
 } from 'lucide-react';
 import type { LiveFabric } from '@/lib/fabricsService';
 
@@ -36,7 +30,7 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // WhatsApp enquiry deep link
+  // WhatsApp enquiry deep link for the popup modal
   const getWhatsAppUrl = () => {
     const text = `Hello Viral Fabrics,\n\nI am inquiring about *${fabric.name}* (${fabric.gsmRange || 'Export Quality'}).\n\nWeave: ${fabric.weaveType || 'Standard'}\n\nPlease share price per meter, shade chart, and minimum order quantity (MOQ).\n\nThank you!`;
     return `https://wa.me/919427988999?text=${encodeURIComponent(text)}`;
@@ -45,22 +39,27 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
   return (
     <>
       <section className="relative z-10 py-16 sm:py-24 bg-white shadow-[0_-25px_60px_rgba(0,0,0,0.18)]">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
           
           <div
-            className={`grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start transition-all duration-700 ease-out ${
+            className={`grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center transition-all duration-700 ease-out ${
               isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
             
             {/* =========================================================
-                LEFT COLUMN: HAUTE-COUTURE FABRIC IMAGE & MICRO SPECS
+                1. PHOTO SHOWCASE (WITH DECORATIVE ACCENT SHAPE)
                ========================================================= */}
-            <div className="lg:col-span-6 space-y-5">
+            <div className="lg:col-span-6 relative">
               
-              {/* Premium Image Frame */}
-              <div className="group relative w-full aspect-[4/3] rounded-[26px] overflow-hidden bg-slate-100 border border-slate-200/90 shadow-[0_16px_45px_rgba(15,23,42,0.08)]">
-                
+              {/* Soft decorative accent disc behind photo (Viral Fabrics signature) */}
+              <div 
+                className="absolute -top-6 -left-6 w-32 h-32 sm:w-44 sm:h-44 rounded-full bg-[#E25C6A]/25 -z-10 pointer-events-none transition-transform duration-700 hover:scale-105"
+                aria-hidden="true"
+              />
+
+              {/* Main Fabric Photo Frame */}
+              <div className="group relative w-full aspect-[4/3] rounded-[24px] sm:rounded-[28px] overflow-hidden bg-slate-100 border border-slate-200/90 shadow-[0_16px_45px_rgba(15,23,42,0.08)]">
                 <Image
                   src={fabric.image}
                   alt={fabric.name}
@@ -71,185 +70,51 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
                 />
 
                 {/* Subtle Luxury Vignette Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/25 via-transparent to-transparent pointer-events-none" />
 
-                {/* Overlaid Badge: Top Left Export Grade */}
-                <div className="absolute top-4 left-4 z-10">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-semibold tracking-[0.16em] uppercase border border-white/20 shadow-md">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    EXPORT GRADE
-                  </span>
-                </div>
-
-                {/* Overlaid Badge: Top Right GSM Range */}
+                {/* Optional subtle GSM pill */}
                 {fabric.gsmRange && (
-                  <div className="absolute top-4 right-4 z-10">
-                    <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-slate-900 text-[11px] font-semibold tracking-wider border border-white/60 shadow-md">
+                  <div className="absolute bottom-4 right-4 z-10">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-slate-900 text-[11px] font-medium tracking-wide border border-white/60 shadow-xs">
                       {fabric.gsmRange}
                     </span>
                   </div>
                 )}
-
-                {/* Overlaid Bottom Title Strip */}
-                <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center justify-between text-white/90 text-[11px]">
-                  <span className="font-light tracking-wide drop-shadow-sm">
-                    Viral Fabrics &bull; Surat Weaving Unit
-                  </span>
-                  <span className="text-white/70 font-mono text-[10px] uppercase">
-                    100% Make-To-Order
-                  </span>
-                </div>
-              </div>
-
-              {/* Dynamic Micro Specs Strip */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                
-                {/* Micro Stat: GSM */}
-                <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-slate-200/80">
-                  <span className="text-[10px] font-semibold tracking-[0.16em] uppercase text-slate-400 block mb-1">
-                    WEIGHT (GSM)
-                  </span>
-                  <p className="font-heading font-serif text-lg text-brand-ink font-medium">
-                    {fabric.gsmRange || 'Customizable'}
-                  </p>
-                </div>
-
-                {/* Micro Stat: Weave */}
-                <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-slate-200/80">
-                  <span className="text-[10px] font-semibold tracking-[0.16em] uppercase text-slate-400 block mb-1">
-                    WEAVE TYPE
-                  </span>
-                  <p className="font-sans text-[12.5px] text-brand-ink font-medium truncate" title={fabric.weaveType}>
-                    {fabric.weaveType ? fabric.weaveType.split(' ')[0] + ' ' + (fabric.weaveType.split(' ')[1] || '') : 'Water-Jet'}
-                  </p>
-                </div>
-
-                {/* Micro Stat: Origin */}
-                <div className="col-span-2 sm:col-span-1 p-4 rounded-2xl bg-[#FAF8F5] border border-slate-200/80">
-                  <span className="text-[10px] font-semibold tracking-[0.16em] uppercase text-slate-400 block mb-1">
-                    ORIGIN &amp; DISPATCH
-                  </span>
-                  <p className="font-sans text-[12.5px] text-brand-ink font-medium">
-                    Surat, Gujarat, India
-                  </p>
-                </div>
-
               </div>
 
             </div>
 
             {/* =========================================================
-                RIGHT COLUMN: DYNAMIC FABRIC DETAILS & SPECIFICATIONS
+                2. TITLE, DIVIDER, DESCRIPTION & BUTTONS ONLY
                ========================================================= */}
-            <div className="lg:col-span-6 space-y-7">
+            <div className="lg:col-span-6 space-y-6">
               
-              {/* Category Eyebrow & Title */}
+              {/* 2. Title */}
               <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <span className="agnes-eyebrow !tracking-[0.24em] !text-[11px] !text-[#006DB6]">
-                    SYNTHETIC FABRIC SPECIFICATION
-                  </span>
-                  <span className="text-slate-300">&bull;</span>
-                  <span className="text-[11px] font-medium text-slate-500">
-                    High-Speed Looms
-                  </span>
-                </div>
-
-                <h1 className="font-heading font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-brand-ink tracking-tight">
+                <h1 className="font-heading font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#0A192F] tracking-tight">
                   {fabric.name}
                 </h1>
 
-                {/* Editorial Description (Clean, Readable Typography) */}
-                <p className="text-slate-600 text-base sm:text-[17px] font-light leading-relaxed pt-1">
+                {/* Diamond Accent Divider (matching original Viral Fabrics signature) */}
+                <div className="flex items-center gap-2.5 pt-1">
+                  <div className="w-3.5 h-3.5 rotate-45 border-[1.5px] border-[#006DB6] bg-white flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 bg-[#006DB6]" />
+                  </div>
+                  <div className="w-12 h-[2px] bg-[#006DB6]/80 rounded-full" />
+                </div>
+              </div>
+
+              {/* 3. Description (Clean Left Blue Accent Line from original design) */}
+              <div className="border-l-2 border-[#006DB6] pl-5 py-1">
+                <p className="text-slate-700 text-base sm:text-[17px] font-light leading-relaxed">
                   {fabric.description}
                 </p>
               </div>
 
-              {/* Dynamic Weave Details (if available) */}
-              {fabric.weaveType && (
-                <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/80 border border-slate-200/80 flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-[#006DB6] shrink-0 mt-0.5 shadow-xs">
-                    <Layers className="w-4 h-4 stroke-[2]" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-400 block mb-0.5">
-                      WEAVE STRUCTURE &amp; CONSTRUCTION
-                    </span>
-                    <p className="text-[14px] font-medium text-brand-ink">
-                      {fabric.weaveType}
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {/* Dynamic Distinctive Features (Checklist) */}
-              {fabric.features && fabric.features.length > 0 && (
-                <div className="space-y-3 pt-1">
-                  <h3 className="text-[11px] font-bold tracking-[0.2em] uppercase text-brand-ink flex items-center gap-2">
-                    <Sparkles className="w-3.5 h-3.5 text-[#006DB6]" />
-                    <span>DISTINCTIVE FABRIC QUALITIES</span>
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {fabric.features.map((feature, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-start gap-2.5 p-3 rounded-xl bg-[#FAF8F5]/80 border border-slate-200/70"
-                      >
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span className="text-[13px] text-slate-700 font-light leading-snug">
-                          {feature}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Dynamic Recommended Applications / End-Uses */}
-              {fabric.applications && fabric.applications.length > 0 && (
-                <div className="space-y-2.5 pt-1">
-                  <h3 className="text-[11px] font-bold tracking-[0.2em] uppercase text-brand-ink">
-                    RECOMMENDED APPLICATIONS &amp; END-USES
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {fabric.applications.map((app, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1.5 rounded-full text-[12px] font-normal text-slate-700 bg-white border border-slate-200/90 shadow-2xs hover:border-[#006DB6]/40 transition-colors"
-                      >
-                        {app}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Dynamic Finishing & Dyeing Techniques */}
-              {fabric.finishing && fabric.finishing.length > 0 && (
-                <div className="space-y-2 pt-1">
-                  <h3 className="text-[11px] font-bold tracking-[0.2em] uppercase text-brand-ink flex items-center gap-2">
-                    <SlidersHorizontal className="w-3.5 h-3.5 text-slate-500" />
-                    <span>FINISHING &amp; PROCESSING OPTIONS</span>
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {fabric.finishing.map((finish, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1 rounded-lg text-[11.5px] font-medium text-slate-600 bg-slate-100/90 border border-slate-200/70"
-                      >
-                        {finish}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* =========================================================
-                  ACTION ROW: WHO WE ARE POLYGON ENQUIRE BUTTON & WHATSAPP
-                 ========================================================= */}
-              <div className="pt-5 border-t border-slate-200/80 flex flex-wrap items-center gap-4">
+              {/* 4. Action Buttons: ENQUIRE NOW + Back to Fabrics */}
+              <div className="pt-4 flex flex-wrap items-center gap-4">
                 
-                {/* Primary: Who We Are Polygon ENQUIRE NOW Button */}
+                {/* Primary: Who We Are Signature Polygon ENQUIRE NOW Button */}
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(true)}
@@ -267,30 +132,13 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
                   <ArrowRight className="relative z-10 w-3.5 h-3.5 stroke-[2.2] transition-transform duration-300 group-hover:translate-x-1" />
                 </button>
 
-                {/* Secondary: WhatsApp Instant Export Quote Button */}
-                <a
-                  href={getWhatsAppUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 h-12 px-6 rounded-sm text-[11.5px] font-semibold tracking-[0.14em] uppercase text-white bg-[#25D366] hover:bg-[#20ba59] transition-all duration-300 shadow-[0_2px_12px_rgba(37,211,102,0.25)] hover:shadow-[0_4px_18px_rgba(37,211,102,0.4)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer whitespace-nowrap"
-                >
-                  <svg
-                    className="w-4 h-4 fill-current shrink-0"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
-                  </svg>
-                  <span>WhatsApp Quote</span>
-                </a>
-
-                {/* Back to All Fabrics Link */}
+                {/* Secondary: Back to Fabrics Button */}
                 <Link
                   href="/fabrics"
-                  className="inline-flex items-center gap-1.5 text-[12px] font-medium text-slate-500 hover:text-brand-ink transition-colors px-3 py-2"
+                  className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-sm text-[11.5px] font-medium tracking-[0.12em] uppercase text-slate-600 hover:text-slate-900 border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 transition-all duration-200"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
-                  <span>Back to All Fabrics</span>
+                  <span>Back to Fabrics</span>
                 </Link>
 
               </div>
@@ -303,7 +151,7 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
       </section>
 
       {/* =========================================================
-          2-IN-1 QUICK ENQUIRY POPUP MODAL
+          2-IN-1 QUICK ENQUIRY POPUP MODAL (WHATSAPP + WEB FORM)
          ========================================================= */}
       {isModalOpen && (
         <div
@@ -358,7 +206,7 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
               </button>
             </div>
 
-            {/* Modal Body: 2 Primary Options */}
+            {/* Modal Body: 2 Primary Options (WhatsApp Instant Quote + Web Form) */}
             <div className="p-6 sm:p-7 space-y-4">
               <p className="text-[13px] text-slate-600 font-light leading-relaxed">
                 Connect directly with our Surat mill team. Choose how you would like to proceed with your sample request or bulk pricing:
