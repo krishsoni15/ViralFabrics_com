@@ -124,14 +124,14 @@ export const TestimonialsSection: React.FC = () => {
     setCurrentIndex(targetIdx);
   };
 
-  // Autoplay every 5s (pauses on hover)
+  // Continuous Right-to-Left Autoplay every 2.8s (User requested: 2-3 sec auto-rotation)
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
       handleNext();
-    }, 5000);
+    }, 2800);
     return () => clearInterval(interval);
-  }, [isPaused, handleNext]);
+  }, [isPaused, handleNext, currentIndex]);
 
   // Touch handlers for mobile swipe
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -173,6 +173,7 @@ export const TestimonialsSection: React.FC = () => {
           opacity: 1,
           zIndex: 20,
           pointerEvents: 'auto' as const,
+          visibility: 'visible' as const,
         };
       }
       return {
@@ -181,6 +182,7 @@ export const TestimonialsSection: React.FC = () => {
         opacity: 0,
         zIndex: 1,
         pointerEvents: 'none' as const,
+        visibility: 'hidden' as const,
       };
     }
 
@@ -193,6 +195,7 @@ export const TestimonialsSection: React.FC = () => {
         opacity: 1,
         zIndex: 20,
         pointerEvents: 'auto' as const,
+        visibility: 'visible' as const,
       };
     }
     if (diff === -1) {
@@ -204,6 +207,7 @@ export const TestimonialsSection: React.FC = () => {
         zIndex: 10,
         pointerEvents: 'auto' as const,
         cursor: 'pointer',
+        visibility: 'visible' as const,
       };
     }
     if (diff === 1) {
@@ -215,6 +219,7 @@ export const TestimonialsSection: React.FC = () => {
         zIndex: 10,
         pointerEvents: 'auto' as const,
         cursor: 'pointer',
+        visibility: 'visible' as const,
       };
     }
     if (diff <= -2) {
@@ -225,6 +230,7 @@ export const TestimonialsSection: React.FC = () => {
         opacity: 0,
         zIndex: 1,
         pointerEvents: 'none' as const,
+        visibility: diff === -2 ? ('visible' as const) : ('hidden' as const),
       };
     }
     // diff >= 2: Hidden off-stage right
@@ -234,6 +240,7 @@ export const TestimonialsSection: React.FC = () => {
       opacity: 0,
       zIndex: 1,
       pointerEvents: 'none' as const,
+      visibility: diff === 2 ? ('visible' as const) : ('hidden' as const),
     };
   };
 
@@ -332,7 +339,7 @@ export const TestimonialsSection: React.FC = () => {
                     if (diff === -1) handlePrev();
                     if (diff === 1) handleNext();
                   }}
-                  className={`absolute top-1/2 w-[330px] sm:w-[370px] lg:w-[395px] xl:w-[415px] min-h-[290px] sm:min-h-[310px] flex flex-col justify-between p-6 sm:p-7 lg:p-8 rounded-[26px] sm:rounded-[28px] transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] select-none ${
+                  className={`absolute top-1/2 w-[330px] sm:w-[370px] lg:w-[395px] xl:w-[415px] min-h-[290px] sm:min-h-[310px] flex flex-col justify-between p-6 sm:p-7 lg:p-8 rounded-[26px] sm:rounded-[28px] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] select-none ${
                     isCenter
                       ? 'bg-white border-2 border-[#1E5FA8]/60 shadow-[0_22px_50px_rgba(30,95,168,0.20)] ring-4 ring-[#1E5FA8]/5 z-20 opacity-100'
                       : 'bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-[0_6px_22px_rgba(15,23,42,0.06)] hover:shadow-[0_10px_28px_rgba(15,23,42,0.10)] hover:opacity-90 z-10'
