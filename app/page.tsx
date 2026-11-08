@@ -277,7 +277,7 @@ export default function HomePage() {
              - Slides UP over the pinned hero with organic torn fabric edge
              - Zero flat cut on initial load
       ----------------------------------------------------------------- */}
-      <div className="relative z-10 bg-[#FAF8F5]">
+      <div className="relative z-10 bg-transparent">
         <WhoWeAreSection />
         <FabricsPortfolioSection />
         <QualityPracticesSection />

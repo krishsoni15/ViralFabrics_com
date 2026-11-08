@@ -549,7 +549,7 @@ export const FabricsPortfolioSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="fabrics-portfolio"
-      className="relative w-full pt-6 sm:pt-8 lg:pt-10 pb-20 sm:pb-24 lg:pb-28 xl:pb-32 bg-[#FAF8F5] text-[#0A192F] overflow-hidden selection:bg-[#006DB6] selection:text-white"
+      className="relative w-full pt-10 sm:pt-12 lg:pt-16 pb-20 sm:pb-24 lg:pb-28 xl:pb-32 bg-[#FAF8F5] text-[#0A192F] overflow-hidden selection:bg-[#006DB6] selection:text-white"
     >
       <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-14">
 

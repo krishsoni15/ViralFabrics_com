@@ -217,16 +217,22 @@ export function WhoWeAreSection() {
     <section
       id="who-we-are"
       ref={sectionRef}
-      className="relative w-full bg-[#FAF8F5] text-[#2e3937] pt-48 sm:pt-56 md:pt-64 lg:pt-72 xl:pt-80 pb-12 sm:pb-16 lg:pb-20 overflow-hidden selection:bg-[#375785] selection:text-white"
+      className="relative w-full text-[#2e3937] pt-40 sm:pt-48 md:pt-56 lg:pt-60 xl:pt-64 pb-36 sm:pb-40 md:pb-44 lg:pb-48 overflow-hidden selection:bg-[#375785] selection:text-white"
     >
-      {/* Seamless transition underlay for the bottom torn edge into Fabrics Portfolio (#FAF8F5) */}
+      {/* Clean solid white backdrop behind the central image body */}
+      <div
+        className="absolute inset-x-0 top-20 sm:top-24 lg:top-28 bottom-32 sm:bottom-40 lg:bottom-48 bg-white z-0 pointer-events-none"
+        aria-hidden="true"
+      />
+
+      {/* Seamless transition underlay for the bottom torn edge into Fabrics Portfolio (#FAF8F5 golden tone) */}
       <div
         className="absolute inset-x-0 bottom-0 h-64 sm:h-72 lg:h-80 bg-[#FAF8F5] z-0 pointer-events-none"
         aria-hidden="true"
       />
 
-      {/* Authentic One-Piece Torn Silk Canvas Background (Single Image, 100% Clean) */}
-      <div className="absolute inset-0 z-0 pointer-events-none select-none">
+      {/* Authentic One-Piece Torn Silk Canvas Background (Shifted slightly top for clean hero overlap) */}
+      <div className="absolute -top-8 sm:-top-12 lg:-top-16 inset-x-0 bottom-0 z-0 pointer-events-none select-none">
         <Image
           src="/images/who-we-are-bg.png"
           alt="Viral Fabrics Who We Are Background Canvas"
