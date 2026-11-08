@@ -229,7 +229,7 @@ export function Navbar() {
     pathname === '/about-us' ||
     pathname === '/contact-us' ||
     pathname === '/network' ||
-    pathname.startsWith('/fabrics');
+    pathname === '/fabrics';
   const isTransparent = isHeroTransparentPage && !scrolled;
 
   return (

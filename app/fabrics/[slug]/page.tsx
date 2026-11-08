@@ -2,7 +2,6 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getFabricBySlug, getPublishedFabrics } from '@/lib/fabricsService';
-import { PageHeroBanner } from '@/components/PageHeroBanner';
 import { FabricDetailClient } from '@/components/FabricDetailClient';
 
 export const revalidate = 10; // Incremental Static Regeneration every 10s
@@ -60,12 +59,6 @@ export async function generateMetadata({
   };
 }
 
-const SINGLE_FABRIC_BADGES = [
-  { iconName: 'shield', label: 'Export Grade Water-Jet' },
-  { iconName: 'layers', label: 'Make-to-Order Weave & GSM' },
-  { iconName: 'sparkles', label: 'Lab-Dip Color Matching' },
-];
-
 export default async function FabricDetailPage({ 
   params 
 }: { 
@@ -80,24 +73,8 @@ export default async function FabricDetailPage({
 
   return (
     <div className="min-h-screen bg-white">
-      
-      {/* Hero Banner with Directional Unblur Sweep & Breadcrumbs */}
-      <PageHeroBanner
-        title={fabric.name}
-        subtitle={fabric.subtitle || 'Surat Weaving Mill • Export Synthetic Textiles'}
-        bgImage={fabric.banner}
-        bgAlt={fabric.name}
-        badges={SINGLE_FABRIC_BADGES}
-        breadcrumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Fabrics', href: '/fabrics' },
-          { label: fabric.name },
-        ]}
-      />
-
-      {/* Main Dynamic Fabric Showcase & Action Experience */}
+      {/* Dynamic Single Fabric Quality Showcase (No Redundant Banner) */}
       <FabricDetailClient fabric={fabric} />
-
     </div>
   );
 }

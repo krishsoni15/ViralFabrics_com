@@ -10,11 +10,27 @@ import {
   Phone,
   Mail,
   FileText,
+  ChevronRight,
+  Sparkles,
 } from 'lucide-react';
 import type { LiveFabric } from '@/lib/fabricsService';
 
 interface FabricDetailClientProps {
   fabric: LiveFabric;
+}
+
+function getAccentBgColor(slug: string): string {
+  if (slug.includes('crepe')) return 'bg-[#E25C6A]/20';
+  if (slug.includes('georgette')) return 'bg-[#8B5CF6]/20';
+  if (slug.includes('chiffon')) return 'bg-[#10B981]/20';
+  if (slug.includes('satin')) return 'bg-[#F59E0B]/20';
+  if (slug.includes('knit')) return 'bg-[#0284C7]/20';
+  if (slug.includes('bsy')) return 'bg-[#0D9488]/20';
+  if (slug.includes('dobby')) return 'bg-[#6366F1]/20';
+  if (slug.includes('net') || slug.includes('mesh')) return 'bg-[#EC4899]/20';
+  if (slug.includes('recycled')) return 'bg-[#059669]/20';
+  if (slug.includes('viscose')) return 'bg-[#D97706]/20';
+  return 'bg-[#006DB6]/20';
 }
 
 export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
@@ -36,30 +52,75 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
     return `https://wa.me/919427988999?text=${encodeURIComponent(text)}`;
   };
 
+  const accentBg = getAccentBgColor(fabric.slug);
+
   return (
     <>
-      <section className="relative z-10 py-16 sm:py-24 bg-white shadow-[0_-25px_60px_rgba(0,0,0,0.18)]">
+      <main className="relative min-h-screen bg-white pt-28 sm:pt-36 lg:pt-40 pb-20 sm:pb-32 overflow-hidden">
+        
+        {/* Soft Ambient Radial Light in Background */}
+        <div 
+          className="absolute top-1/4 -right-40 w-96 h-96 rounded-full bg-slate-100/60 blur-3xl pointer-events-none -z-10" 
+          aria-hidden="true" 
+        />
+        <div 
+          className="absolute top-1/3 -left-40 w-96 h-96 rounded-full bg-blue-50/40 blur-3xl pointer-events-none -z-10" 
+          aria-hidden="true" 
+        />
+
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
           
-          <div
-            className={`grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center transition-all duration-700 ease-out ${
-              isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          {/* =========================================================
+              1. QUIET LUXURY BREADCRUMBS BAR (ANIMATED ON MOUNT)
+             ========================================================= */}
+          <nav
+            aria-label="Breadcrumbs"
+            className={`mb-8 sm:mb-12 flex items-center gap-2 text-[12px] sm:text-[12.5px] tracking-wide text-slate-500 font-medium transition-all duration-700 ease-out ${
+              isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
             }`}
           >
+            <Link 
+              href="/" 
+              className="text-slate-500 hover:text-[#006DB6] transition-colors"
+            >
+              Home
+            </Link>
+            <span className="text-slate-300">/</span>
+            <Link 
+              href="/fabrics" 
+              className="text-slate-500 hover:text-[#006DB6] transition-colors"
+            >
+              Fabrics
+            </Link>
+            <span className="text-slate-300">/</span>
+            <span className="text-[#0A192F] font-semibold">
+              {fabric.name}
+            </span>
+          </nav>
+
+          {/* =========================================================
+              2. MAIN HERO SHOWCASE: PHOTO + TITLE, DESC & BUTTONS
+             ========================================================= */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             
-            {/* =========================================================
-                1. PHOTO SHOWCASE (WITH DECORATIVE ACCENT SHAPE)
-               ========================================================= */}
-            <div className="lg:col-span-6 relative">
+            {/* -------------------------------------------------------
+                LEFT COLUMN: FABRIC PHOTO WITH SIGNATURE ACCENT DISC
+               ------------------------------------------------------- */}
+            <div 
+              className={`lg:col-span-6 relative transition-all duration-800 ease-out ${
+                isMounted ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-xs'
+              }`}
+            >
               
-              {/* Soft decorative accent disc behind photo (Viral Fabrics signature) */}
+              {/* Soft decorative accent disc behind photo (Viral Fabrics repertoire style) */}
               <div 
-                className="absolute -top-6 -left-6 w-32 h-32 sm:w-44 sm:h-44 rounded-full bg-[#E25C6A]/25 -z-10 pointer-events-none transition-transform duration-700 hover:scale-105"
+                className={`absolute -top-7 -left-7 w-36 h-36 sm:w-48 sm:h-48 rounded-full ${accentBg} -z-10 pointer-events-none transition-transform duration-700 hover:scale-105`}
                 aria-hidden="true"
               />
 
               {/* Main Fabric Photo Frame */}
-              <div className="group relative w-full aspect-[4/3] rounded-[24px] sm:rounded-[28px] overflow-hidden bg-slate-100 border border-slate-200/90 shadow-[0_16px_45px_rgba(15,23,42,0.08)]">
+              <div className="group relative w-full aspect-[4/3] rounded-[24px] sm:rounded-[30px] overflow-hidden bg-slate-100 border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.08)]">
+                
                 <Image
                   src={fabric.image}
                   alt={fabric.name}
@@ -69,29 +130,46 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
                   priority
                 />
 
-                {/* Subtle Luxury Vignette Overlay */}
+                {/* Subtle Luxury Vignette */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/25 via-transparent to-transparent pointer-events-none" />
 
-                {/* Optional subtle GSM pill */}
+                {/* Overlaid Badge: Top Left Export Grade */}
+                <div className="absolute top-4 left-4 z-10">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-semibold tracking-[0.16em] uppercase border border-white/20 shadow-md">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    EXPORT GRADE
+                  </span>
+                </div>
+
+                {/* Overlaid Badge: Bottom Right Dynamic GSM */}
                 {fabric.gsmRange && (
                   <div className="absolute bottom-4 right-4 z-10">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-slate-900 text-[11px] font-medium tracking-wide border border-white/60 shadow-xs">
+                    <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-slate-900 text-[11px] font-semibold tracking-wider border border-white/70 shadow-md">
                       {fabric.gsmRange}
                     </span>
                   </div>
                 )}
+
               </div>
 
             </div>
 
-            {/* =========================================================
-                2. TITLE, DIVIDER, DESCRIPTION & BUTTONS ONLY
-               ========================================================= */}
-            <div className="lg:col-span-6 space-y-6">
+            {/* -------------------------------------------------------
+                RIGHT COLUMN: EDITORIAL TITLE, DIVIDER & DESCRIPTION
+               ------------------------------------------------------- */}
+            <div 
+              className={`lg:col-span-6 space-y-6 transition-all duration-800 delay-150 ease-out ${
+                isMounted ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-xs'
+              }`}
+            >
               
-              {/* 2. Title */}
+              {/* Category Eyebrow & Title */}
               <div className="space-y-3">
-                <h1 className="font-heading font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#0A192F] tracking-tight">
+                <span className="text-[11px] font-bold tracking-[0.22em] uppercase text-[#006DB6] block">
+                  SURAT TEXTILE HUB &bull; WATER-JET WEAVES
+                </span>
+
+                <h1 className="font-heading font-serif text-4xl sm:text-5xl lg:text-[56px] leading-[1.08] font-light text-[#0A192F] tracking-tight">
                   {fabric.name}
                 </h1>
 
@@ -100,18 +178,18 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
                   <div className="w-3.5 h-3.5 rotate-45 border-[1.5px] border-[#006DB6] bg-white flex items-center justify-center">
                     <div className="w-1.5 h-1.5 bg-[#006DB6]" />
                   </div>
-                  <div className="w-12 h-[2px] bg-[#006DB6]/80 rounded-full" />
+                  <div className="w-14 h-[2px] bg-[#006DB6]/80 rounded-full" />
                 </div>
               </div>
 
-              {/* 3. Description (Clean Left Blue Accent Line from original design) */}
-              <div className="border-l-2 border-[#006DB6] pl-5 py-1">
-                <p className="text-slate-700 text-base sm:text-[17px] font-light leading-relaxed">
+              {/* Description (Clean Left Blue Accent Line from original design) */}
+              <div className="border-l-2 border-[#006DB6] pl-5 sm:pl-6 py-1">
+                <p className="text-slate-700 text-base sm:text-[17.5px] font-light leading-relaxed">
                   {fabric.description}
                 </p>
               </div>
 
-              {/* 4. Action Buttons: ENQUIRE NOW + Back to Fabrics */}
+              {/* Action Buttons: Signature Who We Are Polygon ENQUIRE NOW + Back */}
               <div className="pt-4 flex flex-wrap items-center gap-4">
                 
                 {/* Primary: Who We Are Signature Polygon ENQUIRE NOW Button */}
@@ -148,7 +226,7 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
           </div>
 
         </div>
-      </section>
+      </main>
 
       {/* =========================================================
           2-IN-1 QUICK ENQUIRY POPUP MODAL (WHATSAPP + WEB FORM)
