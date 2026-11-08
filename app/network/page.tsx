@@ -56,7 +56,7 @@ export default function NetworkPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FAF4F0] flex flex-col justify-between selection:bg-[#006DB6] selection:text-white">
+    <div className="min-h-screen bg-[#FAF6F1] flex flex-col justify-between selection:bg-[#006DB6] selection:text-white">
 
       {/* Hero Banner with Agnes Toth directional unblur sweep & Breadcrumbs */}
       <PageHeroBanner
@@ -71,50 +71,8 @@ export default function NetworkPage() {
       {/* ========================================================================= */}
       {/* GLOBAL NETWORK SHOWCASE - LUXURY SILK BACKGROUND & WORLD DISTRIBUTION MAP */}
       {/* ========================================================================= */}
-      <div className="relative z-10 bg-[#FAF4F0]">
-        {/* Haute-Couture Fluid Silk Wave Top Transition */}
-        <div className="absolute -top-7 sm:-top-11 md:-top-14 lg:-top-18 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none z-20">
-          <svg
-            className="relative block w-full h-8 sm:h-12 md:h-16 lg:h-20 text-[#FAF4F0]"
-            viewBox="0 0 1440 100"
-            preserveAspectRatio="none"
-          >
-            <defs>
-              <filter id="network-silk-wave-depth" x="-5%" y="-40%" width="110%" height="180%">
-                <feDropShadow dx="0" dy="-4" stdDeviation="6" floodColor="#000000" floodOpacity="0.25" />
-              </filter>
-            </defs>
-
-            {/* Depth Shadow Layer */}
-            <path
-              d="M0,45 C260,15 440,75 720,35 C1000,5 1180,65 1440,30 L1440,102 L0,102 Z"
-              fill="#FAF4F0"
-              filter="url(#network-silk-wave-depth)"
-            />
-
-            {/* Secondary Translucent Silk Wave Accent */}
-            <path
-              d="M0,55 C300,25 500,80 750,42 C1020,12 1220,70 1440,38 L1440,102 L0,102 Z"
-              fill="rgba(234, 224, 213, 0.45)"
-            />
-
-            {/* Primary Fluid Silk Wave */}
-            <path
-              d="M0,45 C260,15 440,75 720,35 C1000,5 1180,65 1440,30 L1440,102 L0,102 Z"
-              fill="#FAF4F0"
-            />
-
-            {/* Delicate Silk Thread Highlight */}
-            <path
-              d="M0,45 C260,15 440,75 720,35 C1000,5 1180,65 1440,30"
-              stroke="rgba(255, 255, 255, 0.75)"
-              strokeWidth="1.5"
-              fill="none"
-            />
-          </svg>
-        </div>
-
-        <section ref={sectionRef} className="relative w-full overflow-hidden bg-[#FAF4F0] flex flex-col justify-between py-12 sm:py-16 lg:py-20">
+      <div className="relative z-10 bg-[#FAF6F1] shadow-[0_-25px_60px_rgba(0,0,0,0.22)]">
+        <section ref={sectionRef} className="relative w-full overflow-hidden bg-[#FAF6F1] flex flex-col justify-between py-14 sm:py-18 lg:py-24">
         
         {/* Luxury Silk Fabric Canvas Background (High-res wave) */}
         <div className="absolute inset-0 pointer-events-none select-none z-0">
@@ -129,29 +87,29 @@ export default function NetworkPage() {
         </div>
 
         {/* Main Content Layout Container */}
-        <div className="relative z-10 max-w-[1560px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-14 w-full flex-1 flex flex-col justify-between">
+        <div className="relative z-10 max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-14 w-full flex-1 flex flex-col justify-between">
           
           {/* Top Row: Left Narrative Story + Right Interactive Route Map */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center pt-2 sm:pt-4 my-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center pt-2 sm:pt-4 my-auto">
             
-            {/* 1. Left Editorial Narrative (Clean, Prestigious Typography, Zero Tag Clutter) */}
-            <div ref={narrativeRef} className="lg:col-span-5 xl:col-span-5 space-y-4 lg:pr-2 will-change-[transform,opacity,filter]">
+            {/* 1. Left Editorial Narrative (Clean, Prestigious Typography matching About Us) */}
+            <div ref={narrativeRef} className="lg:col-span-5 xl:col-span-5 space-y-5 lg:pr-2 will-change-[transform,opacity,filter]">
               
               {/* Eyebrow Header */}
-              <div className="flex items-center gap-2.5 mb-1.5">
-                <span className="text-[11px] sm:text-[12px] font-bold tracking-[0.24em] text-[#006DB6] uppercase font-sans">
+              <div className="flex items-center gap-3">
+                <span className="font-sans text-[12px] sm:text-[13px] font-bold tracking-[0.28em] text-[#006DB6] uppercase">
                   OUR GLOBAL PRESENCE
                 </span>
-                <span className="w-10 sm:w-12 h-[1.5px] bg-[#006DB6]/60 inline-block" />
+                <div className="w-12 h-[2px] bg-[#006DB6]" />
               </div>
 
               {/* Main Title */}
-              <h2 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold text-[#0A192F] tracking-tight leading-[1.08]">
-                Worldwide Distribution
+              <h2 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-normal text-[#0A192F] tracking-tight leading-[1.12]">
+                Worldwide <span className="text-[#006DB6] italic font-normal">Distribution</span>
               </h2>
 
               {/* Comprehensive Editorial Story Copy */}
-              <div className="space-y-3.5 text-[#334155] text-[13.5px] sm:text-[14px] lg:text-[14.5px] leading-[1.72] font-normal">
+              <div className="space-y-4 text-slate-600 font-sans text-[15px] sm:text-[16px] lg:text-[16.5px] font-normal leading-[1.8]">
                 <p>
                   At <strong className="font-semibold text-[#0A192F]">Viral Fabrics</strong>, we are proud to serve clients across the globe, supplying premium export-quality fabrics to regions including Europe, America, Dubai, and beyond. Since our establishment in 2012 in Surat, Gujarat, India, we have built a strong reputation for quality, reliability, and timely delivery.
                 </p>
@@ -160,7 +118,7 @@ export default function NetworkPage() {
                   Our extensive product range—covering Polyester Dyed and Printed Fabrics, Viscose, Rayon, Cotton, and Digital Printed Fabrics—is trusted by international importers, wholesalers, and garment manufacturers. With efficient logistics, secure packaging, and strict quality control at every stage of production, we ensure that our fabrics consistently meet global standards.
                 </p>
 
-                <p className="text-slate-700 italic border-l-2 border-[#006DB6] pl-3.5 pt-0.5 text-[12.5px] sm:text-[13px] leading-relaxed bg-[#006DB6]/5 py-2 pr-3 rounded-r-md">
+                <p className="text-slate-700 italic border-l-2 border-[#006DB6] pl-4 py-3 pr-4 text-[14px] sm:text-[15px] leading-[1.75] bg-[#006DB6]/5 rounded-r-lg">
                   This worldwide network, combined with our dedication to excellence and long-term partnerships, has made Viral Fabrics a trusted name in the international textile market.
                 </p>
               </div>
@@ -301,65 +259,65 @@ export default function NetworkPage() {
           </div>
 
           {/* 3. Bottom Refined Credentials Glassmorphic Floating Bar */}
-          <div ref={pillarsRef} className="mt-8 lg:mt-10 w-full pt-4 will-change-[transform,opacity,filter]">
-            <div className="bg-white/75 backdrop-blur-md border border-white/90 rounded-2xl shadow-[0_8px_30px_rgba(10,25,47,0.04)] px-5 sm:px-8 py-4 sm:py-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-4 divide-y sm:divide-y-0 lg:divide-x divide-slate-200/70">
+          <div ref={pillarsRef} className="mt-10 lg:mt-14 w-full will-change-[transform,opacity,filter]">
+            <div className="bg-white/85 backdrop-blur-md border border-white/90 rounded-[22px] sm:rounded-[26px] shadow-[0_12px_36px_rgba(10,25,47,0.06)] px-6 sm:px-10 py-5 sm:py-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-6 divide-y sm:divide-y-0 lg:divide-x divide-slate-200/70">
                 
                 {/* Pillar 1: Since 2012 */}
-                <div className="flex items-center gap-3 pt-2 sm:pt-0 lg:px-4 first:lg:pl-0 group cursor-default">
-                  <div className="w-9 h-9 rounded-full bg-[#006DB6]/10 border border-[#006DB6]/20 flex items-center justify-center text-[#006DB6] flex-shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300">
-                    <Calendar className="w-4 h-4 stroke-[1.8]" />
+                <div className="flex items-center gap-4 pt-2 sm:pt-0 lg:px-5 first:lg:pl-0 group cursor-default">
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-2xl bg-[#EBF3FC] border border-[#D0E2F7] flex items-center justify-center text-[#006DB6] shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300 shadow-xs">
+                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
                   </div>
                   <div>
-                    <h4 className="font-heading font-serif text-[14.5px] sm:text-[15px] font-bold text-[#0A192F] tracking-tight leading-tight">
+                    <h4 className="font-heading font-serif text-[16px] sm:text-[17px] font-bold text-[#0A192F] tracking-tight leading-snug">
                       Since 2012
                     </h4>
-                    <p className="text-slate-600 text-[11.5px] sm:text-[12px] font-normal leading-snug mt-0.5">
+                    <p className="text-slate-600 text-[13px] sm:text-[13.5px] font-normal leading-relaxed mt-1">
                       Surat, Gujarat, India
                     </p>
                   </div>
                 </div>
 
                 {/* Pillar 2: Wide Product Range */}
-                <div className="flex items-center gap-3 pt-3 sm:pt-0 lg:px-4 group cursor-default">
-                  <div className="w-9 h-9 rounded-full bg-[#006DB6]/10 border border-[#006DB6]/20 flex items-center justify-center text-[#006DB6] flex-shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300">
-                    <Layers className="w-4 h-4 stroke-[1.8]" />
+                <div className="flex items-center gap-4 pt-4 sm:pt-0 lg:px-5 group cursor-default">
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-2xl bg-[#EBF3FC] border border-[#D0E2F7] flex items-center justify-center text-[#006DB6] shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300 shadow-xs">
+                    <Layers className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
                   </div>
                   <div>
-                    <h4 className="font-heading font-serif text-[14.5px] sm:text-[15px] font-bold text-[#0A192F] tracking-tight leading-tight">
+                    <h4 className="font-heading font-serif text-[16px] sm:text-[17px] font-bold text-[#0A192F] tracking-tight leading-snug">
                       Wide Product Range
                     </h4>
-                    <p className="text-slate-600 text-[11.5px] sm:text-[12px] font-normal leading-snug mt-0.5">
+                    <p className="text-slate-600 text-[13px] sm:text-[13.5px] font-normal leading-relaxed mt-1">
                       Polyester, Viscose, Rayon, Cotton &amp; More
                     </p>
                   </div>
                 </div>
 
                 {/* Pillar 3: Global Markets */}
-                <div className="flex items-center gap-3 pt-3 sm:pt-0 lg:px-4 group cursor-default">
-                  <div className="w-9 h-9 rounded-full bg-[#006DB6]/10 border border-[#006DB6]/20 flex items-center justify-center text-[#006DB6] flex-shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300">
-                    <Globe2 className="w-4 h-4 stroke-[1.8]" />
+                <div className="flex items-center gap-4 pt-4 sm:pt-0 lg:px-5 group cursor-default">
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-2xl bg-[#EBF3FC] border border-[#D0E2F7] flex items-center justify-center text-[#006DB6] shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300 shadow-xs">
+                    <Globe2 className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
                   </div>
                   <div>
-                    <h4 className="font-heading font-serif text-[14.5px] sm:text-[15px] font-bold text-[#0A192F] tracking-tight leading-tight">
+                    <h4 className="font-heading font-serif text-[16px] sm:text-[17px] font-bold text-[#0A192F] tracking-tight leading-snug">
                       Global Markets
                     </h4>
-                    <p className="text-slate-600 text-[11.5px] sm:text-[12px] font-normal leading-snug mt-0.5">
+                    <p className="text-slate-600 text-[13px] sm:text-[13.5px] font-normal leading-relaxed mt-1">
                       Europe, America, Dubai &amp; Beyond
                     </p>
                   </div>
                 </div>
 
                 {/* Pillar 4: Long-Term Partnerships */}
-                <div className="flex items-center gap-3 pt-3 sm:pt-0 lg:px-4 last:lg:pr-0 group cursor-default">
-                  <div className="w-9 h-9 rounded-full bg-[#006DB6]/10 border border-[#006DB6]/20 flex items-center justify-center text-[#006DB6] flex-shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300">
-                    <Users2 className="w-4 h-4 stroke-[1.8]" />
+                <div className="flex items-center gap-4 pt-4 sm:pt-0 lg:px-5 last:lg:pr-0 group cursor-default">
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-2xl bg-[#EBF3FC] border border-[#D0E2F7] flex items-center justify-center text-[#006DB6] shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300 shadow-xs">
+                    <Users2 className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
                   </div>
                   <div>
-                    <h4 className="font-heading font-serif text-[14.5px] sm:text-[15px] font-bold text-[#0A192F] tracking-tight leading-tight">
+                    <h4 className="font-heading font-serif text-[16px] sm:text-[17px] font-bold text-[#0A192F] tracking-tight leading-snug">
                       Long-Term Partnerships
                     </h4>
-                    <p className="text-slate-600 text-[11.5px] sm:text-[12px] font-normal leading-snug mt-0.5">
+                    <p className="text-slate-600 text-[13px] sm:text-[13.5px] font-normal leading-relaxed mt-1">
                       With Importers &amp; Garment Manufacturers
                     </p>
                   </div>
