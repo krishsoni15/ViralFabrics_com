@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import gsap from 'gsap';
 import {
   Calendar,
   Layers,
@@ -13,6 +14,46 @@ import { PageHeroBanner } from '@/components/PageHeroBanner';
 
 export default function NetworkPage() {
   const [hoveredHotspot, setHoveredHotspot] = useState<string | null>(null);
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const narrativeRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
+  const pillarsRef = useRef<HTMLDivElement>(null);
+
+  // Agnes Toth aesthetic unblur and float-in animation for main network showcase
+  useEffect(() => {
+    let ctx: gsap.Context | null = null;
+    ctx = gsap.context(() => {
+      // 1. Narrative Left Column Entrance
+      if (narrativeRef.current) {
+        gsap.fromTo(
+          narrativeRef.current,
+          { opacity: 0, filter: 'blur(14px)', y: 24 },
+          { opacity: 1, filter: 'blur(0px)', y: 0, duration: 1.1, delay: 0.2, ease: 'power2.out', clearProps: 'transform,filter' }
+        );
+      }
+
+      // 2. Map Showcase Smooth Scale & Unblur
+      if (mapRef.current) {
+        gsap.fromTo(
+          mapRef.current,
+          { opacity: 0, filter: 'blur(16px)', scale: 0.94 },
+          { opacity: 1, filter: 'blur(0px)', scale: 1, duration: 1.2, delay: 0.35, ease: 'power2.out', clearProps: 'transform,filter' }
+        );
+      }
+
+      // 3. Bottom 4 Pillars Bar Entrance
+      if (pillarsRef.current) {
+        gsap.fromTo(
+          pillarsRef.current,
+          { opacity: 0, filter: 'blur(12px)', y: 20 },
+          { opacity: 1, filter: 'blur(0px)', y: 0, duration: 1.0, delay: 0.5, ease: 'power2.out', clearProps: 'transform,filter' }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx?.revert();
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#FAF4F0] flex flex-col justify-between selection:bg-[#006DB6] selection:text-white">
@@ -27,7 +68,7 @@ export default function NetworkPage() {
       {/* ========================================================================= */}
       {/* GLOBAL NETWORK SHOWCASE - LUXURY SILK BACKGROUND & WORLD DISTRIBUTION MAP */}
       {/* ========================================================================= */}
-      <section className="relative w-full overflow-hidden bg-[#FAF4F0] flex flex-col justify-between py-12 sm:py-16 lg:py-20">
+      <section ref={sectionRef} className="relative w-full overflow-hidden bg-[#FAF4F0] flex flex-col justify-between py-12 sm:py-16 lg:py-20">
         
         {/* Luxury Silk Fabric Canvas Background (High-res wave) */}
         <div className="absolute inset-0 pointer-events-none select-none z-0">
@@ -48,7 +89,7 @@ export default function NetworkPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center pt-2 sm:pt-4 my-auto">
             
             {/* 1. Left Editorial Narrative (Clean, Prestigious Typography, Zero Tag Clutter) */}
-            <div className="lg:col-span-5 xl:col-span-5 space-y-4 lg:pr-2">
+            <div ref={narrativeRef} className="lg:col-span-5 xl:col-span-5 space-y-4 lg:pr-2 will-change-[transform,opacity,filter]">
               
               {/* Eyebrow Header */}
               <div className="flex items-center gap-2.5 mb-1.5">
@@ -81,7 +122,7 @@ export default function NetworkPage() {
             </div>
 
             {/* 2. Right Interactive World Route Map Showcase */}
-            <div className="lg:col-span-7 xl:col-span-7 relative flex items-center justify-center">
+            <div ref={mapRef} className="lg:col-span-7 xl:col-span-7 relative flex items-center justify-center will-change-[transform,opacity,filter]">
               <div 
                 className="relative w-full max-w-[880px]"
                 style={{ aspectRatio: '1755 / 896' }}
@@ -214,7 +255,7 @@ export default function NetworkPage() {
           </div>
 
           {/* 3. Bottom Refined Credentials Glassmorphic Floating Bar */}
-          <div className="mt-8 lg:mt-10 w-full pt-4">
+          <div ref={pillarsRef} className="mt-8 lg:mt-10 w-full pt-4 will-change-[transform,opacity,filter]">
             <div className="bg-white/75 backdrop-blur-md border border-white/90 rounded-2xl shadow-[0_8px_30px_rgba(10,25,47,0.04)] px-5 sm:px-8 py-4 sm:py-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-4 divide-y sm:divide-y-0 lg:divide-x divide-slate-200/70">
                 

@@ -20,6 +20,7 @@ import {
   Headphones,
   Home
 } from 'lucide-react';
+import gsap from 'gsap';
 import { PageHeroBanner } from '@/components/PageHeroBanner';
 
 // Fabric product categories
@@ -433,6 +434,36 @@ function EnquiryForm() {
 }
 
 export default function EnquiryPage() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const formWrapRef = useRef<HTMLDivElement>(null);
+
+  // Agnes Toth aesthetic unblur and float-in entrance for Enquiry page
+  useEffect(() => {
+    let ctx: gsap.Context | null = null;
+    ctx = gsap.context(() => {
+      // 1. Editorial Header Entrance
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { opacity: 0, filter: 'blur(14px)', y: 22 },
+          { opacity: 1, filter: 'blur(0px)', y: 0, duration: 1.0, delay: 0.2, ease: 'power2.out', clearProps: 'transform,filter' }
+        );
+      }
+
+      // 2. Form Container Entrance
+      if (formWrapRef.current) {
+        gsap.fromTo(
+          formWrapRef.current,
+          { opacity: 0, filter: 'blur(16px)', y: 26, scale: 0.98 },
+          { opacity: 1, filter: 'blur(0px)', y: 0, scale: 1, duration: 1.1, delay: 0.35, ease: 'power2.out', clearProps: 'transform,filter' }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx?.revert();
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#FAF7F2]">
       
@@ -451,7 +482,7 @@ export default function EnquiryPage() {
       {/* =====================================================================
           3. LUXURY SILK CANVAS BODY (Centered Form in Middle)
          ===================================================================== */}
-      <section className="relative min-h-[calc(100vh-360px)] overflow-hidden py-12 sm:py-16 lg:py-20">
+      <section ref={sectionRef} className="relative min-h-[calc(100vh-360px)] overflow-hidden py-12 sm:py-16 lg:py-20">
         
         {/* Authentic Silk Waves Background Canvas (Blue Drape at Bottom-Left, Ivory Drape at Top-Right) */}
         <div className="absolute inset-0 z-0 pointer-events-none">
@@ -468,7 +499,7 @@ export default function EnquiryPage() {
         <div className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12">
           
           {/* Centered Editorial Header */}
-          <div className="text-center max-w-2xl mx-auto space-y-2.5 mb-8 sm:mb-10">
+          <div ref={headerRef} className="text-center max-w-2xl mx-auto space-y-2.5 mb-8 sm:mb-10 will-change-[transform,opacity,filter]">
             <div className="inline-flex items-center gap-2 justify-center">
               <div className="w-6 h-[1.5px] bg-[#1E5FA8]" />
               <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-[#1E5FA8]">
@@ -487,7 +518,7 @@ export default function EnquiryPage() {
           </div>
 
           {/* Centered Form Container (Middle of Page) */}
-          <div className="max-w-2xl sm:max-w-[760px] mx-auto">
+          <div ref={formWrapRef} className="max-w-2xl sm:max-w-[760px] mx-auto will-change-[transform,opacity,filter]">
             <Suspense
               fallback={
                 <div className="bg-white/95 rounded-[28px] p-12 text-center text-slate-400">
