@@ -4,7 +4,21 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import gsap from 'gsap';
-import { Home, Gauge, Building2, Globe } from 'lucide-react';
+import {
+  Home,
+  Gauge,
+  Building2,
+  Globe,
+  Sparkles,
+  Layers,
+  Award,
+  Calendar,
+  Factory,
+  Users,
+  Plane,
+  Truck,
+  ShieldCheck,
+} from 'lucide-react';
 
 export interface BreadcrumbItem {
   label: string;
@@ -13,8 +27,24 @@ export interface BreadcrumbItem {
 
 export interface TrustBadgeItem {
   icon?: React.ComponentType<{ className?: string }>;
+  iconName?: string;
   label: string;
 }
+
+const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  gauge: Gauge,
+  building: Building2,
+  globe: Globe,
+  sparkles: Sparkles,
+  layers: Layers,
+  award: Award,
+  calendar: Calendar,
+  factory: Factory,
+  users: Users,
+  plane: Plane,
+  truck: Truck,
+  shield: ShieldCheck,
+};
 
 export interface PageHeroBannerProps {
   title: string;
@@ -287,7 +317,8 @@ export function PageHeroBanner({
                 className="flex flex-wrap items-center gap-3 sm:gap-4 mt-5 sm:mt-6 text-[12px] sm:text-[13px] font-sans font-medium text-white/90 will-change-[transform,opacity,filter]"
               >
                 {badges.map((badge, idx) => {
-                  const Icon = badge.icon;
+                  const Icon =
+                    badge.icon || (badge.iconName ? ICON_MAP[badge.iconName.toLowerCase()] : null);
                   return (
                     <React.Fragment key={badge.label}>
                       {idx > 0 && <span className="text-white/30 select-none text-xs">|</span>}

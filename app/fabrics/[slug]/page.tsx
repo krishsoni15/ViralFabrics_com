@@ -62,6 +62,12 @@ export async function generateMetadata({
   };
 }
 
+const SINGLE_FABRIC_BADGES = [
+  { iconName: 'shield', label: 'Export Grade Water-Jet' },
+  { iconName: 'layers', label: 'Make-to-Order Weave & GSM' },
+  { iconName: 'sparkles', label: 'Lab-Dip Color Matching' },
+];
+
 export default async function FabricDetailPage({ 
   params 
 }: { 
@@ -83,6 +89,7 @@ export default async function FabricDetailPage({
         subtitle={fabric.subtitle || 'Surat Weaving Mill • Export Synthetic Textiles'}
         bgImage={fabric.banner}
         bgAlt={fabric.name}
+        badges={SINGLE_FABRIC_BADGES}
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Fabrics', href: '/fabrics' },

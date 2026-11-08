@@ -172,6 +172,12 @@ const EditorialBlock: React.FC<{
   );
 };
 
+const ABOUT_PAGE_BADGES = [
+  { icon: Calendar, label: 'Established In 2012' },
+  { icon: Factory, label: 'Modern Surat Loom Shed' },
+  { icon: Users, label: '60+ Loom Specialists' },
+];
+
 export default function AboutUsPage() {
   return (
     <div className="min-h-screen bg-white selection:bg-[#1E5FA8] selection:text-white">
@@ -184,6 +190,7 @@ export default function AboutUsPage() {
         bgVideoPoster="/images/about/about-hero-poster.webp"
         bgImage="/images/about/about-hero-poster.webp"
         bgAlt="About Viral Fabrics - Surat Fabric Manufacturer"
+        badges={ABOUT_PAGE_BADGES}
       />
 
       {/* =================================================================

@@ -30,6 +30,12 @@ import QRCode from 'qrcode';
 import { COMPANY_INFO } from '@/data/company';
 import { PageHeroBanner } from '@/components/PageHeroBanner';
 
+const CONTACT_PAGE_BADGES = [
+  { icon: Gauge, label: 'Quick Response' },
+  { icon: Building2, label: 'Surat Textile Hub' },
+  { icon: Globe, label: 'Global Export Desk' },
+];
+
 export default function ContactClient() {
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [activeQrModal, setActiveQrModal] = useState<'location' | 'phone' | 'email' | null>(null);
@@ -182,6 +188,7 @@ export default function ContactClient() {
         bgVideo="/videos/contact-hero.mp4"
         bgVideoPoster="/images/enquiry/enquiry-hero-bg.jpg"
         bgAlt="Viral Fabrics Sourcing & Consultation Desk"
+        badges={CONTACT_PAGE_BADGES}
       />
 
       {/* =====================================================================

@@ -22,15 +22,6 @@ interface FabricsCatalogClientProps {
   fabrics: FabricItem[];
 }
 
-const CATEGORIES = [
-  'All',
-  'Crepe & Georgette',
-  'Satin & Sheers',
-  'Knits & Mesh',
-  'Eco / Sustainable',
-  'Dobby & Jacquard',
-];
-
 function getCategoryForFabric(slug: string): string {
   if (slug.includes('crepe') || slug.includes('georgette')) return 'Crepe & Georgette';
   if (slug.includes('satin') || slug.includes('chiffon')) return 'Satin & Sheers';
@@ -56,7 +47,6 @@ function getAccentColorForFabric(slug: string): string {
 
 export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedFabricForEnquiry, setSelectedFabricForEnquiry] = useState<FabricItem | null>(null);
 
   // Close modal on ESC key
@@ -68,19 +58,12 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Filter fabrics based on Search query & Category selection
+  // Filter fabrics based on live search query
   const filteredFabrics = useMemo(() => {
+    if (!searchQuery.trim()) return fabrics;
+    const q = searchQuery.toLowerCase().trim();
+
     return fabrics.filter((fabric) => {
-      // Category filter
-      const cat = getCategoryForFabric(fabric.slug);
-      const matchesCategory = selectedCategory === 'All' || cat === selectedCategory;
-
-      if (!matchesCategory) return false;
-
-      // Search query filter
-      if (!searchQuery.trim()) return true;
-      const q = searchQuery.toLowerCase().trim();
-
       return (
         fabric.title.toLowerCase().includes(q) ||
         fabric.subtitle.toLowerCase().includes(q) ||
@@ -91,7 +74,7 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
         fabric.features.some((feat) => feat.toLowerCase().includes(q))
       );
     });
-  }, [fabrics, searchQuery, selectedCategory]);
+  }, [fabrics, searchQuery]);
 
   // Construct direct WhatsApp enquiry URL
   const getWhatsAppUrl = (fabric: FabricItem) => {
@@ -102,66 +85,40 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
   return (
     <>
       {/* =========================================================
-          1. CATALOG CONTROLS: SEARCH BAR & CATEGORY FILTER CHIPS
+          1. CATALOG SEARCH BAR (MINIMALIST, CLEAN & REFINED)
          ========================================================= */}
-      <div className="space-y-6 sm:space-y-8">
-        
-        {/* Search Bar + Controls Container */}
-        <div className="bg-white/95 backdrop-blur-md rounded-[22px] sm:rounded-[26px] p-4 sm:p-5 border border-slate-200/90 shadow-[0_10px_30px_rgba(15,23,42,0.05)] flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="w-full max-w-3xl mx-auto">
+        <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-full p-2 pl-4 sm:pl-6 sm:pr-3 border border-slate-200/90 shadow-[0_8px_25px_rgba(15,23,42,0.04)] flex flex-col sm:flex-row items-center justify-between gap-3 transition-all focus-within:shadow-[0_12px_32px_rgba(15,23,42,0.08)] focus-within:border-[#006DB6]/40">
           
           {/* Live Search Input */}
-          <div className="relative w-full md:max-w-md">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+          <div className="relative flex-1 w-full flex items-center">
+            <Search className="w-4 h-4 text-slate-400 shrink-0 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by fabric name, weave, or GSM (e.g. Crepe, Satin, BSY)..."
-              className="w-full pl-11 pr-10 py-3 bg-[#FAF8F5]/80 hover:bg-[#FAF8F5] focus:bg-white text-[13.5px] sm:text-[14px] text-[#0A192F] placeholder-slate-400 rounded-xl border border-slate-200/90 focus:border-[#006DB6] focus:ring-2 focus:ring-[#006DB6]/20 transition-all outline-hidden font-normal"
+              placeholder="Search fabrics by name, weave, or GSM (e.g. Crepe, Satin, BSY)..."
+              className="w-full pl-3.5 pr-8 py-2 text-[13.5px] sm:text-[14px] text-[#0A192F] placeholder-slate-400 bg-transparent transition-all outline-hidden font-normal"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-200/60 transition-colors"
+                className="absolute right-1 p-1 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors cursor-pointer"
                 title="Clear search"
+                aria-label="Clear search"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
             )}
           </div>
 
-          {/* Results Counter Pill */}
-          <div className="flex items-center gap-2.5 self-end md:self-auto text-slate-600 font-sans text-[12.5px] sm:text-[13px]">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>
-              Showing <strong className="font-semibold text-[#0A192F]">{filteredFabrics.length}</strong> of {fabrics.length} qualities
-            </span>
+          {/* Minimalist Results Counter Badge (No Green Dot) */}
+          <div className="self-end sm:self-center px-4 py-1.5 rounded-full bg-[#FAF8F5] border border-slate-200/80 text-slate-600 font-sans text-[12px] sm:text-[12.5px] shrink-0 whitespace-nowrap">
+            Showing <strong className="font-semibold text-[#0A192F]">{filteredFabrics.length}</strong> of {fabrics.length} qualities
           </div>
 
         </div>
-
-        {/* Quick Filter Category Chips */}
-        <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto pb-1 scrollbar-none">
-          {CATEGORIES.map((cat) => {
-            const isSelected = selectedCategory === cat;
-            return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-4 sm:px-5 py-2 rounded-full text-[12px] sm:text-[12.5px] font-medium transition-all duration-300 whitespace-nowrap cursor-pointer shrink-0 ${
-                  isSelected
-                    ? 'bg-[#0A192F] text-white shadow-[0_4px_14px_rgba(10,25,47,0.25)] scale-102'
-                    : 'bg-white/85 text-slate-600 hover:text-[#0A192F] hover:bg-white border border-slate-200/80 shadow-xs'
-                }`}
-              >
-                {cat}
-              </button>
-            );
-          })}
-        </div>
-
       </div>
 
       {/* =========================================================
@@ -293,13 +250,10 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
           </p>
           <button
             type="button"
-            onClick={() => {
-              setSearchQuery('');
-              setSelectedCategory('All');
-            }}
+            onClick={() => setSearchQuery('')}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0A192F] text-white text-[12px] font-semibold tracking-wider uppercase hover:bg-[#1E3A8A] transition-colors cursor-pointer"
           >
-            Clear Search &amp; Filters
+            Clear Search
           </button>
         </div>
       )}

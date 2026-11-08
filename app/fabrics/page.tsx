@@ -14,6 +14,12 @@ export const metadata: Metadata = {
     'Explore the complete export-grade synthetic fabrics catalog produced by Viral Fabrics in Surat, Gujarat. BSY, Satin, Chiffon, Georgette, Crepe, Recycled PET, and Poly Dobby.',
 };
 
+const FABRICS_PAGE_BADGES = [
+  { iconName: 'sparkles', label: 'Continuous Water-Jet Weaves' },
+  { iconName: 'layers', label: '30 to 180+ Export GSM' },
+  { iconName: 'award', label: 'Solid & Digital Strike-Offs' },
+];
+
 export default function FabricsPage() {
   return (
     <div className="min-h-screen bg-[#FAF8F5] selection:bg-[#006DB6] selection:text-white">
@@ -26,6 +32,7 @@ export default function FabricsPage() {
         bgVideoPoster="/assets/uploads/2025/09/bsy-fabrics-banner.png"
         bgImage="/assets/uploads/2025/09/bsy-fabrics-banner.png"
         bgAlt="Fabrics Portfolio - Viral Fabrics"
+        badges={FABRICS_PAGE_BADGES}
         breadcrumbs={[
           { label: 'Home', href: '/' },
           { label: 'Fabrics' },

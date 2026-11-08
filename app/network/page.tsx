@@ -9,8 +9,17 @@ import {
   Layers,
   Globe2,
   Users2,
+  Globe,
+  Plane,
+  Truck,
 } from 'lucide-react';
 import { PageHeroBanner } from '@/components/PageHeroBanner';
+
+const NETWORK_PAGE_BADGES = [
+  { icon: Globe, label: '5+ Global Continents' },
+  { icon: Plane, label: 'Europe, Dubai & Americas' },
+  { icon: Truck, label: 'Direct Mill Cargo Export' },
+];
 
 export default function NetworkPage() {
   const [hoveredHotspot, setHoveredHotspot] = useState<string | null>(null);
@@ -66,6 +75,7 @@ export default function NetworkPage() {
         bgVideoPoster="/images/network/network-hero-poster.webp"
         bgImage="/images/network/network-hero-poster.webp"
         bgAlt="Viral Fabrics Global Network & Export Distribution"
+        badges={NETWORK_PAGE_BADGES}
       />
 
       {/* ========================================================================= */}
