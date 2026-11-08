@@ -9,6 +9,7 @@ import {
   ChevronRight,
   Lightbulb,
   Target,
+  Compass,
   CheckCircle2,
   Phone,
   Mail,
@@ -316,51 +317,77 @@ export default function AboutUsPage() {
                   About <span className="text-[#9C5136] font-normal">Viral Fabrics</span>
                 </h2>
 
-                <p className="font-sans text-[13.5px] sm:text-[14.5px] text-slate-700 font-normal leading-[1.72] max-w-2xl">
-                  VIRAL FABRICS was Established in 2012. Viral Fabrics has always been one of the most promising player in market of Manufacturers and Suppliers export quality of fabric. We have achieved several milestones under the expert guidance of Mr. Viral Patel. Our range includes Polyester Dyed and Printed Fabrics, Viscose Fabrics, Rayon Fabrics, Cotton Fabrics and Digital Printed Fabrics By Make to Order Base.
-                </p>
+                <div className="space-y-3.5 text-slate-700 font-sans text-[13.5px] sm:text-[14.5px] font-normal leading-[1.72]">
+                  <p>
+                    VIRAL FABRICS was Established in 2012. Viral Fabrics has always been one of the most promising player in market of Manufacturers and Suppliers export quality of fabric. We have achieved several milestones under the expert guidance of Mr. Viral A Patel, Owner of the company. We facilitate our valued clients from our base in the beautiful city of SURAT, GUJARAT, INDIA. The turnover of the company is more than 10 crores.
+                  </p>
 
-                <div className="pt-2">
-                  <Link
-                    href="/fabrics"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 sm:px-7 sm:py-3 rounded-lg text-[12.5px] font-medium tracking-wide text-white bg-[#7A3E20] hover:bg-[#663217] transition-all duration-300 shadow-[0_2px_8px_rgba(122,62,32,0.25)] hover:shadow-[0_4px_14px_rgba(122,62,32,0.35)] hover:-translate-y-0.5 group"
-                  >
-                    <span>Learn More</span>
-                    <ArrowUpRight className="w-4 h-4 stroke-[2.2] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </Link>
+                  <p>
+                    We are manufacturers and supplier all type of export fabrics. The exclusive assortment of fabrics offered by us includes Polyester Dyed and Printed Fabrics, Viscose Fabrics, Rayon Fabrics, Cotton Fabrics and Digital Printed Fabrics By Make to Order Base.
+                  </p>
+                </div>
+
+                {/* Corporate Milestones Badges (Replacing redundant button with high-trust credentials) */}
+                <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-2">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-[#EAE0D5] text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
+                    <span className="w-2 h-2 rounded-full bg-[#9C5136]" />
+                    <span>Est. 2012 • Surat, Gujarat, India</span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-[#EAE0D5] text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
+                    <span className="w-2 h-2 rounded-full bg-[#9C5136]" />
+                    <span>Turnover: ₹10+ Crores</span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-[#EAE0D5] text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
+                    <span className="w-2 h-2 rounded-full bg-[#9C5136]" />
+                    <span>Make-to-Order Export Weaves</span>
+                  </div>
                 </div>
               </div>
 
             </div>
 
-            {/* Lower Row: Vision & Mission Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 pt-10 sm:pt-12 border-t border-[#E6D8CC] mt-10 sm:mt-12">
+            {/* Lower Row: Vision & Mission Haute-Couture Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 pt-10 sm:pt-12 border-t border-[#E6D8CC] mt-8 sm:mt-10">
               
-              {/* Our Vision */}
-              <div className="flex items-start gap-4 sm:gap-5">
-                <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-2xl bg-[#F4E5D8] border border-[#E8D3C2] flex items-center justify-center shrink-0 shadow-sm text-[#8C4B28]">
-                  <Leaf className="w-6 h-6 stroke-[1.8]" />
-                </div>
-                <div className="space-y-1.5">
-                  <h3 className="font-heading text-xl sm:text-2xl font-semibold text-[#0F172A] tracking-tight">
-                    Our Vision
-                  </h3>
-                  <p className="font-sans text-[13px] sm:text-[14px] text-slate-700 leading-relaxed font-normal">
+              {/* Our Vision Card */}
+              <div className="relative p-6 sm:p-8 rounded-[22px] bg-white/80 backdrop-blur-md border border-[#EAE0D5] shadow-[0_8px_24px_rgba(156,81,54,0.06)] hover:shadow-[0_14px_34px_rgba(156,81,54,0.10)] transition-all duration-300 flex flex-col justify-between group">
+                <div className="space-y-3.5">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-11 h-11 rounded-xl bg-[#F4E5D8] border border-[#E8D3C2] flex items-center justify-center shrink-0 shadow-xs text-[#8C4B28] group-hover:scale-105 transition-transform">
+                      <Compass className="w-5 h-5 stroke-[2]" />
+                    </div>
+                    <div>
+                      <span className="font-sans text-[10.5px] font-bold tracking-[0.22em] uppercase text-[#9C5136] block">
+                        OUR DIRECTION
+                      </span>
+                      <h3 className="font-heading text-2xl font-normal text-[#0F172A] tracking-tight">
+                        Our Vision
+                      </h3>
+                    </div>
+                  </div>
+                  <p className="font-sans text-[13.5px] sm:text-[14px] text-slate-700 leading-relaxed font-normal">
                     Successfully delivering High quality fabrics for new and repeat clients.
                   </p>
                 </div>
               </div>
 
-              {/* Our Mission */}
-              <div className="flex items-start gap-4 sm:gap-5">
-                <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-2xl bg-[#F4E5D8] border border-[#E8D3C2] flex items-center justify-center shrink-0 shadow-sm text-[#8C4B28]">
-                  <Target className="w-6 h-6 stroke-[1.8]" />
-                </div>
-                <div className="space-y-1.5">
-                  <h3 className="font-heading text-xl sm:text-2xl font-semibold text-[#0F172A] tracking-tight">
-                    Our Mission
-                  </h3>
-                  <p className="font-sans text-[13px] sm:text-[14px] text-slate-700 leading-relaxed font-normal">
+              {/* Our Mission Card */}
+              <div className="relative p-6 sm:p-8 rounded-[22px] bg-white/80 backdrop-blur-md border border-[#EAE0D5] shadow-[0_8px_24px_rgba(156,81,54,0.06)] hover:shadow-[0_14px_34px_rgba(156,81,54,0.10)] transition-all duration-300 flex flex-col justify-between group">
+                <div className="space-y-3.5">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-11 h-11 rounded-xl bg-[#F4E5D8] border border-[#E8D3C2] flex items-center justify-center shrink-0 shadow-xs text-[#8C4B28] group-hover:scale-105 transition-transform">
+                      <Target className="w-5 h-5 stroke-[2]" />
+                    </div>
+                    <div>
+                      <span className="font-sans text-[10.5px] font-bold tracking-[0.22em] uppercase text-[#9C5136] block">
+                        OUR PURPOSE
+                      </span>
+                      <h3 className="font-heading text-2xl font-normal text-[#0F172A] tracking-tight">
+                        Our Mission
+                      </h3>
+                    </div>
+                  </div>
+                  <p className="font-sans text-[13.5px] sm:text-[14px] text-slate-700 leading-relaxed font-normal">
                     The company has been maintaining a pacesetter for the future time. Company’s main concentration is totally on the international and Indian clients. Company’s aim is to achieve the goal of the nation and by taking our country to one of the most subsidized and industrialized zone in the 21st century.
                   </p>
                 </div>
