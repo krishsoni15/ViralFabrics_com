@@ -234,10 +234,10 @@ export function WhoWeAreSection() {
           chars,
           {
             opacity: 0,
-            filter: 'blur(16px)',
-            y: -8, // directional top-to-bottom entrance
+            filter: 'blur(12px)',
+            y: -6, // subtle directional top-to-bottom entrance
             color: '#006DB6', // starts with rich vibrant brand blue
-            textShadow: '0 0 16px rgba(0, 109, 182, 0.4)',
+            textShadow: '0 0 12px rgba(0, 109, 182, 0.35)',
           },
           {
             opacity: 1,
@@ -245,10 +245,10 @@ export function WhoWeAreSection() {
             y: 0,
             color: (i) => (data[i].isAccent ? '#1d3557' : '#0f172a'),
             textShadow: 'none',
-            duration: 1.0,
-            ease: 'power2.out',
-            stagger: (i) => normalizedStagger[i] * 1.1,
-            clearProps: 'transform,willChange,filter',
+            duration: 0.65, // Snappy & fast
+            ease: 'power3.out', // Smooth, crisp luxury deceleration
+            stagger: (i) => normalizedStagger[i] * 0.55, // Fast, dynamic sweep
+            clearProps: 'transform,willChange,filter,textShadow',
           }
         );
       }, headline);
@@ -263,15 +263,15 @@ export function WhoWeAreSection() {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     );
 
     observer.observe(headline);
 
     // If already in viewport on mount (e.g. reload or shallow scroll)
     const rect = headline.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) {
-      setTimeout(playReveal, 120);
+    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+      setTimeout(playReveal, 60);
     }
 
     return () => {
