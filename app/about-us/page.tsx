@@ -259,8 +259,8 @@ export default function AboutUsPage() {
                     <span>Surat, Gujarat, India</span>
                   </div>
                   <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
-                    <Layers className="w-3.5 h-3.5 text-slate-500 stroke-[2.2]" />
-                    <span>10+ Fabric Categories</span>
+                    <Sparkles className="w-3.5 h-3.5 text-slate-500 stroke-[2.2]" />
+                    <span>Make-to-Order Fabrics</span>
                   </div>
                   <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
                     <Globe className="w-3.5 h-3.5 text-slate-500 stroke-[2.2]" />
