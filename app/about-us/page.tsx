@@ -272,7 +272,7 @@ export default function AboutUsPage() {
          ================================================================= */}
       
       {/* 2A. OUR STORY (ABOUT VIRAL FABRICS + VISION & MISSION) - FULL HORIZONTAL WIDTH */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#FAF6F1] border-b border-[#EAE0D5] overflow-hidden">
+      <section id="our-story" className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#FAF6F1] border-b border-[#EAE0D5] overflow-hidden">
         {/* Authentic Silk Background Canvas with Leaf Shadow - 100% Full Bleed */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
