@@ -194,7 +194,7 @@ export default function AboutUsPage() {
          ================================================================= */}
       <div className="relative z-10 bg-[#FAF6F1] shadow-[0_-25px_60px_rgba(0,0,0,0.22)]">
         {/* 2A. OUR STORY (ABOUT VIRAL FABRICS + VISION & MISSION) - FULL HORIZONTAL WIDTH */}
-        <section id="our-story" className="relative w-full pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 lg:pb-18 bg-[#FAF6F1] overflow-hidden">
+        <section id="our-story" className="relative w-full pt-20 sm:pt-28 lg:pt-36 pb-16 sm:pb-24 lg:pb-32 bg-[#FAF6F1] overflow-hidden">
         {/* Authentic Silk Background Canvas with Leaf Shadow - 100% Full Bleed */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
@@ -207,39 +207,39 @@ export default function AboutUsPage() {
           />
         </div>
 
-        <div className="relative z-10 w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14 space-y-12 lg:space-y-14">
+        <div className="relative z-10 w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14 space-y-16 sm:space-y-20 lg:space-y-24">
           <EditorialBlock>
             {/* Upper Row: Story Frame + Editorial Narrative */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 xl:gap-20 items-center">
               
-              {/* Left: 3-Rounded 1-Flat Photographic Frame */}
+              {/* Left: 3-Rounded 1-Flat Photographic Frame (Enlarged Luxury Scale) */}
               <div className="lg:col-span-5 flex justify-center lg:justify-start">
-                <div className="relative w-full max-w-[440px] xl:max-w-[480px] aspect-[436/261] flex items-center justify-center">
+                <div className="relative w-full max-w-[500px] xl:max-w-[560px] flex items-center justify-center group">
                   <Image
-                    src="/images/about/about-fabrics-arch.png?v=10"
+                    src="/images/about/about-fabrics-arch.png?v=11"
                     alt="Viral Fabrics Folded Fabric Collection"
-                    width={436}
-                    height={261}
-                    className="w-full h-auto object-contain drop-shadow-[0_12px_28px_rgba(120,60,30,0.12)]"
+                    width={560}
+                    height={335}
+                    className="w-full h-auto object-contain drop-shadow-[0_20px_45px_rgba(120,60,30,0.16)] group-hover:scale-102 transition-transform duration-500 ease-out"
                     priority
                   />
                 </div>
               </div>
 
-              {/* Right: Editorial Story matching Image 1 1:1 */}
-              <div className="lg:col-span-7 space-y-4 sm:space-y-5">
+              {/* Right: Editorial Story matching Image 1 1:1 (Enlarged Majestic Scale) */}
+              <div className="lg:col-span-7 space-y-5 sm:space-y-6">
                 <div className="flex items-center gap-3">
-                  <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-slate-500">
+                  <span className="font-sans text-[12px] sm:text-[13px] font-bold tracking-[0.28em] uppercase text-[#9C5136]">
                     ABOUT US
                   </span>
-                  <div className="w-8 h-[1.5px] bg-[#9C5136]" />
+                  <div className="w-12 h-[2px] bg-[#9C5136]" />
                 </div>
 
-                <h2 className="font-heading text-3xl sm:text-4xl lg:text-[44px] font-normal text-[#0F172A] leading-[1.14] tracking-tight">
-                  Our Heritage, <span className="text-[#9C5136]">Our Fabrics</span>
+                <h2 className="font-heading text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-normal text-[#0F172A] leading-[1.12] tracking-tight">
+                  Our Heritage, <span className="text-[#9C5136] italic font-normal">Our Fabrics</span>
                 </h2>
 
-                <div className="space-y-3.5 text-slate-600 font-sans text-[13.5px] sm:text-[14.5px] font-normal leading-[1.72]">
+                <div className="space-y-4 text-slate-600 font-sans text-[15px] sm:text-[16px] lg:text-[16.5px] font-normal leading-[1.8]">
                   <p>
                     <strong className="font-semibold text-[#0F172A]">VIRAL FABRICS was Established in 2012.</strong> Viral Fabrics has always been one of the most promising player in market of Manufacturers and Suppliers export quality of fabric. We have achieved several milestones under the expert guidance of Mr. Viral A Patel, Owner of the company. We facilitate our valued clients from our base in the beautiful city of SURAT, GUJARAT, INDIA. The turnover of the company is more than 10 crores.
                   </p>
@@ -248,22 +248,22 @@ export default function AboutUsPage() {
                   </p>
                 </div>
 
-                {/* 4 Distinct Rounded Pills matching Image 1 1:1 */}
-                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 pt-2">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
-                    <Calendar className="w-3.5 h-3.5 text-slate-500 stroke-[2.2]" />
+                {/* 4 Distinct Rounded Pills (Enlarged Presence) */}
+                <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-3">
+                  <div className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-4.5 sm:py-2.2 rounded-full bg-white border border-slate-200/90 text-[12px] sm:text-[13px] font-medium text-slate-700 shadow-xs hover:border-[#9C5136]/40 transition-colors">
+                    <Calendar className="w-4 h-4 text-[#9C5136] stroke-[2.2]" />
                     <span>Est. 2012</span>
                   </div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
-                    <MapPin className="w-3.5 h-3.5 text-slate-500 stroke-[2.2]" />
+                  <div className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-4.5 sm:py-2.2 rounded-full bg-white border border-slate-200/90 text-[12px] sm:text-[13px] font-medium text-slate-700 shadow-xs hover:border-[#9C5136]/40 transition-colors">
+                    <MapPin className="w-4 h-4 text-[#9C5136] stroke-[2.2]" />
                     <span>Surat, Gujarat, India</span>
                   </div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
-                    <Sparkles className="w-3.5 h-3.5 text-slate-500 stroke-[2.2]" />
+                  <div className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-4.5 sm:py-2.2 rounded-full bg-white border border-slate-200/90 text-[12px] sm:text-[13px] font-medium text-slate-700 shadow-xs hover:border-[#9C5136]/40 transition-colors">
+                    <Sparkles className="w-4 h-4 text-[#9C5136] stroke-[2.2]" />
                     <span>Make-to-Order Fabrics</span>
                   </div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
-                    <Globe className="w-3.5 h-3.5 text-slate-500 stroke-[2.2]" />
+                  <div className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-4.5 sm:py-2.2 rounded-full bg-white border border-slate-200/90 text-[12px] sm:text-[13px] font-medium text-slate-700 shadow-xs hover:border-[#9C5136]/40 transition-colors">
+                    <Globe className="w-4 h-4 text-[#9C5136] stroke-[2.2]" />
                     <span>Global Export</span>
                   </div>
                 </div>
@@ -271,15 +271,15 @@ export default function AboutUsPage() {
 
             </div>
 
-            {/* Lower Row: Vision & Mission Haute-Couture Cards with subtle silk wave watermarks */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 pt-8 sm:pt-10">
+            {/* Lower Row: Vision & Mission Haute-Couture Cards (Enlarged Scale & Padding) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 pt-10 sm:pt-14">
               
               {/* Our Vision Card */}
-              <div className="relative p-6 sm:p-7 rounded-[22px] bg-white border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col justify-between group hover:shadow-[0_8px_30px_rgba(30,95,168,0.08)] transition-all duration-300">
+              <div className="relative p-8 sm:p-9 lg:p-11 rounded-[26px] sm:rounded-[28px] bg-white border border-slate-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col justify-between group hover:shadow-[0_12px_36px_rgba(30,95,168,0.1)] hover:-translate-y-1 transition-all duration-300">
                 {/* Subtle soft cool-blue wave watermark in bottom-right corner (1:1 Image 1) */}
-                <div className="absolute -bottom-8 -right-8 w-44 h-44 bg-[radial-gradient(circle_at_bottom_right,rgba(30,95,168,0.14)_0%,transparent_70%)] pointer-events-none rounded-full" />
+                <div className="absolute -bottom-8 -right-8 w-56 h-56 bg-[radial-gradient(circle_at_bottom_right,rgba(30,95,168,0.16)_0%,transparent_70%)] pointer-events-none rounded-full" />
                 <svg
-                  className="absolute -bottom-2 -right-2 w-36 h-28 pointer-events-none opacity-30 text-[#1E5FA8]"
+                  className="absolute -bottom-2 -right-2 w-44 h-36 pointer-events-none opacity-30 text-[#1E5FA8]"
                   viewBox="0 0 200 120"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -298,32 +298,32 @@ export default function AboutUsPage() {
                   />
                 </svg>
 
-                <div className="relative z-10 space-y-3">
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-11 h-11 rounded-full bg-[#EBF3FC] border border-[#D0E2F7] flex items-center justify-center shrink-0 shadow-xs text-[#1665C1] group-hover:scale-105 transition-transform">
-                      <Target className="w-5 h-5 stroke-[2.2]" />
+                <div className="relative z-10 space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-[#EBF3FC] border border-[#D0E2F7] flex items-center justify-center shrink-0 shadow-xs text-[#1665C1] group-hover:scale-105 transition-transform">
+                      <Target className="w-6 h-6 stroke-[2.2]" />
                     </div>
                     <div>
-                      <span className="font-sans text-[10.5px] font-bold tracking-[0.22em] uppercase text-slate-500 block">
+                      <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-[#1665C1] block">
                         OUR VISION
                       </span>
-                      <h3 className="font-heading text-2xl font-normal text-[#0F172A] tracking-tight">
+                      <h3 className="font-heading text-2xl sm:text-3xl lg:text-[30px] font-normal text-[#0F172A] tracking-tight">
                         Our Vision
                       </h3>
                     </div>
                   </div>
-                  <p className="font-sans text-[13.5px] sm:text-[14px] text-slate-600 leading-relaxed font-normal pt-1">
+                  <p className="font-sans text-[14.5px] sm:text-[15.5px] lg:text-[16px] text-slate-600 leading-[1.78] font-normal pt-1">
                     Successfully delivering High quality fabrics for new and repeat clients.
                   </p>
                 </div>
               </div>
 
               {/* Our Mission Card */}
-              <div className="relative p-6 sm:p-7 rounded-[22px] bg-white border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col justify-between group hover:shadow-[0_8px_30px_rgba(184,98,66,0.08)] transition-all duration-300">
+              <div className="relative p-8 sm:p-9 lg:p-11 rounded-[26px] sm:rounded-[28px] bg-white border border-slate-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col justify-between group hover:shadow-[0_12px_36px_rgba(184,98,66,0.1)] hover:-translate-y-1 transition-all duration-300">
                 {/* Subtle soft copper/terracotta wave watermark in bottom-right corner (1:1 Image 1) */}
-                <div className="absolute -bottom-8 -right-8 w-44 h-44 bg-[radial-gradient(circle_at_bottom_right,rgba(184,98,66,0.14)_0%,transparent_70%)] pointer-events-none rounded-full" />
+                <div className="absolute -bottom-8 -right-8 w-56 h-56 bg-[radial-gradient(circle_at_bottom_right,rgba(184,98,66,0.16)_0%,transparent_70%)] pointer-events-none rounded-full" />
                 <svg
-                  className="absolute -bottom-2 -right-2 w-36 h-28 pointer-events-none opacity-30 text-[#B86242]"
+                  className="absolute -bottom-2 -right-2 w-44 h-36 pointer-events-none opacity-30 text-[#B86242]"
                   viewBox="0 0 200 120"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -342,21 +342,21 @@ export default function AboutUsPage() {
                   />
                 </svg>
 
-                <div className="relative z-10 space-y-3">
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-11 h-11 rounded-full bg-[#FDF2EC] border border-[#F5D5C3] flex items-center justify-center shrink-0 shadow-xs text-[#B86242] group-hover:scale-105 transition-transform">
-                      <Layers className="w-5 h-5 stroke-[2.2]" />
+                <div className="relative z-10 space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-[#FDF2EC] border border-[#F5D5C3] flex items-center justify-center shrink-0 shadow-xs text-[#B86242] group-hover:scale-105 transition-transform">
+                      <Layers className="w-6 h-6 stroke-[2.2]" />
                     </div>
                     <div>
-                      <span className="font-sans text-[10.5px] font-bold tracking-[0.22em] uppercase text-slate-500 block">
+                      <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-[#B86242] block">
                         OUR MISSION
                       </span>
-                      <h3 className="font-heading text-2xl font-normal text-[#0F172A] tracking-tight">
+                      <h3 className="font-heading text-2xl sm:text-3xl lg:text-[30px] font-normal text-[#0F172A] tracking-tight">
                         Our Mission
                       </h3>
                     </div>
                   </div>
-                  <p className="font-sans text-[13.5px] sm:text-[14px] text-slate-600 leading-relaxed font-normal pt-1">
+                  <p className="font-sans text-[14.5px] sm:text-[15.5px] lg:text-[16px] text-slate-600 leading-[1.78] font-normal pt-1">
                     The company has been maintaining a pacesetter for the future time. Company’s main concentration is totally on the international and Indian clients. Company’s aim is to achieve the goal of the nation and by taking our country to one of the most subsidized and industrialized zone in the 21st century.
                   </p>
                 </div>
@@ -614,89 +614,17 @@ export default function AboutUsPage() {
       </section>
 
       {/* =================================================================
-          5. OUR PROCESS & LUXURY SPECIFICATIONS BAR (PLACED ON BOTTOM MATCHING USER SPEC)
-          - Header: OUR PROCESS (From Raw Yarn to Finished Fabric)
-          - 5 Process Step Cards (Yarn Sourcing, Precision Weaving, Dyeing & Printing, Quality Audit, Packaging & Export)
-          - Dark Luxury Navy Pill Row: Replaces old table with Name of Owner, Year of Establishment, Nature of Business, Number of Employees
+          5. COMPANY SPECIFICATIONS BAR (DARK LUXURY NAVY PILL ROW)
+             - Name of Owner: Mr. Viral Patel
+             - Year of Establishment: 2012
+             - Nature of Business: Manufacturer & Supplier
+             - Number of Employees: Above 15
          ================================================================= */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#FAF6F1] border-t border-[#EAE0D5] overflow-hidden">
-        <div className="w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14 space-y-12 sm:space-y-16">
+      <section className="relative w-full py-12 sm:py-16 bg-[#FAF6F1] border-t border-[#EAE0D5] overflow-hidden">
+        <div className="w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
           
-          <EditorialBlock>
-            {/* Header: OUR PROCESS */}
-            <div className="text-center max-w-2xl mx-auto space-y-2 mb-8 sm:mb-12">
-              <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-slate-500 block">
-                OUR PROCESS
-              </span>
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-[42px] font-normal text-[#0F172A] tracking-tight">
-                From Raw Yarn to Finished Fabric
-              </h2>
-            </div>
-
-            {/* 5 Workflow Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 items-stretch">
-              {[
-                {
-                  step: '01',
-                  title: 'Yarn Sourcing',
-                  desc: 'High-grade virgin & recycled filaments procured from trusted suppliers.',
-                  icon: Sparkles,
-                },
-                {
-                  step: '02',
-                  title: 'Precision Weaving',
-                  desc: 'High-speed automated water-jet looms and advanced machinery.',
-                  icon: Factory,
-                },
-                {
-                  step: '03',
-                  title: 'Dyeing & Printing',
-                  desc: 'Vibrant coloration, digital prints & eco-friendly processing.',
-                  icon: Palette,
-                },
-                {
-                  step: '04',
-                  title: 'Quality Audit',
-                  desc: 'Multi-stage inspection for thread count, strength, color and finish.',
-                  icon: ShieldCheck,
-                },
-                {
-                  step: '05',
-                  title: 'Packaging & Export',
-                  desc: 'Export-grade tamper-proof wrapping, warehousing and global delivery.',
-                  icon: Truck,
-                },
-              ].map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div
-                    key={item.step}
-                    className="relative p-5 sm:p-6 rounded-[20px] bg-white border border-slate-200/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(30,95,168,0.08)] transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
-                  >
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <div className="w-10 h-10 rounded-xl bg-[#FAF6F1] border border-[#EAE0D5] flex items-center justify-center text-[#1665C1] group-hover:scale-105 transition-transform">
-                          <Icon className="w-5 h-5 stroke-[2]" />
-                        </div>
-                        <span className="font-mono text-[11px] font-bold text-slate-400">
-                          {item.step}
-                        </span>
-                      </div>
-                      <h3 className="font-heading text-lg font-medium text-[#0F172A] tracking-tight">
-                        {item.title}
-                      </h3>
-                      <p className="font-sans text-[12.5px] sm:text-[13px] text-slate-600 leading-relaxed font-normal">
-                        {item.desc}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </EditorialBlock>
-
           {/* THE DARK NAVY COMPANY SPECIFICATIONS BAR (1:1 REPLICA OF USER REFERENCE IMAGE) */}
-          <EditorialBlock delay={150}>
+          <EditorialBlock>
             <div className="relative w-full rounded-2xl sm:rounded-[22px] bg-gradient-to-r from-[#0B1F38] via-[#0E2849] to-[#0B1F38] border border-white/10 shadow-[0_16px_40px_rgba(10,25,47,0.18)] py-6 sm:py-7 px-6 sm:px-10 lg:px-12">
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-white/15 items-center">
                 
