@@ -85,10 +85,10 @@ export const TestimonialsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Responsive mobile detection
+  // Responsive mobile/tablet threshold (< 860px displays single center card)
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 860);
     };
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -163,7 +163,7 @@ export const TestimonialsSection: React.FC = () => {
     return diff;
   };
 
-  // Get exact GPU-accelerated 3D slot position for each card
+  // Get exact GPU-accelerated slot position for each card
   const getCardStyle = (diff: number) => {
     if (isMobile) {
       if (diff === 0) {
@@ -174,6 +174,7 @@ export const TestimonialsSection: React.FC = () => {
           zIndex: 20,
           pointerEvents: 'auto' as const,
           visibility: 'visible' as const,
+          transition: 'all 700ms cubic-bezier(0.16, 1, 0.3, 1)',
         };
       }
       return {
@@ -183,64 +184,79 @@ export const TestimonialsSection: React.FC = () => {
         zIndex: 1,
         pointerEvents: 'none' as const,
         visibility: 'hidden' as const,
+        transition: 'none',
       };
     }
 
-    // Desktop / Tablet layout (3 visible cards: Left, Center, Right)
+    // Desktop & Tablet (>= 860px): 3 visible cards (Left, Center, Right)
+    // Lateral offset calculated to guarantee ~20-25px gap between center and side cards
+    const offset = 'clamp(285px, 26vw, 360px)';
+    const smoothTransition = 'all 700ms cubic-bezier(0.16, 1, 0.3, 1)';
+
     if (diff === 0) {
-      // Center active card: Dead Center (50%), zoomed, elevated, blue highlight
+      // Center active card: Dead Center (50%), zoomed (1.06), elevated luxury shadow
       return {
         left: '50%',
-        transform: 'translate3d(-50%, -50%, 0) scale(1.08)',
+        transform: 'translate3d(-50%, -50%, 0) scale(1.06)',
         opacity: 1,
         zIndex: 20,
         pointerEvents: 'auto' as const,
         visibility: 'visible' as const,
+        transition: smoothTransition,
       };
     }
+
     if (diff === -1) {
-      // Left card: symmetrically placed on left
+      // Left card: placed symmetrically to the left with ~22px gap from center card
       return {
-        left: 'calc(50% - clamp(290px, 32vw, 410px))',
-        transform: 'translate3d(-50%, -50%, 0) scale(0.90)',
+        left: `calc(50% - ${offset})`,
+        transform: 'translate3d(-50%, -50%, 0) scale(0.88)',
         opacity: 0.75,
         zIndex: 10,
         pointerEvents: 'auto' as const,
         cursor: 'pointer',
         visibility: 'visible' as const,
+        transition: smoothTransition,
       };
     }
+
     if (diff === 1) {
-      // Right card: symmetrically placed on right
+      // Right card: placed symmetrically to the right with ~22px gap from center card
       return {
-        left: 'calc(50% + clamp(290px, 32vw, 410px))',
-        transform: 'translate3d(-50%, -50%, 0) scale(0.90)',
+        left: `calc(50% + ${offset})`,
+        transform: 'translate3d(-50%, -50%, 0) scale(0.88)',
         opacity: 0.75,
         zIndex: 10,
         pointerEvents: 'auto' as const,
         cursor: 'pointer',
         visibility: 'visible' as const,
+        transition: smoothTransition,
       };
     }
+
+    // Off-stage left:
+    // If wrapping around (|diff| >= 3), transition is 'none' to prevent flying across the screen
     if (diff <= -2) {
-      // Hidden off-stage left
       return {
-        left: 'calc(50% - clamp(580px, 64vw, 840px))',
+        left: 'calc(50% - 680px)',
         transform: 'translate3d(-50%, -50%, 0) scale(0.75)',
         opacity: 0,
         zIndex: 1,
         pointerEvents: 'none' as const,
-        visibility: diff === -2 ? ('visible' as const) : ('hidden' as const),
+        visibility: 'hidden' as const,
+        transition: diff === -2 ? smoothTransition : 'none',
       };
     }
-    // diff >= 2: Hidden off-stage right
+
+    // diff >= 2: Off-stage right
     return {
-      left: 'calc(50% + clamp(580px, 64vw, 840px))',
+      left: 'calc(50% + 680px)',
       transform: 'translate3d(-50%, -50%, 0) scale(0.75)',
       opacity: 0,
       zIndex: 1,
       pointerEvents: 'none' as const,
-      visibility: diff === 2 ? ('visible' as const) : ('hidden' as const),
+      visibility: 'hidden' as const,
+      transition: diff === 2 ? smoothTransition : 'none',
     };
   };
 
@@ -258,34 +274,27 @@ export const TestimonialsSection: React.FC = () => {
          ========================================================= */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
         <Image
-          src="/images/testimonials/testimonials-silk-bg.webp"
-          alt="Viral Fabrics Testimonials Silk Canvas"
+          src="/images/testimonials-bg.png"
+          alt="Silk fabrics drape background"
           fill
-          sizes="100vw"
-          className="object-cover object-bottom opacity-90"
-          priority
+          priority={false}
+          className="object-cover object-center opacity-90 transition-opacity duration-1000"
         />
+        {/* Editorial soft scrim gradient for perfect text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F5]/90 via-transparent to-[#FAF8F5]/95" />
       </div>
 
-      {/* =========================================================
-          CONTENT CANVAS (Centered Editorial Layout)
-         ========================================================= */}
-      <div className="relative z-10 w-full max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-14">
-
+      <div
+        className={`relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        }`}
+      >
         {/* -------------------------------------------------------------
-            1. EDITORIAL HEADER (Client Voices — Testimonials)
+            1. SECTION HEADER (Clean Luxury Editorial Typography)
            ------------------------------------------------------------- */}
-        <div
-          className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 lg:mb-14"
-          style={{
-            transition:
-              'opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1), transform 1000ms cubic-bezier(0.16, 1, 0.3, 1)',
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translate3d(0, 0, 0)' : 'translate3d(0, 20px, 0)',
-          }}
-        >
-          {/* Eyebrow: — CLIENT VOICES — */}
-          <div className="inline-flex items-center justify-center gap-3 text-[#1E5FA8] mb-2 sm:mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+          {/* Eyebrow Pill */}
+          <div className="inline-flex items-center justify-center gap-2 mb-3">
             <span className="w-8 sm:w-12 h-[1.5px] bg-[#1E5FA8]/50 inline-block" />
             <span className="font-sans text-[11px] sm:text-[12px] xl:text-[13px] font-bold tracking-[0.24em] uppercase text-[#1E5FA8]">
               CLIENT VOICES
@@ -305,23 +314,23 @@ export const TestimonialsSection: React.FC = () => {
         </div>
 
         {/* -------------------------------------------------------------
-            2. BUTTER-SMOOTH 3D CAROUSEL STAGE (Original Clean Editorial Vibe)
+            2. BUTTER-SMOOTH 3D CAROUSEL (Unclipped, No Overlap, Flank Buttons)
            ------------------------------------------------------------- */}
-        <div className="relative max-w-6xl xl:max-w-7xl mx-auto flex items-center justify-center gap-2 sm:gap-4 lg:gap-5">
+        <div className="relative max-w-6xl xl:max-w-7xl mx-auto flex items-center justify-between px-1 sm:px-3">
 
-          {/* Left Arrow Button */}
+          {/* Left Arrow Button (Cleanly flanked on outer left) */}
           <button
             type="button"
             onClick={handlePrev}
-            className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white shadow-[0_4px_18px_rgba(15,23,42,0.12)] border border-slate-200/90 flex items-center justify-center text-[#1E3A5F] hover:bg-[#1E5FA8] hover:text-white hover:border-[#1E5FA8] transition-all duration-300 flex-shrink-0 z-30 cursor-pointer hover:scale-105 active:scale-95 focus:outline-none"
+            className="w-10 h-10 sm:w-11 sm:h-11 xl:w-12 xl:h-12 rounded-full bg-white shadow-[0_4px_18px_rgba(15,23,42,0.12)] border border-slate-200/90 flex items-center justify-center text-[#1E3A5F] hover:bg-[#1E5FA8] hover:text-white hover:border-[#1E5FA8] transition-all duration-300 flex-shrink-0 z-30 cursor-pointer hover:scale-105 active:scale-95 focus:outline-none"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
           </button>
 
-          {/* Carousel Stage Container */}
+          {/* Carousel Stage Container (Unclipped, zero hard borders, centered) */}
           <div
-            className="relative flex-1 h-[390px] sm:h-[410px] lg:h-[420px] overflow-hidden"
+            className="relative flex-1 h-[370px] sm:h-[390px] lg:h-[400px] mx-1 sm:mx-2 lg:mx-3 overflow-visible"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
@@ -339,18 +348,18 @@ export const TestimonialsSection: React.FC = () => {
                     if (diff === -1) handlePrev();
                     if (diff === 1) handleNext();
                   }}
-                  className={`absolute top-1/2 w-[330px] sm:w-[370px] lg:w-[395px] xl:w-[415px] min-h-[290px] sm:min-h-[310px] flex flex-col justify-between p-6 sm:p-7 lg:p-8 rounded-[26px] sm:rounded-[28px] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] select-none ${
+                  className={`absolute top-1/2 w-[260px] sm:w-[275px] md:w-[280px] lg:w-[285px] xl:w-[335px] min-h-[265px] sm:min-h-[280px] flex flex-col justify-between p-5 sm:p-6 lg:p-7 rounded-[22px] sm:rounded-[26px] select-none ${
                     isCenter
-                      ? 'bg-white border-2 border-[#1E5FA8]/60 shadow-[0_22px_50px_rgba(30,95,168,0.20)] ring-4 ring-[#1E5FA8]/5 z-20 opacity-100'
-                      : 'bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-[0_6px_22px_rgba(15,23,42,0.06)] hover:shadow-[0_10px_28px_rgba(15,23,42,0.10)] hover:opacity-90 z-10'
+                      ? 'bg-white border-2 border-[#1E5FA8]/50 shadow-[0_20px_45px_rgba(30,95,168,0.18)] ring-4 ring-[#1E5FA8]/5 z-20 opacity-100'
+                      : 'bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-[0_6px_22px_rgba(15,23,42,0.06)] hover:shadow-[0_10px_28px_rgba(15,23,42,0.10)] hover:opacity-95 z-10 cursor-pointer'
                   }`}
                 >
-                  {/* Top Row: Blue Quote Icon + 5 Gold Stars (Matching Original Clean Vibe) */}
-                  <div className="flex items-center justify-between mb-4">
+                  {/* Top Row: Blue Quote Icon + 5 Gold Stars */}
+                  <div className="flex items-center justify-between mb-3">
                     {/* Custom Blue Double Quote Icon */}
                     <div className="text-[#1E5FA8] opacity-95 group-hover:scale-110 transition-transform duration-300">
                       <svg
-                        className="w-8 h-8 fill-current drop-shadow-[0_2px_4px_rgba(30,95,168,0.15)]"
+                        className="w-7 h-7 sm:w-8 sm:h-8 fill-current drop-shadow-[0_2px_4px_rgba(30,95,168,0.15)]"
                         viewBox="0 0 24 24"
                       >
                         <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
@@ -362,7 +371,7 @@ export const TestimonialsSection: React.FC = () => {
                       {[...Array(item.stars)].map((_, sIdx) => (
                         <svg
                           key={sIdx}
-                          className="w-4 h-4 fill-current drop-shadow-[0_1px_2px_rgba(245,158,11,0.25)]"
+                          className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current drop-shadow-[0_1px_2px_rgba(245,158,11,0.25)]"
                           viewBox="0 0 20 20"
                         >
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -375,18 +384,18 @@ export const TestimonialsSection: React.FC = () => {
                   <p
                     className={`font-sans leading-[1.65] my-auto ${
                       isCenter
-                        ? 'text-[13.5px] lg:text-[14px] text-slate-700 font-normal'
-                        : 'text-[13px] sm:text-[13.5px] text-slate-600 font-normal line-clamp-4'
+                        ? 'text-[13px] sm:text-[13.5px] lg:text-[14px] text-slate-700 font-normal'
+                        : 'text-[12.5px] sm:text-[13px] text-slate-600 font-normal line-clamp-4'
                     }`}
                   >
                     &ldquo;{item.quote}&rdquo;
                   </p>
 
-                  {/* Bottom: Client Profile with Round Avatar & Details (Original Clean Vibe) */}
-                  <div className="pt-4 mt-4 border-t border-slate-100 flex items-center gap-3">
+                  {/* Bottom: Client Profile with Round Avatar & Details (Clean Reference Vibe) */}
+                  <div className="pt-3.5 mt-3 border-t border-slate-100 flex items-center gap-3">
                     {/* Circular Avatar / Monogram */}
                     <div
-                      className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-[13px] tracking-wider shrink-0 transition-transform ${
+                      className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-[12.5px] tracking-wider shrink-0 transition-transform ${
                         isCenter
                           ? 'bg-gradient-to-br from-[#1E5FA8] to-[#0A2E52] text-white shadow-sm ring-2 ring-[#1E5FA8]/20'
                           : 'bg-slate-100 text-slate-700'
@@ -397,7 +406,7 @@ export const TestimonialsSection: React.FC = () => {
 
                     {/* Name & Role */}
                     <div className="text-left min-w-0">
-                      <p className="font-heading text-[15px] sm:text-[16px] font-bold text-[#1E3A5F] tracking-tight truncate">
+                      <p className="font-heading text-[14.5px] sm:text-[15.5px] font-bold text-[#1E3A5F] tracking-tight truncate">
                         {item.author}
                       </p>
                       <p className="font-sans text-[11.5px] sm:text-[12px] text-slate-500 font-normal truncate mt-0.5">
@@ -410,11 +419,11 @@ export const TestimonialsSection: React.FC = () => {
             })}
           </div>
 
-          {/* Right Arrow Button */}
+          {/* Right Arrow Button (Cleanly flanked on outer right) */}
           <button
             type="button"
             onClick={handleNext}
-            className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white shadow-[0_4px_18px_rgba(15,23,42,0.12)] border border-slate-200/90 flex items-center justify-center text-[#1E3A5F] hover:bg-[#1E5FA8] hover:text-white hover:border-[#1E5FA8] transition-all duration-300 flex-shrink-0 z-30 cursor-pointer hover:scale-105 active:scale-95 focus:outline-none"
+            className="w-10 h-10 sm:w-11 sm:h-11 xl:w-12 xl:h-12 rounded-full bg-white shadow-[0_4px_18px_rgba(15,23,42,0.12)] border border-slate-200/90 flex items-center justify-center text-[#1E3A5F] hover:bg-[#1E5FA8] hover:text-white hover:border-[#1E5FA8] transition-all duration-300 flex-shrink-0 z-30 cursor-pointer hover:scale-105 active:scale-95 focus:outline-none"
             aria-label="Next testimonial"
           >
             <ChevronRight className="w-5 h-5 stroke-[2.2]" />
