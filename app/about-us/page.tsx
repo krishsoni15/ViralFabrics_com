@@ -190,9 +190,55 @@ export default function AboutUsPage() {
           2. HAUTE-COUTURE SHOWCASE: STORY, PRINCIPLES & INFRASTRUCTURE
              - Section 1: Our Story (About Viral Fabrics) - Full Bleed Silk Canvas
              - Section 2: Our Capabilities (Infrastructure) - Full Bleed Mocha Canvas
-             - Signature Stacking Curtain: Slides up over sticky hero banner with luxury elevation
+             - Signature Stacking Curtain: Slides up over sticky hero banner with fluid wavy silk contour
          ================================================================= */}
-      <div className="relative z-10 bg-[#FAF6F1] shadow-[0_-25px_60px_rgba(0,0,0,0.22)]">
+      <div className="relative z-10 bg-[#FAF6F1]">
+        {/* =================================================================
+            HAUTE-COUTURE FLUID SILK WAVE TOP TRANSITION
+            - Organic undulating wave contour replacing flat top cut
+            - Dual-layer silk crest with soft ambient drop-shadow
+            - Glides upwards smoothly over sticky hero banner on scroll
+           ================================================================= */}
+        <div className="absolute -top-7 sm:-top-11 md:-top-14 lg:-top-18 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none z-20">
+          <svg
+            className="relative block w-full h-8 sm:h-12 md:h-16 lg:h-20 text-[#FAF6F1]"
+            viewBox="0 0 1440 100"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <filter id="silk-wave-depth" x="-5%" y="-40%" width="110%" height="180%">
+                <feDropShadow dx="0" dy="-4" stdDeviation="6" floodColor="#000000" floodOpacity="0.25" />
+              </filter>
+            </defs>
+
+            {/* Depth Shadow Layer */}
+            <path
+              d="M0,45 C260,15 440,75 720,35 C1000,5 1180,65 1440,30 L1440,102 L0,102 Z"
+              fill="#FAF6F1"
+              filter="url(#silk-wave-depth)"
+            />
+
+            {/* Secondary Translucent Silk Wave Accent */}
+            <path
+              d="M0,55 C300,25 500,80 750,42 C1020,12 1220,70 1440,38 L1440,102 L0,102 Z"
+              fill="rgba(234, 224, 213, 0.45)"
+            />
+
+            {/* Primary Fluid Silk Wave (Matches #FAF6F1 perfectly) */}
+            <path
+              d="M0,45 C260,15 440,75 720,35 C1000,5 1180,65 1440,30 L1440,102 L0,102 Z"
+              fill="#FAF6F1"
+            />
+
+            {/* Delicate Silk Thread Highlight */}
+            <path
+              d="M0,45 C260,15 440,75 720,35 C1000,5 1180,65 1440,30"
+              stroke="rgba(255, 255, 255, 0.75)"
+              strokeWidth="1.5"
+              fill="none"
+            />
+          </svg>
+        </div>
         {/* 2A. OUR STORY (ABOUT VIRAL FABRICS + VISION & MISSION) - FULL HORIZONTAL WIDTH */}
         <section id="our-story" className="relative w-full pt-20 sm:pt-28 lg:pt-36 pb-16 sm:pb-24 lg:pb-32 bg-[#FAF6F1] overflow-hidden">
         {/* Authentic Silk Background Canvas with Leaf Shadow - 100% Full Bleed */}

@@ -71,7 +71,50 @@ export default function NetworkPage() {
       {/* ========================================================================= */}
       {/* GLOBAL NETWORK SHOWCASE - LUXURY SILK BACKGROUND & WORLD DISTRIBUTION MAP */}
       {/* ========================================================================= */}
-      <section ref={sectionRef} className="relative z-10 w-full overflow-hidden bg-[#FAF4F0] flex flex-col justify-between py-12 sm:py-16 lg:py-20 shadow-[0_-25px_60px_rgba(0,0,0,0.22)]">
+      <div className="relative z-10 bg-[#FAF4F0]">
+        {/* Haute-Couture Fluid Silk Wave Top Transition */}
+        <div className="absolute -top-7 sm:-top-11 md:-top-14 lg:-top-18 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none z-20">
+          <svg
+            className="relative block w-full h-8 sm:h-12 md:h-16 lg:h-20 text-[#FAF4F0]"
+            viewBox="0 0 1440 100"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <filter id="network-silk-wave-depth" x="-5%" y="-40%" width="110%" height="180%">
+                <feDropShadow dx="0" dy="-4" stdDeviation="6" floodColor="#000000" floodOpacity="0.25" />
+              </filter>
+            </defs>
+
+            {/* Depth Shadow Layer */}
+            <path
+              d="M0,45 C260,15 440,75 720,35 C1000,5 1180,65 1440,30 L1440,102 L0,102 Z"
+              fill="#FAF4F0"
+              filter="url(#network-silk-wave-depth)"
+            />
+
+            {/* Secondary Translucent Silk Wave Accent */}
+            <path
+              d="M0,55 C300,25 500,80 750,42 C1020,12 1220,70 1440,38 L1440,102 L0,102 Z"
+              fill="rgba(234, 224, 213, 0.45)"
+            />
+
+            {/* Primary Fluid Silk Wave */}
+            <path
+              d="M0,45 C260,15 440,75 720,35 C1000,5 1180,65 1440,30 L1440,102 L0,102 Z"
+              fill="#FAF4F0"
+            />
+
+            {/* Delicate Silk Thread Highlight */}
+            <path
+              d="M0,45 C260,15 440,75 720,35 C1000,5 1180,65 1440,30"
+              stroke="rgba(255, 255, 255, 0.75)"
+              strokeWidth="1.5"
+              fill="none"
+            />
+          </svg>
+        </div>
+
+        <section ref={sectionRef} className="relative w-full overflow-hidden bg-[#FAF4F0] flex flex-col justify-between py-12 sm:py-16 lg:py-20">
         
         {/* Luxury Silk Fabric Canvas Background (High-res wave) */}
         <div className="absolute inset-0 pointer-events-none select-none z-0">
@@ -329,6 +372,7 @@ export default function NetworkPage() {
         </div>
 
       </section>
+      </div>
 
     </div>
   );
