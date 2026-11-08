@@ -30,6 +30,7 @@ import {
   Globe,
   Palette,
   Truck,
+  UserCheck,
 } from 'lucide-react';
 import { QualityPracticesSection } from '@/components/QualityPracticesSection';
 import { PageHeroBanner } from '@/components/PageHeroBanner';
@@ -516,161 +517,6 @@ export default function AboutUsPage() {
       </section>
 
       {/* =================================================================
-          2C. OUR PROCESS + LUXURY STATS COUNTER BAR (1:1 IMAGE 1 & IMAGE 2)
-          - Header: OUR PROCESS
-          - 5 Process Step Cards with icons and clean descriptions
-          - Dark Navy Stats Counter Bar (Image 2)
-            12+ Years of Experience | 50+ Fabric Varieties | 500+ Happy Clients | 10+ Export Countries
-         ================================================================= */}
-      <section className="relative w-full py-8 sm:py-12 lg:py-16 bg-[#FAF6F1] overflow-hidden">
-        <div className="w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14 space-y-10 sm:space-y-12">
-          
-          <EditorialBlock>
-            {/* Header: OUR PROCESS */}
-            <div className="text-center max-w-2xl mx-auto space-y-2 mb-8 sm:mb-10">
-              <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-slate-500 block">
-                OUR PROCESS
-              </span>
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-[42px] font-normal text-[#0F172A] tracking-tight">
-                From Raw Yarn to Finished Fabric
-              </h2>
-            </div>
-
-            {/* 5 Workflow Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 items-stretch">
-              {[
-                {
-                  step: '01',
-                  title: 'Yarn Sourcing',
-                  desc: 'High-grade virgin & recycled filaments procured from trusted suppliers.',
-                  icon: Sparkles,
-                },
-                {
-                  step: '02',
-                  title: 'Precision Weaving',
-                  desc: 'High-speed automated water-jet looms and advanced machinery.',
-                  icon: Factory,
-                },
-                {
-                  step: '03',
-                  title: 'Dyeing & Printing',
-                  desc: 'Vibrant coloration, digital prints & eco-friendly processing.',
-                  icon: Palette,
-                },
-                {
-                  step: '04',
-                  title: 'Quality Audit',
-                  desc: 'Multi-stage inspection for thread count, strength, color and finish.',
-                  icon: ShieldCheck,
-                },
-                {
-                  step: '05',
-                  title: 'Packaging & Export',
-                  desc: 'Export-grade tamper-proof wrapping, warehousing and global delivery.',
-                  icon: Truck,
-                },
-              ].map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div
-                    key={item.step}
-                    className="relative p-5 sm:p-6 rounded-[20px] bg-white border border-slate-200/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(30,95,168,0.08)] transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
-                  >
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <div className="w-10 h-10 rounded-xl bg-[#FAF6F1] border border-[#EAE0D5] flex items-center justify-center text-[#1665C1] group-hover:scale-105 transition-transform">
-                          <Icon className="w-5 h-5 stroke-[2]" />
-                        </div>
-                        <span className="font-mono text-[11px] font-bold text-slate-400">
-                          {item.step}
-                        </span>
-                      </div>
-                      <h3 className="font-heading text-lg font-medium text-[#0F172A] tracking-tight">
-                        {item.title}
-                      </h3>
-                      <p className="font-sans text-[12.5px] sm:text-[13px] text-slate-600 leading-relaxed font-normal">
-                        {item.desc}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </EditorialBlock>
-
-          {/* THE DARK NAVY STATS COUNTER BAR (EXACT 1:1 REPLICA OF IMAGE 2) */}
-          <EditorialBlock delay={150}>
-            <div className="relative w-full rounded-2xl sm:rounded-[22px] bg-gradient-to-r from-[#0B1F38] via-[#0E2849] to-[#0B1F38] border border-white/10 shadow-[0_16px_40px_rgba(10,25,47,0.18)] py-6 sm:py-7 px-6 sm:px-10 lg:px-12">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-white/15 items-center">
-                
-                {/* 1. 12+ Years of Experience */}
-                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
-                    <Factory className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
-                  </div>
-                  <div>
-                    <div className="font-serif text-2xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-none">
-                      12+
-                    </div>
-                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
-                      Years of Experience
-                    </div>
-                  </div>
-                </div>
-
-                {/* 2. 50+ Fabric Varieties */}
-                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
-                    <Layers className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
-                  </div>
-                  <div>
-                    <div className="font-serif text-2xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-none">
-                      50+
-                    </div>
-                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
-                      Fabric Varieties
-                    </div>
-                  </div>
-                </div>
-
-                {/* 3. 500+ Happy Clients */}
-                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
-                    <Users className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
-                  </div>
-                  <div>
-                    <div className="font-serif text-2xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-none">
-                      500+
-                    </div>
-                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
-                      Happy Clients
-                    </div>
-                  </div>
-                </div>
-
-                {/* 4. 10+ Export Countries */}
-                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
-                    <Globe className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
-                  </div>
-                  <div>
-                    <div className="font-serif text-2xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-none">
-                      10+
-                    </div>
-                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
-                      Export Countries
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </EditorialBlock>
-
-        </div>
-      </section>
-
-      {/* =================================================================
           3. QUALITY ASSURANCE: 4 AUDIT LEVELS (COMPLETE PIPELINE)
              - Silk Background Canvas
              - 100% Quality Assurance Gold Laurel Wreath on Blue Drape
@@ -768,45 +614,153 @@ export default function AboutUsPage() {
       </section>
 
       {/* =================================================================
-          9. COMPANY FACT SHEET (AGNES TOTH HAUTE-COUTURE SPECIFICATION TABLE)
-             - Name of Owner: Mr. Viral Patel
-             - Year of Establishment: 2012
-             - Nature of Business: Manufacturer & Supplier
-             - Number of Employees: Above 15
-             - Plus Surat base, address, phone, email, turnover
+          5. OUR PROCESS & LUXURY SPECIFICATIONS BAR (PLACED ON BOTTOM MATCHING USER SPEC)
+          - Header: OUR PROCESS (From Raw Yarn to Finished Fabric)
+          - 5 Process Step Cards (Yarn Sourcing, Precision Weaving, Dyeing & Printing, Quality Audit, Packaging & Export)
+          - Dark Luxury Navy Pill Row: Replaces old table with Name of Owner, Year of Establishment, Nature of Business, Number of Employees
          ================================================================= */}
-      <section className="py-20 sm:py-28 bg-white relative">
-        <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10">
+      <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#FAF6F1] border-t border-[#EAE0D5] overflow-hidden">
+        <div className="w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14 space-y-12 sm:space-y-16">
           
-          <EditorialBlock className="mb-12">
-            <p className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-slate-400">
-              Company Information
-            </p>
-            <h2 className="font-heading text-3xl sm:text-4xl font-light text-[#0F172A] tracking-tight mt-1">
-              Company Profile &amp; Specifications
-            </h2>
+          <EditorialBlock>
+            {/* Header: OUR PROCESS */}
+            <div className="text-center max-w-2xl mx-auto space-y-2 mb-8 sm:mb-12">
+              <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-slate-500 block">
+                OUR PROCESS
+              </span>
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-[42px] font-normal text-[#0F172A] tracking-tight">
+                From Raw Yarn to Finished Fabric
+              </h2>
+            </div>
+
+            {/* 5 Workflow Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 items-stretch">
+              {[
+                {
+                  step: '01',
+                  title: 'Yarn Sourcing',
+                  desc: 'High-grade virgin & recycled filaments procured from trusted suppliers.',
+                  icon: Sparkles,
+                },
+                {
+                  step: '02',
+                  title: 'Precision Weaving',
+                  desc: 'High-speed automated water-jet looms and advanced machinery.',
+                  icon: Factory,
+                },
+                {
+                  step: '03',
+                  title: 'Dyeing & Printing',
+                  desc: 'Vibrant coloration, digital prints & eco-friendly processing.',
+                  icon: Palette,
+                },
+                {
+                  step: '04',
+                  title: 'Quality Audit',
+                  desc: 'Multi-stage inspection for thread count, strength, color and finish.',
+                  icon: ShieldCheck,
+                },
+                {
+                  step: '05',
+                  title: 'Packaging & Export',
+                  desc: 'Export-grade tamper-proof wrapping, warehousing and global delivery.',
+                  icon: Truck,
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.step}
+                    className="relative p-5 sm:p-6 rounded-[20px] bg-white border border-slate-200/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(30,95,168,0.08)] transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="w-10 h-10 rounded-xl bg-[#FAF6F1] border border-[#EAE0D5] flex items-center justify-center text-[#1665C1] group-hover:scale-105 transition-transform">
+                          <Icon className="w-5 h-5 stroke-[2]" />
+                        </div>
+                        <span className="font-mono text-[11px] font-bold text-slate-400">
+                          {item.step}
+                        </span>
+                      </div>
+                      <h3 className="font-heading text-lg font-medium text-[#0F172A] tracking-tight">
+                        {item.title}
+                      </h3>
+                      <p className="font-sans text-[12.5px] sm:text-[13px] text-slate-600 leading-relaxed font-normal">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </EditorialBlock>
 
-          <EditorialBlock delay={100}>
-            <div className="bg-white border border-slate-200/90 rounded-sm divide-y divide-slate-200/80 shadow-[0_4px_20px_rgba(15,23,42,0.03)] overflow-hidden">
-              {[
-                { label: 'Name of Owner', value: 'Mr. Viral Patel' },
-                { label: 'Year of Establishment', value: '2012' },
-                { label: 'Nature of Business', value: 'Manufacturer & Supplier' },
-                { label: 'Number of Employees', value: 'Above 15' },
-              ].map((row, rIdx) => (
-                <div
-                  key={rIdx}
-                  className="grid grid-cols-1 sm:grid-cols-12 py-4 px-6 sm:px-8 hover:bg-[#FAF8F5]/80 transition-colors gap-2 sm:gap-4 items-center"
-                >
-                  <span className="sm:col-span-4 font-sans text-[12px] uppercase tracking-[0.16em] font-semibold text-slate-500">
-                    {row.label}
-                  </span>
-                  <span className="sm:col-span-8 font-heading text-[15px] sm:text-[16px] text-[#0F172A] font-medium leading-relaxed">
-                    {row.value}
-                  </span>
+          {/* THE DARK NAVY COMPANY SPECIFICATIONS BAR (1:1 REPLICA OF USER REFERENCE IMAGE) */}
+          <EditorialBlock delay={150}>
+            <div className="relative w-full rounded-2xl sm:rounded-[22px] bg-gradient-to-r from-[#0B1F38] via-[#0E2849] to-[#0B1F38] border border-white/10 shadow-[0_16px_40px_rgba(10,25,47,0.18)] py-6 sm:py-7 px-6 sm:px-10 lg:px-12">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-white/15 items-center">
+                
+                {/* 1. Name of Owner: Mr. Viral Patel */}
+                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
+                    <UserCheck className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <div className="font-serif text-xl sm:text-2xl lg:text-[24px] font-bold text-white tracking-tight leading-none">
+                      Mr. Viral Patel
+                    </div>
+                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
+                      Name of Owner
+                    </div>
+                  </div>
                 </div>
-              ))}
+
+                {/* 2. Year of Establishment: 2012 */}
+                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
+                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <div className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-bold text-white tracking-tight leading-none">
+                      2012
+                    </div>
+                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
+                      Year of Establishment
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. Nature of Business: Manufacturer & Supplier */}
+                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
+                    <Building2 className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <div className="font-serif text-base sm:text-lg lg:text-[20px] font-bold text-white tracking-tight leading-none">
+                      Manufacturer &amp; Supplier
+                    </div>
+                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
+                      Nature of Business
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. Number of Employees: Above 15 */}
+                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
+                    <Users className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <div className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-bold text-white tracking-tight leading-none">
+                      Above 15
+                    </div>
+                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
+                      Number of Employees
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </EditorialBlock>
 
