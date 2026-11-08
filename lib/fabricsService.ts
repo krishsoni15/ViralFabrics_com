@@ -8,23 +8,43 @@ export interface LiveFabric {
   slug: string;
   title: string;
   subtitle: string;
+  shortDesc?: string;
   description: string;
+  gsmRange: string;
+  applications: string[];
+  features: string[];
+  weaveType: string;
+  finishing: string[];
   image: string;
   banner: string;
   isPublished: boolean;
   displayOrder: number;
 }
 
+function cleanDescription(desc: string): string {
+  return (desc || '')
+    .replace(/\.h+$/i, '.')
+    .replace(/[hH]{3,}$/g, '')
+    .trim();
+}
+
 function mapToLiveFabric(doc: any): LiveFabric {
+  const staticFound = FABRICS.find((f) => f.slug === doc.slug);
   return {
     id: doc._id?.toString() || doc.id || doc.slug,
-    name: doc.name || doc.title,
-    title: doc.name || doc.title,
+    name: doc.name || doc.title || staticFound?.title || '',
+    title: doc.name || doc.title || staticFound?.title || '',
     slug: doc.slug,
-    subtitle: doc.subtitle || '',
-    description: doc.description || '',
-    image: doc.image || '/assets/uploads/2025/09/bsy-fabrics.png',
-    banner: doc.banner || '/assets/uploads/2025/09/bsy-fabrics-banner.png',
+    subtitle: doc.subtitle || staticFound?.subtitle || '',
+    shortDesc: doc.shortDesc || staticFound?.shortDesc || '',
+    description: cleanDescription(doc.description || staticFound?.description || ''),
+    gsmRange: doc.gsmRange || staticFound?.gsmRange || '',
+    applications: (doc.applications && doc.applications.length > 0) ? doc.applications : (staticFound?.applications || []),
+    features: (doc.features && doc.features.length > 0) ? doc.features : (staticFound?.features || []),
+    weaveType: doc.weaveType || staticFound?.weaveType || '',
+    finishing: (doc.finishing && doc.finishing.length > 0) ? doc.finishing : (staticFound?.finishing || []),
+    image: doc.image || staticFound?.image || '/assets/uploads/2025/09/bsy-fabrics.png',
+    banner: doc.banner || staticFound?.banner || '/assets/uploads/2025/09/bsy-fabrics-banner.png',
     isPublished: doc.isPublished !== undefined ? doc.isPublished : true,
     displayOrder: doc.displayOrder || 0,
   };
@@ -54,7 +74,13 @@ export async function getPublishedFabrics(): Promise<LiveFabric[]> {
     title: f.title,
     slug: f.slug,
     subtitle: f.subtitle,
-    description: f.description,
+    shortDesc: f.shortDesc,
+    description: cleanDescription(f.description),
+    gsmRange: f.gsmRange,
+    applications: f.applications,
+    features: f.features,
+    weaveType: f.weaveType,
+    finishing: f.finishing,
     image: f.image,
     banner: f.banner,
     isPublished: true,
@@ -85,7 +111,13 @@ export async function getFabricBySlug(slug: string): Promise<LiveFabric | null> 
       title: staticFound.title,
       slug: staticFound.slug,
       subtitle: staticFound.subtitle,
-      description: staticFound.description,
+      shortDesc: staticFound.shortDesc,
+      description: cleanDescription(staticFound.description),
+      gsmRange: staticFound.gsmRange,
+      applications: staticFound.applications,
+      features: staticFound.features,
+      weaveType: staticFound.weaveType,
+      finishing: staticFound.finishing,
       image: staticFound.image,
       banner: staticFound.banner,
       isPublished: true,
