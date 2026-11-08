@@ -216,8 +216,14 @@ export function WhoWeAreSection() {
     <section 
       id="who-we-are" 
       ref={sectionRef}
-      className="relative w-full text-[#2e3937] pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-22 lg:pb-28 xl:pb-32 overflow-hidden selection:bg-[#375785] selection:text-white"
+      className="relative w-full text-[#2e3937] pt-36 sm:pt-42 md:pt-46 lg:pt-50 xl:pt-54 pb-40 sm:pb-48 md:pb-52 lg:pb-60 xl:pb-64 overflow-hidden selection:bg-[#375785] selection:text-white"
     >
+      {/* Seamless transition underlay for the bottom torn edge into Fabrics Portfolio (#F5F5F5) */}
+      <div 
+        className="absolute inset-x-0 bottom-0 h-80 sm:h-96 lg:h-[420px] bg-[#F5F5F5] z-0 pointer-events-none" 
+        aria-hidden="true" 
+      />
+
       {/* Authentic One-Piece Torn Silk Canvas Background (Single Image, 100% Clean) */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none">
         <Image
@@ -226,7 +232,7 @@ export function WhoWeAreSection() {
           fill
           priority
           sizes="100vw"
-          className="w-full h-full object-fill pointer-events-none"
+          className="w-full h-full object-cover sm:object-fill pointer-events-none"
         />
       </div>
 
@@ -367,60 +373,60 @@ export function WhoWeAreSection() {
         </div>
 
         {/* FOUR MINIMALIST METRIC ITEMS - Darker, High-Contrast Typography for 100% Visibility */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 pt-7 sm:pt-9 lg:pt-10 border-t border-slate-300/80 mt-12 sm:mt-16 lg:mt-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8 pt-7 sm:pt-9 lg:pt-10 border-t border-slate-300/80 mt-12 sm:mt-16 lg:mt-20">
           
           {/* Metric 01: Monthly Capacity */}
           <div className="space-y-1.5 group">
-            <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-600">
-              <span>MONTHLY CAPACITY</span>
-              <span className="text-[#1d3557] font-mono font-semibold">01</span>
+            <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.2em] text-slate-600">
+              <span className="truncate">MONTHLY CAPACITY</span>
+              <span className="text-[#1d3557] font-mono font-semibold shrink-0 ml-1.5">01</span>
             </div>
-            <p className="font-sans text-4xl sm:text-5xl lg:text-[50px] font-semibold text-[#0f172a] tracking-tight group-hover:text-[#375785] transition-colors">
+            <p className="font-sans text-3xl sm:text-4xl lg:text-[48px] xl:text-[50px] font-semibold text-[#0f172a] tracking-tight group-hover:text-[#375785] transition-colors">
               <AnimatedCounter end={600000} duration={600} suffix="+" formatCommas={true} />
             </p>
-            <p className="text-[12px] sm:text-[12.5px] text-slate-700 font-normal leading-relaxed">
+            <p className="text-[11px] sm:text-[12px] lg:text-[12.5px] text-slate-700 font-normal leading-relaxed break-words">
               Meters / Month &middot; Continuous water-jet looms
             </p>
           </div>
 
           {/* Metric 02: Years of Leadership */}
           <div className="space-y-1.5 group">
-            <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-600">
-              <span>YEARS OF LEADERSHIP</span>
-              <span className="text-[#1d3557] font-mono font-semibold">02</span>
+            <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.2em] text-slate-600">
+              <span className="truncate">YEARS OF LEADERSHIP</span>
+              <span className="text-[#1d3557] font-mono font-semibold shrink-0 ml-1.5">02</span>
             </div>
-            <p className="font-sans text-4xl sm:text-5xl lg:text-[50px] font-semibold text-[#0f172a] tracking-tight group-hover:text-[#375785] transition-colors">
+            <p className="font-sans text-3xl sm:text-4xl lg:text-[48px] xl:text-[50px] font-semibold text-[#0f172a] tracking-tight group-hover:text-[#375785] transition-colors">
               <AnimatedCounter end={12} duration={520} suffix="+" />
             </p>
-            <p className="text-[12px] sm:text-[12.5px] text-slate-700 font-normal leading-relaxed">
+            <p className="text-[11px] sm:text-[12px] lg:text-[12.5px] text-slate-700 font-normal leading-relaxed break-words">
               Surat, Gujarat &middot; Established 2012
             </p>
           </div>
 
           {/* Metric 03: Export Qualities */}
           <div className="space-y-1.5 group">
-            <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-600">
-              <span>EXPORT QUALITIES</span>
-              <span className="text-[#1d3557] font-mono font-semibold">03</span>
+            <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.2em] text-slate-600">
+              <span className="truncate">EXPORT QUALITIES</span>
+              <span className="text-[#1d3557] font-mono font-semibold shrink-0 ml-1.5">03</span>
             </div>
-            <p className="font-sans text-4xl sm:text-5xl lg:text-[50px] font-semibold text-[#0f172a] tracking-tight group-hover:text-[#375785] transition-colors">
+            <p className="font-sans text-3xl sm:text-4xl lg:text-[48px] xl:text-[50px] font-semibold text-[#0f172a] tracking-tight group-hover:text-[#375785] transition-colors">
               <AnimatedCounter end={10} duration={480} suffix="+" />
             </p>
-            <p className="text-[12px] sm:text-[12.5px] text-slate-700 font-normal leading-relaxed">
+            <p className="text-[11px] sm:text-[12px] lg:text-[12.5px] text-slate-700 font-normal leading-relaxed break-words">
               Synthetic Weaves &middot; Crepe, BSY, Satin &amp; Eco PET
             </p>
           </div>
 
           {/* Metric 04: Confidentiality & Accuracy */}
           <div className="space-y-1.5 group">
-            <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-600">
-              <span>DESIGN SECRECY</span>
-              <span className="text-[#1d3557] font-mono font-semibold">04</span>
+            <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.2em] text-slate-600">
+              <span className="truncate">DESIGN SECRECY</span>
+              <span className="text-[#1d3557] font-mono font-semibold shrink-0 ml-1.5">04</span>
             </div>
-            <p className="font-sans text-4xl sm:text-5xl lg:text-[50px] font-semibold text-[#0f172a] tracking-tight group-hover:text-[#375785] transition-colors">
+            <p className="font-sans text-3xl sm:text-4xl lg:text-[48px] xl:text-[50px] font-semibold text-[#0f172a] tracking-tight group-hover:text-[#375785] transition-colors">
               <AnimatedCounter end={100} duration={550} suffix="%" />
             </p>
-            <p className="text-[12px] sm:text-[12.5px] text-slate-700 font-normal leading-relaxed whitespace-nowrap">
+            <p className="text-[11px] sm:text-[12px] lg:text-[12.5px] text-slate-700 font-normal leading-relaxed break-words">
               Make-To-Order &middot; 100% Confidentiality
             </p>
           </div>
