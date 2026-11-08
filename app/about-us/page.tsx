@@ -372,9 +372,34 @@ export default function AboutUsPage() {
           - Deep Midnight Navy Card with S-Curve Divider & Cyan Hairline
           - Left: Water-Jet Loom Machinery with Purple Fabric Roll
           - Right: State-of-the-Art Manufacturing (Enlarged Luxury Scale, Button Removed)
+          - Framed with Haute-Couture Torn Paper Borders & Crisp Pure White Canvas
          ================================================================= */}
-      <section className="relative z-10 w-full py-12 sm:py-16 lg:py-20 bg-[#FAF6F1] overflow-hidden">
-        <div className="w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
+      <section className="relative w-full py-20 sm:py-24 lg:py-32 bg-white overflow-visible">
+        {/* Top Torn Paper Border Strip (Overlapping the top edge into Section 2A) */}
+        <div className="absolute -top-6 sm:-top-8 lg:-top-11 inset-x-0 h-16 sm:h-20 lg:h-26 z-20 pointer-events-none select-none">
+          <Image
+            src="/images/about/torn-paper-top.png"
+            alt="Torn Paper Top Border"
+            fill
+            sizes="100vw"
+            className="w-full h-full object-fill object-top drop-shadow-[0_8px_18px_rgba(0,0,0,0.12)]"
+            priority
+          />
+        </div>
+
+        {/* Bottom Torn Paper Border Strip (Overlapping the bottom edge into Section 3) */}
+        <div className="absolute -bottom-6 sm:-bottom-8 lg:-bottom-11 inset-x-0 h-16 sm:h-20 lg:h-26 z-20 pointer-events-none select-none">
+          <Image
+            src="/images/about/torn-paper-bottom.png"
+            alt="Torn Paper Bottom Border"
+            fill
+            sizes="100vw"
+            className="w-full h-full object-fill object-bottom drop-shadow-[0_-8px_18px_rgba(0,0,0,0.12)]"
+            priority
+          />
+        </div>
+
+        <div className="relative z-10 w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
           <EditorialBlock>
             {/* Desktop Haute-Couture S-Curve Split Banner (hidden on mobile, block on lg+) */}
             <div className="hidden lg:block relative w-full rounded-[28px] xl:rounded-[36px] overflow-hidden shadow-[0_20px_50px_rgba(10,25,47,0.25)] border border-[#1E3A5F]/40 bg-gradient-to-r from-[#07172B] via-[#0A2240] to-[#0D2E54] min-h-[420px] xl:min-h-[460px] 2xl:min-h-[500px]">
@@ -516,7 +541,7 @@ export default function AboutUsPage() {
              - Left: Our People Eyebrow + Our Team Headline + Manifesto + Action Button (Enlarged Scale)
              - Right: Dedicated Viral Fabrics Team Photo with Navy Blue Branded Polos in Mill
          ================================================================= */}
-      <section className="relative z-30 w-full py-20 sm:py-24 lg:py-28 bg-[#FAF6F1] border-y border-slate-200/70 overflow-hidden shadow-[0_-25px_60px_rgba(15,23,42,0.14)]">
+      <section className="relative w-full py-20 sm:py-24 lg:py-28 bg-[#FAF6F1] border-y border-slate-200/70 overflow-hidden">
         {/* Authentic Flowing Silk Wave Background Canvas - 100% Full Bleed */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
