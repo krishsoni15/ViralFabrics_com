@@ -262,39 +262,6 @@ export function PageHeroBanner({
           </div>
         </div>
       </section>
-
-      {/* =====================================================================
-          2. MINIMALIST BREADCRUMBS BAR (Home > ...)
-         ===================================================================== */}
-      <div className="bg-white border-b border-slate-200/70 py-2 sm:py-2.5 shadow-sm">
-        <div className="max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12 text-left">
-          <nav aria-label="Breadcrumb" className="inline-flex items-center gap-1.5 sm:gap-2 text-[12px] sm:text-[12.5px] font-sans">
-            {resolvedBreadcrumbs.map((crumb, idx) => {
-              const isFirst = idx === 0;
-              const isLast = idx === resolvedBreadcrumbs.length - 1;
-
-              return (
-                <React.Fragment key={`${crumb.label}-${idx}`}>
-                  {idx > 0 && <span className="text-slate-400 select-none text-[11px]">&gt;</span>}
-                  {crumb.href && !isLast ? (
-                    <Link
-                      href={crumb.href}
-                      className="inline-flex items-center gap-1 text-slate-600 hover:text-slate-900 transition-colors font-medium tracking-wide"
-                    >
-                      {isFirst && <Home className="w-3.5 h-3.5 text-slate-500" />}
-                      <span>{crumb.label}</span>
-                    </Link>
-                  ) : (
-                    <span className="text-slate-800 font-medium tracking-wide" aria-current="page">
-                      {crumb.label}
-                    </span>
-                  )}
-                </React.Fragment>
-              );
-            })}
-          </nav>
-        </div>
-      </div>
     </div>
   );
 }
