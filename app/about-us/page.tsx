@@ -320,95 +320,112 @@ export default function AboutUsPage() {
       {/* =================================================================
           2B. OUR CAPABILITIES: INFRASTRUCTURE (FULL-BLEED HAUTE-COUTURE S-CURVE BANNER)
           - Edge-to-edge 100% full-bleed mocha canvas with zero left/top white margins
-          - Left: Water-Jet Loom Machinery photo with purple fabric roll (flush to left screen edge)
-          - Center: Organic S-Wave divider with Champagne Gold hairline stroke (#D8B388)
-          - Right: Dark Chocolate Mocha panel (#3E2420) flush to right screen edge
-          - Eyebrow: OUR CAPABILITIES —
+          - Left: Water-Jet Loom Machinery photo (contained to left 42% with organic S-curve)
+          - Divider: Graceful organic S-wave with Champagne Gold hairline stroke (#D8B388)
+          - Right: Dark Chocolate Mocha panel (#3E2420) with wide 120px+ luxury breathing cushion (Zero Collision)
+          - Eyebrow: OUR CAPABILITIES with gold rule
           - Factory Architectural Line Icon + "Infrastructure" Headline
-          - Clean editorial narrative aligned within site container
+          - Clean editorial narrative with capacity highlights
          ================================================================= */}
       <section className="relative w-full bg-[#3E2420] overflow-hidden">
         <EditorialBlock>
           {/* Desktop Haute-Couture S-Curve Split Banner (hidden on mobile, block on lg+) */}
-          <div className="hidden lg:block relative w-full overflow-hidden bg-[#3E2420] min-h-[380px] xl:min-h-[420px] 2xl:min-h-[450px] flex items-center">
+          <div className="hidden lg:block relative w-full overflow-hidden bg-[#3E2420] min-h-[400px] xl:min-h-[440px] 2xl:min-h-[470px] flex items-center">
             
-            {/* SVG Layer: Full-Bleed Clipping mask for machine image + Champagne Gold Divider Stroke */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none z-20" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
-              <defs>
-                <clipPath id="infraLoomClip" clipPathUnits="objectBoundingBox">
-                  <path d="M 0 0 L 0.945 0 C 0.836 0.08, 0.818 0.80, 0.718 1 L 0 1 Z" />
-                </clipPath>
-              </defs>
-              {/* Champagne Gold Hairline Accent Stroke along the S-wave */}
-              <path
-                d="M 520,0 C 460,40 450,400 395,500"
-                fill="none"
-                stroke="#D8B388"
-                strokeWidth="4"
-                strokeLinecap="round"
-              />
-            </svg>
+            {/* Left Side: Water-Jet Weaving Machinery (contained to left 43% with synchronized S-wave & Gold Stroke) */}
+            <div className="absolute inset-y-0 left-0 w-[43%] xl:w-[41%] 2xl:w-[39%] overflow-hidden z-10">
+              {/* Synchronized Clipping Mask & Champagne Gold Divider Stroke */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none z-20" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                  <clipPath id="infraLoomClip" clipPathUnits="objectBoundingBox">
+                    <path d="M 0 0 L 1 0 C 0.88 0.15, 0.90 0.75, 0.76 1 L 0 1 Z" />
+                  </clipPath>
+                </defs>
+                {/* Champagne Gold Hairline Accent Stroke along the S-wave */}
+                <path
+                  d="M 100,0 C 88,15 90,75 76,100"
+                  fill="none"
+                  stroke="#D8B388"
+                  strokeWidth="2"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
 
-            {/* Left Side: Water-Jet Weaving Machinery (clipped to organic S-curve, flush to left screen edge) */}
-            <div
-              className="absolute inset-y-0 left-0 w-[53%] xl:w-[51%] overflow-hidden z-10"
-              style={{ clipPath: 'url(#infraLoomClip)', WebkitClipPath: 'url(#infraLoomClip)' }}
-            >
-              <Image
-                src="/images/about/water-jet-loom.jpg"
-                alt="Viral Fabrics High Speed Water-Jet Weaving Machinery with Purple Fabric Roll"
-                fill
-                sizes="(max-width: 1024px) 100vw, 55vw"
-                className="object-cover object-center"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/15 via-transparent to-black/25 pointer-events-none" />
+              <div
+                className="w-full h-full overflow-hidden"
+                style={{ clipPath: 'url(#infraLoomClip)', WebkitClipPath: 'url(#infraLoomClip)' }}
+              >
+                <Image
+                  src="/images/about/water-jet-loom.jpg"
+                  alt="Viral Fabrics High Speed Water-Jet Weaving Machinery with Purple Fabric Roll"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                  className="object-cover object-center"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/30 pointer-events-none" />
+              </div>
             </div>
 
-            {/* Right Side: Dark Mocha Editorial Content Aligned With Site Container */}
+            {/* Right Side: Dark Mocha Editorial Content Aligned With Site Container (Spacious cushion, Zero Collision) */}
             <div className="relative z-10 w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14 flex justify-end">
-              <div className="w-[50%] xl:w-[48%] py-12 xl:py-16 pl-6 sm:pl-10 text-white">
+              <div className="w-[56%] xl:w-[55%] 2xl:w-[53%] py-12 sm:py-14 xl:py-18 pl-10 sm:pl-14 lg:pl-16 xl:pl-20 text-white space-y-5">
                 
                 {/* Eyebrow: OUR CAPABILITIES — */}
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-[#E2B892]">
+                <div className="flex items-center gap-3">
+                  <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.26em] uppercase text-[#E2B892]">
                     OUR CAPABILITIES
                   </span>
-                  <div className="w-8 h-[1.5px] bg-[#E2B892]" />
+                  <div className="w-10 h-[1.5px] bg-[#E2B892]/80" />
                 </div>
 
                 {/* Headline Row: Factory Architectural Icon + Infrastructure */}
-                <div className="flex items-center gap-4 mb-5">
-                  <svg
-                    width="42"
-                    height="42"
-                    viewBox="0 0 48 48"
-                    fill="none"
-                    stroke="#F1E6DE"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="shrink-0 text-[#F1E6DE] drop-shadow-sm"
-                    aria-hidden="true"
-                  >
-                    <path d="M 4 42 H 44" />
-                    <path d="M 6 42 V 22 L 17 28 V 22 L 28 28 V 12 H 38 V 42" />
-                    <path d="M 27 12 H 39" />
-                    <path d="M 11 42 V 33 H 16 V 42" />
-                    <path d="M 20 42 V 33 H 25 V 42" />
-                    <path d="M 29 42 V 33 H 34 V 42" />
-                    <path d="M 32 8 C 30 6 36 4 34 2" />
-                    <path d="M 35 9 C 34 7 40 5 38 3" />
-                  </svg>
-                  <h2 className="font-heading text-3xl xl:text-4xl 2xl:text-[42px] font-normal text-white tracking-tight">
+                <div className="flex items-center gap-3.5 sm:gap-4">
+                  <div className="p-2 sm:p-2.5 rounded-lg bg-white/[0.06] border border-white/10 shrink-0">
+                    <svg
+                      width="32"
+                      height="32"
+                      viewBox="0 0 48 48"
+                      fill="none"
+                      stroke="#E2B892"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="shrink-0 drop-shadow-sm"
+                      aria-hidden="true"
+                    >
+                      <path d="M 4 42 H 44" />
+                      <path d="M 6 42 V 22 L 17 28 V 22 L 28 28 V 12 H 38 V 42" />
+                      <path d="M 27 12 H 39" />
+                      <path d="M 11 42 V 33 H 16 V 42" />
+                      <path d="M 20 42 V 33 H 25 V 42" />
+                      <path d="M 29 42 V 33 H 34 V 42" />
+                      <path d="M 32 8 C 30 6 36 4 34 2" />
+                      <path d="M 35 9 C 34 7 40 5 38 3" />
+                    </svg>
+                  </div>
+                  <h2 className="font-heading font-serif text-3xl sm:text-4xl xl:text-[44px] font-normal text-white tracking-tight leading-tight">
                     Infrastructure
                   </h2>
                 </div>
 
                 {/* Editorial Narrative */}
-                <p className="font-sans text-[14px] xl:text-[15.5px] text-[#F1E6DE] leading-[1.8] font-light max-w-xl">
+                <p className="font-sans text-[14.5px] sm:text-[15px] xl:text-[16px] text-[#F1E6DE]/90 leading-[1.8] font-light max-w-xl">
                   We own a well-developed manufacturing unit. It is fully equipped with the latest and automatic high speed machinery. In Polyester Fabrics We have our Own Unit High Speed Water-jet Machine having Production of 6 Lac Meter Per Month.
                 </p>
+
+                {/* Infrastructure Highlights Pill Row */}
+                <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-2">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[12px] sm:text-[12.5px] font-sans font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E2B892]" />
+                    <span>Automatic Water-Jet Machinery</span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[12px] sm:text-[12.5px] font-sans font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E2B892]" />
+                    <span>6 Lac Meters / Month Capacity</span>
+                  </div>
+                </div>
+
               </div>
             </div>
 
@@ -440,28 +457,30 @@ export default function AboutUsPage() {
               </div>
 
               <div className="flex items-center gap-3">
-                <svg
-                  width="36"
-                  height="36"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  stroke="#F1E6DE"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="shrink-0 text-[#F1E6DE]"
-                  aria-hidden="true"
-                >
-                  <path d="M 4 42 H 44" />
-                  <path d="M 6 42 V 22 L 17 28 V 22 L 28 28 V 12 H 38 V 42" />
-                  <path d="M 27 12 H 39" />
-                  <path d="M 11 42 V 33 H 16 V 42" />
-                  <path d="M 20 42 V 33 H 25 V 42" />
-                  <path d="M 29 42 V 33 H 34 V 42" />
-                  <path d="M 32 8 C 30 6 36 4 34 2" />
-                  <path d="M 35 9 C 34 7 40 5 38 3" />
-                </svg>
-                <h2 className="font-heading text-2xl sm:text-3xl font-normal text-white tracking-tight">
+                <div className="p-1.5 rounded-md bg-white/[0.06] border border-white/10 shrink-0">
+                  <svg
+                    width="28"
+                    height="28"
+                    viewBox="0 0 48 48"
+                    fill="none"
+                    stroke="#E2B892"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="shrink-0"
+                    aria-hidden="true"
+                  >
+                    <path d="M 4 42 H 44" />
+                    <path d="M 6 42 V 22 L 17 28 V 22 L 28 28 V 12 H 38 V 42" />
+                    <path d="M 27 12 H 39" />
+                    <path d="M 11 42 V 33 H 16 V 42" />
+                    <path d="M 20 42 V 33 H 25 V 42" />
+                    <path d="M 29 42 V 33 H 34 V 42" />
+                    <path d="M 32 8 C 30 6 36 4 34 2" />
+                    <path d="M 35 9 C 34 7 40 5 38 3" />
+                  </svg>
+                </div>
+                <h2 className="font-heading font-serif text-2xl sm:text-3xl font-normal text-white tracking-tight">
                   Infrastructure
                 </h2>
               </div>
@@ -469,6 +488,17 @@ export default function AboutUsPage() {
               <p className="font-sans text-[13.5px] sm:text-[14.5px] text-[#F1E6DE] leading-[1.75] font-light">
                 We own a well-developed manufacturing unit. It is fully equipped with the latest and automatic high speed machinery. In Polyester Fabrics We have our Own Unit High Speed Water-jet Machine having Production of 6 Lac Meter Per Month.
               </p>
+
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[11px] font-sans font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E2B892]" />
+                  <span>Automatic Water-Jet Machinery</span>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[11px] font-sans font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E2B892]" />
+                  <span>6 Lac Meters / Month</span>
+                </div>
+              </div>
             </div>
 
           </div>
