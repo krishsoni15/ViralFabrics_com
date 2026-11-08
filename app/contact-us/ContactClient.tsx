@@ -7,117 +7,40 @@ import {
   MapPin,
   Phone,
   Mail,
-  Clock,
-  ArrowRight,
-  Check,
-  Loader2,
-  ShieldCheck,
-  Send,
   Home,
-  MessageSquare,
   Building2,
   ExternalLink,
   Copy,
+  Check,
   Plane,
   Anchor,
   TrainTrack,
   Gauge,
-  Headphones,
-  Globe
+  Globe,
+  ArrowRight,
+  MessageCircle,
+  Clock
 } from 'lucide-react';
 import { COMPANY_INFO } from '@/data/company';
 
-const INQUIRY_TYPES = [
-  'Bulk Export Sourcing (FOB / CIF)',
-  'Physical Swatch Hanger Kit Request',
-  'Custom Lab Dip & Shade Formulation',
-  'Mill Visitation Appointment (Surat)',
-  'Digital Print & Jacquard Tech Pack',
-  'General Commercial Inquiry'
-];
-
 export default function ContactClient() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    inquiryType: INQUIRY_TYPES[0],
-    message: ''
-  });
-
-  const [humanVerified, setHumanVerified] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const handleCopy = (field: string, text: string) => {
-    if (navigator.clipboard) {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
       navigator.clipboard.writeText(text);
       setCopiedField(field);
       setTimeout(() => setCopiedField(null), 2200);
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!humanVerified) {
-      setErrorMsg('Please verify the "I am a human" security check.');
-      return;
-    }
-
-    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.message.trim()) {
-      setErrorMsg('Please fill in all required fields.');
-      return;
-    }
-
-    setLoading(true);
-    setErrorMsg('');
-
-    try {
-      const res = await fetch('/api/enquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          product: `[Contact Desk] ${formData.inquiryType}`,
-          message: formData.message,
-          captchaToken: 'verified-human'
-        })
-      });
-
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Failed to submit message');
-      }
-
-      setSubmitted(true);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        inquiryType: INQUIRY_TYPES[0],
-        message: ''
-      });
-      setHumanVerified(false);
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Error transmitting your message. Please reach our Surat mill desk directly.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <main className="min-h-screen bg-[#FAF7F2] pt-[68px] sm:pt-[72px]">
+    <main className="min-h-screen bg-[#FAF8F5]">
       
       {/* =====================================================================
-          1. TOP BANNER WITH FABRIC ROLLS & TRUST BADGES (Matching Site Standard)
+          1. TOP HERO BANNER WITH LUXURY FABRIC ROLLS (Matching Site Standard)
          ===================================================================== */}
-      <section className="relative py-7 sm:py-9 lg:py-11 flex items-center overflow-hidden bg-[#0A192F]">
-        
+      <section className="relative pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 flex items-center overflow-hidden bg-[#0A192F]">
         {/* Banner Graphic: Stacked folded luxury fabrics on right, deep navy silk on left */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -128,6 +51,8 @@ export default function ContactClient() {
             className="object-cover object-center"
             priority
           />
+          {/* Subtle top scrim for crystal-clear contrast of transparent navbar links */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#061426]/75 via-[#061426]/20 to-transparent pointer-events-none" />
         </div>
 
         {/* Content Aligned with Main Container */}
@@ -167,7 +92,6 @@ export default function ContactClient() {
 
           </div>
         </div>
-
       </section>
 
       {/* =====================================================================
@@ -178,7 +102,7 @@ export default function ContactClient() {
           <nav aria-label="Breadcrumb" className="inline-flex items-center gap-1.5 sm:gap-2 text-[12px] sm:text-[12.5px] font-sans">
             <Link
               href="/"
-              className="inline-flex items-center gap-1 text-[#006DB6] hover:text-brand-blue-hover transition-colors font-medium tracking-wide"
+              className="inline-flex items-center gap-1 text-[#006DB6] hover:text-[#00528A] transition-colors font-medium tracking-wide"
             >
               <Home className="w-3.5 h-3.5 fill-[#006DB6] text-[#006DB6]" />
               <span>Home</span>
@@ -192,426 +116,300 @@ export default function ContactClient() {
       </div>
 
       {/* =====================================================================
-          3. MAIN HAUTE-COUTURE SILK CANVAS SECTION
+          3. MAIN CONTACT CANVAS: 3 CHEVRON CARDS SECTION (Matching Reference)
          ===================================================================== */}
-      <section className="relative overflow-hidden py-12 sm:py-16 lg:py-20">
+      <section className="relative overflow-hidden py-14 sm:py-18 lg:py-22">
         
-        {/* Authentic Silk Waves Background Canvas */}
+        {/* Soft Background Silk Canvas */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
             src="/images/enquiry-silk-bg.jpg"
-            alt="Viral Fabrics Silk Background Canvas"
+            alt="Viral Fabrics Background Canvas"
             fill
             sizes="100vw"
-            className="object-cover object-center opacity-95"
+            className="object-cover object-center opacity-85"
             priority
           />
         </div>
 
         <div className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12 space-y-12 sm:space-y-16">
           
-          {/* Centered Editorial Header */}
-          <div className="text-center max-w-2xl mx-auto space-y-2.5">
-            <div className="inline-flex items-center gap-2 justify-center">
-              <div className="w-6 h-[1.5px] bg-[#1E5FA8]" />
-              <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-[#1E5FA8]">
-                DIRECT MILL CONSULTATION &amp; VISITATION
-              </span>
-              <div className="w-6 h-[1.5px] bg-[#1E5FA8]" />
+          {/* Centered Editorial Header Matching User Mockup */}
+          <div className="text-center max-w-2xl mx-auto space-y-3">
+            <h2 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[46px] font-normal text-slate-900 tracking-tight leading-tight">
+              Contact Us
+            </h2>
+            
+            {/* Geometric Accent Line with Diamond Emblem */}
+            <div className="flex items-center justify-center gap-3 pt-0.5">
+              <div className="w-14 sm:w-20 h-[1.5px] bg-[#1864AB]" />
+              <div className="w-3.5 h-3.5 rotate-45 border-[2px] border-[#1864AB] bg-white flex items-center justify-center shadow-xs">
+                <div className="w-1 h-1 bg-[#1864AB]" />
+              </div>
+              <div className="w-14 sm:w-20 h-[1.5px] bg-[#1864AB]" />
             </div>
 
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-[46px] font-normal text-slate-900 tracking-tight leading-[1.15]">
-              Get In Touch With <span className="text-[#1E5FA8] italic font-normal">Our Team</span>
-            </h2>
-
-            <p className="font-sans text-[13.5px] sm:text-[14.5px] text-slate-600 font-normal leading-relaxed max-w-xl mx-auto">
-              We welcome fashion houses, apparel manufacturers, and textile buyers to consult our sales desk or schedule an on-site visit to our Surat weaving plant.
+            <p className="font-sans text-[13.5px] sm:text-[14.5px] text-slate-600 font-normal leading-relaxed max-w-xl mx-auto pt-1">
+              Reach our Surat manufacturing headquarters directly for fabric sampling, bulk production quotations, and mill visitation appointments.
             </p>
           </div>
 
           {/* ===================================================================
-              4. TWO-COLUMN SPLIT: INTERACTIVE CARDS (LEFT) + DIRECT FORM (RIGHT)
+              4. 3-COLUMN CHEVRON CONTACT CARDS (Matching media_1794120460835_9d12aa0b.jpg)
              =================================================================== */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start max-w-[1360px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 max-w-[1280px] mx-auto pt-4">
             
-            {/* LEFT COLUMN: 4 High-Trust Interactive Contact Cards */}
-            <div className="lg:col-span-5 space-y-4 sm:space-y-5">
-              
-              {/* Card 1: Surat Weaving Mill Address */}
-              <div className="p-6 sm:p-7 rounded-[24px] bg-white/85 backdrop-blur-md border border-[#EAE0D5] shadow-[0_8px_24px_rgba(15,23,42,0.05)] hover:shadow-[0_14px_34px_rgba(15,23,42,0.08)] transition-all duration-300 group">
-                <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-[#E8F3FA] border border-[#C5E1F5] text-[#006DB6] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                    <MapPin className="w-5 h-5 stroke-[2]" />
-                  </div>
-                  <div className="space-y-1.5 flex-1">
-                    <span className="font-sans text-[10.5px] font-bold tracking-[0.2em] uppercase text-[#006DB6] block">
-                      MANUFACTURING FACILITY
-                    </span>
-                    <h3 className="font-heading text-xl font-normal text-slate-900">
-                      Surat Weaving Plant
-                    </h3>
-                    <p className="font-sans text-[13px] sm:text-[13.5px] text-slate-600 leading-relaxed font-normal">
-                      {COMPANY_INFO.address.line1}, {COMPANY_INFO.address.line2}, {COMPANY_INFO.address.line3}, {COMPANY_INFO.address.city}, {COMPANY_INFO.address.state} – {COMPANY_INFO.address.pin}, India
-                    </p>
-                    <div className="pt-2">
-                      <a
-                        href={COMPANY_INFO.mapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-[#006DB6] hover:text-[#00528A] transition-colors group/link"
-                      >
-                        <span>Open in Google Maps</span>
-                        <ExternalLink className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                      </a>
-                    </div>
-                  </div>
+            {/* ---------------- CARD 1: LOCATION / ADDRESS ---------------- */}
+            <div className="relative group transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center">
+              {/* Circular Floating Blue Icon Badge */}
+              <div className="relative z-20 w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-[#1864AB] text-white flex items-center justify-center border-[4.5px] border-white shadow-[0_6px_18px_rgba(24,100,171,0.35)] -mb-8 sm:-mb-9 group-hover:scale-105 transition-transform duration-300">
+                <MapPin className="w-7 h-7 sm:w-8 sm:h-8 stroke-[2.2]" />
+              </div>
+
+              {/* Pointed Chevron Card Body */}
+              <div
+                className="w-full bg-[#EDF5FA] border-t border-x border-[#D6E6F2] pt-12 sm:pt-14 pb-12 sm:pb-14 px-5 sm:px-7 text-center flex flex-col items-center justify-between min-h-[380px] shadow-[0_10px_28px_rgba(20,45,75,0.06)] group-hover:shadow-[0_16px_36px_rgba(20,45,75,0.1)] transition-shadow duration-300"
+                style={{
+                  clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 32px), 50% 100%, 0 calc(100% - 32px))'
+                }}
+              >
+                <div className="space-y-3.5 w-full">
+                  <h3 className="font-heading font-serif text-lg sm:text-[20px] font-bold text-[#142C4F] tracking-wide uppercase">
+                    VIRAL FABRICS PVT. LTD.
+                  </h3>
+
+                  <p className="font-sans text-[13px] sm:text-[14px] text-slate-700 leading-relaxed font-normal max-w-[280px] mx-auto">
+                    Plot 37, 38, Krishna Industrial. Society,<br />
+                    Opposite Umiya Residency, Near Milan Point,<br />
+                    Bamroli – Vadod Road, Bamroli,<br />
+                    Pandesara, Surat. Pin : 394210
+                  </p>
+                </div>
+
+                {/* Actions */}
+                <div className="pt-5 pb-2 flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full max-w-[260px]">
+                  <a
+                    href={COMPANY_INFO.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-4 py-2 rounded-full bg-[#1864AB] text-white text-[12px] font-semibold hover:bg-[#124E85] transition-colors shadow-xs"
+                  >
+                    <span>Get Directions</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleCopy(
+                        'address',
+                        'Plot 37, 38, Krishna Industrial Society, Opposite Umiya Residency, Near Milan Point, Bamroli – Vadod Road, Bamroli, Pandesara, Surat. Pin : 394210'
+                      )
+                    }
+                    className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-3.5 py-2 rounded-full bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-[11.5px] font-medium transition-colors cursor-pointer shadow-2xs"
+                  >
+                    {copiedField === 'address' ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span className="text-emerald-700 font-semibold">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5 text-slate-500" />
+                        <span>Copy</span>
+                      </>
+                    )}
+                  </button>
                 </div>
               </div>
 
-              {/* Card 2: Phone & WhatsApp */}
-              <div className="p-6 sm:p-7 rounded-[24px] bg-white/85 backdrop-blur-md border border-[#EAE0D5] shadow-[0_8px_24px_rgba(15,23,42,0.05)] hover:shadow-[0_14px_34px_rgba(15,23,42,0.08)] transition-all duration-300 group">
-                <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-[#E8F3FA] border border-[#C5E1F5] text-[#006DB6] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                    <Phone className="w-5 h-5 stroke-[2]" />
-                  </div>
-                  <div className="space-y-1.5 flex-1">
-                    <span className="font-sans text-[10.5px] font-bold tracking-[0.2em] uppercase text-[#006DB6] block">
-                      TELEPHONE &amp; WHATSAPP
-                    </span>
-                    <h3 className="font-heading text-xl font-normal text-slate-900">
-                      Commercial &amp; Export Sales
-                    </h3>
-                    <p className="font-sans text-[13px] text-slate-600 leading-relaxed font-normal">
-                      Instant response for price estimations, fabric lab dip requests, and container sailings.
-                    </p>
-                    <div className="flex flex-wrap items-center gap-2.5 pt-2">
-                      <a
-                        href={`tel:${COMPANY_INFO.phoneTel}`}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#006DB6] text-white text-[12px] font-medium hover:bg-[#005691] transition-all shadow-xs"
-                      >
-                        <Phone className="w-3.5 h-3.5" />
-                        <span>{COMPANY_INFO.phoneDisplay}</span>
-                      </a>
-                      <button
-                        type="button"
-                        onClick={() => handleCopy('phone', COMPANY_INFO.phoneDisplay)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11.5px] font-medium transition-colors cursor-pointer"
-                        title="Copy phone number"
-                      >
-                        {copiedField === 'phone' ? (
-                          <>
-                            <Check className="w-3.5 h-3.5 text-emerald-600" />
-                            <span className="text-emerald-700">Copied!</span>
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3.5 h-3.5 text-slate-500" />
-                            <span>Copy</span>
-                          </>
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                </div>
+              {/* Floating Navy Chevron Accent Line Below Card */}
+              <div className="w-full flex justify-center mt-3">
+                <svg viewBox="0 0 320 36" className="w-full max-w-[340px] h-6 overflow-visible" preserveAspectRatio="none">
+                  <polygon points="0,0 160,26 320,0 320,8 160,34 0,8" fill="#143A67" />
+                </svg>
               </div>
-
-              {/* Card 3: Email Desk */}
-              <div className="p-6 sm:p-7 rounded-[24px] bg-white/85 backdrop-blur-md border border-[#EAE0D5] shadow-[0_8px_24px_rgba(15,23,42,0.05)] hover:shadow-[0_14px_34px_rgba(15,23,42,0.08)] transition-all duration-300 group">
-                <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-[#E8F3FA] border border-[#C5E1F5] text-[#006DB6] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                    <Mail className="w-5 h-5 stroke-[2]" />
-                  </div>
-                  <div className="space-y-1.5 flex-1">
-                    <span className="font-sans text-[10.5px] font-bold tracking-[0.2em] uppercase text-[#006DB6] block">
-                      OFFICIAL EMAIL DESK
-                    </span>
-                    <h3 className="font-heading text-xl font-normal text-slate-900">
-                      Corporate Correspondence
-                    </h3>
-                    <p className="font-sans text-[13px] text-slate-600 leading-relaxed font-normal">
-                      Submit tech packs, digital print artworks, or purchase orders directly to our mill desk.
-                    </p>
-                    <div className="flex flex-wrap items-center gap-2.5 pt-2">
-                      <a
-                        href={`mailto:${COMPANY_INFO.email}`}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#006DB6] text-white text-[12px] font-medium hover:bg-[#005691] transition-all shadow-xs"
-                      >
-                        <Mail className="w-3.5 h-3.5" />
-                        <span>{COMPANY_INFO.email}</span>
-                      </a>
-                      <button
-                        type="button"
-                        onClick={() => handleCopy('email', COMPANY_INFO.email)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11.5px] font-medium transition-colors cursor-pointer"
-                        title="Copy email address"
-                      >
-                        {copiedField === 'email' ? (
-                          <>
-                            <Check className="w-3.5 h-3.5 text-emerald-600" />
-                            <span className="text-emerald-700">Copied!</span>
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3.5 h-3.5 text-slate-500" />
-                            <span>Copy</span>
-                          </>
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 4: Operating Hours & Dispatch */}
-              <div className="p-6 sm:p-7 rounded-[24px] bg-white/85 backdrop-blur-md border border-[#EAE0D5] shadow-[0_8px_24px_rgba(15,23,42,0.05)] hover:shadow-[0_14px_34px_rgba(15,23,42,0.08)] transition-all duration-300 group">
-                <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-[#E8F3FA] border border-[#C5E1F5] text-[#006DB6] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                    <Clock className="w-5 h-5 stroke-[2]" />
-                  </div>
-                  <div className="space-y-1.5 flex-1">
-                    <span className="font-sans text-[10.5px] font-bold tracking-[0.2em] uppercase text-[#006DB6] block">
-                      MILL TIMINGS &amp; DISPATCH
-                    </span>
-                    <h3 className="font-heading text-xl font-normal text-slate-900">
-                      Operating Hours
-                    </h3>
-                    <div className="space-y-1 pt-0.5 text-slate-700 font-sans text-[13px]">
-                      <div className="flex items-center justify-between">
-                        <span className="font-medium">Monday – Saturday:</span>
-                        <span className="font-semibold text-slate-900">9:00 AM – 7:30 PM IST</span>
-                      </div>
-                      <div className="flex items-center justify-between text-slate-500">
-                        <span>Sunday:</span>
-                        <span className="italic">Closed (Inquiries queued)</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
 
-            {/* RIGHT COLUMN: Luxury Direct Contact & Sourcing Message Form */}
-            <div className="lg:col-span-7">
-              <div className="bg-white/95 backdrop-blur-md rounded-[28px] sm:rounded-[32px] p-7 sm:p-10 border border-white/90 shadow-[0_20px_50px_rgba(15,23,42,0.08)]">
-                
-                {submitted ? (
-                  <div className="py-12 text-center space-y-6 animate-fade-in">
-                    <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
-                      <Check className="w-8 h-8 stroke-[2.2]" />
-                    </div>
-                    <div className="space-y-2.5">
-                      <span className="font-sans text-[11px] font-bold tracking-[0.24em] uppercase text-emerald-700">
-                        TRANSMISSION RECEIVED
-                      </span>
-                      <h3 className="font-heading text-3xl font-light text-slate-900">
-                        Thank You For Reaching Out
-                      </h3>
-                      <p className="font-sans text-[14px] text-slate-600 max-w-md mx-auto leading-relaxed">
-                        Your message has been assigned to our Surat commercial export desk. A technical representative will respond within 24 business hours.
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setSubmitted(false)}
-                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-slate-900 text-white text-[12.5px] font-medium hover:bg-slate-800 transition-colors cursor-pointer"
+            {/* ---------------- CARD 2: CALL US ---------------- */}
+            <div className="relative group transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center">
+              {/* Circular Floating Blue Icon Badge */}
+              <div className="relative z-20 w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-[#1864AB] text-white flex items-center justify-center border-[4.5px] border-white shadow-[0_6px_18px_rgba(24,100,171,0.35)] -mb-8 sm:-mb-9 group-hover:scale-105 transition-transform duration-300">
+                <Phone className="w-7 h-7 sm:w-8 sm:h-8 stroke-[2.2]" />
+              </div>
+
+              {/* Pointed Chevron Card Body */}
+              <div
+                className="w-full bg-[#EDF5FA] border-t border-x border-[#D6E6F2] pt-12 sm:pt-14 pb-12 sm:pb-14 px-5 sm:px-7 text-center flex flex-col items-center justify-between min-h-[380px] shadow-[0_10px_28px_rgba(20,45,75,0.06)] group-hover:shadow-[0_16px_36px_rgba(20,45,75,0.1)] transition-shadow duration-300"
+                style={{
+                  clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 32px), 50% 100%, 0 calc(100% - 32px))'
+                }}
+              >
+                <div className="space-y-3.5 w-full">
+                  <h3 className="font-heading font-serif text-lg sm:text-[20px] font-bold text-[#142C4F] tracking-widest uppercase">
+                    CALL US
+                  </h3>
+
+                  <div className="pt-2">
+                    <a
+                      href={`tel:${COMPANY_INFO.phoneTel}`}
+                      className="font-sans text-[20px] sm:text-[22px] font-bold text-[#142C4F] hover:text-[#1864AB] transition-colors tracking-wide block"
                     >
-                      <span>Send Another Message</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
+                      91-9427988999
+                    </a>
                   </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    
-                    <div className="border-b border-slate-100 pb-4">
-                      <span className="font-sans text-[10.5px] font-bold tracking-[0.22em] uppercase text-[#1E5FA8] block">
-                        DIRECT COMMUNICATION
-                      </span>
-                      <h3 className="font-heading text-2xl sm:text-3xl font-light text-slate-900 tracking-tight mt-0.5">
-                        Send A Direct Message
-                      </h3>
-                      <p className="font-sans text-[13px] text-slate-500 mt-1">
-                        Submit your technical requirements, lab dip schedule, or visit request.
-                      </p>
-                    </div>
 
-                    {errorMsg && (
-                      <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium">
-                        {errorMsg}
-                      </div>
+                  <p className="font-sans text-[12.5px] text-slate-600 leading-relaxed font-normal max-w-[260px] mx-auto pt-1">
+                    Direct Commercial &amp; Export Sales Desk<br />
+                    <span className="text-slate-500 text-[11.5px]">Mon – Sat: 9:00 AM – 7:30 PM IST</span>
+                  </p>
+                </div>
+
+                {/* Actions */}
+                <div className="pt-5 pb-2 flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full max-w-[260px]">
+                  <a
+                    href={`tel:${COMPANY_INFO.phoneTel}`}
+                    className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-4 py-2 rounded-full bg-[#1864AB] text-white text-[12px] font-semibold hover:bg-[#124E85] transition-colors shadow-xs"
+                  >
+                    <Phone className="w-3.5 h-3.5" />
+                    <span>Call Now</span>
+                  </a>
+
+                  <a
+                    href="https://wa.me/919427988999?text=Hello%20Viral%20Fabrics%2C%20I%20would%20like%20to%20inquire%20about%20export%20fabrics."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-3.5 py-2 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white text-[11.5px] font-medium transition-colors shadow-2xs"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span>WhatsApp</span>
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={() => handleCopy('phone', '91-9427988999')}
+                    className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-3 py-2 rounded-full bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-[11.5px] font-medium transition-colors cursor-pointer shadow-2xs"
+                    title="Copy phone number"
+                  >
+                    {copiedField === 'phone' ? (
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5 text-slate-500" />
                     )}
+                  </button>
+                </div>
+              </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {/* Name */}
-                      <div className="space-y-1.5">
-                        <label className="block text-[11.5px] font-semibold tracking-wider uppercase text-slate-700">
-                          Your Name <span className="text-rose-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="e.g. Rajesh Singhania"
-                          className="w-full h-11 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-[13.5px] placeholder:text-slate-400 focus:bg-white focus:border-[#006DB6] focus:ring-2 focus:ring-[#006DB6]/15 outline-none transition-all"
-                        />
-                      </div>
+              {/* Floating Navy Chevron Accent Line Below Card */}
+              <div className="w-full flex justify-center mt-3">
+                <svg viewBox="0 0 320 36" className="w-full max-w-[340px] h-6 overflow-visible" preserveAspectRatio="none">
+                  <polygon points="0,0 160,26 320,0 320,8 160,34 0,8" fill="#143A67" />
+                </svg>
+              </div>
+            </div>
 
-                      {/* Email */}
-                      <div className="space-y-1.5">
-                        <label className="block text-[11.5px] font-semibold tracking-wider uppercase text-slate-700">
-                          Corporate Email <span className="text-rose-500">*</span>
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="name@company.com"
-                          className="w-full h-11 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-[13.5px] placeholder:text-slate-400 focus:bg-white focus:border-[#006DB6] focus:ring-2 focus:ring-[#006DB6]/15 outline-none transition-all"
-                        />
-                      </div>
-                    </div>
+            {/* ---------------- CARD 3: WRITE US / EMAIL ---------------- */}
+            <div className="relative group transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-center">
+              {/* Circular Floating Blue Icon Badge */}
+              <div className="relative z-20 w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-[#1864AB] text-white flex items-center justify-center border-[4.5px] border-white shadow-[0_6px_18px_rgba(24,100,171,0.35)] -mb-8 sm:-mb-9 group-hover:scale-105 transition-transform duration-300">
+                <Mail className="w-7 h-7 sm:w-8 sm:h-8 stroke-[2.2]" />
+              </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {/* Phone */}
-                      <div className="space-y-1.5">
-                        <label className="block text-[11.5px] font-semibold tracking-wider uppercase text-slate-700">
-                          Phone / WhatsApp <span className="text-rose-500">*</span>
-                        </label>
-                        <input
-                          type="tel"
-                          required
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="+91 98765 43210"
-                          className="w-full h-11 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-[13.5px] placeholder:text-slate-400 focus:bg-white focus:border-[#006DB6] focus:ring-2 focus:ring-[#006DB6]/15 outline-none transition-all"
-                        />
-                      </div>
+              {/* Pointed Chevron Card Body */}
+              <div
+                className="w-full bg-[#EDF5FA] border-t border-x border-[#D6E6F2] pt-12 sm:pt-14 pb-12 sm:pb-14 px-5 sm:px-7 text-center flex flex-col items-center justify-between min-h-[380px] shadow-[0_10px_28px_rgba(20,45,75,0.06)] group-hover:shadow-[0_16px_36px_rgba(20,45,75,0.1)] transition-shadow duration-300"
+                style={{
+                  clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 32px), 50% 100%, 0 calc(100% - 32px))'
+                }}
+              >
+                <div className="space-y-3.5 w-full">
+                  <h3 className="font-heading font-serif text-lg sm:text-[20px] font-bold text-[#142C4F] tracking-widest uppercase">
+                    WRITE US
+                  </h3>
 
-                      {/* Purpose */}
-                      <div className="space-y-1.5">
-                        <label className="block text-[11.5px] font-semibold tracking-wider uppercase text-slate-700">
-                          Inquiry Purpose
-                        </label>
-                        <select
-                          value={formData.inquiryType}
-                          onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
-                          className="w-full h-11 px-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-[13px] focus:bg-white focus:border-[#006DB6] focus:ring-2 focus:ring-[#006DB6]/15 outline-none transition-all cursor-pointer"
-                        >
-                          {INQUIRY_TYPES.map((type) => (
-                            <option key={type} value={type}>
-                              {type}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
+                  <div className="pt-2">
+                    <a
+                      href={`mailto:${COMPANY_INFO.email}`}
+                      className="font-sans text-[15.5px] sm:text-[17px] font-bold text-[#142C4F] hover:text-[#1864AB] transition-colors tracking-tight block break-all"
+                    >
+                      {COMPANY_INFO.email}
+                    </a>
+                  </div>
 
-                    {/* Message */}
-                    <div className="space-y-1.5">
-                      <label className="block text-[11.5px] font-semibold tracking-wider uppercase text-slate-700">
-                        Message / Specifications <span className="text-rose-500">*</span>
-                      </label>
-                      <textarea
-                        required
-                        rows={4}
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        placeholder="Detail your fabric type (BSY, Jacquard, Crepe, Satin), required GSM, expected volume (meters), or desired mill visitation dates..."
-                        className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-[13.5px] placeholder:text-slate-400 focus:bg-white focus:border-[#006DB6] focus:ring-2 focus:ring-[#006DB6]/15 outline-none transition-all resize-none leading-relaxed"
-                      />
-                    </div>
+                  <p className="font-sans text-[12.5px] text-slate-600 leading-relaxed font-normal max-w-[260px] mx-auto pt-1">
+                    Corporate Correspondence &amp; Tech Packs<br />
+                    <span className="text-slate-500 text-[11.5px]">Guaranteed response within 24 business hours</span>
+                  </p>
+                </div>
 
-                    {/* Human Verification & Submit Action */}
-                    <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                      
-                      <label className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 transition-colors cursor-pointer select-none">
-                        <input
-                          type="checkbox"
-                          checked={humanVerified}
-                          onChange={(e) => setHumanVerified(e.target.checked)}
-                          className="w-4 h-4 rounded border-slate-300 accent-[#006DB6] cursor-pointer"
-                        />
-                        <span className="text-[12.5px] font-medium text-slate-700">
-                          I am a human
-                        </span>
-                        <ShieldCheck className="w-4 h-4 text-emerald-600 stroke-[2] ml-0.5" />
-                      </label>
+                {/* Actions */}
+                <div className="pt-5 pb-2 flex flex-col sm:flex-row items-center justify-center gap-2.5 w-full max-w-[260px]">
+                  <a
+                    href={`mailto:${COMPANY_INFO.email}`}
+                    className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-4 py-2 rounded-full bg-[#1864AB] text-white text-[12px] font-semibold hover:bg-[#124E85] transition-colors shadow-xs"
+                  >
+                    <Mail className="w-3.5 h-3.5" />
+                    <span>Send Email</span>
+                  </a>
 
-                      {/* Haute-Couture Submit Button with Angled Cut */}
-                      <button
-                        type="submit"
-                        disabled={loading}
-                        className="relative inline-flex items-center justify-center gap-2.5 h-12 pl-7 pr-9 text-[13.5px] font-semibold text-white bg-gradient-to-r from-[#0C2D50] via-[#0E3B68] to-[#164E87] hover:from-[#081F38] hover:via-[#0A2E52] hover:to-[#0F3B66] active:scale-[0.98] transition-all duration-300 shadow-[0_6px_20px_rgba(14,59,104,0.35)] hover:shadow-[0_8px_26px_rgba(14,59,104,0.5)] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed group overflow-hidden w-full sm:w-auto"
-                        style={{
-                          clipPath: 'polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)',
-                        }}
-                      >
-                        {/* 1px Razor Overlay */}
-                        <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
-                          <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
-                          <line x1="100%" y1="0" x2="calc(100% - 12px)" y2="100%" stroke="rgba(255,255,255,0.4)" strokeWidth="1.2" />
-                          <line x1="calc(100% - 12px)" y1="calc(100% - 0.5px)" x2="0" y2="calc(100% - 0.5px)" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
-                          <line x1="0.5" y1="100%" x2="0.5" y2="0" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
-                        </svg>
+                  <Link
+                    href="/enquiry"
+                    className="inline-flex items-center justify-center gap-1 w-full sm:w-auto px-3.5 py-2 rounded-full bg-white hover:bg-slate-100 text-slate-800 border border-slate-200 text-[11.5px] font-medium transition-colors shadow-2xs"
+                  >
+                    <span>Enquiry</span>
+                    <ArrowRight className="w-3 h-3 text-[#1864AB]" />
+                  </Link>
 
-                        {/* Luminous Shine Sweep */}
-                        <span
-                          className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12 pointer-events-none group-hover:translate-x-[250%] transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                          aria-hidden="true"
-                        />
+                  <button
+                    type="button"
+                    onClick={() => handleCopy('email', COMPANY_INFO.email)}
+                    className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-3 py-2 rounded-full bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-[11.5px] font-medium transition-colors cursor-pointer shadow-2xs"
+                    title="Copy email address"
+                  >
+                    {copiedField === 'email' ? (
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5 text-slate-500" />
+                    )}
+                  </button>
+                </div>
+              </div>
 
-                        <span className="relative z-10 flex items-center gap-2">
-                          {loading ? (
-                            <>
-                              <Loader2 className="w-4 h-4 animate-spin text-white" />
-                              <span>Transmitting...</span>
-                            </>
-                          ) : (
-                            <>
-                              <span className="tracking-wide font-medium">Send Message</span>
-                              <ArrowRight className="w-4 h-4 stroke-[2.2] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1" />
-                            </>
-                          )}
-                        </span>
-                      </button>
-
-                    </div>
-
-                  </form>
-                )}
-
+              {/* Floating Navy Chevron Accent Line Below Card */}
+              <div className="w-full flex justify-center mt-3">
+                <svg viewBox="0 0 320 36" className="w-full max-w-[340px] h-6 overflow-visible" preserveAspectRatio="none">
+                  <polygon points="0,0 160,26 320,0 320,8 160,34 0,8" fill="#143A67" />
+                </svg>
               </div>
             </div>
 
           </div>
 
           {/* ===================================================================
-              5. SURAT WEAVING PLANT SATELLITE & GOOGLE MAPS SHOWCASE
+              5. SURAT WEAVING PLANT INTERACTIVE GOOGLE MAP & TRANSIT SECTION
              =================================================================== */}
-          <div className="max-w-[1360px] mx-auto space-y-5 pt-6">
+          <div className="max-w-[1360px] mx-auto space-y-5 pt-8 sm:pt-12">
             
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#EAE0D5] pb-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E8DEC8] pb-3">
               <div>
-                <span className="font-sans text-[11px] font-bold tracking-[0.24em] uppercase text-[#1E5FA8] block">
+                <span className="font-sans text-[11px] font-bold tracking-[0.24em] uppercase text-[#1864AB] block">
                   SURAT WEAVING MILL COORDINATES
                 </span>
-                <h3 className="font-heading text-2xl font-light text-slate-900">
+                <h3 className="font-heading font-serif text-2xl sm:text-3xl font-light text-slate-900">
                   Facility Location &amp; Directions
                 </h3>
               </div>
-              <p className="font-sans text-[12.5px] text-slate-500">
+              <p className="font-sans text-[12.5px] text-slate-600">
                 Plot 37, 38, Krishna Industrial Society, Bamroli, Surat, Gujarat
               </p>
             </div>
 
             {/* Elevated Map Showcase Container */}
-            <div className="relative w-full h-[440px] sm:h-[500px] lg:h-[540px] rounded-[24px] sm:rounded-[28px] overflow-hidden border border-[#EAE0D5] shadow-[0_16px_40px_rgba(15,23,42,0.08)]">
+            <div className="relative w-full h-[420px] sm:h-[480px] lg:h-[520px] rounded-[24px] sm:rounded-[28px] overflow-hidden border border-[#E8DEC8] shadow-[0_16px_40px_rgba(15,23,42,0.08)]">
               
               {/* Floating Translucent Coordinates Pill (Top Left) */}
-              <div className="absolute top-4 left-4 z-20 hidden sm:flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/90 backdrop-blur-md border border-white/80 shadow-md">
-                <div className="w-8 h-8 rounded-lg bg-[#006DB6] text-white flex items-center justify-center font-bold text-xs">
+              <div className="absolute top-4 left-4 z-20 hidden sm:flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-md">
+                <div className="w-8 h-8 rounded-lg bg-[#1864AB] text-white flex items-center justify-center font-bold text-xs shadow-xs">
                   VF
                 </div>
                 <div>
@@ -626,7 +424,7 @@ export default function ContactClient() {
                   href={COMPANY_INFO.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="ml-2 text-xs text-[#006DB6] hover:underline font-medium inline-flex items-center gap-0.5"
+                  className="ml-2 text-xs text-[#1864AB] hover:underline font-semibold inline-flex items-center gap-0.5"
                 >
                   <span>Open</span>
                   <ExternalLink className="w-3 h-3" />
@@ -647,11 +445,11 @@ export default function ContactClient() {
               />
             </div>
 
-            {/* Direct Transit & Ocean Port Connectivity Credentials */}
+            {/* Direct Transit & Ocean Port Connectivity Credentials (From Screenshot media_1794120481149_f0d2abff.jpg) */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              <div className="p-4 sm:p-5 rounded-2xl bg-white/75 backdrop-blur-md border border-[#EAE0D5] flex items-center gap-3.5 shadow-xs">
-                <div className="w-10 h-10 rounded-xl bg-[#E8F3FA] text-[#006DB6] flex items-center justify-center shrink-0">
-                  <Plane className="w-5 h-5 stroke-[1.8]" />
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/85 backdrop-blur-md border border-[#E8DEC8] flex items-center gap-3.5 shadow-xs hover:shadow-sm transition-shadow">
+                <div className="w-10 h-10 rounded-xl bg-[#E8F3FA] text-[#1864AB] flex items-center justify-center shrink-0">
+                  <Plane className="w-5 h-5 stroke-[2]" />
                 </div>
                 <div>
                   <p className="font-sans text-[12px] font-bold text-slate-900 uppercase tracking-wide">
@@ -663,9 +461,9 @@ export default function ContactClient() {
                 </div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-white/75 backdrop-blur-md border border-[#EAE0D5] flex items-center gap-3.5 shadow-xs">
-                <div className="w-10 h-10 rounded-xl bg-[#E8F3FA] text-[#006DB6] flex items-center justify-center shrink-0">
-                  <Anchor className="w-5 h-5 stroke-[1.8]" />
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/85 backdrop-blur-md border border-[#E8DEC8] flex items-center gap-3.5 shadow-xs hover:shadow-sm transition-shadow">
+                <div className="w-10 h-10 rounded-xl bg-[#E8F3FA] text-[#1864AB] flex items-center justify-center shrink-0">
+                  <Anchor className="w-5 h-5 stroke-[2]" />
                 </div>
                 <div>
                   <p className="font-sans text-[12px] font-bold text-slate-900 uppercase tracking-wide">
@@ -677,9 +475,9 @@ export default function ContactClient() {
                 </div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-white/75 backdrop-blur-md border border-[#EAE0D5] flex items-center gap-3.5 shadow-xs">
-                <div className="w-10 h-10 rounded-xl bg-[#E8F3FA] text-[#006DB6] flex items-center justify-center shrink-0">
-                  <TrainTrack className="w-5 h-5 stroke-[1.8]" />
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/85 backdrop-blur-md border border-[#E8DEC8] flex items-center gap-3.5 shadow-xs hover:shadow-sm transition-shadow">
+                <div className="w-10 h-10 rounded-xl bg-[#E8F3FA] text-[#1864AB] flex items-center justify-center shrink-0">
+                  <TrainTrack className="w-5 h-5 stroke-[2]" />
                 </div>
                 <div>
                   <p className="font-sans text-[12px] font-bold text-slate-900 uppercase tracking-wide">
@@ -690,6 +488,29 @@ export default function ContactClient() {
                   </p>
                 </div>
               </div>
+            </div>
+
+            {/* Quick Sourcing Bridge Callout */}
+            <div className="mt-8 p-6 sm:p-8 rounded-[24px] bg-gradient-to-r from-[#0C2D50] via-[#0E3B68] to-[#164E87] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_12px_32px_rgba(12,45,80,0.2)]">
+              <div className="space-y-1.5 text-center md:text-left">
+                <span className="font-sans text-[10.5px] font-bold tracking-[0.24em] uppercase text-[#64B5F6] block">
+                  BULK TEXTILE SOURCING &amp; LAB DIPS
+                </span>
+                <h4 className="font-heading font-serif text-2xl sm:text-3xl font-light text-white">
+                  Need Custom Fabric Formulation or Swatches?
+                </h4>
+                <p className="font-sans text-[13px] text-white/85 max-w-xl">
+                  Submit technical fabric specifications, required GSM, strike-off requests, and container delivery schedules directly on our export sourcing desk.
+                </p>
+              </div>
+
+              <Link
+                href="/enquiry"
+                className="relative inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-white text-[#0C2D50] hover:bg-[#F0F7FF] text-[13px] font-bold tracking-wide transition-all duration-300 shadow-md shrink-0 hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <span>Go To Sourcing Enquiry Desk</span>
+                <ArrowRight className="w-4 h-4 stroke-[2.4]" />
+              </Link>
             </div>
 
           </div>

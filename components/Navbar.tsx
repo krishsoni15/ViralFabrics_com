@@ -55,10 +55,22 @@ export function Navbar() {
     };
   }, []);
 
-  // Close dropdown whenever route changes
+  // Close dropdown and mobile drawer whenever route changes
   useEffect(() => {
     setDesktopDropdownOpen(false);
+    setIsOpen(false);
   }, [pathname]);
+
+  // Lock body scroll when mobile drawer is open (prevents behind scroll)
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isOpen]);
 
   // Copy to clipboard helper with bulletproof fallback & tooltip feedback
   const handleCopy = async (type: 'phone' | 'email', text: string, e?: React.MouseEvent) => {
@@ -206,7 +218,12 @@ export function Navbar() {
   const col2 = liveFabrics.slice(half);
 
   // Is the navbar currently transparent over the hero?
-  const isHeroTransparentPage = pathname === '/' || pathname === '/about-us';
+  const isHeroTransparentPage =
+    pathname === '/' ||
+    pathname === '/about-us' ||
+    pathname === '/enquiry' ||
+    pathname === '/contact-us' ||
+    pathname.startsWith('/fabrics');
   const isTransparent = isHeroTransparentPage && !scrolled;
 
   return (
@@ -238,10 +255,10 @@ export function Navbar() {
           </button>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 2xl:gap-8">
           <Link
             href="/"
-            className={`text-[13px] xl:text-[13.5px] font-medium tracking-[0.14em] uppercase whitespace-nowrap transition-all duration-300 ${pathname === '/'
+            className={`text-[12.5px] xl:text-[13px] 2xl:text-[13.5px] font-medium tracking-[0.14em] uppercase whitespace-nowrap transition-all duration-300 ${pathname === '/'
               ? isTransparent ? 'text-white font-semibold' : 'text-brand-blue font-semibold'
               : isTransparent ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
               }`}
@@ -359,7 +376,7 @@ export function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`text-[13px] xl:text-[13.5px] font-medium tracking-[0.14em] uppercase whitespace-nowrap transition-all duration-300 ${isActive
+                className={`text-[12.5px] xl:text-[13px] 2xl:text-[13.5px] font-medium tracking-[0.14em] uppercase whitespace-nowrap transition-all duration-300 ${isActive
                   ? isTransparent ? 'text-white font-semibold' : 'text-brand-blue font-semibold'
                   : isTransparent ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
                   }`}
@@ -377,7 +394,7 @@ export function Navbar() {
             href="/"
             className="relative flex items-center justify-center transition-opacity hover:opacity-90 py-1"
           >
-            <div className="relative w-[130px] sm:w-[155px] md:w-[190px] lg:w-[240px] xl:w-[250px] h-[32px] sm:h-[36px] md:h-[44px] lg:h-[52px] xl:h-[54px]">
+            <div className="relative w-[130px] sm:w-[155px] md:w-[175px] lg:w-[190px] xl:w-[215px] 2xl:w-[245px] h-[32px] sm:h-[36px] md:h-[40px] lg:h-[44px] xl:h-[48px] 2xl:h-[52px]">
               <Image
                 src={isTransparent ? "/assets/uploads/2025/08/footer-logo.png" : "/assets/uploads/2025/08/logo.png"}
                 alt="Viral Fabrics"
@@ -389,11 +406,11 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* 3. RIGHT COLUMN: Modern Minimalist Phone + Email + Enquire (Mobile & Desktop) */}
-        <div className="flex-1 flex items-center justify-end gap-3.5 xl:gap-5 2xl:gap-6">
+        {/* 3. RIGHT COLUMN: Modern Minimalist Phone + Email + Enquire (No 1280px Overflow) */}
+        <div className="flex-1 flex items-center justify-end gap-2.5 sm:gap-3 xl:gap-3.5 2xl:gap-6 flex-shrink-0">
 
           {/* Phone Link: Minimalist Bare Icon to Copy / Text to Call */}
-          <div className="hidden lg:flex items-center gap-1.5 group/phone">
+          <div className="hidden lg:flex items-center gap-1.5 group/phone flex-shrink-0">
             <button
               type="button"
               onClick={(e) => handleCopy('phone', COMPANY_INFO.phoneDisplay, e)}
@@ -422,7 +439,7 @@ export function Navbar() {
             {/* Direct Dial Link */}
             <a
               href={`tel:${COMPANY_INFO.phoneTel}`}
-              className={`text-[13px] xl:text-[13.5px] 2xl:text-[14px] font-medium tracking-wide whitespace-nowrap transition-colors hover:underline underline-offset-4 ${isTransparent ? 'text-white/95 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
+              className={`text-[12.5px] xl:text-[13px] 2xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-colors hover:underline underline-offset-4 hidden xl:inline ${isTransparent ? 'text-white/95 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
                 }`}
               title="Click to dial directly"
             >
@@ -431,7 +448,7 @@ export function Navbar() {
           </div>
 
           {/* Email Link: Minimalist Bare Icon to Copy / Text to Email */}
-          <div className="hidden lg:flex items-center gap-1.5 group/email">
+          <div className="hidden lg:flex items-center gap-1.5 group/email flex-shrink-0">
             <button
               type="button"
               onClick={(e) => handleCopy('email', COMPANY_INFO.email, e)}
@@ -457,10 +474,10 @@ export function Navbar() {
               </span>
             </button>
 
-            {/* Direct Email Compose Link */}
+            {/* Direct Email Compose Link (Shown on 2xl+ to guarantee zero overflow on 1280px-1440px) */}
             <a
               href={`mailto:${COMPANY_INFO.email}`}
-              className={`text-[13px] xl:text-[13.5px] 2xl:text-[14px] font-medium tracking-wide whitespace-nowrap transition-colors hover:underline underline-offset-4 hidden xl:inline ${isTransparent ? 'text-white/95 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
+              className={`text-[12.5px] xl:text-[13px] 2xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-colors hover:underline underline-offset-4 hidden 2xl:inline ${isTransparent ? 'text-white/95 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
                 }`}
               title="Click to compose email"
             >
@@ -468,14 +485,14 @@ export function Navbar() {
             </a>
           </div>
 
-          {/* Subtle Hairline Separator */}
-          <div className={`h-4 w-[1px] hidden xl:block transition-colors ${isTransparent ? 'bg-white/25' : 'bg-slate-300/80'
+          {/* Subtle Hairline Separator (Shown on 2xl+) */}
+          <div className={`h-4 w-[1px] hidden 2xl:block transition-colors ${isTransparent ? 'bg-white/25' : 'bg-slate-300/80'
             }`} />
 
           {/* Minimalist Transparent Glass Button with Angled Cut & Luminous Shine Sweep (Mobile & Desktop) */}
           <Link
             href="/enquiry"
-            className={`relative inline-flex items-center justify-center h-8 sm:h-8.5 lg:h-9 pl-3.5 pr-5 sm:pl-4 sm:pr-6 lg:pl-5 lg:pr-7 text-[10px] sm:text-[10.5px] lg:text-[11px] font-medium tracking-[0.16em] lg:tracking-[0.18em] uppercase whitespace-nowrap transition-all duration-300 group cursor-pointer overflow-hidden hover:-translate-y-0.5 active:translate-y-0 ${
+            className={`relative inline-flex items-center justify-center h-8 sm:h-8.5 lg:h-9 pl-3.5 pr-5 sm:pl-4 sm:pr-6 lg:pl-5 lg:pr-7 text-[10px] sm:text-[10.5px] lg:text-[11px] font-medium tracking-[0.16em] lg:tracking-[0.18em] uppercase whitespace-nowrap transition-all duration-300 group cursor-pointer overflow-hidden flex-shrink-0 hover:-translate-y-0.5 active:translate-y-0 ${
               isTransparent
                 ? 'text-white bg-white/[0.06] hover:bg-white/[0.16] backdrop-blur-[8px]'
                 : 'text-[#203a61] bg-transparent hover:bg-[#375785] hover:text-white'
@@ -504,107 +521,211 @@ export function Navbar() {
 
       </div>
 
-      {/* Mobile Drawer */}
-      {isOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-full bg-white/90 backdrop-blur-[20px] shadow-xl px-6 py-8 max-h-[calc(100vh-70px)] overflow-y-auto text-slate-900 animate-fade-in border-t border-slate-100">
-          <div className="flex flex-col space-y-4">
+      {/* ================================================================= */}
+      {/* LUXURY LEFT-HAND SLIDE-IN MOBILE DRAWER (AGNES TOTH HAUTE-COUTURE) */}
+      {/* ================================================================= */}
+      <div
+        className={`lg:hidden fixed inset-0 z-[100] transition-opacity duration-300 ${
+          isOpen ? 'pointer-events-auto visible' : 'pointer-events-none invisible'
+        }`}
+        aria-hidden={!isOpen}
+      >
+        {/* 1. Backdrop Scrim Overlay with Dark Frosted Blur */}
+        <div
+          onClick={() => setIsOpen(false)}
+          className={`absolute inset-0 bg-[#071120]/70 backdrop-blur-md transition-opacity duration-500 ease-out ${
+            isOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
 
-            <p className="agnes-eyebrow text-[11px] pb-1 border-b border-slate-100">
-              Navigation Menu
-            </p>
-
+        {/* 2. Left Slide-In Drawer Panel (Solid Prestigious #FAF4F0 Silk Canvas) */}
+        <aside
+          className={`relative w-[320px] sm:w-[380px] max-w-[85vw] h-full bg-[#FAF4F0] text-slate-900 shadow-[0_0_60px_rgba(0,0,0,0.35)] flex flex-col justify-between overflow-y-auto transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          {/* Top Bar: Brand Logo & Close Icon Button */}
+          <div className="p-6 border-b border-slate-200/80 flex items-center justify-between bg-white/60 backdrop-blur-sm sticky top-0 z-10">
             <Link
               href="/"
-              className="py-2 text-[14px] font-medium tracking-wide uppercase text-brand-ink hover:text-brand-blue border-b border-slate-50 transition-colors"
               onClick={() => setIsOpen(false)}
+              className="relative w-[140px] h-[34px]"
             >
-              Home
+              <Image
+                src="/assets/uploads/2025/08/logo.png"
+                alt="Viral Fabrics"
+                fill
+                className="object-contain object-left"
+                priority
+              />
             </Link>
+            <button
+              type="button"
+              onClick={() => setIsOpen(false)}
+              className="w-9 h-9 rounded-full bg-slate-100 hover:bg-[#006DB6] hover:text-white flex items-center justify-center text-slate-700 transition-all cursor-pointer focus:outline-none"
+              aria-label="Close navigation menu"
+            >
+              <X className="w-5 h-5 stroke-[2]" />
+            </button>
+          </div>
 
-            {navLinks.map((link) => {
-              if (link.hasDropdown) {
-                return (
-                  <div key={link.name} className="py-1">
-                    <button
-                      onClick={() => setMobileFabricsOpen(!mobileFabricsOpen)}
-                      className="flex items-center justify-between w-full py-2 text-[14px] font-medium tracking-wide uppercase text-brand-ink"
-                    >
-                      <span>{link.name}</span>
-                      <ChevronDown className={`w-4 h-4 text-brand-blue transition-transform ${mobileFabricsOpen ? 'rotate-180' : ''}`} />
-                    </button>
+          {/* Navigation Links List */}
+          <div className="p-6 flex-1 space-y-2 overflow-y-auto">
+            <span className="text-[11px] font-bold tracking-[0.24em] uppercase text-[#006DB6] block mb-3 font-sans">
+              NAVIGATION
+            </span>
 
-                    {mobileFabricsOpen && (
-                      <div className="grid grid-cols-1 gap-1.5 pl-3 border-l border-brand-blue/30 my-2">
-                        {liveFabrics.map((fabric) => (
-                          <Link
-                            key={fabric.slug}
-                            href={`/fabrics/${fabric.slug}`}
-                            className="py-1.5 text-[13px] text-slate-700 hover:text-brand-blue transition-colors"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {fabric.title}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              }
+            <nav className="flex flex-col space-y-1">
+              <Link
+                href="/"
+                onClick={() => setIsOpen(false)}
+                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${
+                  pathname === '/'
+                    ? 'bg-[#006DB6]/10 text-[#006DB6] font-semibold'
+                    : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#006DB6]'
+                }`}
+              >
+                <span>Home</span>
+                {pathname === '/' && <span className="w-1.5 h-1.5 rounded-full bg-[#006DB6]" />}
+              </Link>
 
-              return (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="py-2 text-[14px] font-medium tracking-wide uppercase text-brand-ink hover:text-brand-blue border-b border-slate-50 transition-colors"
-                  onClick={() => setIsOpen(false)}
+              <Link
+                href="/about-us"
+                onClick={() => setIsOpen(false)}
+                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${
+                  pathname === '/about-us'
+                    ? 'bg-[#006DB6]/10 text-[#006DB6] font-semibold'
+                    : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#006DB6]'
+                }`}
+              >
+                <span>About Us</span>
+                {pathname === '/about-us' && <span className="w-1.5 h-1.5 rounded-full bg-[#006DB6]" />}
+              </Link>
+
+              {/* Fabrics Accordion */}
+              <div className="py-1">
+                <button
+                  type="button"
+                  onClick={() => setMobileFabricsOpen(!mobileFabricsOpen)}
+                  className="flex items-center justify-between w-full py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide text-slate-800 hover:bg-slate-100/80 hover:text-[#006DB6] transition-colors focus:outline-none cursor-pointer"
                 >
-                  {link.name}
-                </Link>
-              );
-            })}
+                  <span className="flex items-center gap-2">
+                    <span>Fabrics</span>
+                    <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-[#006DB6]/15 text-[#006DB6]">
+                      {liveFabrics.length}
+                    </span>
+                  </span>
+                  <ChevronDown
+                    className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${
+                      mobileFabricsOpen ? 'rotate-180 text-[#006DB6]' : ''
+                    }`}
+                  />
+                </button>
 
-            {/* Mobile Contact Information with Copy & Direct Links */}
-            <div className="pt-6 mt-4 border-t border-slate-100 space-y-3.5">
-              <div className="flex items-center justify-between">
+                {mobileFabricsOpen && (
+                  <div className="mt-1 ml-3 pl-3 border-l-2 border-[#006DB6]/30 space-y-1">
+                    {liveFabrics.map((fabric) => (
+                      <Link
+                        key={fabric.slug}
+                        href={`/fabrics/${fabric.slug}`}
+                        onClick={() => setIsOpen(false)}
+                        className={`block py-1.5 px-2 text-[13px] rounded transition-colors ${
+                          pathname === `/fabrics/${fabric.slug}`
+                            ? 'text-[#006DB6] font-semibold bg-[#006DB6]/5'
+                            : 'text-slate-600 hover:text-[#006DB6] hover:bg-slate-100/60'
+                        }`}
+                      >
+                        {fabric.title}
+                      </Link>
+                    ))}
+                    <Link
+                      href="/fabrics"
+                      onClick={() => setIsOpen(false)}
+                      className="block pt-2 pb-1 px-2 text-[12px] font-semibold uppercase tracking-wider text-[#006DB6] hover:underline"
+                    >
+                      View All Fabrics →
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              <Link
+                href="/network"
+                onClick={() => setIsOpen(false)}
+                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${
+                  pathname === '/network'
+                    ? 'bg-[#006DB6]/10 text-[#006DB6] font-semibold'
+                    : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#006DB6]'
+                }`}
+              >
+                <span>Network</span>
+                {pathname === '/network' && <span className="w-1.5 h-1.5 rounded-full bg-[#006DB6]" />}
+              </Link>
+
+              <Link
+                href="/contact-us"
+                onClick={() => setIsOpen(false)}
+                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${
+                  pathname === '/contact-us'
+                    ? 'bg-[#006DB6]/10 text-[#006DB6] font-semibold'
+                    : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#006DB6]'
+                }`}
+              >
+                <span>Contact Us</span>
+                {pathname === '/contact-us' && <span className="w-1.5 h-1.5 rounded-full bg-[#006DB6]" />}
+              </Link>
+            </nav>
+          </div>
+
+          {/* Drawer Bottom Bar: Direct Contact Info & Enquire Button */}
+          <div className="p-6 border-t border-slate-200/80 bg-white/70 backdrop-blur-sm space-y-4">
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between text-[12.5px]">
                 <a
                   href={`tel:${COMPANY_INFO.phoneTel}`}
-                  className="flex items-center gap-2.5 text-[13px] font-medium text-slate-800 hover:text-brand-blue"
-                  title="Click to dial directly"
+                  className="flex items-center gap-2 text-slate-800 hover:text-[#006DB6] font-medium"
                 >
-                  <Phone className="w-4 h-4 text-brand-blue stroke-[1.8]" />
+                  <Phone className="w-3.5 h-3.5 text-[#006DB6]" />
                   <span>{COMPANY_INFO.phoneDisplay}</span>
                 </a>
                 <button
                   type="button"
                   onClick={(e) => handleCopy('phone', COMPANY_INFO.phoneDisplay, e)}
-                  className="px-3 py-1 text-[11px] font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded transition-colors"
+                  className="text-[11px] text-slate-500 hover:text-[#006DB6] font-medium cursor-pointer"
                 >
                   {copiedField === 'phone' ? 'Copied!' : 'Copy'}
                 </button>
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between text-[12.5px]">
                 <a
                   href={`mailto:${COMPANY_INFO.email}`}
-                  className="flex items-center gap-2.5 text-[13px] font-medium text-slate-800 hover:text-brand-blue"
-                  title="Click to compose email"
+                  className="flex items-center gap-2 text-slate-800 hover:text-[#006DB6] font-medium truncate"
                 >
-                  <Mail className="w-4 h-4 text-brand-blue stroke-[1.8]" />
-                  <span>{COMPANY_INFO.email}</span>
+                  <Mail className="w-3.5 h-3.5 text-[#006DB6] flex-shrink-0" />
+                  <span className="truncate">{COMPANY_INFO.email}</span>
                 </a>
                 <button
                   type="button"
                   onClick={(e) => handleCopy('email', COMPANY_INFO.email, e)}
-                  className="px-3 py-1 text-[11px] font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded transition-colors"
+                  className="text-[11px] text-slate-500 hover:text-[#006DB6] font-medium cursor-pointer flex-shrink-0 ml-2"
                 >
                   {copiedField === 'email' ? 'Copied!' : 'Copy'}
                 </button>
               </div>
             </div>
 
+            <Link
+              href="/enquiry"
+              onClick={() => setIsOpen(false)}
+              className="w-full flex items-center justify-center gap-2 py-3 bg-[#006DB6] hover:bg-[#0A192F] text-white rounded-xl text-[12px] font-semibold tracking-wider uppercase transition-colors shadow-md"
+            >
+              <span>Enquire Now</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
-        </div>
-      )}
+        </aside>
+      </div>
 
     </header>
   );

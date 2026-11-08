@@ -366,7 +366,7 @@ export const QualityPracticesSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="quality"
-      className="relative w-full py-16 sm:py-20 lg:py-24 xl:py-28 bg-[#FAF8F5] overflow-hidden selection:bg-[#1E5FA8] selection:text-white"
+      className="relative w-full py-10 sm:py-14 lg:py-24 xl:py-28 bg-[#FAF8F5] overflow-hidden selection:bg-[#1E5FA8] selection:text-white"
     >
       {/* =========================================================
           FULL-BLEED LUXURY SILK BACKGROUND (EDGE-TO-EDGE 100vw)
@@ -404,21 +404,15 @@ export const QualityPracticesSection: React.FC = () => {
              ------------------------------------------------------------- */}
           <div
             ref={badgeRef}
-            className="relative w-full lg:w-[21%] xl:w-[19%] 2xl:w-[18%] flex-shrink-0 flex flex-col items-center justify-center p-4 sm:p-6 lg:p-2 xl:p-4 overflow-hidden will-change-transform"
+            className="relative w-full lg:w-[21%] xl:w-[19%] 2xl:w-[18%] flex-shrink-0 flex flex-col items-center justify-center py-2 sm:py-3 lg:p-2 xl:p-4 overflow-hidden will-change-transform"
             style={{
               transition: 'opacity 1100ms cubic-bezier(0.16, 1, 0.3, 1), filter 1100ms cubic-bezier(0.16, 1, 0.3, 1)',
               opacity: isVisible ? 1 : 0,
               filter: isVisible ? 'blur(0px)' : 'blur(14px)',
             }}
           >
-            {/* Mobile blue gradient backing */}
-            <div
-              className="lg:hidden absolute inset-0 bg-gradient-to-b from-[#1C3E68] via-[#2A5582] to-[#1C3E68] rounded-3xl pointer-events-none shadow-lg"
-              aria-hidden="true"
-            />
-
             {/* Standalone 100% Quality Assurance Gold Laurel Wreath Badge Container */}
-            <div className="relative z-10 w-44 sm:w-52 lg:w-44 xl:w-52 2xl:w-60 aspect-[605/536] group cursor-default transition-transform duration-700 ease-out hover:scale-106">
+            <div className="relative z-10 w-32 sm:w-40 lg:w-44 xl:w-52 2xl:w-60 aspect-[605/536] group cursor-default transition-transform duration-700 ease-out hover:scale-106">
               
               {/* Golden Ambient Luster Aura Glow */}
               <div
@@ -432,19 +426,19 @@ export const QualityPracticesSection: React.FC = () => {
                 alt="Viral Fabrics 100% Quality Assurance Guarantee"
                 fill
                 priority
-                sizes="(max-width: 640px) 208px, (max-width: 1024px) 208px, 240px"
+                sizes="(max-width: 640px) 160px, (max-width: 1024px) 208px, 240px"
                 className="object-contain drop-shadow-[0_18px_36px_rgba(0,0,0,0.5)] drop-shadow-[0_4px_16px_rgba(212,175,55,0.4)]"
               />
             </div>
 
             {/* 5-Star Rated Authority Quality Pill Badge */}
-            <div className="relative z-10 mt-4 sm:mt-5 transition-transform duration-500 ease-out hover:scale-105">
-              <div className="relative w-40 sm:w-44 xl:w-48 aspect-[703/132] drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)] drop-shadow-[0_2px_8px_rgba(212,175,55,0.3)]">
+            <div className="relative z-10 mt-2.5 sm:mt-3 lg:mt-4 xl:mt-5 transition-transform duration-500 ease-out hover:scale-105">
+              <div className="relative w-32 sm:w-36 xl:w-48 aspect-[703/132] drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)] drop-shadow-[0_2px_8px_rgba(212,175,55,0.3)]">
                 <Image
                   src="/images/quality/5-star-rated-badge-clean.png"
                   alt="Viral Fabrics 5-Star Rated Quality Seal"
                   fill
-                  sizes="200px"
+                  sizes="190px"
                   className="object-contain"
                 />
               </div>
@@ -470,7 +464,7 @@ export const QualityPracticesSection: React.FC = () => {
 
             {/* Editorial Header Block (Exact Complete User Manifesto Copy) */}
             <div
-              className="max-w-4xl mb-8 sm:mb-10 lg:mb-8 xl:mb-10 bg-white/75 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-5 sm:p-6 lg:p-0 rounded-2xl lg:rounded-none border border-slate-200/60 lg:border-none shadow-sm lg:shadow-none"
+              className="max-w-4xl mb-8 sm:mb-10 lg:mb-8 xl:mb-10 text-center lg:text-left"
               style={{
                 transition: 'opacity 1100ms cubic-bezier(0.16, 1, 0.3, 1) 100ms, transform 1100ms cubic-bezier(0.16, 1, 0.3, 1) 100ms, filter 1100ms cubic-bezier(0.16, 1, 0.3, 1) 100ms',
                 opacity: isVisible ? 1 : 0,
