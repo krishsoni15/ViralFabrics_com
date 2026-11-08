@@ -373,7 +373,7 @@ export default function AboutUsPage() {
           - Left: Water-Jet Loom Machinery with Purple Fabric Roll
           - Right: State-of-the-Art Manufacturing (Enlarged Luxury Scale, Button Removed)
          ================================================================= */}
-      <section className="relative w-full py-12 sm:py-16 lg:py-20 bg-[#FAF6F1] overflow-hidden">
+      <section className="relative z-10 w-full py-12 sm:py-16 lg:py-20 bg-[#FAF6F1] overflow-hidden">
         <div className="w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
           <EditorialBlock>
             {/* Desktop Haute-Couture S-Curve Split Banner (hidden on mobile, block on lg+) */}
@@ -516,7 +516,7 @@ export default function AboutUsPage() {
              - Left: Our People Eyebrow + Our Team Headline + Manifesto + Action Button (Enlarged Scale)
              - Right: Dedicated Viral Fabrics Team Photo with Navy Blue Branded Polos in Mill
          ================================================================= */}
-      <section className="relative w-full py-20 sm:py-24 lg:py-28 bg-[#FAF6F1] border-y border-slate-200/70 overflow-hidden">
+      <section className="relative z-30 w-full py-20 sm:py-24 lg:py-28 bg-[#FAF6F1] border-y border-slate-200/70 overflow-hidden shadow-[0_-25px_60px_rgba(15,23,42,0.14)]">
         {/* Authentic Flowing Silk Wave Background Canvas - 100% Full Bleed */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image

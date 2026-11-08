@@ -56,16 +56,16 @@ RAW_P2.forEach((seg) => {
 const TOTAL_WORDS_P2 = Math.max(p2Count, 1);
 
 // Interactive animated number counter for metrics with cinematic motion blur & native 60fps/120fps direct DOM updates
-function AnimatedCounter({ 
-  end, 
-  duration = 600, 
-  suffix = '', 
-  formatCommas = false 
-}: { 
-  end: number; 
-  duration?: number; 
-  suffix?: string; 
-  formatCommas?: boolean; 
+function AnimatedCounter({
+  end,
+  duration = 600,
+  suffix = '',
+  formatCommas = false
+}: {
+  end: number;
+  duration?: number;
+  suffix?: string;
+  formatCommas?: boolean;
 }) {
   const [hasStarted, setHasStarted] = useState(false);
   const elementRef = useRef<HTMLSpanElement>(null);
@@ -97,7 +97,7 @@ function AnimatedCounter({
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      
+
       // Fast, snappy easeOutCubic: rapid roll with smooth, elegant deceleration
       const easeProgress = 1 - Math.pow(1 - progress, 3);
       const current = Math.floor(easeProgress * end);
@@ -142,8 +142,8 @@ function AnimatedCounter({
   const initialFormatted = formatCommas ? (0).toLocaleString('en-IN') : 0;
 
   return (
-    <span 
-      ref={elementRef} 
+    <span
+      ref={elementRef}
       className="tabular-nums inline-block font-sans will-change-[transform,filter]"
     >
       {initialFormatted}{suffix}
@@ -213,15 +213,15 @@ export function WhoWeAreSection() {
   }, []);
 
   return (
-    <section 
-      id="who-we-are" 
+    <section
+      id="who-we-are"
       ref={sectionRef}
       className="relative w-full text-[#2e3937] pt-48 sm:pt-56 md:pt-64 lg:pt-72 xl:pt-80 pb-36 sm:pb-44 md:pb-48 lg:pb-52 xl:pb-56 overflow-hidden selection:bg-[#375785] selection:text-white"
     >
       {/* Seamless transition underlay for the bottom torn edge into Fabrics Portfolio (#F5F5F5) */}
-      <div 
-        className="absolute inset-x-0 bottom-0 h-80 sm:h-96 lg:h-[420px] bg-[#F5F5F5] z-0 pointer-events-none" 
-        aria-hidden="true" 
+      <div
+        className="absolute inset-x-0 bottom-0 h-80 sm:h-96 lg:h-[420px] bg-[#F5F5F5] z-0 pointer-events-none"
+        aria-hidden="true"
       />
 
       {/* Authentic One-Piece Torn Silk Canvas Background (Single Image, 100% Clean) */}
@@ -237,10 +237,10 @@ export function WhoWeAreSection() {
       </div>
 
       <div className="relative z-10 max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-14">
-        
+
         {/* Main Editorial Block - Matching Preferred Proportions & Layout (5% Font Boost) */}
         <div className="max-w-4xl lg:max-w-[920px] mx-auto text-center flex flex-col items-center">
-          
+
           {/* Eyebrow Editorial Ornament - Luxury Lines with Terminal Dots/Diamonds (as in reference) */}
           <div className="inline-flex items-center justify-center gap-3 sm:gap-4 mb-5 sm:mb-6 text-[#1d3557]">
             <svg width="44" height="8" viewBox="0 0 44 8" fill="none" className="shrink-0" aria-hidden="true">
@@ -262,7 +262,7 @@ export function WhoWeAreSection() {
           </h2>
 
           {/* Sentence 2: Craftsmanship & Quality Manifesto - Pure Scroll-Driven Reading Wave (Word-By-Word, Smooth and Tactile) */}
-          <p 
+          <p
             ref={p2Ref}
             className="font-heading text-[21px] sm:text-[25px] md:text-[32px] lg:text-[36px] leading-[1.3] sm:leading-[1.32] tracking-normal mt-5 sm:mt-6 max-w-4xl mx-auto cursor-default"
           >
@@ -374,7 +374,7 @@ export function WhoWeAreSection() {
 
         {/* FOUR MINIMALIST METRIC ITEMS - Darker, High-Contrast Typography for 100% Visibility */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8 pt-7 sm:pt-9 lg:pt-10 border-t border-slate-300/80 mt-8 sm:mt-11 lg:mt-14">
-          
+
           {/* Metric 01: Monthly Capacity */}
           <div className="space-y-1.5 group">
             <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.2em] text-slate-600">

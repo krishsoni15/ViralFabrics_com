@@ -236,7 +236,7 @@ export const FabricsPortfolioSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="fabrics-portfolio"
-      className="relative w-full py-20 sm:py-24 lg:py-28 xl:py-32 bg-[#F5F5F5] text-[#0F172A] border-b border-slate-200/70 overflow-hidden selection:bg-[#1E5FA8] selection:text-white"
+      className="relative z-10 w-full py-20 sm:py-24 lg:py-28 xl:py-32 bg-[#F5F5F5] text-[#0F172A] border-b border-slate-200/70 overflow-hidden selection:bg-[#1E5FA8] selection:text-white"
     >
       <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-14">
 
