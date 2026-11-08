@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -15,7 +16,12 @@ interface FabricNavItem {
 
 export function Navbar() {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
   const [mobileFabricsOpen, setMobileFabricsOpen] = useState(true);
   const [scrolled, setScrolled] = useState(false);
@@ -245,9 +251,8 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className={`lg:hidden p-1.5 -ml-1.5 transition-colors focus:outline-none cursor-pointer ${
-              isTransparent ? 'text-white hover:text-white/80' : 'text-slate-800 hover:text-brand-blue'
-            }`}
+            className={`lg:hidden p-1.5 -ml-1.5 transition-colors focus:outline-none cursor-pointer ${isTransparent ? 'text-white hover:text-white/80' : 'text-slate-800 hover:text-brand-blue'
+              }`}
             aria-label="Toggle navigation menu"
             aria-expanded={isOpen}
           >
@@ -256,135 +261,135 @@ export function Navbar() {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-4 xl:gap-6 2xl:gap-8">
-          <Link
-            href="/"
-            className={`text-[12.5px] xl:text-[13px] 2xl:text-[13.5px] font-medium tracking-[0.14em] uppercase whitespace-nowrap transition-all duration-300 ${pathname === '/'
-              ? isTransparent ? 'text-white font-semibold' : 'text-brand-blue font-semibold'
-              : isTransparent ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
-              }`}
-          >
-            Home
-          </Link>
+            <Link
+              href="/"
+              className={`text-[12.5px] xl:text-[13px] 2xl:text-[13.5px] font-medium tracking-[0.14em] uppercase whitespace-nowrap transition-all duration-300 ${pathname === '/'
+                ? isTransparent ? 'text-white font-semibold' : 'text-brand-blue font-semibold'
+                : isTransparent ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
+                }`}
+            >
+              Home
+            </Link>
 
-          {navLinks.map((link) => {
-            const isActive = pathname.startsWith(link.href);
+            {navLinks.map((link) => {
+              const isActive = pathname.startsWith(link.href);
 
-            if (link.hasDropdown) {
-              return (
-                <div
-                  key={link.name}
-                  ref={dropdownRef}
-                  className="relative py-2"
-                >
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setDesktopDropdownOpen((prev) => !prev);
-                    }}
-                    className={`flex items-center gap-1.5 text-[13px] xl:text-[13.5px] font-medium tracking-[0.14em] uppercase whitespace-nowrap transition-all duration-300 focus:outline-none cursor-pointer ${isActive
-                      ? isTransparent ? 'text-white font-semibold' : 'text-brand-blue font-semibold'
-                      : isTransparent ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
-                      }`}
-                    aria-expanded={desktopDropdownOpen}
-                    aria-haspopup="true"
+              if (link.hasDropdown) {
+                return (
+                  <div
+                    key={link.name}
+                    ref={dropdownRef}
+                    className="relative py-2"
                   >
-                    <span>{link.name}</span>
-                    <ChevronDown className={`w-3.5 h-3.5 stroke-[1.75] transition-transform duration-300 ${desktopDropdownOpen ? 'rotate-180' : ''
-                      } ${isTransparent ? 'text-white/70' : 'text-slate-400'}`} />
-                  </button>
-
-                  {/* Agnes Haute Couture Fabrics Mega-Flyout */}
-                  {desktopDropdownOpen && (
-                    <div
-                      className="absolute top-full left-0 pt-3 w-[600px] transition-all duration-300 z-50 animate-fade-in"
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setDesktopDropdownOpen((prev) => !prev);
+                      }}
+                      className={`flex items-center gap-1.5 text-[13px] xl:text-[13.5px] font-medium tracking-[0.14em] uppercase whitespace-nowrap transition-all duration-300 focus:outline-none cursor-pointer ${isActive
+                        ? isTransparent ? 'text-white font-semibold' : 'text-brand-blue font-semibold'
+                        : isTransparent ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
+                        }`}
+                      aria-expanded={desktopDropdownOpen}
+                      aria-haspopup="true"
                     >
-                      <div className="bg-white/90 backdrop-blur-[20px] border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.08)] rounded-sm p-6 overflow-hidden text-slate-900">
+                      <span>{link.name}</span>
+                      <ChevronDown className={`w-3.5 h-3.5 stroke-[1.75] transition-transform duration-300 ${desktopDropdownOpen ? 'rotate-180' : ''
+                        } ${isTransparent ? 'text-white/70' : 'text-slate-400'}`} />
+                    </button>
 
-                        {/* Header bar */}
-                        <div className="flex items-center justify-between pb-3.5 border-b border-slate-100 mb-4">
-                          <span className="agnes-eyebrow text-[11px]">
-                            Synthetic Textile Portfolio
-                          </span>
-                          <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">
-                            Surat Water-Jet Looms
-                          </span>
-                        </div>
+                    {/* Agnes Haute Couture Fabrics Mega-Flyout */}
+                    {desktopDropdownOpen && (
+                      <div
+                        className="absolute top-full left-0 pt-3 w-[600px] transition-all duration-300 z-50 animate-fade-in"
+                      >
+                        <div className="bg-white/90 backdrop-blur-[20px] border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.08)] rounded-sm p-6 overflow-hidden text-slate-900">
 
-                        {/* 2-Column Fabric Grid */}
-                        <div className="grid grid-cols-2 gap-x-8 gap-y-2">
-                          <div className="space-y-1">
-                            {col1.map((item) => (
-                              <Link
-                                key={item.slug}
-                                href={`/fabrics/${item.slug}`}
-                                onClick={() => setDesktopDropdownOpen(false)}
-                                className="group/item flex items-center justify-between py-1.5 px-2 rounded hover:bg-slate-50 transition-colors"
-                              >
-                                <span className="text-[13px] font-medium text-slate-800 group-hover/item:text-brand-blue transition-colors">
-                                  {item.title}
-                                </span>
-                                <span className="text-[11px] text-slate-400 opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-0.5 transition-all">
-                                  →
-                                </span>
-                              </Link>
-                            ))}
+                          {/* Header bar */}
+                          <div className="flex items-center justify-between pb-3.5 border-b border-slate-100 mb-4">
+                            <span className="agnes-eyebrow text-[11px]">
+                              Synthetic Textile Portfolio
+                            </span>
+                            <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">
+                              Surat Water-Jet Looms
+                            </span>
                           </div>
 
-                          <div className="space-y-1">
-                            {col2.map((item) => (
-                              <Link
-                                key={item.slug}
-                                href={`/fabrics/${item.slug}`}
-                                onClick={() => setDesktopDropdownOpen(false)}
-                                className="group/item flex items-center justify-between py-1.5 px-2 rounded hover:bg-slate-50 transition-colors"
-                              >
-                                <span className="text-[13px] font-medium text-slate-800 group-hover/item:text-brand-blue transition-colors">
-                                  {item.title}
-                                </span>
-                                <span className="text-[11px] text-slate-400 opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-0.5 transition-all">
-                                  →
-                                </span>
-                              </Link>
-                            ))}
+                          {/* 2-Column Fabric Grid */}
+                          <div className="grid grid-cols-2 gap-x-8 gap-y-2">
+                            <div className="space-y-1">
+                              {col1.map((item) => (
+                                <Link
+                                  key={item.slug}
+                                  href={`/fabrics/${item.slug}`}
+                                  onClick={() => setDesktopDropdownOpen(false)}
+                                  className="group/item flex items-center justify-between py-1.5 px-2 rounded hover:bg-slate-50 transition-colors"
+                                >
+                                  <span className="text-[13px] font-medium text-slate-800 group-hover/item:text-brand-blue transition-colors">
+                                    {item.title}
+                                  </span>
+                                  <span className="text-[11px] text-slate-400 opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-0.5 transition-all">
+                                    →
+                                  </span>
+                                </Link>
+                              ))}
+                            </div>
+
+                            <div className="space-y-1">
+                              {col2.map((item) => (
+                                <Link
+                                  key={item.slug}
+                                  href={`/fabrics/${item.slug}`}
+                                  onClick={() => setDesktopDropdownOpen(false)}
+                                  className="group/item flex items-center justify-between py-1.5 px-2 rounded hover:bg-slate-50 transition-colors"
+                                >
+                                  <span className="text-[13px] font-medium text-slate-800 group-hover/item:text-brand-blue transition-colors">
+                                    {item.title}
+                                  </span>
+                                  <span className="text-[11px] text-slate-400 opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-0.5 transition-all">
+                                    →
+                                  </span>
+                                </Link>
+                              ))}
+                            </div>
                           </div>
-                        </div>
 
-                        {/* Flyout Footer Action */}
-                        <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between bg-slate-50/70 -mx-6 -mb-6 px-6 py-3">
-                          <span className="text-[12px] text-slate-500">
-                            Custom specs available on Make-To-Order basis
-                          </span>
-                          <Link
-                            href="/fabrics"
-                            onClick={() => setDesktopDropdownOpen(false)}
-                            className="agnes-textlink text-[11px] text-brand-blue"
-                          >
-                            Explore All Fabrics
-                          </Link>
-                        </div>
+                          {/* Flyout Footer Action */}
+                          <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between bg-slate-50/70 -mx-6 -mb-6 px-6 py-3">
+                            <span className="text-[12px] text-slate-500">
+                              Custom specs available on Make-To-Order basis
+                            </span>
+                            <Link
+                              href="/fabrics"
+                              onClick={() => setDesktopDropdownOpen(false)}
+                              className="agnes-textlink text-[11px] text-brand-blue"
+                            >
+                              Explore All Fabrics
+                            </Link>
+                          </div>
 
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              );
-            }
+                    )}
+                  </div>
+                );
+              }
 
-            return (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`text-[12.5px] xl:text-[13px] 2xl:text-[13.5px] font-medium tracking-[0.14em] uppercase whitespace-nowrap transition-all duration-300 ${isActive
-                  ? isTransparent ? 'text-white font-semibold' : 'text-brand-blue font-semibold'
-                  : isTransparent ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
-                  }`}
-              >
-                <span>{link.name}</span>
-              </Link>
-            );
-          })}
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`text-[12.5px] xl:text-[13px] 2xl:text-[13.5px] font-medium tracking-[0.14em] uppercase whitespace-nowrap transition-all duration-300 ${isActive
+                    ? isTransparent ? 'text-white font-semibold' : 'text-brand-blue font-semibold'
+                    : isTransparent ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-brand-blue'
+                    }`}
+                >
+                  <span>{link.name}</span>
+                </Link>
+              );
+            })}
           </nav>
         </div>
 
@@ -422,15 +427,15 @@ export function Navbar() {
                 <Check className="w-4 h-4 text-emerald-400 stroke-[2.4]" />
               ) : (
                 <Phone className={`w-4 h-4 stroke-[1.65] transition-colors ${isTransparent
-                    ? 'text-white/80 group-hover/copy:text-white'
-                    : 'text-slate-500 group-hover/copy:text-brand-blue'
+                  ? 'text-white/80 group-hover/copy:text-white'
+                  : 'text-slate-500 group-hover/copy:text-brand-blue'
                   }`} />
               )}
 
               {/* Minimalist Floating Tooltip */}
               <span className={`absolute -bottom-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded text-[10px] font-sans font-medium whitespace-nowrap shadow-md pointer-events-none transition-all duration-200 z-50 ${copiedField === 'phone'
-                  ? 'bg-emerald-600 text-white opacity-100 translate-y-0'
-                  : 'bg-slate-900/90 text-white backdrop-blur-sm opacity-0 -translate-y-1 group-hover/copy:opacity-100 group-hover/copy:translate-y-0'
+                ? 'bg-emerald-600 text-white opacity-100 translate-y-0'
+                : 'bg-slate-900/90 text-white backdrop-blur-sm opacity-0 -translate-y-1 group-hover/copy:opacity-100 group-hover/copy:translate-y-0'
                 }`}>
                 {copiedField === 'phone' ? 'Copied!' : 'Copy'}
               </span>
@@ -460,15 +465,15 @@ export function Navbar() {
                 <Check className="w-4 h-4 text-emerald-400 stroke-[2.4]" />
               ) : (
                 <Mail className={`w-4 h-4 stroke-[1.65] transition-colors ${isTransparent
-                    ? 'text-white/80 group-hover/copy:text-white'
-                    : 'text-slate-500 group-hover/copy:text-brand-blue'
+                  ? 'text-white/80 group-hover/copy:text-white'
+                  : 'text-slate-500 group-hover/copy:text-brand-blue'
                   }`} />
               )}
 
               {/* Minimalist Floating Tooltip */}
               <span className={`absolute -bottom-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded text-[10px] font-sans font-medium whitespace-nowrap shadow-md pointer-events-none transition-all duration-200 z-50 ${copiedField === 'email'
-                  ? 'bg-emerald-600 text-white opacity-100 translate-y-0'
-                  : 'bg-slate-900/90 text-white backdrop-blur-sm opacity-0 -translate-y-1 group-hover/copy:opacity-100 group-hover/copy:translate-y-0'
+                ? 'bg-emerald-600 text-white opacity-100 translate-y-0'
+                : 'bg-slate-900/90 text-white backdrop-blur-sm opacity-0 -translate-y-1 group-hover/copy:opacity-100 group-hover/copy:translate-y-0'
                 }`}>
                 {copiedField === 'email' ? 'Copied!' : 'Copy'}
               </span>
@@ -492,11 +497,10 @@ export function Navbar() {
           {/* Minimalist Transparent Glass Button with Angled Cut & Luminous Shine Sweep (Mobile & Desktop) */}
           <Link
             href="/enquiry"
-            className={`relative inline-flex items-center justify-center h-8 sm:h-8.5 lg:h-9 pl-3.5 pr-5 sm:pl-4 sm:pr-6 lg:pl-5 lg:pr-7 text-[10px] sm:text-[10.5px] lg:text-[11px] font-medium tracking-[0.16em] lg:tracking-[0.18em] uppercase whitespace-nowrap transition-all duration-300 group cursor-pointer overflow-hidden flex-shrink-0 hover:-translate-y-0.5 active:translate-y-0 ${
-              isTransparent
+            className={`relative inline-flex items-center justify-center h-8 sm:h-8.5 lg:h-9 pl-3.5 pr-5 sm:pl-4 sm:pr-6 lg:pl-5 lg:pr-7 text-[10px] sm:text-[10.5px] lg:text-[11px] font-medium tracking-[0.16em] lg:tracking-[0.18em] uppercase whitespace-nowrap transition-all duration-300 group cursor-pointer overflow-hidden flex-shrink-0 hover:-translate-y-0.5 active:translate-y-0 ${isTransparent
                 ? 'text-white bg-white/[0.06] hover:bg-white/[0.16] backdrop-blur-[8px]'
                 : 'text-[#203a61] bg-transparent hover:bg-[#375785] hover:text-white'
-            }`}
+              }`}
             style={{
               clipPath: 'polygon(0 0, 100% 0, calc(100% - 11px) 100%, 0 100%)',
             }}
@@ -525,25 +529,22 @@ export function Navbar() {
       {/* LUXURY LEFT-HAND SLIDE-IN MOBILE DRAWER (AGNES TOTH HAUTE-COUTURE) */}
       {/* ================================================================= */}
       <div
-        className={`lg:hidden fixed inset-0 z-[100] transition-opacity duration-300 ${
-          isOpen ? 'pointer-events-auto visible' : 'pointer-events-none invisible'
-        }`}
+        className={`lg:hidden fixed inset-0 z-[100] transition-opacity duration-300 ${isOpen ? 'pointer-events-auto visible' : 'pointer-events-none invisible'
+          }`}
         aria-hidden={!isOpen}
       >
         {/* 1. Backdrop Scrim Overlay with Dark Frosted Blur */}
         <div
           onClick={() => setIsOpen(false)}
           onTouchMove={(e) => e.preventDefault()}
-          className={`absolute inset-0 bg-[#071120]/70 backdrop-blur-md transition-opacity duration-500 ease-out touch-none ${
-            isOpen ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`absolute inset-0 bg-[#071120]/70 backdrop-blur-md transition-opacity duration-500 ease-out touch-none ${isOpen ? 'opacity-100' : 'opacity-0'
+            }`}
         />
 
         {/* 2. Left Slide-In Drawer Panel (Solid Prestigious #FAF4F0 Silk Canvas) */}
         <aside
-          className={`relative w-[320px] sm:w-[380px] max-w-[85vw] h-full bg-[#FAF4F0] text-slate-900 shadow-[0_0_60px_rgba(0,0,0,0.35)] flex flex-col justify-between overflow-y-auto overscroll-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+          className={`relative w-[320px] sm:w-[380px] max-w-[85vw] h-full bg-[#FAF4F0] text-slate-900 shadow-[0_0_60px_rgba(0,0,0,0.35)] flex flex-col justify-between overflow-y-auto overscroll-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}
         >
           {/* Top Bar: Brand Logo & Close Icon Button */}
           <div className="p-6 border-b border-slate-200/80 flex items-center justify-between bg-white/60 backdrop-blur-sm sticky top-0 z-10">
@@ -580,11 +581,10 @@ export function Navbar() {
               <Link
                 href="/"
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${
-                  pathname === '/'
+                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${pathname === '/'
                     ? 'bg-[#006DB6]/10 text-[#006DB6] font-semibold'
                     : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#006DB6]'
-                }`}
+                  }`}
               >
                 <span>Home</span>
                 {pathname === '/' && <span className="w-1.5 h-1.5 rounded-full bg-[#006DB6]" />}
@@ -593,11 +593,10 @@ export function Navbar() {
               <Link
                 href="/about-us"
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${
-                  pathname === '/about-us'
+                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${pathname === '/about-us'
                     ? 'bg-[#006DB6]/10 text-[#006DB6] font-semibold'
                     : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#006DB6]'
-                }`}
+                  }`}
               >
                 <span>About Us</span>
                 {pathname === '/about-us' && <span className="w-1.5 h-1.5 rounded-full bg-[#006DB6]" />}
@@ -617,9 +616,8 @@ export function Navbar() {
                     </span>
                   </span>
                   <ChevronDown
-                    className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${
-                      mobileFabricsOpen ? 'rotate-180 text-[#006DB6]' : ''
-                    }`}
+                    className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${mobileFabricsOpen ? 'rotate-180 text-[#006DB6]' : ''
+                      }`}
                   />
                 </button>
 
@@ -630,11 +628,10 @@ export function Navbar() {
                         key={fabric.slug}
                         href={`/fabrics/${fabric.slug}`}
                         onClick={() => setIsOpen(false)}
-                        className={`block py-1.5 px-2 text-[13px] rounded transition-colors ${
-                          pathname === `/fabrics/${fabric.slug}`
+                        className={`block py-1.5 px-2 text-[13px] rounded transition-colors ${pathname === `/fabrics/${fabric.slug}`
                             ? 'text-[#006DB6] font-semibold bg-[#006DB6]/5'
                             : 'text-slate-600 hover:text-[#006DB6] hover:bg-slate-100/60'
-                        }`}
+                          }`}
                       >
                         {fabric.title}
                       </Link>
@@ -653,11 +650,10 @@ export function Navbar() {
               <Link
                 href="/network"
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${
-                  pathname === '/network'
+                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${pathname === '/network'
                     ? 'bg-[#006DB6]/10 text-[#006DB6] font-semibold'
                     : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#006DB6]'
-                }`}
+                  }`}
               >
                 <span>Network</span>
                 {pathname === '/network' && <span className="w-1.5 h-1.5 rounded-full bg-[#006DB6]" />}
@@ -666,11 +662,10 @@ export function Navbar() {
               <Link
                 href="/contact-us"
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${
-                  pathname === '/contact-us'
+                className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-[14.5px] font-medium tracking-wide transition-colors ${pathname === '/contact-us'
                     ? 'bg-[#006DB6]/10 text-[#006DB6] font-semibold'
                     : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#006DB6]'
-                }`}
+                  }`}
               >
                 <span>Contact Us</span>
                 {pathname === '/contact-us' && <span className="w-1.5 h-1.5 rounded-full bg-[#006DB6]" />}

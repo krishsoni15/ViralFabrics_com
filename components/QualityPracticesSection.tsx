@@ -464,7 +464,7 @@ export const QualityPracticesSection: React.FC = () => {
 
             {/* Editorial Header Block (Exact Complete User Manifesto Copy) */}
             <div
-              className="max-w-4xl mb-8 sm:mb-10 lg:mb-8 xl:mb-10 text-center lg:text-left"
+              className="max-w-4xl mb-8 sm:mb-10 lg:mb-8 xl:mb-10 bg-[#FAF8F5]/90 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-5 sm:p-6 lg:p-0 rounded-2xl lg:rounded-none border border-white/80 lg:border-none shadow-[0_4px_24px_rgba(0,0,0,0.06)] lg:shadow-none text-center lg:text-left"
               style={{
                 transition: 'opacity 1100ms cubic-bezier(0.16, 1, 0.3, 1) 100ms, transform 1100ms cubic-bezier(0.16, 1, 0.3, 1) 100ms, filter 1100ms cubic-bezier(0.16, 1, 0.3, 1) 100ms',
                 opacity: isVisible ? 1 : 0,
