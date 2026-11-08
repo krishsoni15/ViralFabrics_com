@@ -413,13 +413,13 @@ export function Navbar() {
         </div>
 
         {/* 3. RIGHT COLUMN: Phone Icon + Email Icon + Enquire Button (Mobile, Tablet, Desktop) */}
-        <div className="flex-1 flex items-center justify-end gap-1 sm:gap-2 lg:gap-3 xl:gap-3.5 2xl:gap-6 flex-shrink-0">
+        <div className="flex-1 flex items-center justify-end gap-1.5 sm:gap-2 lg:gap-3 xl:gap-3.5 2xl:gap-6 flex-shrink-0">
 
           {/* Phone Link (Visible on mobile, tablet, desktop - direct tap to dial on tablet/phone) */}
           <div className="flex items-center gap-1 sm:gap-1.5 group/phone flex-shrink-0">
             <a
               href={`tel:${COMPANY_INFO.phoneTel}`}
-              className={`p-1 sm:p-2 rounded-full transition-all duration-300 flex items-center justify-center hover:scale-110 active:scale-95 ${
+              className={`p-1.5 sm:p-2 rounded-full transition-all duration-300 flex items-center justify-center hover:scale-110 active:scale-95 ${
                 isTransparent
                   ? 'text-white/90 hover:text-white hover:bg-white/10'
                   : 'text-slate-700 hover:text-brand-blue hover:bg-slate-100/80'
@@ -427,7 +427,7 @@ export function Navbar() {
               title={`Call ${COMPANY_INFO.phoneDisplay}`}
               aria-label="Call Viral Fabrics"
             >
-              <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[1.8]" />
+              <Phone className="w-4 h-4 sm:w-4 sm:h-4 stroke-[1.8]" />
             </a>
 
             {/* Direct Dial Text (Shown on xl+) */}
@@ -446,7 +446,7 @@ export function Navbar() {
           <div className="flex items-center gap-1 sm:gap-1.5 group/email flex-shrink-0">
             <a
               href={`mailto:${COMPANY_INFO.email}`}
-              className={`p-1 sm:p-2 rounded-full transition-all duration-300 flex items-center justify-center hover:scale-110 active:scale-95 ${
+              className={`p-1.5 sm:p-2 rounded-full transition-all duration-300 flex items-center justify-center hover:scale-110 active:scale-95 ${
                 isTransparent
                   ? 'text-white/90 hover:text-white hover:bg-white/10'
                   : 'text-slate-700 hover:text-brand-blue hover:bg-slate-100/80'
@@ -454,7 +454,7 @@ export function Navbar() {
               title={`Email ${COMPANY_INFO.email}`}
               aria-label="Email Viral Fabrics"
             >
-              <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[1.8]" />
+              <Mail className="w-4 h-4 sm:w-4 sm:h-4 stroke-[1.8]" />
             </a>
 
             {/* Direct Email Compose Text (Shown on 2xl+) */}
@@ -476,10 +476,10 @@ export function Navbar() {
             }`}
           />
 
-          {/* Minimalist Transparent Glass Button with Angled Cut & Luminous Shine Sweep */}
+          {/* Minimalist Transparent Glass Button with Angled Cut & Luminous Shine Sweep (Hidden on mobile phones <sm to keep top bar minimalist & uncrowded; visible on tablet sm+ and desktop) */}
           <Link
             href="/enquiry"
-            className={`relative inline-flex items-center justify-center h-7 sm:h-8.5 lg:h-9 pl-2.5 pr-3.5 sm:pl-4 sm:pr-6 lg:pl-5 lg:pr-7 text-[9px] sm:text-[10.5px] lg:text-[11px] font-medium tracking-[0.14em] sm:tracking-[0.16em] lg:tracking-[0.18em] uppercase whitespace-nowrap transition-all duration-300 group cursor-pointer overflow-hidden flex-shrink-0 hover:-translate-y-0.5 active:translate-y-0 ${
+            className={`relative hidden sm:inline-flex items-center justify-center h-7 sm:h-8.5 lg:h-9 pl-2.5 pr-3.5 sm:pl-4 sm:pr-6 lg:pl-5 lg:pr-7 text-[9px] sm:text-[10.5px] lg:text-[11px] font-medium tracking-[0.14em] sm:tracking-[0.16em] lg:tracking-[0.18em] uppercase whitespace-nowrap transition-all duration-300 group cursor-pointer overflow-hidden flex-shrink-0 hover:-translate-y-0.5 active:translate-y-0 ${
               isTransparent
                 ? 'text-white bg-white/[0.06] hover:bg-white/[0.16] backdrop-blur-[8px]'
                 : 'text-[#203a61] bg-transparent hover:bg-[#375785] hover:text-white'

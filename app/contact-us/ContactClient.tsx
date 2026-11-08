@@ -46,6 +46,7 @@ export default function ContactClient() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [cardsVisible, setCardsVisible] = useState(false);
 
+  const videoRef = useRef<HTMLVideoElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const heroMediaRef = useRef<HTMLDivElement>(null);
@@ -103,9 +104,13 @@ export default function ContactClient() {
     };
   }, []);
 
-  // Trigger luxury on-load unblur state
+  // Trigger luxury on-load unblur state and video playback
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 60);
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.85;
+      videoRef.current.play().catch(() => {});
+    }
     return () => clearTimeout(timer);
   }, []);
 
@@ -145,6 +150,9 @@ export default function ContactClient() {
             delay: 0.15,
             stagger: (i) => ((pos[i] - min) / span) * 1.2,
             clearProps: 'transform,willChange',
+            onComplete: () => {
+              gsap.set(chars, { clearProps: 'all' });
+            },
           }
         );
       }, headlineRef);
@@ -242,24 +250,29 @@ export default function ContactClient() {
       {/* =====================================================================
           1. TOP HERO BANNER WITH SCROLL DISSOLVE, PARALLAX & UNBLUR ANIMATION
          ===================================================================== */}
-      <section className="relative pt-28 sm:pt-32 lg:pt-36 pb-14 sm:pb-18 lg:pb-22 flex items-center overflow-hidden bg-[#0A192F] min-h-[380px] sm:min-h-[440px] lg:min-h-[470px]">
+      <section className="relative pt-28 sm:pt-32 lg:pt-36 pb-14 sm:pb-18 lg:pb-22 flex items-center overflow-hidden bg-[#0A192F] min-h-[420px] sm:min-h-[460px] lg:min-h-[500px]">
         
-        {/* Parallax Background Media Container */}
+        {/* Parallax Background Media Container (Moving Dark Blue Silk Video) */}
         <div
           ref={heroMediaRef}
-          className="absolute -top-[12%] inset-x-0 h-[124%] z-0 will-change-transform"
+          className="absolute -top-[12%] inset-x-0 h-[124%] z-0 will-change-transform overflow-hidden"
         >
-          <Image
-            src="/images/enquiry/enquiry-hero-bg.jpg"
-            alt="Viral Fabrics Sourcing & Consultation Desk"
-            fill
-            sizes="100vw"
-            className="object-cover object-center scale-105"
-            priority
-          />
-          {/* Subtle top scrim for crystal-clear contrast of transparent navbar links */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#061426]/85 via-[#061426]/30 to-transparent pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#061426]/90 via-[#061426]/50 to-transparent pointer-events-none" />
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            poster="/craftsmanship-poster.jpg"
+            className="w-full h-full object-cover object-center scale-105"
+          >
+            <source src="/craftsmanship-atelier.mp4" type="video/mp4" />
+            <source src="/hero-video.mp4" type="video/mp4" />
+          </video>
+          {/* Subtle Agnes Toth Luxury Overlays */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/30 to-black/55 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#061426]/90 via-[#061426]/60 to-transparent pointer-events-none" />
         </div>
 
         {/* Hero Content with Scroll Dissolve & Directional Character Unblur Sweep */}
@@ -267,7 +280,7 @@ export default function ContactClient() {
           ref={heroContentRef}
           className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12 will-change-[transform,opacity,filter]"
         >
-          <div className="max-w-3xl text-white space-y-3.5 sm:space-y-4">
+          <div className="w-full text-white space-y-3.5 sm:space-y-4">
             
             {/* Agnes Eyebrow with Vertical Sapphire Accent Bar */}
             <div className="flex items-center gap-3">
@@ -280,7 +293,7 @@ export default function ContactClient() {
             {/* Statuesque Headline: Directional Unblur Character Sweep */}
             <h1
               ref={headlineRef}
-              className="font-heading font-serif text-3xl xs:text-4xl sm:text-5xl lg:text-[54px] font-normal text-white tracking-tight leading-[1.08] drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] select-none"
+              className="font-heading font-serif text-3xl xs:text-4xl sm:text-5xl lg:text-[56px] font-normal text-white tracking-tight leading-[1.08] drop-shadow-[0_2px_14px_rgba(0,0,0,0.65)] select-none"
             >
               {HEADLINE_WORDS.map((w, wIdx) => (
                 <span key={wIdx} className="inline-block whitespace-nowrap mr-[0.28em] last:mr-0">
@@ -296,10 +309,30 @@ export default function ContactClient() {
               ))}
             </h1>
 
-            {/* Subtitle Matching User Proclamation */}
-            <p className="font-sans text-sm sm:text-base lg:text-[17px] text-white/90 font-light leading-relaxed max-w-2xl drop-shadow-sm">
-              Manufacturer and Supplier of all types of Export Fabrics &bull; <span className="font-normal text-white">Direct Sourcing &amp; Mill Consultation Desk</span>
-            </p>
+            {/* Subtitle & Angled Cut CTA in a clean minimal row below */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1 sm:pt-2">
+              <p className="font-sans text-sm sm:text-base lg:text-[17px] text-white/90 font-light leading-relaxed max-w-2xl drop-shadow-sm">
+                Manufacturer and Supplier of all types of Export Fabrics &bull; <span className="font-normal text-white">Direct Sourcing &amp; Mill Consultation Desk</span>
+              </p>
+
+              {/* Luxury Angled Outline Button matching Home page & Enquiry */}
+              <a
+                href="#contact-cards"
+                className="relative inline-flex items-center gap-2.5 h-10 sm:h-11 pl-6 pr-8 text-[11px] sm:text-[11.5px] font-medium tracking-[0.2em] uppercase text-white bg-white/[0.08] hover:bg-white/[0.18] backdrop-blur-[8px] transition-all duration-300 group cursor-pointer self-start sm:self-auto whitespace-nowrap overflow-hidden hover:-translate-y-0.5 active:translate-y-0"
+                style={{
+                  clipPath: 'polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%)',
+                }}
+              >
+                <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
+                  <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="rgba(255,255,255,0.75)" strokeWidth="1" />
+                  <line x1="100%" y1="0" x2="calc(100% - 14px)" y2="100%" stroke="rgba(255,255,255,0.75)" strokeWidth="1.2" />
+                  <line x1="calc(100% - 14px)" y1="calc(100% - 0.5px)" x2="0" y2="calc(100% - 0.5px)" stroke="rgba(255,255,255,0.75)" strokeWidth="1" />
+                  <line x1="0.5" y1="100%" x2="0.5" y2="0" stroke="rgba(255,255,255,0.75)" strokeWidth="1" />
+                </svg>
+                <span>CONNECT WITH MILL</span>
+                <ArrowRight className="w-3.5 h-3.5 text-white/80 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
 
             {/* 3 Trust Badges with Dividers */}
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1 sm:pt-2 text-[11.5px] sm:text-[12.5px] font-sans font-medium text-white/90">
@@ -348,6 +381,7 @@ export default function ContactClient() {
           3. MAIN CONTACT SECTION: 3 ELEVATED CHEVRON CARDS ON LIGHT SILK CANVAS
          ===================================================================== */}
       <section
+        id="contact-cards"
         ref={cardsSectionRef}
         className="relative overflow-hidden py-16 sm:py-20 lg:py-24 bg-[#F8FAFD]"
       >
@@ -369,8 +403,12 @@ export default function ContactClient() {
           
           {/* Centered Editorial Header Matching User Reference */}
           <div className="text-center max-w-2xl mx-auto space-y-3.5">
-            <h2 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[46px] font-bold text-[#113259] tracking-tight leading-tight">
-              Contact Us
+            <span className="text-[11px] sm:text-[12px] font-sans font-bold tracking-[0.24em] text-[#1665C1] uppercase block">
+              DIRECT SURAT HEADQUARTERS &amp; MILL DESK
+            </span>
+
+            <h2 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#113259] tracking-tight leading-tight">
+              Commercial &amp; Export Sourcing Coordinates
             </h2>
             
             {/* Geometric Accent Line with Diamond Emblem */}
@@ -451,22 +489,28 @@ export default function ContactClient() {
                   </div>
                 </div>
 
-                {/* Simplified & Unified Actions (Primary Action + QR Scan on Mobile) */}
+                {/* Simplified & Unified Actions (Primary Action with Signature Angled Cut + QR Mobile Scan) */}
                 <div className="pt-5 pb-2 flex items-center justify-center gap-2.5 w-full">
                   <a
                     href={COMPANY_INFO.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 h-11 px-5 sm:px-6 rounded-xl bg-gradient-to-r from-[#113259] via-[#164273] to-[#1C518C] hover:from-[#0A223E] hover:to-[#143B66] text-white text-[13px] font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
+                    className="relative inline-flex items-center justify-center gap-2 h-11 px-5 sm:px-6 bg-gradient-to-r from-[#113259] via-[#164273] to-[#1C518C] hover:from-[#0A223E] hover:to-[#143B66] text-white text-[13px] font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 overflow-hidden"
+                    style={{
+                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)',
+                    }}
                   >
                     <span>Get Directions</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <ExternalLink className="w-3.5 h-3.5 text-white/85" />
                   </a>
 
                   <button
                     type="button"
                     onClick={() => setActiveQrModal('location')}
-                    className="inline-flex items-center justify-center gap-1.5 h-11 px-3.5 sm:px-4 rounded-xl bg-white hover:bg-[#F0F6FB] text-[#113259] border border-[#C6DCED] text-[12px] font-semibold transition-all duration-300 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group/qr"
+                    className="relative inline-flex items-center justify-center gap-1.5 h-11 px-3.5 sm:px-4 bg-white hover:bg-[#F0F6FB] text-[#113259] border border-[#C6DCED] text-[12px] font-semibold transition-all duration-300 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group/qr overflow-hidden"
+                    style={{
+                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%)',
+                    }}
                     title="Scan QR on phone to navigate directly"
                   >
                     <QrCode className="w-4 h-4 text-[#1665C1] group-hover/qr:scale-110 transition-transform" />
@@ -552,20 +596,26 @@ export default function ContactClient() {
                   </p>
                 </div>
 
-                {/* Simplified & Unified Actions (Primary Action + QR Scan on Mobile) */}
+                {/* Simplified & Unified Actions (Primary Action with Signature Angled Cut + QR Mobile Scan) */}
                 <div className="pt-5 pb-2 flex items-center justify-center gap-2.5 w-full">
                   <a
                     href={`tel:${COMPANY_INFO.phoneTel}`}
-                    className="inline-flex items-center justify-center gap-2 h-11 px-5 sm:px-6 rounded-xl bg-gradient-to-r from-[#113259] via-[#164273] to-[#1C518C] hover:from-[#0A223E] hover:to-[#143B66] text-white text-[13px] font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
+                    className="relative inline-flex items-center justify-center gap-2 h-11 px-5 sm:px-6 bg-gradient-to-r from-[#113259] via-[#164273] to-[#1C518C] hover:from-[#0A223E] hover:to-[#143B66] text-white text-[13px] font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 overflow-hidden"
+                    style={{
+                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)',
+                    }}
                   >
-                    <Phone className="w-3.5 h-3.5" />
+                    <Phone className="w-3.5 h-3.5 text-white/85" />
                     <span>Call Sales Desk</span>
                   </a>
 
                   <button
                     type="button"
                     onClick={() => setActiveQrModal('phone')}
-                    className="inline-flex items-center justify-center gap-1.5 h-11 px-3.5 sm:px-4 rounded-xl bg-white hover:bg-[#F0F6FB] text-[#113259] border border-[#C6DCED] text-[12px] font-semibold transition-all duration-300 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group/qr"
+                    className="relative inline-flex items-center justify-center gap-1.5 h-11 px-3.5 sm:px-4 bg-white hover:bg-[#F0F6FB] text-[#113259] border border-[#C6DCED] text-[12px] font-semibold transition-all duration-300 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group/qr overflow-hidden"
+                    style={{
+                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%)',
+                    }}
                     title="Scan QR to Call or WhatsApp directly on your phone"
                   >
                     <QrCode className="w-4 h-4 text-[#1665C1] group-hover/qr:scale-110 transition-transform" />
@@ -651,20 +701,26 @@ export default function ContactClient() {
                   </p>
                 </div>
 
-                {/* Simplified & Unified Actions (Primary Action + QR Scan on Mobile) */}
+                {/* Simplified & Unified Actions (Primary Action with Signature Angled Cut + QR Mobile Scan) */}
                 <div className="pt-5 pb-2 flex items-center justify-center gap-2.5 w-full">
                   <a
                     href={`mailto:${COMPANY_INFO.email}`}
-                    className="inline-flex items-center justify-center gap-2 h-11 px-5 sm:px-6 rounded-xl bg-gradient-to-r from-[#113259] via-[#164273] to-[#1C518C] hover:from-[#0A223E] hover:to-[#143B66] text-white text-[13px] font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
+                    className="relative inline-flex items-center justify-center gap-2 h-11 px-5 sm:px-6 bg-gradient-to-r from-[#113259] via-[#164273] to-[#1C518C] hover:from-[#0A223E] hover:to-[#143B66] text-white text-[13px] font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 overflow-hidden"
+                    style={{
+                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)',
+                    }}
                   >
-                    <Mail className="w-3.5 h-3.5" />
+                    <Mail className="w-3.5 h-3.5 text-white/85" />
                     <span>Send Email</span>
                   </a>
 
                   <button
                     type="button"
                     onClick={() => setActiveQrModal('email')}
-                    className="inline-flex items-center justify-center gap-1.5 h-11 px-3.5 sm:px-4 rounded-xl bg-white hover:bg-[#F0F6FB] text-[#113259] border border-[#C6DCED] text-[12px] font-semibold transition-all duration-300 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group/qr"
+                    className="relative inline-flex items-center justify-center gap-1.5 h-11 px-3.5 sm:px-4 bg-white hover:bg-[#F0F6FB] text-[#113259] border border-[#C6DCED] text-[12px] font-semibold transition-all duration-300 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group/qr overflow-hidden"
+                    style={{
+                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%)',
+                    }}
                     title="Scan QR to email directly from your phone"
                   >
                     <QrCode className="w-4 h-4 text-[#1665C1] group-hover/qr:scale-110 transition-transform" />
