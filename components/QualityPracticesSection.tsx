@@ -87,15 +87,52 @@ const InteractiveCard: React.FC<{
   const videoRef = useRef<HTMLVideoElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0, glareX: 50, glareY: 50, isHovered: false });
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const IconComponent = step.icon;
   const delayMs = index * 130 + 150;
 
-  // Video hover playback control with safe promise handling
+  // Detect mobile / touch viewports
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobileQuery = window.matchMedia('(hover: none), (max-width: 1023px)');
+      setIsMobile(mobileQuery.matches);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // IntersectionObserver to auto-play on scroll on mobile
+  useEffect(() => {
+    if (!isMobile) return;
+    const card = cardRef.current;
+    if (!card) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      {
+        threshold: 0.35,
+        rootMargin: '0px 0px -10% 0px',
+      }
+    );
+
+    observer.observe(card);
+    return () => observer.disconnect();
+  }, [isMobile]);
+
+  // Unified Video Playback Controller:
+  // - On Mobile: Auto-plays when scrolled into view (isInView)
+  // - On Desktop: Plays smoothly when card is hovered (tilt.isHovered)
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    if (tilt.isHovered) {
+    const shouldPlay = isMobile ? isInView : tilt.isHovered;
+
+    if (shouldPlay) {
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise
@@ -103,14 +140,14 @@ const InteractiveCard: React.FC<{
             setIsVideoPlaying(true);
           })
           .catch(() => {
-            // Handled gracefully (e.g. user hovered away quickly)
+            // Handled gracefully (e.g. quick scroll or power saving)
           });
       }
     } else {
       video.pause();
       setIsVideoPlaying(false);
     }
-  }, [tilt.isHovered]);
+  }, [isMobile, isInView, tilt.isHovered]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const card = cardRef.current;
@@ -191,7 +228,7 @@ const InteractiveCard: React.FC<{
           priority={index < 2}
         />
 
-        {/* Cinematic Quality Process Video (Plays on Card Hover, Loops) */}
+        {/* Cinematic Quality Process Video (Plays on Hover / Mobile In-View, Loops) */}
         <video
           ref={videoRef}
           src={step.videoSrc}
@@ -203,18 +240,6 @@ const InteractiveCard: React.FC<{
             isVideoPlaying ? 'opacity-100' : 'opacity-0'
           }`}
         />
-
-        {/* Top-Right Badge: Live Process on Hover */}
-        <div
-          className={`absolute top-3.5 right-3.5 z-20 transition-all duration-300 pointer-events-none flex items-center gap-1.5 px-2.5 py-1 rounded-full backdrop-blur-md text-[10px] font-medium tracking-wide ${
-            tilt.isHovered
-              ? 'bg-[#0A192F]/85 text-white shadow-md ring-1 ring-sky-400/30 opacity-100 translate-y-0'
-              : 'bg-black/35 text-white/90 opacity-0 translate-y-1'
-          }`}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
-          <span>Live Process</span>
-        </div>
 
         {/* Subtle arched top shadow ring */}
         <div className="absolute inset-0 rounded-t-[50px] sm:rounded-t-[58px] lg:rounded-t-[62px] xl:rounded-t-[70px] ring-1 ring-inset ring-black/10 pointer-events-none z-10" />
