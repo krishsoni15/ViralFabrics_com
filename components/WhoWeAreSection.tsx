@@ -1,4 +1,5 @@
 'use client';
+'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
@@ -216,11 +217,11 @@ export function WhoWeAreSection() {
     <section
       id="who-we-are"
       ref={sectionRef}
-      className="relative w-full text-[#2e3937] pt-48 sm:pt-56 md:pt-64 lg:pt-72 xl:pt-80 pb-36 sm:pb-44 md:pb-48 lg:pb-52 xl:pb-56 overflow-hidden selection:bg-[#375785] selection:text-white"
+      className="relative w-full bg-[#FAF8F5] text-[#2e3937] pt-48 sm:pt-56 md:pt-64 lg:pt-72 xl:pt-80 pb-12 sm:pb-16 lg:pb-20 overflow-hidden selection:bg-[#375785] selection:text-white"
     >
-      {/* Seamless transition underlay for the bottom torn edge into Fabrics Portfolio (#F5F5F5) */}
+      {/* Seamless transition underlay for the bottom torn edge into Fabrics Portfolio (#FAF8F5) */}
       <div
-        className="absolute inset-x-0 bottom-0 h-80 sm:h-96 lg:h-[420px] bg-[#F5F5F5] z-0 pointer-events-none"
+        className="absolute inset-x-0 bottom-0 h-64 sm:h-72 lg:h-80 bg-[#FAF8F5] z-0 pointer-events-none"
         aria-hidden="true"
       />
 

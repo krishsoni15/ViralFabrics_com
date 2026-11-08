@@ -549,7 +549,7 @@ export const FabricsPortfolioSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="fabrics-portfolio"
-      className="relative w-full py-20 sm:py-24 lg:py-28 xl:py-32 bg-[#FAF6F1] text-[#0A192F] border-b border-slate-200/70 overflow-hidden selection:bg-[#006DB6] selection:text-white"
+      className="relative w-full pt-6 sm:pt-8 lg:pt-10 pb-20 sm:pb-24 lg:pb-28 xl:pb-32 bg-[#FAF8F5] text-[#0A192F] overflow-hidden selection:bg-[#006DB6] selection:text-white"
     >
       <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-14">
 
@@ -566,15 +566,6 @@ export const FabricsPortfolioSection: React.FC = () => {
             transform: isHeaderVisible ? 'translate3d(0, 0, 0)' : 'translate3d(0, 20px, 0)',
           }}
         >
-          {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2.5 text-[#006DB6] mb-2 sm:mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-[#006DB6]" />
-            <span className="font-sans text-[12px] sm:text-[13px] font-bold tracking-[0.28em] uppercase text-[#006DB6]">
-              OUR REPERTOIRE
-            </span>
-            <Sparkles className="w-3.5 h-3.5 text-[#006DB6]" />
-          </div>
-
           {/* Heading with Dual-Tone Italic Accent */}
           <h2 className="font-heading font-serif text-4xl sm:text-5xl lg:text-[54px] font-normal text-[#0A192F] tracking-tight leading-[1.12] mb-3">
             Fabrics <span className="text-[#006DB6] italic font-normal">Portfolio</span>
