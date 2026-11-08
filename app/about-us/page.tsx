@@ -240,7 +240,10 @@ export default function AboutUsPage() {
 
                 <div className="space-y-3.5 text-slate-600 font-sans text-[13.5px] sm:text-[14.5px] font-normal leading-[1.72]">
                   <p>
-                    Viral Fabrics was established in 2012 in Surat, Gujarat, with a vision to manufacture and supply high-quality fabrics to clients across India and global markets. With a strong focus on quality, consistency and customer trust, we have grown into a reliable export partner for a wide range of premium fabrics.
+                    <strong className="font-semibold text-[#0F172A]">VIRAL FABRICS was Established in 2012.</strong> Viral Fabrics has always been one of the most promising player in market of Manufacturers and Suppliers export quality of fabric. We have achieved several milestones under the expert guidance of Mr. Viral A Patel, Owner of the company. We facilitate our valued clients from our base in the beautiful city of SURAT, GUJARAT, INDIA. The turnover of the company is more than 10 crores.
+                  </p>
+                  <p>
+                    We are manufacturers and supplier all type of export fabrics. The exclusive assortment of fabrics offered by us includes Polyester Dyed and Printed Fabrics, Viscose Fabrics, Rayon Fabrics, Cotton Fabrics and Digital Printed Fabrics By Make to Order Base.
                   </p>
                 </div>
 
@@ -309,7 +312,7 @@ export default function AboutUsPage() {
                     </div>
                   </div>
                   <p className="font-sans text-[13.5px] sm:text-[14px] text-slate-600 leading-relaxed font-normal pt-1">
-                    To be a globally trusted textile manufacturer known for quality, innovation and long-term partnerships.
+                    Successfully delivering High quality fabrics for new and repeat clients.
                   </p>
                 </div>
               </div>
@@ -353,7 +356,7 @@ export default function AboutUsPage() {
                     </div>
                   </div>
                   <p className="font-sans text-[13.5px] sm:text-[14px] text-slate-600 leading-relaxed font-normal pt-1">
-                    To deliver premium, durable and diverse fabrics with consistent quality, advanced manufacturing and a customer-first approach.
+                    The company has been maintaining a pacesetter for the future time. Company’s main concentration is totally on the international and Indian clients. Company’s aim is to achieve the goal of the nation and by taking our country to one of the most subsidized and industrialized zone in the 21st century.
                   </p>
                 </div>
               </div>
@@ -419,15 +422,27 @@ export default function AboutUsPage() {
                   </span>
                 </div>
 
-                {/* Headline: State-of-the-Art Manufacturing */}
+                {/* Headline: State-of-the-Art Manufacturing & Infrastructure */}
                 <h2 className="font-heading font-serif text-3xl xl:text-4xl 2xl:text-[42px] font-normal text-white tracking-tight mb-4 leading-tight">
                   State-of-the-Art Manufacturing
                 </h2>
 
-                {/* Editorial Narrative */}
-                <p className="font-sans text-[14px] xl:text-[15px] text-slate-300 leading-[1.75] font-light max-w-xl mb-6">
-                  Modern weaving, processing and quality control systems that ensure consistent, high-grade fabrics for domestic and international markets.
+                {/* Editorial Narrative with exact user infrastructure specifications */}
+                <p className="font-sans text-[14px] xl:text-[15px] text-slate-300 leading-[1.78] font-light max-w-xl mb-4">
+                  We own a well-developed manufacturing unit. It is fully equipped with the latest and automatic high speed machinery. In Polyester Fabrics We have our Own Unit High Speed Water-jet Machine having Production of 6 Lac Meter Per Month.
                 </p>
+
+                {/* Infrastructure Highlights Pill Row */}
+                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mb-6">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[11.5px] font-sans font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
+                    <span>Automatic Water-Jet Machinery</span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[11.5px] font-sans font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
+                    <span>6 Lac Meters / Month</span>
+                  </div>
+                </div>
 
                 {/* Explore Our Facility Pill Button */}
                 <div>
@@ -470,8 +485,19 @@ export default function AboutUsPage() {
                 </h2>
 
                 <p className="font-sans text-[13.5px] sm:text-[14.5px] text-slate-300 leading-[1.72] font-light">
-                  Modern weaving, processing and quality control systems that ensure consistent, high-grade fabrics for domestic and international markets.
+                  We own a well-developed manufacturing unit. It is fully equipped with the latest and automatic high speed machinery. In Polyester Fabrics We have our Own Unit High Speed Water-jet Machine having Production of 6 Lac Meter Per Month.
                 </p>
+
+                <div className="flex flex-wrap items-center gap-2 pt-1">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[11px] font-sans font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
+                    <span>Automatic Water-Jet Machinery</span>
+                  </div>
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[11px] font-sans font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
+                    <span>6 Lac Meters / Month</span>
+                  </div>
+                </div>
 
                 <div className="pt-2">
                   <a
