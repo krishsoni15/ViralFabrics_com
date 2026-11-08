@@ -62,6 +62,9 @@ export default function NetworkPage() {
       <PageHeroBanner
         title="Network"
         subtitle="From Around The Fabrics World"
+        bgVideo="/videos/network-hero.mp4"
+        bgVideoPoster="/images/network/network-hero-poster.webp"
+        bgImage="/images/network/network-hero-poster.webp"
         bgAlt="Viral Fabrics Global Network & Export Distribution"
       />
 
