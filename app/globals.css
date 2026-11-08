@@ -1,0 +1,417 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-blue: #006DB6;
+    --brand-navy: #0A192F;
+    --brand-ink: #0F172A;
+    --brand-muted: #64748B;
+    --brand-hairline: rgba(15, 23, 42, 0.08);
+    --brand-hairline-light: rgba(255, 255, 255, 0.15);
+    --agnes-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  html {
+    scroll-behavior: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    color: #0F172A;
+    background-color: #ffffff;
+    font-family: var(--font-jakarta), var(--font-poppins), sans-serif;
+    overflow-x: clip;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-cormorant), var(--font-roboto-slab), serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Lenis smooth scroll core styles */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ----------------------------------------------------
+   AGNES TOTH LUXURY DESIGN SYSTEM FOR VIRAL FABRICS
+---------------------------------------------------- */
+
+/* 1. Haute Couture Eyebrows */
+.agnes-eyebrow {
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 0.75rem; /* 12px */
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.agnes-eyebrow-muted {
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-muted);
+}
+
+/* 2. Signature Animated Underline Links (.agnes-textlink) */
+.agnes-textlink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
+  padding-bottom: 2px;
+}
+
+.agnes-textlink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(1);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .agnes-textlink:hover::after {
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+}
+
+/* Alternative: Draw on hover */
+.agnes-textlink-hover {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  color: inherit;
+  padding-bottom: 2px;
+}
+
+.agnes-textlink-hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  background-color: var(--brand-blue);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.agnes-textlink-hover:hover::after {
+  transform: scaleX(1);
+}
+
+/* 3. Agnes Toth & Viral Fabrics Quiet Luxury Buttons (.agnes-btn) */
+.agnes-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 2.75rem;
+  padding: 0 1.8rem;
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1;
+  border-radius: 2px;
+  cursor: pointer;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+  transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Haute Couture Diagonal Shimmer Sheen Sweep on Hover */
+.agnes-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.32) 50%,
+    transparent 80%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 5;
+}
+
+@media (hover: hover) {
+  .agnes-btn:hover::before {
+    transform: translateX(120%);
+  }
+}
+
+/* Subtle elevation and active click press */
+.agnes-btn:hover {
+  transform: translateY(-1.5px);
+}
+
+.agnes-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Arrow smooth gliding micro-interaction */
+.agnes-btn svg {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+@media (hover: hover) {
+  .agnes-btn:hover svg {
+    transform: translateX(4px);
+  }
+}
+
+/* Solid Blue Primary Button */
+.agnes-btn--primary {
+  background-color: var(--brand-blue);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 18px -2px rgba(0, 109, 182, 0.42);
+}
+
+.agnes-btn--primary:hover {
+  background-color: #005a99;
+  color: #ffffff;
+  box-shadow: 0 8px 26px -2px rgba(0, 109, 182, 0.58);
+}
+
+/* Outline Dark Button */
+.agnes-btn--outline-dark {
+  background-color: rgba(15, 23, 42, 0.05);
+  color: var(--brand-ink);
+  box-shadow: inset 0 0 0 1.5px rgba(15, 23, 42, 0.25);
+}
+
+.agnes-btn--outline-dark:hover {
+  background-color: var(--brand-ink);
+  color: #ffffff;
+  box-shadow: 0 6px 20px -2px rgba(15, 23, 42, 0.3);
+}
+
+/* Outline Light Button (For Dark Banners) */
+.agnes-btn--outline-light {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.5);
+}
+
+.agnes-btn--outline-light:hover {
+  background-color: #ffffff;
+  color: var(--brand-navy);
+  box-shadow: 0 6px 20px -2px rgba(255, 255, 255, 0.3);
+}
+
+/* Subtle Hairline divider */
+.agnes-hairline {
+  border: 0;
+  height: 1px;
+  background-color: var(--brand-hairline);
+  margin: 0;
+}
+
+/* Glassmorphism Surface */
+.agnes-glass {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.agnes-glass-dark {
+  background: rgba(10, 25, 47, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Underline Floating Form Inputs (Agnes Appointment Style) */
+.agnes-input {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.2);
+  border-radius: 0;
+  padding: 0.6rem 0;
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 0.9375rem;
+  color: var(--brand-ink);
+  transition: border-color 0.3s ease;
+}
+
+.agnes-input:focus {
+  outline: none;
+  border-bottom-color: var(--brand-blue);
+}
+
+.agnes-input::placeholder {
+  color: #94A3B8;
+  font-size: 0.875rem;
+}
+
+/* Image reveal / Parallax zoom helper */
+.agnes-media-reveal {
+  overflow: hidden;
+  position: relative;
+}
+
+.agnes-media-reveal img {
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.agnes-media-reveal:hover img {
+  transform: scale(1.05);
+}
+
+/* Legacy helpers preserved for backward-compatibility */
+.btn-clip-arrow {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--brand-blue);
+  color: #FFFFFF !important;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.8rem;
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-clip-arrow:hover {
+  background-color: #00558f !important;
+}
+
+.blue-line-side {
+  position: relative;
+  padding-left: 20px;
+}
+
+.blue-line-side::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background-color: var(--brand-blue);
+}
+
+/* ----------------------------------------------------
+   HAUTE COUTURE PAGE LOAD ENTRANCE ANIMATIONS
+   (Instant site load, zero blocking screen, smooth entry)
+---------------------------------------------------- */
+@keyframes luxuryFadeDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -14px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes luxuryFadeUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes luxuryNavFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.anim-nav-enter {
+  animation: luxuryNavFade 0.5s ease-out 0.05s both;
+}
+
+.anim-hero-eyebrow {
+  animation: luxuryFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+}
+
+.anim-hero-headline {
+  animation: luxuryFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both;
+}
+
+.anim-hero-sub {
+  animation: luxuryFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+}
+
+@keyframes luxuryCrossFade {
+  0% {
+    opacity: 0.2;
+    transform: translate3d(0, 8px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.anim-quote-fade {
+  animation: luxuryCrossFade 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
