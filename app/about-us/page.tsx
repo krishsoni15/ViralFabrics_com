@@ -190,55 +190,9 @@ export default function AboutUsPage() {
           2. HAUTE-COUTURE SHOWCASE: STORY, PRINCIPLES & INFRASTRUCTURE
              - Section 1: Our Story (About Viral Fabrics) - Full Bleed Silk Canvas
              - Section 2: Our Capabilities (Infrastructure) - Full Bleed Mocha Canvas
-             - Signature Stacking Curtain: Slides up over sticky hero banner with fluid wavy silk contour
+             - Signature Stacking Curtain: Slides up over sticky hero banner with luxury elevation
          ================================================================= */}
-      <div className="relative z-10 bg-[#FAF6F1]">
-        {/* =================================================================
-            HAUTE-COUTURE FLUID SILK WAVE TOP TRANSITION
-            - Organic undulating wave contour replacing flat top cut
-            - Dual-layer silk crest with soft ambient drop-shadow
-            - Glides upwards smoothly over sticky hero banner on scroll
-           ================================================================= */}
-        <div className="absolute -top-7 sm:-top-11 md:-top-14 lg:-top-18 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none z-20">
-          <svg
-            className="relative block w-full h-8 sm:h-12 md:h-16 lg:h-20 text-[#FAF6F1]"
-            viewBox="0 0 1440 100"
-            preserveAspectRatio="none"
-          >
-            <defs>
-              <filter id="silk-wave-depth" x="-5%" y="-40%" width="110%" height="180%">
-                <feDropShadow dx="0" dy="-4" stdDeviation="6" floodColor="#000000" floodOpacity="0.25" />
-              </filter>
-            </defs>
-
-            {/* Depth Shadow Layer */}
-            <path
-              d="M0,45 C260,15 440,75 720,35 C1000,5 1180,65 1440,30 L1440,102 L0,102 Z"
-              fill="#FAF6F1"
-              filter="url(#silk-wave-depth)"
-            />
-
-            {/* Secondary Translucent Silk Wave Accent */}
-            <path
-              d="M0,55 C300,25 500,80 750,42 C1020,12 1220,70 1440,38 L1440,102 L0,102 Z"
-              fill="rgba(234, 224, 213, 0.45)"
-            />
-
-            {/* Primary Fluid Silk Wave (Matches #FAF6F1 perfectly) */}
-            <path
-              d="M0,45 C260,15 440,75 720,35 C1000,5 1180,65 1440,30 L1440,102 L0,102 Z"
-              fill="#FAF6F1"
-            />
-
-            {/* Delicate Silk Thread Highlight */}
-            <path
-              d="M0,45 C260,15 440,75 720,35 C1000,5 1180,65 1440,30"
-              stroke="rgba(255, 255, 255, 0.75)"
-              strokeWidth="1.5"
-              fill="none"
-            />
-          </svg>
-        </div>
+      <div className="relative z-10 bg-[#FAF6F1] shadow-[0_-25px_60px_rgba(0,0,0,0.22)]">
         {/* 2A. OUR STORY (ABOUT VIRAL FABRICS + VISION & MISSION) - FULL HORIZONTAL WIDTH */}
         <section id="our-story" className="relative w-full pt-20 sm:pt-28 lg:pt-36 pb-16 sm:pb-24 lg:pb-32 bg-[#FAF6F1] overflow-hidden">
         {/* Authentic Silk Background Canvas with Leaf Shadow - 100% Full Bleed */}
@@ -414,16 +368,16 @@ export default function AboutUsPage() {
       </section>
 
       {/* =================================================================
-          2B. OUR CAPABILITIES: STATE-OF-THE-ART MANUFACTURING (1:1 IMAGE 1)
+          2B. OUR CAPABILITIES: STATE-OF-THE-ART MANUFACTURING
           - Deep Midnight Navy Card with S-Curve Divider & Cyan Hairline
           - Left: Water-Jet Loom Machinery with Purple Fabric Roll
-          - Right: State-of-the-Art Manufacturing with Explore Facility Pill Button
+          - Right: State-of-the-Art Manufacturing (Enlarged Luxury Scale, Button Removed)
          ================================================================= */}
-      <section className="relative w-full py-8 sm:py-12 lg:py-14 bg-[#FAF6F1] overflow-hidden">
+      <section className="relative w-full py-12 sm:py-16 lg:py-20 bg-[#FAF6F1] overflow-hidden">
         <div className="w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
           <EditorialBlock>
             {/* Desktop Haute-Couture S-Curve Split Banner (hidden on mobile, block on lg+) */}
-            <div className="hidden lg:block relative w-full rounded-[28px] xl:rounded-[36px] overflow-hidden shadow-[0_16px_44px_rgba(10,25,47,0.22)] border border-[#1E3A5F]/40 bg-gradient-to-r from-[#07172B] via-[#0A2240] to-[#0D2E54] min-h-[360px] xl:min-h-[390px]">
+            <div className="hidden lg:block relative w-full rounded-[28px] xl:rounded-[36px] overflow-hidden shadow-[0_20px_50px_rgba(10,25,47,0.25)] border border-[#1E3A5F]/40 bg-gradient-to-r from-[#07172B] via-[#0A2240] to-[#0D2E54] min-h-[420px] xl:min-h-[460px] 2xl:min-h-[500px]">
               
               {/* SVG Layer: Clipping mask for machine image + Cyan/Ice Blue Divider Stroke */}
               <svg className="absolute inset-0 w-full h-full pointer-events-none z-20" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
@@ -459,57 +413,47 @@ export default function AboutUsPage() {
                 <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-[#0A2240]/40 pointer-events-none" />
               </div>
 
-              {/* Right Side: Dark Navy Editorial Content */}
-              <div className="relative z-10 ml-[46%] xl:ml-[47%] w-[54%] xl:w-[53%] py-12 xl:py-16 pl-8 pr-10 xl:pl-12 xl:pr-14 flex flex-col justify-center text-white">
+              {/* Right Side: Dark Navy Editorial Content (Enlarged & Highly Legible) */}
+              <div className="relative z-10 ml-[46%] xl:ml-[47%] w-[54%] xl:w-[53%] py-14 xl:py-18 pl-10 pr-12 xl:pl-16 xl:pr-18 flex flex-col justify-center text-white">
                 
                 {/* Eyebrow: OUR CAPABILITIES */}
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-[#38BDF8]">
+                <div className="flex items-center gap-3 mb-3.5">
+                  <span className="font-sans text-[12px] sm:text-[13px] font-bold tracking-[0.28em] uppercase text-[#38BDF8]">
                     OUR CAPABILITIES
                   </span>
                 </div>
 
                 {/* Headline: State-of-the-Art Manufacturing & Infrastructure */}
-                <h2 className="font-heading font-serif text-3xl xl:text-4xl 2xl:text-[42px] font-normal text-white tracking-tight mb-4 leading-tight">
+                <h2 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[44px] xl:text-[50px] 2xl:text-[54px] font-normal text-white tracking-tight mb-4 sm:mb-5 leading-[1.14]">
                   State-of-the-Art Manufacturing
                 </h2>
 
                 {/* Editorial Narrative with exact user infrastructure specifications */}
-                <p className="font-sans text-[14px] xl:text-[15px] text-slate-300 leading-[1.78] font-light max-w-xl mb-4">
+                <p className="font-sans text-[15.5px] sm:text-[16px] xl:text-[17px] text-slate-200 leading-[1.8] font-normal max-w-2xl mb-6">
                   We own a well-developed manufacturing unit. It is fully equipped with the latest and automatic high speed machinery. In Polyester Fabrics We have our Own Unit High Speed Water-jet Machine having Production of 6 Lac Meter Per Month.
                 </p>
 
-                {/* Infrastructure Highlights Pill Row */}
-                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mb-6">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[11.5px] font-sans font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
+                {/* Infrastructure Highlights Pill Row (Enlarged Presence) */}
+                <div className="flex flex-wrap items-center gap-3 sm:gap-3.5">
+                  <div className="inline-flex items-center gap-2.5 px-4.5 py-2 sm:px-5 sm:py-2.5 rounded-full bg-white/[0.1] border border-white/15 text-white text-[13px] sm:text-[13.5px] font-sans font-medium shadow-xs">
+                    <span className="w-2 h-2 rounded-full bg-[#38BDF8] shrink-0" />
                     <span>Automatic Water-Jet Machinery</span>
                   </div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[11.5px] font-sans font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
+                  <div className="inline-flex items-center gap-2.5 px-4.5 py-2 sm:px-5 sm:py-2.5 rounded-full bg-white/[0.1] border border-white/15 text-white text-[13px] sm:text-[13.5px] font-sans font-medium shadow-xs">
+                    <span className="w-2 h-2 rounded-full bg-[#38BDF8] shrink-0" />
                     <span>6 Lac Meters / Month</span>
                   </div>
                 </div>
 
-                {/* Explore Our Facility Pill Button */}
-                <div>
-                  <a
-                    href="#quality"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/25 hover:border-white/50 bg-white/[0.08] hover:bg-white/[0.16] text-white text-[12.5px] font-medium tracking-wide transition-all group"
-                  >
-                    <span>Explore Our Facility</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-white/80 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                </div>
               </div>
 
             </div>
 
             {/* Mobile / Tablet Responsive Layout (visible below lg, hidden on lg+) */}
-            <div className="block lg:hidden relative w-full rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-[0_12px_36px_rgba(10,25,47,0.2)] border border-[#1E3A5F]/40 bg-gradient-to-br from-[#07172B] via-[#0A2240] to-[#0D2E54]">
+            <div className="block lg:hidden relative w-full rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-[0_16px_40px_rgba(10,25,47,0.22)] border border-[#1E3A5F]/40 bg-gradient-to-br from-[#07172B] via-[#0A2240] to-[#0D2E54]">
               
               {/* Machine Image on Mobile */}
-              <div className="relative w-full h-[220px] sm:h-[280px]">
+              <div className="relative w-full h-[260px] sm:h-[320px]">
                 <Image
                   src="/images/about/water-jet-loom.jpg"
                   alt="Viral Fabrics High Speed Water-Jet Weaving Machinery with Purple Fabric Roll"
@@ -521,40 +465,31 @@ export default function AboutUsPage() {
                 <div className="absolute bottom-0 inset-x-0 h-[2px] bg-[#38BDF8]" />
               </div>
 
-              {/* Dark Navy Content Area on Mobile */}
-              <div className="p-6 sm:p-8 text-white space-y-4">
-                <span className="font-sans text-[11px] font-bold tracking-[0.24em] uppercase text-[#38BDF8] block">
+              {/* Dark Navy Content Area on Mobile (Enlarged & Highly Legible) */}
+              <div className="p-7 sm:p-9 text-white space-y-4 sm:space-y-5">
+                <span className="font-sans text-[12px] font-bold tracking-[0.24em] uppercase text-[#38BDF8] block">
                   OUR CAPABILITIES
                 </span>
 
-                <h2 className="font-heading font-serif text-2xl sm:text-3xl font-normal text-white tracking-tight leading-tight">
+                <h2 className="font-heading font-serif text-2xl sm:text-3xl md:text-4xl font-normal text-white tracking-tight leading-tight">
                   State-of-the-Art Manufacturing
                 </h2>
 
-                <p className="font-sans text-[13.5px] sm:text-[14.5px] text-slate-300 leading-[1.72] font-light">
+                <p className="font-sans text-[15px] sm:text-[16px] text-slate-200 leading-[1.78] font-normal">
                   We own a well-developed manufacturing unit. It is fully equipped with the latest and automatic high speed machinery. In Polyester Fabrics We have our Own Unit High Speed Water-jet Machine having Production of 6 Lac Meter Per Month.
                 </p>
 
-                <div className="flex flex-wrap items-center gap-2 pt-1">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[11px] font-sans font-medium">
+                <div className="flex flex-wrap items-center gap-2.5 pt-1">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.1] border border-white/15 text-white text-[12.5px] font-sans font-medium">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
                     <span>Automatic Water-Jet Machinery</span>
                   </div>
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[11px] font-sans font-medium">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.1] border border-white/15 text-white text-[12.5px] font-sans font-medium">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
                     <span>6 Lac Meters / Month</span>
                   </div>
                 </div>
 
-                <div className="pt-2">
-                  <a
-                    href="#quality"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/25 hover:border-white/50 bg-white/[0.08] hover:bg-white/[0.16] text-white text-[12.5px] font-medium tracking-wide transition-all group"
-                  >
-                    <span>Explore Our Facility</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-white/80 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                </div>
               </div>
 
             </div>
@@ -578,10 +513,10 @@ export default function AboutUsPage() {
       {/* =================================================================
           4. HAUTE-COUTURE SHOWCASE: OUR TEAM - FULL HORIZONTAL WIDTH
              - Authentic Flowing Silk Wave Background Canvas (100% Full Bleed)
-             - Left: Our People Eyebrow + Our Team Headline + Manifesto + Action Button
+             - Left: Our People Eyebrow + Our Team Headline + Manifesto + Action Button (Enlarged Scale)
              - Right: Dedicated Viral Fabrics Team Photo with Navy Blue Branded Polos in Mill
          ================================================================= */}
-      <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#FAF6F1] border-y border-slate-200/70 overflow-hidden">
+      <section className="relative w-full py-20 sm:py-24 lg:py-28 bg-[#FAF6F1] border-y border-slate-200/70 overflow-hidden">
         {/* Authentic Flowing Silk Wave Background Canvas - 100% Full Bleed */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
@@ -602,26 +537,26 @@ export default function AboutUsPage() {
 
         <div className="relative z-10 w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
           <EditorialBlock>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
               
-              {/* Left Column: Narrative & Action Button */}
-              <div className="lg:col-span-6 space-y-4 sm:space-y-5">
+              {/* Left Column: Narrative & Action Button (Enlarged & Highly Legible) */}
+              <div className="lg:col-span-6 space-y-5 sm:space-y-6">
                 
                 {/* Eyebrow: OUR PEOPLE — */}
                 <div className="flex items-center gap-3">
-                  <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-[#1E5FA8]">
+                  <span className="font-sans text-[12px] sm:text-[13px] font-bold tracking-[0.28em] uppercase text-[#1E5FA8]">
                     OUR PEOPLE
                   </span>
-                  <div className="w-10 sm:w-14 h-[1.5px] bg-[#1E5FA8]/40" />
+                  <div className="w-12 sm:w-16 h-[2px] bg-[#1E5FA8]/40" />
                 </div>
 
                 {/* Headline: Our Team in rich royal navy serif */}
-                <h2 className="font-heading text-3xl sm:text-4xl lg:text-[46px] font-normal text-[#0F172A] leading-[1.12] tracking-tight">
+                <h2 className="font-heading text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-normal text-[#0F172A] leading-[1.12] tracking-tight">
                   Our <span className="text-[#1E5FA8] font-normal italic">Team</span>
                 </h2>
 
-                {/* Authentic Client Manifesto Copy */}
-                <p className="font-sans text-[13.5px] sm:text-[14.5px] text-slate-600 font-normal leading-[1.72] max-w-xl">
+                {/* Authentic Client Manifesto Copy (Enlarged & Highly Legible) */}
+                <p className="font-sans text-[15.5px] sm:text-[16px] xl:text-[16.5px] text-slate-700 font-normal leading-[1.8] max-w-2xl">
                   We have a dedicated team of well-qualified professionals and skilled workers. All the employees of our company are very hard working and stand by the company’s vision of attaining complete client satisfaction. Moreover, we work in close coordination with our clients to ensure that they get what they expect.
                 </p>
 
@@ -629,7 +564,7 @@ export default function AboutUsPage() {
                 <div className="pt-2 sm:pt-3">
                   <Link
                     href="/contact-us"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 sm:px-7 sm:py-3 rounded-lg text-[12.5px] font-medium tracking-wide text-white bg-[#0E2A47] hover:bg-[#163B66] transition-all duration-300 shadow-[0_2px_10px_rgba(14,42,71,0.25)] hover:shadow-[0_4px_16px_rgba(14,42,71,0.35)] hover:-translate-y-0.5 group"
+                    className="inline-flex items-center gap-2.5 px-7 py-3 sm:px-8 sm:py-3.5 rounded-xl text-[13.5px] sm:text-[14px] font-medium tracking-wide text-white bg-[#0E2A47] hover:bg-[#163B66] transition-all duration-300 shadow-[0_2px_12px_rgba(14,42,71,0.25)] hover:shadow-[0_4px_18px_rgba(14,42,71,0.35)] hover:-translate-y-0.5 group"
                   >
                     <span>Connect With Our Team</span>
                     <ArrowUpRight className="w-4 h-4 stroke-[2.2] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -640,7 +575,7 @@ export default function AboutUsPage() {
 
               {/* Right Column: Factory Team Photograph in Arched / Rounded Haute-Couture Frame */}
               <div className="lg:col-span-6 flex justify-center lg:justify-end">
-                <div className="relative w-full aspect-[16/9] sm:aspect-[16/8.5] rounded-[22px] sm:rounded-[26px] overflow-hidden shadow-[0_16px_40px_rgba(46,31,26,0.12)] border border-[#EAE0D5] bg-slate-900 group">
+                <div className="relative w-full aspect-[16/9] sm:aspect-[16/8.5] rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-[0_20px_45px_rgba(46,31,26,0.14)] border border-[#EAE0D5] bg-slate-900 group">
                   <Image
                     src="/images/about/viral-fabrics-team.jpg"
                     alt="Viral Fabrics Dedicated Professional Team in Surat Weaving Mill"
@@ -650,7 +585,7 @@ export default function AboutUsPage() {
                     priority
                   />
                   {/* Subtle Glassmorphic Inset Shadow */}
-                  <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-[22px] sm:rounded-[26px] pointer-events-none" />
+                  <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-[24px] sm:rounded-[28px] pointer-events-none" />
                 </div>
               </div>
 
@@ -666,24 +601,24 @@ export default function AboutUsPage() {
              - Nature of Business: Manufacturer & Supplier
              - Number of Employees: Above 15
          ================================================================= */}
-      <section className="relative w-full py-12 sm:py-16 bg-[#FAF6F1] border-t border-[#EAE0D5] overflow-hidden">
+      <section className="relative w-full py-14 sm:py-18 bg-[#FAF6F1] border-t border-[#EAE0D5] overflow-hidden">
         <div className="w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
           
           {/* THE DARK NAVY COMPANY SPECIFICATIONS BAR (1:1 REPLICA OF USER REFERENCE IMAGE) */}
           <EditorialBlock>
-            <div className="relative w-full rounded-2xl sm:rounded-[22px] bg-gradient-to-r from-[#0B1F38] via-[#0E2849] to-[#0B1F38] border border-white/10 shadow-[0_16px_40px_rgba(10,25,47,0.18)] py-6 sm:py-7 px-6 sm:px-10 lg:px-12">
+            <div className="relative w-full rounded-2xl sm:rounded-[24px] bg-gradient-to-r from-[#0B1F38] via-[#0E2849] to-[#0B1F38] border border-white/10 shadow-[0_20px_45px_rgba(10,25,47,0.22)] py-7 sm:py-9 px-6 sm:px-10 lg:px-14">
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-white/15 items-center">
                 
                 {/* 1. Name of Owner: Mr. Viral Patel */}
                 <div className="flex items-center gap-4 lg:justify-center lg:px-4">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
-                    <UserCheck className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-white/[0.08] border border-white/15 flex items-center justify-center shrink-0 text-white/90">
+                    <UserCheck className="w-6 h-6 stroke-[1.8]" />
                   </div>
                   <div>
-                    <div className="font-serif text-xl sm:text-2xl lg:text-[24px] font-bold text-white tracking-tight leading-none">
+                    <div className="font-serif text-2xl sm:text-3xl lg:text-[28px] font-bold text-white tracking-tight leading-none">
                       Mr. Viral Patel
                     </div>
-                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
+                    <div className="font-sans text-[13px] sm:text-[13.5px] text-slate-300 font-normal tracking-wide pt-1.5">
                       Name of Owner
                     </div>
                   </div>
@@ -691,14 +626,14 @@ export default function AboutUsPage() {
 
                 {/* 2. Year of Establishment: 2012 */}
                 <div className="flex items-center gap-4 lg:justify-center lg:px-4">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
-                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-white/[0.08] border border-white/15 flex items-center justify-center shrink-0 text-white/90">
+                    <Calendar className="w-6 h-6 stroke-[1.8]" />
                   </div>
                   <div>
-                    <div className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-bold text-white tracking-tight leading-none">
+                    <div className="font-serif text-3xl sm:text-4xl lg:text-[38px] font-bold text-white tracking-tight leading-none">
                       2012
                     </div>
-                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
+                    <div className="font-sans text-[13px] sm:text-[13.5px] text-slate-300 font-normal tracking-wide pt-1.5">
                       Year of Establishment
                     </div>
                   </div>
@@ -706,14 +641,14 @@ export default function AboutUsPage() {
 
                 {/* 3. Nature of Business: Manufacturer & Supplier */}
                 <div className="flex items-center gap-4 lg:justify-center lg:px-4">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
-                    <Building2 className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-white/[0.08] border border-white/15 flex items-center justify-center shrink-0 text-white/90">
+                    <Building2 className="w-6 h-6 stroke-[1.8]" />
                   </div>
                   <div>
-                    <div className="font-serif text-base sm:text-lg lg:text-[20px] font-bold text-white tracking-tight leading-none">
+                    <div className="font-serif text-lg sm:text-xl lg:text-[22px] font-bold text-white tracking-tight leading-none">
                       Manufacturer &amp; Supplier
                     </div>
-                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
+                    <div className="font-sans text-[13px] sm:text-[13.5px] text-slate-300 font-normal tracking-wide pt-1.5">
                       Nature of Business
                     </div>
                   </div>
@@ -721,14 +656,14 @@ export default function AboutUsPage() {
 
                 {/* 4. Number of Employees: Above 15 */}
                 <div className="flex items-center gap-4 lg:justify-center lg:px-4">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
-                    <Users className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-white/[0.08] border border-white/15 flex items-center justify-center shrink-0 text-white/90">
+                    <Users className="w-6 h-6 stroke-[1.8]" />
                   </div>
                   <div>
-                    <div className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-bold text-white tracking-tight leading-none">
+                    <div className="font-serif text-3xl sm:text-4xl lg:text-[38px] font-bold text-white tracking-tight leading-none">
                       Above 15
                     </div>
-                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
+                    <div className="font-sans text-[13px] sm:text-[13.5px] text-slate-300 font-normal tracking-wide pt-1.5">
                       Number of Employees
                     </div>
                   </div>

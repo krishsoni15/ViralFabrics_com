@@ -257,18 +257,18 @@ const InteractiveCard: React.FC<{
         </div>
       </div>
 
-      {/* 3. Card Content (Title, Distinct Proper Lines, Blue Underline) */}
-      <div className="flex-1 flex flex-col items-center pt-2.5 pb-6 px-3.5 sm:px-4 xl:px-5 text-center justify-between relative z-10">
-        <h3 className="font-heading text-[16px] sm:text-[17px] xl:text-[18px] 2xl:text-[19px] font-bold text-[#1E3A5F] tracking-tight mb-2.5 group-hover:text-[#1E5FA8] transition-colors">
+      {/* 3. Card Content (Title, Distinct Proper Lines, Blue Underline - Highly Legible & Enlarged) */}
+      <div className="flex-1 flex flex-col items-center pt-3 pb-7 px-4 sm:px-4.5 xl:px-5 text-center justify-between relative z-10">
+        <h3 className="font-heading text-[17px] sm:text-[18px] xl:text-[19px] 2xl:text-[20px] font-bold text-[#1E3A5F] tracking-tight mb-3 group-hover:text-[#1E5FA8] transition-colors">
           {step.title}
         </h3>
 
-        {/* Distinct Proper Lines (Not cut off, cleanly formatted) */}
-        <div className="flex-1 flex flex-col items-center justify-center gap-1 sm:gap-1.5 w-full my-auto">
+        {/* Distinct Proper Lines (Highly Legible & Bold/Medium Contrast) */}
+        <div className="flex-1 flex flex-col items-center justify-center gap-1.5 sm:gap-2 w-full my-auto">
           {step.items.map((line, lIdx) => (
             <p
               key={lIdx}
-              className="font-sans text-[11.5px] sm:text-[12px] xl:text-[12.5px] 2xl:text-[13px] text-slate-600 font-normal leading-[1.38] text-center transition-colors group-hover:text-slate-800"
+              className="font-sans text-[13px] sm:text-[13.5px] xl:text-[14px] 2xl:text-[14.5px] text-slate-700 font-medium leading-[1.5] text-center transition-colors group-hover:text-slate-900"
             >
               {line}
             </p>
@@ -276,7 +276,7 @@ const InteractiveCard: React.FC<{
         </div>
 
         {/* Centered Small Blue Accent Bar with Luminous Gradient */}
-        <div className="w-8 sm:w-10 h-[2.5px] bg-gradient-to-r from-[#1E5FA8] via-[#3B82F6] to-[#60A5FA] mx-auto mt-3.5 rounded-full transition-all duration-300 group-hover:w-16 shadow-[0_1px_6px_rgba(30,95,168,0.3)]" />
+        <div className="w-8 sm:w-10 h-[2.5px] bg-gradient-to-r from-[#1E5FA8] via-[#3B82F6] to-[#60A5FA] mx-auto mt-4 rounded-full transition-all duration-300 group-hover:w-16 shadow-[0_1px_6px_rgba(30,95,168,0.3)]" />
       </div>
 
       {/* 4. Sequential Pipeline Connector with Arrow to next card (Desktop) */}
@@ -475,19 +475,19 @@ export const QualityPracticesSection: React.FC = () => {
               
               {/* Eyebrow: OUR COMMITMENT — */}
               <div className="inline-flex items-center gap-3 text-[#1E5FA8] mb-2 sm:mb-3">
-                <span className="font-sans text-[11px] sm:text-[12px] xl:text-[13px] font-bold tracking-[0.24em] uppercase text-[#1E5FA8]">
+                <span className="font-sans text-[12px] sm:text-[13px] font-bold tracking-[0.28em] uppercase text-[#1E5FA8]">
                   OUR COMMITMENT
                 </span>
-                <span className="w-12 sm:w-16 h-[1.5px] bg-[#1E5FA8]/50 inline-block" />
+                <span className="w-12 sm:w-16 h-[2px] bg-[#1E5FA8]/50 inline-block" />
               </div>
 
               {/* Headline */}
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] 2xl:text-[50px] font-bold text-[#0F172A] leading-[1.14] tracking-tight mb-3">
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] 2xl:text-[52px] font-bold text-[#0F172A] leading-[1.12] tracking-tight mb-4">
                 Our <span className="italic font-normal text-[#1E5FA8]">Quality</span> Practices
               </h2>
 
-              {/* Complete Manifesto Description Copy */}
-              <p className="font-sans text-[13.5px] sm:text-[14px] xl:text-[14.5px] text-slate-700 font-normal leading-relaxed">
+              {/* Complete Manifesto Description Copy (Enlarged & Highly Legible) */}
+              <p className="font-sans text-[15.5px] sm:text-[16px] xl:text-[16.5px] text-slate-700 font-normal leading-[1.8] max-w-4xl">
                 Quality is the chief concern of our company. We invest all our resources to ensure that the Fabrics our valued clients procure from us match the highest quality standards. The entire manufacturing process is under strict supervision of experts who make sure that the Fabrics supplied to our customers are flawless.
               </p>
             </div>
