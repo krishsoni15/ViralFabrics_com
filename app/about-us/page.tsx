@@ -381,11 +381,11 @@ export default function AboutUsPage() {
           - Right: State-of-the-Art Manufacturing
           - Perfectly Balanced Vertical Spacing
          ================================================================= */}
-      <section className="relative w-full pt-6 sm:pt-8 lg:pt-10 pb-6 sm:pb-8 lg:pb-10 bg-[#FAF6F1] overflow-hidden">
+      <section className="relative w-full py-16 sm:py-24 lg:py-32 bg-white overflow-hidden">
         <div className="relative z-10 w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
           <EditorialBlock>
-            {/* Desktop Haute-Couture S-Curve Split Banner (hidden on mobile, block on lg+) */}
-            <div className="hidden lg:block relative w-full rounded-[28px] xl:rounded-[36px] overflow-hidden shadow-[0_20px_50px_rgba(10,25,47,0.25)] border border-[#1E3A5F]/40 bg-gradient-to-r from-[#07172B] via-[#0A2240] to-[#0D2E54] min-h-[420px] xl:min-h-[460px] 2xl:min-h-[500px]">
+            {/* Desktop Haute-Couture S-Curve Split Banner (hidden on mobile, flex on lg+) */}
+            <div className="hidden lg:flex items-center relative w-full rounded-[28px] xl:rounded-[36px] overflow-hidden shadow-[0_20px_50px_rgba(10,25,47,0.25)] border border-[#1E3A5F]/40 bg-gradient-to-r from-[#07172B] via-[#0A2240] to-[#0D2E54] min-h-[380px] xl:min-h-[420px]">
               
               {/* SVG Layer: Clipping mask for machine image + Metallic Golden Divider Stroke */}
               <svg className="absolute inset-0 w-full h-full pointer-events-none z-20" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
@@ -427,8 +427,8 @@ export default function AboutUsPage() {
                 <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-[#0A2240]/40 pointer-events-none" />
               </div>
 
-              {/* Right Side: Dark Navy Editorial Content (Enlarged & Highly Legible) */}
-              <div className="relative z-10 ml-[46%] xl:ml-[47%] w-[54%] xl:w-[53%] py-14 xl:py-18 pl-10 pr-12 xl:pl-16 xl:pr-18 flex flex-col justify-center text-white">
+              {/* Right Side: Dark Navy Editorial Content (Vertically Centered with Balanced Padding) */}
+              <div className="relative z-10 ml-[46%] xl:ml-[47%] w-[54%] xl:w-[53%] py-10 lg:py-12 xl:py-14 pl-10 pr-12 xl:pl-16 xl:pr-18 flex flex-col justify-center text-white my-auto">
                 
                 {/* Eyebrow: OUR CAPABILITIES in Golden */}
                 <div className="flex items-center gap-3 mb-3.5">
