@@ -433,12 +433,12 @@ function EnquiryForm() {
 
 export default function EnquiryPage() {
   return (
-    <main className="min-h-screen bg-[#FAF7F2]">
+    <main className="min-h-screen bg-[#FAF7F2] pt-[68px] sm:pt-[72px]">
       
       {/* =====================================================================
           1. TOP BANNER WITH FABRIC ROLLS & TRUST BADGES (Matching Reference)
          ===================================================================== */}
-      <section className="relative pt-24 sm:pt-28 lg:pt-30 pb-7 sm:pb-8 flex items-center overflow-hidden bg-[#0A192F]">
+      <section className="relative py-7 sm:py-9 lg:py-11 flex items-center overflow-hidden bg-[#0A192F]">
         
         {/* Banner Graphic: Stacked folded luxury fabrics on right, deep navy silk on left */}
         <div className="absolute inset-0 z-0">
@@ -450,9 +450,6 @@ export default function EnquiryPage() {
             className="object-cover object-center"
             priority
           />
-          {/* Top Scrim Gradient to ensure navbar items have 100% crystal contrast against the light folded rolls */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#061426]/90 via-[#061426]/40 to-transparent pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#061426]/35 pointer-events-none" />
         </div>
 
         {/* Content Aligned with Main Container */}
