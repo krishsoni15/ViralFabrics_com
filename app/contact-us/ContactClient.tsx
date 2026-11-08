@@ -188,7 +188,7 @@ export default function ContactClient() {
       <section
         id="contact-cards"
         ref={cardsSectionRef}
-        className="relative overflow-hidden py-16 sm:py-20 lg:py-24 bg-[#F8FAFD]"
+        className="relative z-10 overflow-hidden py-16 sm:py-20 lg:py-24 bg-[#F8FAFD] shadow-[0_-25px_60px_rgba(0,0,0,0.22)]"
       >
         {/* Authentic Light Luxury Silk Wave Fabric Canvas Background */}
         <div className="absolute inset-0 z-0 pointer-events-none select-none">

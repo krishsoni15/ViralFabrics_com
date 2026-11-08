@@ -71,7 +71,7 @@ export default function NetworkPage() {
       {/* ========================================================================= */}
       {/* GLOBAL NETWORK SHOWCASE - LUXURY SILK BACKGROUND & WORLD DISTRIBUTION MAP */}
       {/* ========================================================================= */}
-      <section ref={sectionRef} className="relative w-full overflow-hidden bg-[#FAF4F0] flex flex-col justify-between py-12 sm:py-16 lg:py-20">
+      <section ref={sectionRef} className="relative z-10 w-full overflow-hidden bg-[#FAF4F0] flex flex-col justify-between py-12 sm:py-16 lg:py-20 shadow-[0_-25px_60px_rgba(0,0,0,0.22)]">
         
         {/* Luxury Silk Fabric Canvas Background (High-res wave) */}
         <div className="absolute inset-0 pointer-events-none select-none z-0">

@@ -21,7 +21,6 @@ import {
   Home
 } from 'lucide-react';
 import gsap from 'gsap';
-import { PageHeroBanner } from '@/components/PageHeroBanner';
 
 // Fabric product categories
 const FABRIC_OPTIONS = [

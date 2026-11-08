@@ -50,6 +50,41 @@ export function PageHeroBanner({
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const badgesRef = useRef<HTMLDivElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
+  const heroMediaRef = useRef<HTMLDivElement>(null);
+
+  // Agnes Toth Stacking Scroll: Content dissolves, blurs, and background media drifts subtly (Zero React re-renders)
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const y = window.scrollY;
+          if (y <= 600) {
+            if (heroContentRef.current) {
+              const progress = Math.min(1, Math.max(0, y / 280));
+              const opacity = 1 - progress;
+              const blur = progress * 8;
+              const translateY = progress * 24;
+              heroContentRef.current.style.opacity = `${opacity}`;
+              heroContentRef.current.style.filter = blur > 0.1 ? `blur(${blur}px)` : 'none';
+              heroContentRef.current.style.transform = translateY > 0.1 ? `translate3d(0, ${translateY}px, 0)` : 'none';
+            }
+            if (heroMediaRef.current) {
+              const parallaxY = -y * 0.15;
+              heroMediaRef.current.style.transform = `translate3d(0, ${parallaxY}px, 0)`;
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Attempt video autoplay safely without throwing unhandled exceptions
   useEffect(() => {
@@ -165,13 +200,16 @@ export function PageHeroBanner({
   }, [title]);
 
   return (
-    <div ref={bannerRef} className="w-full">
+    <div ref={bannerRef} className="sticky top-0 z-0 w-full">
       {/* =====================================================================
-          1. TOP HERO BANNER (Luxurious Editorial Height with Agnes Toth Unblur Sweep)
+          1. TOP HERO BANNER (Sticky Stacking Banner with Agnes Toth Parallax & Dissolve)
          ===================================================================== */}
       <section className="relative pt-28 sm:pt-36 lg:pt-40 pb-12 sm:pb-16 lg:pb-20 min-h-[340px] sm:min-h-[390px] lg:min-h-[430px] flex items-center overflow-hidden bg-black">
         {/* Banner Graphic Canvas (Poster Image + Optional Smooth Streaming Background Video) */}
-        <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+        <div
+          ref={heroMediaRef}
+          className="absolute -top-[12%] inset-x-0 h-[124%] pointer-events-none select-none overflow-hidden will-change-transform"
+        >
           {/* Base Fallback Image (always loads fast with priority, visible before video is buffered) */}
           <Image
             src={bgVideoPoster || bgImage}
@@ -206,7 +244,10 @@ export function PageHeroBanner({
         </div>
 
         {/* Content Aligned with Main Container */}
-        <div className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div
+          ref={heroContentRef}
+          className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12 will-change-[transform,opacity,filter]"
+        >
           <div className="max-w-2xl text-white">
             {/* Pure Haute-Couture Title (Clean Minimalist Typography, No Blue Accent Bar) */}
             <div className="space-y-1.5 sm:space-y-2">

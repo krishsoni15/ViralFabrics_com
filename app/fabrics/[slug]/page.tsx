@@ -91,7 +91,7 @@ export default async function FabricDetailPage({
       />
 
       {/* 2. MAIN PRODUCT CONTENT */}
-      <section className="py-24 sm:py-32 bg-white relative">
+      <section className="relative z-10 py-24 sm:py-32 bg-white shadow-[0_-25px_60px_rgba(0,0,0,0.22)]">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             

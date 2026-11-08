@@ -32,7 +32,7 @@ export default async function FabricsPage() {
       />
 
       {/* 2. FABRICS CATALOG GRID */}
-      <section className="py-24 sm:py-32 bg-white relative">
+      <section className="relative z-10 py-24 sm:py-32 bg-white shadow-[0_-25px_60px_rgba(0,0,0,0.22)]">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 space-y-16">
           
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-200/80">
