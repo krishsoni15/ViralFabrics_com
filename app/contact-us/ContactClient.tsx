@@ -46,7 +46,6 @@ export default function ContactClient() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [cardsVisible, setCardsVisible] = useState(false);
 
-  const videoRef = useRef<HTMLVideoElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const heroMediaRef = useRef<HTMLDivElement>(null);
@@ -104,13 +103,9 @@ export default function ContactClient() {
     };
   }, []);
 
-  // Trigger luxury on-load unblur state and video playback
+  // Trigger luxury on-load unblur state
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 60);
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.85;
-      videoRef.current.play().catch(() => {});
-    }
     return () => clearTimeout(timer);
   }, []);
 
@@ -250,29 +245,24 @@ export default function ContactClient() {
       {/* =====================================================================
           1. TOP HERO BANNER WITH SCROLL DISSOLVE, PARALLAX & UNBLUR ANIMATION
          ===================================================================== */}
-      <section className="relative pt-28 sm:pt-32 lg:pt-36 pb-14 sm:pb-18 lg:pb-22 flex items-center overflow-hidden bg-[#0A192F] min-h-[420px] sm:min-h-[460px] lg:min-h-[500px]">
+      <section className="relative pt-24 sm:pt-28 lg:pt-30 pb-9 sm:pb-11 lg:pb-12 flex items-center overflow-hidden bg-[#0A192F] min-h-[290px] sm:min-h-[320px] lg:min-h-[340px]">
         
-        {/* Parallax Background Media Container (Moving Dark Blue Silk Video) */}
+        {/* Parallax Background Media Container (Static Editorial Image) */}
         <div
           ref={heroMediaRef}
           className="absolute -top-[12%] inset-x-0 h-[124%] z-0 will-change-transform overflow-hidden"
         >
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            poster="/craftsmanship-poster.jpg"
-            className="w-full h-full object-cover object-center scale-105"
-          >
-            <source src="/craftsmanship-atelier.mp4" type="video/mp4" />
-            <source src="/hero-video.mp4" type="video/mp4" />
-          </video>
+          <Image
+            src="/images/about/about-banner-models.webp"
+            alt="Viral Fabrics Sourcing & Consultation Desk"
+            fill
+            sizes="100vw"
+            className="object-cover object-center scale-105"
+            priority
+          />
           {/* Subtle Agnes Toth Luxury Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/30 to-black/55 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#061426]/90 via-[#061426]/60 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#061426]/90 via-[#061426]/60 to-[#061426]/75 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#061426]/95 via-[#061426]/75 to-[#061426]/35 pointer-events-none" />
         </div>
 
         {/* Hero Content with Scroll Dissolve & Directional Character Unblur Sweep */}
@@ -280,12 +270,12 @@ export default function ContactClient() {
           ref={heroContentRef}
           className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12 will-change-[transform,opacity,filter]"
         >
-          <div className="w-full text-white space-y-3.5 sm:space-y-4">
+          <div className="w-full text-white space-y-3 sm:space-y-3.5">
             
             {/* Agnes Eyebrow with Vertical Sapphire Accent Bar */}
             <div className="flex items-center gap-3">
-              <div className="w-[3.5px] sm:w-1 h-7 sm:h-8 bg-[#0084D1] rounded-full flex-shrink-0 shadow-[0_0_12px_rgba(0,132,209,0.85)]" />
-              <p className="font-sans text-[12px] sm:text-[13px] font-semibold tracking-[0.24em] uppercase text-white/95 drop-shadow-sm">
+              <div className="w-[3.5px] sm:w-1 h-6 sm:h-7 bg-[#0084D1] rounded-full flex-shrink-0 shadow-[0_0_12px_rgba(0,132,209,0.85)]" />
+              <p className="font-sans text-[11.5px] sm:text-[12.5px] font-semibold tracking-[0.24em] uppercase text-white/95 drop-shadow-sm">
                 Viral Fabrics &bull; <span className="text-[#64B5F6] font-normal normal-case italic">est. Surat, India</span>
               </p>
             </div>
@@ -293,7 +283,7 @@ export default function ContactClient() {
             {/* Statuesque Headline: Directional Unblur Character Sweep */}
             <h1
               ref={headlineRef}
-              className="font-heading font-serif text-3xl xs:text-4xl sm:text-5xl lg:text-[56px] font-normal text-white tracking-tight leading-[1.08] drop-shadow-[0_2px_14px_rgba(0,0,0,0.65)] select-none"
+              className="font-heading font-serif text-3xl xs:text-4xl sm:text-5xl lg:text-[52px] font-normal text-white tracking-tight leading-[1.08] drop-shadow-[0_2px_14px_rgba(0,0,0,0.65)] select-none"
             >
               {HEADLINE_WORDS.map((w, wIdx) => (
                 <span key={wIdx} className="inline-block whitespace-nowrap mr-[0.28em] last:mr-0">
@@ -309,33 +299,13 @@ export default function ContactClient() {
               ))}
             </h1>
 
-            {/* Subtitle & Angled Cut CTA in a clean minimal row below */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1 sm:pt-2">
-              <p className="font-sans text-sm sm:text-base lg:text-[17px] text-white/90 font-light leading-relaxed max-w-2xl drop-shadow-sm">
-                Manufacturer and Supplier of all types of Export Fabrics &bull; <span className="font-normal text-white">Direct Sourcing &amp; Mill Consultation Desk</span>
-              </p>
-
-              {/* Luxury Angled Outline Button matching Home page & Enquiry */}
-              <a
-                href="#contact-cards"
-                className="relative inline-flex items-center gap-2.5 h-10 sm:h-11 pl-6 pr-8 text-[11px] sm:text-[11.5px] font-medium tracking-[0.2em] uppercase text-white bg-white/[0.08] hover:bg-white/[0.18] backdrop-blur-[8px] transition-all duration-300 group cursor-pointer self-start sm:self-auto whitespace-nowrap overflow-hidden hover:-translate-y-0.5 active:translate-y-0"
-                style={{
-                  clipPath: 'polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%)',
-                }}
-              >
-                <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
-                  <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="rgba(255,255,255,0.75)" strokeWidth="1" />
-                  <line x1="100%" y1="0" x2="calc(100% - 14px)" y2="100%" stroke="rgba(255,255,255,0.75)" strokeWidth="1.2" />
-                  <line x1="calc(100% - 14px)" y1="calc(100% - 0.5px)" x2="0" y2="calc(100% - 0.5px)" stroke="rgba(255,255,255,0.75)" strokeWidth="1" />
-                  <line x1="0.5" y1="100%" x2="0.5" y2="0" stroke="rgba(255,255,255,0.75)" strokeWidth="1" />
-                </svg>
-                <span>CONNECT WITH MILL</span>
-                <ArrowRight className="w-3.5 h-3.5 text-white/80 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
+            {/* Subtitle Matching User Reference (No CTA Button) */}
+            <p className="font-sans text-sm sm:text-base lg:text-[16.5px] text-white/90 font-light leading-relaxed max-w-2xl drop-shadow-sm pt-0.5">
+              Manufacturer and Supplier of all types of Export Fabrics &bull; <span className="font-normal text-white">Direct Sourcing &amp; Mill Consultation Desk</span>
+            </p>
 
             {/* 3 Trust Badges with Dividers */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1 sm:pt-2 text-[11.5px] sm:text-[12.5px] font-sans font-medium text-white/90">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1 sm:pt-1.5 text-[11px] sm:text-[12px] font-sans font-medium text-white/90">
               <div className="flex items-center gap-1.5">
                 <Gauge className="w-3.5 h-3.5 text-white stroke-[2.2]" />
                 <span>Quick Response</span>
@@ -558,36 +528,65 @@ export default function ContactClient() {
                     CALL US
                   </h3>
 
-                  {/* Direct Click to Call or Copy */}
+                  {/* Direct Click to Call or WhatsApp */}
                   <div className="pt-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        handleCopy('phone', '91-9427988999');
-                        if (typeof window !== 'undefined') {
-                          window.location.href = `tel:${COMPANY_INFO.phoneTel}`;
-                        }
-                      }}
-                      className="group/phone inline-flex flex-col items-center cursor-pointer focus:outline-none p-2 rounded-xl hover:bg-white/70 transition-all border border-transparent hover:border-[#C6DCED]"
-                      title="Click to dial and copy"
-                    >
-                      <span className="font-sans text-[24px] sm:text-[26px] font-bold text-[#113259] group-hover/phone:text-[#1665C1] transition-colors tracking-wide">
-                        91-9427988999
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#1665C1] mt-1.5 opacity-80 group-hover/phone:opacity-100 transition-opacity">
-                        {copiedField === 'phone' ? (
-                          <>
-                            <Check className="w-3.5 h-3.5 text-emerald-600" />
-                            <span className="text-emerald-700">Copied to clipboard!</span>
-                          </>
-                        ) : (
-                          <>
-                            <Phone className="w-3 h-3" />
-                            <span>Click to Call &amp; Copy</span>
-                          </>
-                        )}
-                      </span>
-                    </button>
+                    <div className="inline-flex flex-col items-center p-2 rounded-xl hover:bg-white/70 transition-all border border-transparent hover:border-[#C6DCED]">
+                      <div className="flex items-center justify-center gap-2.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleCopy('phone', '91-9427988999');
+                            if (typeof window !== 'undefined') {
+                              window.location.href = `tel:${COMPANY_INFO.phoneTel}`;
+                            }
+                          }}
+                          className="font-sans text-[22px] sm:text-[25px] font-bold text-[#113259] hover:text-[#1665C1] transition-colors tracking-wide cursor-pointer focus:outline-none"
+                          title="Click to dial and copy"
+                        >
+                          91-9427988999
+                        </button>
+                        <a
+                          href="https://wa.me/919427988999?text=Hello%20Viral%20Fabrics%2C%20I%20would%20like%20to%20inquire%20about%20fabric%20sourcing."
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-8 h-8 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white flex items-center justify-center shadow-xs hover:scale-110 active:scale-95 transition-all duration-200"
+                          title="Chat directly on WhatsApp"
+                          aria-label="Chat directly on WhatsApp"
+                        >
+                          <MessageCircle className="w-4 h-4 fill-white" />
+                        </a>
+                      </div>
+
+                      <div className="flex items-center gap-2 mt-2">
+                        <button
+                          type="button"
+                          onClick={() => handleCopy('phone', '91-9427988999')}
+                          className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#1665C1] hover:text-[#0C2544] transition-colors cursor-pointer"
+                        >
+                          {copiedField === 'phone' ? (
+                            <>
+                              <Check className="w-3.5 h-3.5 text-emerald-600" />
+                              <span className="text-emerald-700">Copied!</span>
+                            </>
+                          ) : (
+                            <>
+                              <Phone className="w-3 h-3" />
+                              <span>Click to Call &amp; Copy</span>
+                            </>
+                          )}
+                        </button>
+                        <span className="text-slate-300 text-xs">&bull;</span>
+                        <a
+                          href="https://wa.me/919427988999"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] font-semibold text-[#25D366] hover:underline inline-flex items-center gap-1"
+                        >
+                          <span>WhatsApp</span>
+                          <ExternalLink className="w-2.5 h-2.5" />
+                        </a>
+                      </div>
+                    </div>
                   </div>
 
                   <p className="font-sans text-[13px] text-[#2C4A6F] leading-relaxed max-w-[280px] mx-auto pt-1">
@@ -766,8 +765,14 @@ export default function ContactClient() {
               
               {/* Floating Translucent Coordinates Pill (Top Left) */}
               <div className="absolute top-4 left-4 z-20 hidden sm:flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-md">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1665C1] to-[#113259] text-white flex items-center justify-center font-bold text-xs shadow-xs">
-                  VF
+                <div className="relative w-8 h-8 rounded-lg bg-[#F8FAFD] border border-[#D8E6F3] p-1 flex items-center justify-center shadow-xs">
+                  <Image
+                    src="/assets/brand/viral-mark.png"
+                    alt="Viral Fabrics Emblem"
+                    width={22}
+                    height={22}
+                    className="object-contain"
+                  />
                 </div>
                 <div>
                   <p className="font-sans text-xs font-bold text-[#113259] leading-tight">
@@ -909,58 +914,29 @@ export default function ContactClient() {
               <X className="w-4 h-4" />
             </button>
 
-            {/* Modal Title & Subtitle */}
-            <div className="space-y-1">
+            {/* Modal Title & Subtitle (Context-Aware to Clicked Card, No Cluttered Tabs) */}
+            <div className="space-y-1.5">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF2F8] text-[#1665C1] text-[11px] font-bold tracking-wider uppercase">
                 <Smartphone className="w-3.5 h-3.5" />
-                <span>Instant Mobile Connect</span>
+                <span>
+                  {activeQrModal === 'location' && 'Surat Mill Navigation'}
+                  {activeQrModal === 'phone' && 'Sales Desk & WhatsApp'}
+                  {activeQrModal === 'email' && 'Corporate Email Sourcing'}
+                </span>
               </div>
-              <h3 className="font-heading font-serif text-2xl font-bold text-[#113259] pt-1">
-                Scan With Phone Camera
+              <h3 className="font-heading font-serif text-2xl font-bold text-[#113259] pt-0.5">
+                {activeQrModal === 'location' && 'Scan For GPS Directions'}
+                {activeQrModal === 'phone' && 'Scan For WhatsApp & Direct Call'}
+                {activeQrModal === 'email' && 'Scan To Compose Sourcing Email'}
               </h3>
-              <p className="font-sans text-[12.5px] text-slate-500">
-                Point your phone camera to open directly on your mobile device.
+              <p className="font-sans text-[12.5px] text-slate-500 max-w-xs mx-auto">
+                {activeQrModal === 'location' && 'Point your phone camera to launch turn-by-turn navigation in Google Maps.'}
+                {activeQrModal === 'phone' && 'Point your phone camera to start a direct WhatsApp inquiry or dial sales.'}
+                {activeQrModal === 'email' && 'Point your phone camera to draft a sourcing email to viralfabrics@yahoo.com.'}
               </p>
             </div>
 
-            {/* Tab Switcher */}
-            <div className="flex rounded-xl bg-slate-100 p-1 text-[12px] font-semibold">
-              <button
-                type="button"
-                onClick={() => setActiveQrModal('location')}
-                className={`flex-1 py-2 rounded-lg transition-all cursor-pointer ${
-                  activeQrModal === 'location'
-                    ? 'bg-white text-[#113259] shadow-xs'
-                    : 'text-slate-600 hover:text-[#113259]'
-                }`}
-              >
-                📍 Surat Mill
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveQrModal('phone')}
-                className={`flex-1 py-2 rounded-lg transition-all cursor-pointer ${
-                  activeQrModal === 'phone'
-                    ? 'bg-white text-[#113259] shadow-xs'
-                    : 'text-slate-600 hover:text-[#113259]'
-                }`}
-              >
-                📞 Phone / WhatsApp
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveQrModal('email')}
-                className={`flex-1 py-2 rounded-lg transition-all cursor-pointer ${
-                  activeQrModal === 'email'
-                    ? 'bg-white text-[#113259] shadow-xs'
-                    : 'text-slate-600 hover:text-[#113259]'
-                }`}
-              >
-                ✉️ Email
-              </button>
-            </div>
-
-            {/* QR Code Graphic Frame */}
+            {/* QR Code Graphic Frame with Official Viral Fabrics Logo Seal */}
             <div className="relative mx-auto w-64 h-64 p-3.5 rounded-2xl bg-white border-2 border-[#D8E6F3] shadow-inner flex items-center justify-center">
               {qrUrls[activeQrModal] ? (
                 <div className="relative w-full h-full">
@@ -970,10 +946,16 @@ export default function ContactClient() {
                     fill
                     className="object-contain"
                   />
-                  {/* Central Branded Seal */}
+                  {/* Central Branded Seal with Official Emblem */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#1665C1] to-[#113259] text-white flex items-center justify-center font-bold text-xs shadow-md border-2 border-white">
-                      VF
+                    <div className="w-10 h-10 rounded-xl bg-white p-1.5 shadow-md border-2 border-[#1665C1]/30 flex items-center justify-center">
+                      <Image
+                        src="/assets/brand/viral-mark.png"
+                        alt="Viral Fabrics Emblem"
+                        width={26}
+                        height={26}
+                        className="object-contain"
+                      />
                     </div>
                   </div>
                 </div>
