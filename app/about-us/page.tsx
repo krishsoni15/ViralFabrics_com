@@ -28,6 +28,8 @@ import {
   Home,
   Gauge,
   Globe,
+  Palette,
+  Truck,
 } from 'lucide-react';
 import { QualityPracticesSection } from '@/components/QualityPracticesSection';
 import { PageHeroBanner } from '@/components/PageHeroBanner';
@@ -223,91 +225,135 @@ export default function AboutUsPage() {
                 </div>
               </div>
 
-              {/* Right: Editorial Story */}
+              {/* Right: Editorial Story matching Image 1 1:1 */}
               <div className="lg:col-span-7 space-y-4 sm:space-y-5">
                 <div className="flex items-center gap-3">
-                  <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-slate-700">
-                    OUR STORY
+                  <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-slate-500">
+                    ABOUT US
                   </span>
                   <div className="w-8 h-[1.5px] bg-[#9C5136]" />
                 </div>
 
-                <h2 className="font-heading text-3xl sm:text-4xl lg:text-[44px] font-light text-[#0F172A] leading-[1.14] tracking-tight">
-                  About <span className="text-[#9C5136] font-normal">Viral Fabrics</span>
+                <h2 className="font-heading text-3xl sm:text-4xl lg:text-[44px] font-normal text-[#0F172A] leading-[1.14] tracking-tight">
+                  Our Heritage, <span className="text-[#9C5136]">Our Fabrics</span>
                 </h2>
 
-                <div className="space-y-3.5 text-slate-700 font-sans text-[13.5px] sm:text-[14.5px] font-normal leading-[1.72]">
+                <div className="space-y-3.5 text-slate-600 font-sans text-[13.5px] sm:text-[14.5px] font-normal leading-[1.72]">
                   <p>
-                    VIRAL FABRICS was Established in 2012. Viral Fabrics has always been one of the most promising player in market of Manufacturers and Suppliers export quality of fabric. We have achieved several milestones under the expert guidance of Mr. Viral A Patel, Owner of the company. We facilitate our valued clients from our base in the beautiful city of SURAT, GUJARAT, INDIA. The turnover of the company is more than 10 crores.
-                  </p>
-
-                  <p>
-                    We are manufacturers and supplier all type of export fabrics. The exclusive assortment of fabrics offered by us includes Polyester Dyed and Printed Fabrics, Viscose Fabrics, Rayon Fabrics, Cotton Fabrics and Digital Printed Fabrics By Make to Order Base.
+                    Viral Fabrics was established in 2012 in Surat, Gujarat, with a vision to manufacture and supply high-quality fabrics to clients across India and global markets. With a strong focus on quality, consistency and customer trust, we have grown into a reliable export partner for a wide range of premium fabrics.
                   </p>
                 </div>
 
-                {/* Corporate Milestones Badges (Replacing redundant button with high-trust credentials) */}
-                <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-2">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-[#EAE0D5] text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
-                    <span className="w-2 h-2 rounded-full bg-[#9C5136]" />
-                    <span>Est. 2012 • Surat, Gujarat, India</span>
+                {/* 4 Distinct Rounded Pills matching Image 1 1:1 */}
+                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 pt-2">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
+                    <Calendar className="w-3.5 h-3.5 text-slate-500 stroke-[2.2]" />
+                    <span>Est. 2012</span>
                   </div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-[#EAE0D5] text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
-                    <span className="w-2 h-2 rounded-full bg-[#9C5136]" />
-                    <span>Turnover: ₹10+ Crores</span>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
+                    <MapPin className="w-3.5 h-3.5 text-slate-500 stroke-[2.2]" />
+                    <span>Surat, Gujarat, India</span>
                   </div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-[#EAE0D5] text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
-                    <span className="w-2 h-2 rounded-full bg-[#9C5136]" />
-                    <span>Make-to-Order Export Weaves</span>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
+                    <Layers className="w-3.5 h-3.5 text-slate-500 stroke-[2.2]" />
+                    <span>10+ Fabric Categories</span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 text-[11.5px] sm:text-[12px] font-medium text-slate-700 shadow-xs">
+                    <Globe className="w-3.5 h-3.5 text-slate-500 stroke-[2.2]" />
+                    <span>Global Export</span>
                   </div>
                 </div>
               </div>
 
             </div>
 
-            {/* Lower Row: Vision & Mission Haute-Couture Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 pt-10 sm:pt-12 border-t border-[#E6D8CC] mt-8 sm:mt-10">
+            {/* Lower Row: Vision & Mission Haute-Couture Cards with subtle silk wave watermarks */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 pt-8 sm:pt-10">
               
               {/* Our Vision Card */}
-              <div className="relative p-6 sm:p-8 rounded-[22px] bg-white/80 backdrop-blur-md border border-[#EAE0D5] shadow-[0_8px_24px_rgba(156,81,54,0.06)] hover:shadow-[0_14px_34px_rgba(156,81,54,0.10)] transition-all duration-300 flex flex-col justify-between group">
-                <div className="space-y-3.5">
+              <div className="relative p-6 sm:p-7 rounded-[22px] bg-white border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col justify-between group hover:shadow-[0_8px_30px_rgba(30,95,168,0.08)] transition-all duration-300">
+                {/* Subtle soft cool-blue wave watermark in bottom-right corner (1:1 Image 1) */}
+                <div className="absolute -bottom-8 -right-8 w-44 h-44 bg-[radial-gradient(circle_at_bottom_right,rgba(30,95,168,0.14)_0%,transparent_70%)] pointer-events-none rounded-full" />
+                <svg
+                  className="absolute -bottom-2 -right-2 w-36 h-28 pointer-events-none opacity-30 text-[#1E5FA8]"
+                  viewBox="0 0 200 120"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M0,100 C60,40 120,120 200,60 L200,120 L0,120 Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M30,110 C90,65 140,110 200,75"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="none"
+                    opacity="0.6"
+                  />
+                </svg>
+
+                <div className="relative z-10 space-y-3">
                   <div className="flex items-center gap-3.5">
-                    <div className="w-11 h-11 rounded-xl bg-[#F4E5D8] border border-[#E8D3C2] flex items-center justify-center shrink-0 shadow-xs text-[#8C4B28] group-hover:scale-105 transition-transform">
-                      <Compass className="w-5 h-5 stroke-[2]" />
+                    <div className="w-11 h-11 rounded-full bg-[#EBF3FC] border border-[#D0E2F7] flex items-center justify-center shrink-0 shadow-xs text-[#1665C1] group-hover:scale-105 transition-transform">
+                      <Target className="w-5 h-5 stroke-[2.2]" />
                     </div>
                     <div>
-                      <span className="font-sans text-[10.5px] font-bold tracking-[0.22em] uppercase text-[#9C5136] block">
-                        OUR DIRECTION
+                      <span className="font-sans text-[10.5px] font-bold tracking-[0.22em] uppercase text-slate-500 block">
+                        OUR VISION
                       </span>
                       <h3 className="font-heading text-2xl font-normal text-[#0F172A] tracking-tight">
                         Our Vision
                       </h3>
                     </div>
                   </div>
-                  <p className="font-sans text-[13.5px] sm:text-[14px] text-slate-700 leading-relaxed font-normal">
-                    Successfully delivering High quality fabrics for new and repeat clients.
+                  <p className="font-sans text-[13.5px] sm:text-[14px] text-slate-600 leading-relaxed font-normal pt-1">
+                    To be a globally trusted textile manufacturer known for quality, innovation and long-term partnerships.
                   </p>
                 </div>
               </div>
 
               {/* Our Mission Card */}
-              <div className="relative p-6 sm:p-8 rounded-[22px] bg-white/80 backdrop-blur-md border border-[#EAE0D5] shadow-[0_8px_24px_rgba(156,81,54,0.06)] hover:shadow-[0_14px_34px_rgba(156,81,54,0.10)] transition-all duration-300 flex flex-col justify-between group">
-                <div className="space-y-3.5">
+              <div className="relative p-6 sm:p-7 rounded-[22px] bg-white border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col justify-between group hover:shadow-[0_8px_30px_rgba(184,98,66,0.08)] transition-all duration-300">
+                {/* Subtle soft copper/terracotta wave watermark in bottom-right corner (1:1 Image 1) */}
+                <div className="absolute -bottom-8 -right-8 w-44 h-44 bg-[radial-gradient(circle_at_bottom_right,rgba(184,98,66,0.14)_0%,transparent_70%)] pointer-events-none rounded-full" />
+                <svg
+                  className="absolute -bottom-2 -right-2 w-36 h-28 pointer-events-none opacity-30 text-[#B86242]"
+                  viewBox="0 0 200 120"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M0,100 C60,40 120,120 200,60 L200,120 L0,120 Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M30,110 C90,65 140,110 200,75"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="none"
+                    opacity="0.6"
+                  />
+                </svg>
+
+                <div className="relative z-10 space-y-3">
                   <div className="flex items-center gap-3.5">
-                    <div className="w-11 h-11 rounded-xl bg-[#F4E5D8] border border-[#E8D3C2] flex items-center justify-center shrink-0 shadow-xs text-[#8C4B28] group-hover:scale-105 transition-transform">
-                      <Target className="w-5 h-5 stroke-[2]" />
+                    <div className="w-11 h-11 rounded-full bg-[#FDF2EC] border border-[#F5D5C3] flex items-center justify-center shrink-0 shadow-xs text-[#B86242] group-hover:scale-105 transition-transform">
+                      <Layers className="w-5 h-5 stroke-[2.2]" />
                     </div>
                     <div>
-                      <span className="font-sans text-[10.5px] font-bold tracking-[0.22em] uppercase text-[#9C5136] block">
-                        OUR PURPOSE
+                      <span className="font-sans text-[10.5px] font-bold tracking-[0.22em] uppercase text-slate-500 block">
+                        OUR MISSION
                       </span>
                       <h3 className="font-heading text-2xl font-normal text-[#0F172A] tracking-tight">
                         Our Mission
                       </h3>
                     </div>
                   </div>
-                  <p className="font-sans text-[13.5px] sm:text-[14px] text-slate-700 leading-relaxed font-normal">
-                    The company has been maintaining a pacesetter for the future time. Company’s main concentration is totally on the international and Indian clients. Company’s aim is to achieve the goal of the nation and by taking our country to one of the most subsidized and industrialized zone in the 21st century.
+                  <p className="font-sans text-[13.5px] sm:text-[14px] text-slate-600 leading-relaxed font-normal pt-1">
+                    To deliver premium, durable and diverse fabrics with consistent quality, advanced manufacturing and a customer-first approach.
                   </p>
                 </div>
               </div>
@@ -318,191 +364,284 @@ export default function AboutUsPage() {
       </section>
 
       {/* =================================================================
-          2B. OUR CAPABILITIES: INFRASTRUCTURE (FULL-BLEED HAUTE-COUTURE S-CURVE BANNER)
-          - Edge-to-edge 100% full-bleed mocha canvas with zero left/top white margins
-          - Left: Water-Jet Loom Machinery photo (contained to left 42% with organic S-curve)
-          - Divider: Graceful organic S-wave with Champagne Gold hairline stroke (#D8B388)
-          - Right: Dark Chocolate Mocha panel (#3E2420) with wide 120px+ luxury breathing cushion (Zero Collision)
-          - Eyebrow: OUR CAPABILITIES with gold rule
-          - Factory Architectural Line Icon + "Infrastructure" Headline
-          - Clean editorial narrative with capacity highlights
+          2B. OUR CAPABILITIES: STATE-OF-THE-ART MANUFACTURING (1:1 IMAGE 1)
+          - Deep Midnight Navy Card with S-Curve Divider & Cyan Hairline
+          - Left: Water-Jet Loom Machinery with Purple Fabric Roll
+          - Right: State-of-the-Art Manufacturing with Explore Facility Pill Button
          ================================================================= */}
-      <section className="relative w-full bg-[#3E2420] overflow-hidden">
-        <EditorialBlock>
-          {/* Desktop Haute-Couture S-Curve Split Banner (hidden on mobile, block on lg+) */}
-          <div className="hidden lg:block relative w-full overflow-hidden bg-[#3E2420] min-h-[400px] xl:min-h-[440px] 2xl:min-h-[470px] flex items-center">
-            
-            {/* Left Side: Water-Jet Weaving Machinery (contained to left 43% with synchronized S-wave & Gold Stroke) */}
-            <div className="absolute inset-y-0 left-0 w-[43%] xl:w-[41%] 2xl:w-[39%] overflow-hidden z-10">
-              {/* Synchronized Clipping Mask & Champagne Gold Divider Stroke */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none z-20" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <section className="relative w-full py-8 sm:py-12 lg:py-14 bg-[#FAF6F1] overflow-hidden">
+        <div className="w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
+          <EditorialBlock>
+            {/* Desktop Haute-Couture S-Curve Split Banner (hidden on mobile, block on lg+) */}
+            <div className="hidden lg:block relative w-full rounded-[28px] xl:rounded-[36px] overflow-hidden shadow-[0_16px_44px_rgba(10,25,47,0.22)] border border-[#1E3A5F]/40 bg-gradient-to-r from-[#07172B] via-[#0A2240] to-[#0D2E54] min-h-[360px] xl:min-h-[390px]">
+              
+              {/* SVG Layer: Clipping mask for machine image + Cyan/Ice Blue Divider Stroke */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none z-20" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
                 <defs>
                   <clipPath id="infraLoomClip" clipPathUnits="objectBoundingBox">
-                    <path d="M 0 0 L 1 0 C 0.88 0.15, 0.90 0.75, 0.76 1 L 0 1 Z" />
+                    <path d="M 0 0 L 0.945 0 C 0.836 0.08, 0.818 0.80, 0.718 1 L 0 1 Z" />
                   </clipPath>
                 </defs>
-                {/* Champagne Gold Hairline Accent Stroke along the S-wave */}
+                {/* Cyan/Ice Blue Hairline Accent Stroke along the S-wave */}
                 <path
-                  d="M 100,0 C 88,15 90,75 76,100"
+                  d="M 520,0 C 460,40 450,400 395,500"
                   fill="none"
-                  stroke="#D8B388"
-                  strokeWidth="2"
-                  vectorEffect="non-scaling-stroke"
+                  stroke="#38BDF8"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  opacity="0.85"
                 />
               </svg>
 
+              {/* Left Side: Water-Jet Weaving Machinery (clipped to organic S-curve) */}
               <div
-                className="w-full h-full overflow-hidden"
+                className="absolute inset-y-0 left-0 w-[55%] overflow-hidden z-10"
                 style={{ clipPath: 'url(#infraLoomClip)', WebkitClipPath: 'url(#infraLoomClip)' }}
               >
                 <Image
                   src="/images/about/water-jet-loom.jpg"
                   alt="Viral Fabrics High Speed Water-Jet Weaving Machinery with Purple Fabric Roll"
                   fill
-                  sizes="(max-width: 1024px) 100vw, 45vw"
+                  sizes="(max-width: 1024px) 100vw, 55vw"
                   className="object-cover object-center"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/30 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-[#0A2240]/40 pointer-events-none" />
               </div>
-            </div>
 
-            {/* Right Side: Dark Mocha Editorial Content Aligned With Site Container (Spacious cushion, Zero Collision) */}
-            <div className="relative z-10 w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14 flex justify-end">
-              <div className="w-[56%] xl:w-[55%] 2xl:w-[53%] py-12 sm:py-14 xl:py-18 pl-10 sm:pl-14 lg:pl-16 xl:pl-20 text-white space-y-5">
+              {/* Right Side: Dark Navy Editorial Content */}
+              <div className="relative z-10 ml-[46%] xl:ml-[47%] w-[54%] xl:w-[53%] py-12 xl:py-16 pl-8 pr-10 xl:pl-12 xl:pr-14 flex flex-col justify-center text-white">
                 
-                {/* Eyebrow: OUR CAPABILITIES — */}
-                <div className="flex items-center gap-3">
-                  <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.26em] uppercase text-[#E2B892]">
+                {/* Eyebrow: OUR CAPABILITIES */}
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-[#38BDF8]">
                     OUR CAPABILITIES
                   </span>
-                  <div className="w-10 h-[1.5px] bg-[#E2B892]/80" />
                 </div>
 
-                {/* Headline Row: Factory Architectural Icon + Infrastructure */}
-                <div className="flex items-center gap-3.5 sm:gap-4">
-                  <div className="p-2 sm:p-2.5 rounded-lg bg-white/[0.06] border border-white/10 shrink-0">
-                    <svg
-                      width="32"
-                      height="32"
-                      viewBox="0 0 48 48"
-                      fill="none"
-                      stroke="#E2B892"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="shrink-0 drop-shadow-sm"
-                      aria-hidden="true"
-                    >
-                      <path d="M 4 42 H 44" />
-                      <path d="M 6 42 V 22 L 17 28 V 22 L 28 28 V 12 H 38 V 42" />
-                      <path d="M 27 12 H 39" />
-                      <path d="M 11 42 V 33 H 16 V 42" />
-                      <path d="M 20 42 V 33 H 25 V 42" />
-                      <path d="M 29 42 V 33 H 34 V 42" />
-                      <path d="M 32 8 C 30 6 36 4 34 2" />
-                      <path d="M 35 9 C 34 7 40 5 38 3" />
-                    </svg>
-                  </div>
-                  <h2 className="font-heading font-serif text-3xl sm:text-4xl xl:text-[44px] font-normal text-white tracking-tight leading-tight">
-                    Infrastructure
-                  </h2>
-                </div>
+                {/* Headline: State-of-the-Art Manufacturing */}
+                <h2 className="font-heading font-serif text-3xl xl:text-4xl 2xl:text-[42px] font-normal text-white tracking-tight mb-4 leading-tight">
+                  State-of-the-Art Manufacturing
+                </h2>
 
                 {/* Editorial Narrative */}
-                <p className="font-sans text-[14.5px] sm:text-[15px] xl:text-[16px] text-[#F1E6DE]/90 leading-[1.8] font-light max-w-xl">
-                  We own a well-developed manufacturing unit. It is fully equipped with the latest and automatic high speed machinery. In Polyester Fabrics We have our Own Unit High Speed Water-jet Machine having Production of 6 Lac Meter Per Month.
+                <p className="font-sans text-[14px] xl:text-[15px] text-slate-300 leading-[1.75] font-light max-w-xl mb-6">
+                  Modern weaving, processing and quality control systems that ensure consistent, high-grade fabrics for domestic and international markets.
                 </p>
 
-                {/* Infrastructure Highlights Pill Row */}
-                <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-2">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[12px] sm:text-[12.5px] font-sans font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#E2B892]" />
-                    <span>Automatic Water-Jet Machinery</span>
-                  </div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[12px] sm:text-[12.5px] font-sans font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#E2B892]" />
-                    <span>6 Lac Meters / Month Capacity</span>
-                  </div>
+                {/* Explore Our Facility Pill Button */}
+                <div>
+                  <a
+                    href="#quality"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/25 hover:border-white/50 bg-white/[0.08] hover:bg-white/[0.16] text-white text-[12.5px] font-medium tracking-wide transition-all group"
+                  >
+                    <span>Explore Our Facility</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-white/80 group-hover:translate-x-1 transition-transform" />
+                  </a>
                 </div>
-
               </div>
+
             </div>
 
-          </div>
+            {/* Mobile / Tablet Responsive Layout (visible below lg, hidden on lg+) */}
+            <div className="block lg:hidden relative w-full rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-[0_12px_36px_rgba(10,25,47,0.2)] border border-[#1E3A5F]/40 bg-gradient-to-br from-[#07172B] via-[#0A2240] to-[#0D2E54]">
+              
+              {/* Machine Image on Mobile */}
+              <div className="relative w-full h-[220px] sm:h-[280px]">
+                <Image
+                  src="/images/about/water-jet-loom.jpg"
+                  alt="Viral Fabrics High Speed Water-Jet Weaving Machinery with Purple Fabric Roll"
+                  fill
+                  sizes="100vw"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A2240] via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 inset-x-0 h-[2px] bg-[#38BDF8]" />
+              </div>
 
-          {/* Mobile / Tablet Responsive Layout (visible below lg, hidden on lg+) */}
-          <div className="block lg:hidden relative w-full overflow-hidden bg-[#3E2420]">
-            
-            {/* Machine Image on Mobile */}
-            <div className="relative w-full h-[240px] sm:h-[300px]">
-              <Image
-                src="/images/about/water-jet-loom.jpg"
-                alt="Viral Fabrics High Speed Water-Jet Weaving Machinery with Purple Fabric Roll"
-                fill
-                sizes="100vw"
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#3E2420] via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-0 inset-x-0 h-[2px] bg-[#D8B388]" />
-            </div>
-
-            {/* Mocha Content Area on Mobile */}
-            <div className="p-6 sm:p-8 text-white space-y-4 max-w-xl mx-auto">
-              <div className="flex items-center gap-3">
-                <span className="font-sans text-[11px] font-bold tracking-[0.24em] uppercase text-[#E2B892]">
+              {/* Dark Navy Content Area on Mobile */}
+              <div className="p-6 sm:p-8 text-white space-y-4">
+                <span className="font-sans text-[11px] font-bold tracking-[0.24em] uppercase text-[#38BDF8] block">
                   OUR CAPABILITIES
                 </span>
-                <div className="w-8 h-[1.5px] bg-[#E2B892]" />
-              </div>
 
-              <div className="flex items-center gap-3">
-                <div className="p-1.5 rounded-md bg-white/[0.06] border border-white/10 shrink-0">
-                  <svg
-                    width="28"
-                    height="28"
-                    viewBox="0 0 48 48"
-                    fill="none"
-                    stroke="#E2B892"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="shrink-0"
-                    aria-hidden="true"
-                  >
-                    <path d="M 4 42 H 44" />
-                    <path d="M 6 42 V 22 L 17 28 V 22 L 28 28 V 12 H 38 V 42" />
-                    <path d="M 27 12 H 39" />
-                    <path d="M 11 42 V 33 H 16 V 42" />
-                    <path d="M 20 42 V 33 H 25 V 42" />
-                    <path d="M 29 42 V 33 H 34 V 42" />
-                    <path d="M 32 8 C 30 6 36 4 34 2" />
-                    <path d="M 35 9 C 34 7 40 5 38 3" />
-                  </svg>
-                </div>
-                <h2 className="font-heading font-serif text-2xl sm:text-3xl font-normal text-white tracking-tight">
-                  Infrastructure
+                <h2 className="font-heading font-serif text-2xl sm:text-3xl font-normal text-white tracking-tight leading-tight">
+                  State-of-the-Art Manufacturing
                 </h2>
+
+                <p className="font-sans text-[13.5px] sm:text-[14.5px] text-slate-300 leading-[1.72] font-light">
+                  Modern weaving, processing and quality control systems that ensure consistent, high-grade fabrics for domestic and international markets.
+                </p>
+
+                <div className="pt-2">
+                  <a
+                    href="#quality"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/25 hover:border-white/50 bg-white/[0.08] hover:bg-white/[0.16] text-white text-[12.5px] font-medium tracking-wide transition-all group"
+                  >
+                    <span>Explore Our Facility</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-white/80 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
               </div>
 
-              <p className="font-sans text-[13.5px] sm:text-[14.5px] text-[#F1E6DE] leading-[1.75] font-light">
-                We own a well-developed manufacturing unit. It is fully equipped with the latest and automatic high speed machinery. In Polyester Fabrics We have our Own Unit High Speed Water-jet Machine having Production of 6 Lac Meter Per Month.
-              </p>
+            </div>
+          </EditorialBlock>
+        </div>
+      </section>
 
-              <div className="flex flex-wrap items-center gap-2 pt-1">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[11px] font-sans font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E2B892]" />
-                  <span>Automatic Water-Jet Machinery</span>
-                </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] border border-white/10 text-white/90 text-[11px] font-sans font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E2B892]" />
-                  <span>6 Lac Meters / Month</span>
-                </div>
-              </div>
+      {/* =================================================================
+          2C. OUR PROCESS + LUXURY STATS COUNTER BAR (1:1 IMAGE 1 & IMAGE 2)
+          - Header: OUR PROCESS
+          - 5 Process Step Cards with icons and clean descriptions
+          - Dark Navy Stats Counter Bar (Image 2)
+            12+ Years of Experience | 50+ Fabric Varieties | 500+ Happy Clients | 10+ Export Countries
+         ================================================================= */}
+      <section className="relative w-full py-8 sm:py-12 lg:py-16 bg-[#FAF6F1] overflow-hidden">
+        <div className="w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14 space-y-10 sm:space-y-12">
+          
+          <EditorialBlock>
+            {/* Header: OUR PROCESS */}
+            <div className="text-center max-w-2xl mx-auto space-y-2 mb-8 sm:mb-10">
+              <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-slate-500 block">
+                OUR PROCESS
+              </span>
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-[42px] font-normal text-[#0F172A] tracking-tight">
+                From Raw Yarn to Finished Fabric
+              </h2>
             </div>
 
-          </div>
-        </EditorialBlock>
+            {/* 5 Workflow Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 items-stretch">
+              {[
+                {
+                  step: '01',
+                  title: 'Yarn Sourcing',
+                  desc: 'High-grade virgin & recycled filaments procured from trusted suppliers.',
+                  icon: Sparkles,
+                },
+                {
+                  step: '02',
+                  title: 'Precision Weaving',
+                  desc: 'High-speed automated water-jet looms and advanced machinery.',
+                  icon: Factory,
+                },
+                {
+                  step: '03',
+                  title: 'Dyeing & Printing',
+                  desc: 'Vibrant coloration, digital prints & eco-friendly processing.',
+                  icon: Palette,
+                },
+                {
+                  step: '04',
+                  title: 'Quality Audit',
+                  desc: 'Multi-stage inspection for thread count, strength, color and finish.',
+                  icon: ShieldCheck,
+                },
+                {
+                  step: '05',
+                  title: 'Packaging & Export',
+                  desc: 'Export-grade tamper-proof wrapping, warehousing and global delivery.',
+                  icon: Truck,
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.step}
+                    className="relative p-5 sm:p-6 rounded-[20px] bg-white border border-slate-200/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(30,95,168,0.08)] transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="w-10 h-10 rounded-xl bg-[#FAF6F1] border border-[#EAE0D5] flex items-center justify-center text-[#1665C1] group-hover:scale-105 transition-transform">
+                          <Icon className="w-5 h-5 stroke-[2]" />
+                        </div>
+                        <span className="font-mono text-[11px] font-bold text-slate-400">
+                          {item.step}
+                        </span>
+                      </div>
+                      <h3 className="font-heading text-lg font-medium text-[#0F172A] tracking-tight">
+                        {item.title}
+                      </h3>
+                      <p className="font-sans text-[12.5px] sm:text-[13px] text-slate-600 leading-relaxed font-normal">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </EditorialBlock>
+
+          {/* THE DARK NAVY STATS COUNTER BAR (EXACT 1:1 REPLICA OF IMAGE 2) */}
+          <EditorialBlock delay={150}>
+            <div className="relative w-full rounded-2xl sm:rounded-[22px] bg-gradient-to-r from-[#0B1F38] via-[#0E2849] to-[#0B1F38] border border-white/10 shadow-[0_16px_40px_rgba(10,25,47,0.18)] py-6 sm:py-7 px-6 sm:px-10 lg:px-12">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-white/15 items-center">
+                
+                {/* 1. 12+ Years of Experience */}
+                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
+                    <Factory className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <div className="font-serif text-2xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-none">
+                      12+
+                    </div>
+                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
+                      Years of Experience
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. 50+ Fabric Varieties */}
+                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
+                    <Layers className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <div className="font-serif text-2xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-none">
+                      50+
+                    </div>
+                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
+                      Fabric Varieties
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. 500+ Happy Clients */}
+                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
+                    <Users className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <div className="font-serif text-2xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-none">
+                      500+
+                    </div>
+                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
+                      Happy Clients
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. 10+ Export Countries */}
+                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 text-white/85">
+                    <Globe className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <div className="font-serif text-2xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-none">
+                      10+
+                    </div>
+                    <div className="font-sans text-[12px] sm:text-[12.5px] text-slate-300 font-normal tracking-wide pt-1">
+                      Export Countries
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </EditorialBlock>
+
+        </div>
       </section>
 
       {/* =================================================================
@@ -552,27 +691,27 @@ export default function AboutUsPage() {
                 
                 {/* Eyebrow: OUR PEOPLE — */}
                 <div className="flex items-center gap-3">
-                  <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-[#8C4B28]">
+                  <span className="font-sans text-[11px] sm:text-[12px] font-bold tracking-[0.24em] uppercase text-[#1E5FA8]">
                     OUR PEOPLE
                   </span>
-                  <div className="w-10 sm:w-14 h-[1.5px] bg-[#8C4B28]/40" />
+                  <div className="w-10 sm:w-14 h-[1.5px] bg-[#1E5FA8]/40" />
                 </div>
 
-                {/* Headline: Our Team in rich bronze/mocha serif */}
-                <h2 className="font-heading text-3xl sm:text-4xl lg:text-[46px] font-normal text-[#2E1F1A] leading-[1.12] tracking-tight">
-                  Our <span className="text-[#8C4B28] font-normal italic">Team</span>
+                {/* Headline: Our Team in rich royal navy serif */}
+                <h2 className="font-heading text-3xl sm:text-4xl lg:text-[46px] font-normal text-[#0F172A] leading-[1.12] tracking-tight">
+                  Our <span className="text-[#1E5FA8] font-normal italic">Team</span>
                 </h2>
 
                 {/* Authentic Client Manifesto Copy */}
-                <p className="font-sans text-[13.5px] sm:text-[14.5px] text-[#5C4D44] font-normal leading-[1.72] max-w-xl">
+                <p className="font-sans text-[13.5px] sm:text-[14.5px] text-slate-600 font-normal leading-[1.72] max-w-xl">
                   We have a dedicated team of well-qualified professionals and skilled workers. All the employees of our company are very hard working and stand by the company’s vision of attaining complete client satisfaction. Moreover, we work in close coordination with our clients to ensure that they get what they expect.
                 </p>
 
-                {/* Action Button */}
+                {/* Action Button in dark luxury navy */}
                 <div className="pt-2 sm:pt-3">
                   <Link
                     href="/contact-us"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 sm:px-7 sm:py-3 rounded-lg text-[12.5px] font-medium tracking-wide text-white bg-[#7A3E20] hover:bg-[#663217] transition-all duration-300 shadow-[0_2px_8px_rgba(122,62,32,0.25)] hover:shadow-[0_4px_14px_rgba(122,62,32,0.35)] hover:-translate-y-0.5 group"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 sm:px-7 sm:py-3 rounded-lg text-[12.5px] font-medium tracking-wide text-white bg-[#0E2A47] hover:bg-[#163B66] transition-all duration-300 shadow-[0_2px_10px_rgba(14,42,71,0.25)] hover:shadow-[0_4px_16px_rgba(14,42,71,0.35)] hover:-translate-y-0.5 group"
                   >
                     <span>Connect With Our Team</span>
                     <ArrowUpRight className="w-4 h-4 stroke-[2.2] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
