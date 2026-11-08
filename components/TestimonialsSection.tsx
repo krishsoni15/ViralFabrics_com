@@ -267,7 +267,7 @@ export const TestimonialsSection: React.FC = () => {
       id="testimonials"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className="relative z-30 w-full py-10 sm:py-12 lg:py-14 bg-white overflow-hidden shadow-[0_-25px_60px_rgba(15,23,42,0.14)] selection:bg-[#1E5FA8] selection:text-white"
+      className="relative w-full py-10 sm:py-12 lg:py-14 bg-white overflow-hidden selection:bg-[#1E5FA8] selection:text-white"
     >
       {/* =========================================================
           EXACT USER BACKGROUND: Minimal Blue Fabric Waves Canvas

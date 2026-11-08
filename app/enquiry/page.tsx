@@ -61,15 +61,55 @@ declare global {
   }
 }
 
+// Helper to find best matching fabric option from URL query params
+function matchFabricOption(param: string): string {
+  if (!param) return '';
+  const pLower = param.toLowerCase().trim();
+
+  // Exact match
+  const exact = FABRIC_OPTIONS.find((opt) => opt.toLowerCase() === pLower);
+  if (exact) return exact;
+
+  // Key fabric identifiers
+  const keywords = [
+    'dobby',
+    'crepe',
+    'bsy',
+    'recycled',
+    'satin',
+    'chiffon',
+    'georgette',
+    'viscose',
+    'knit',
+    'mesh',
+    'custom',
+  ];
+  for (const kw of keywords) {
+    if (pLower.includes(kw)) {
+      const matched = FABRIC_OPTIONS.find((opt) => opt.toLowerCase().includes(kw));
+      if (matched) return matched;
+    }
+  }
+
+  // Fallback includes
+  const fallback = FABRIC_OPTIONS.find(
+    (opt) => opt.toLowerCase().includes(pLower) || pLower.includes(opt.toLowerCase())
+  );
+  return fallback || param;
+}
+
 function EnquiryForm() {
   const searchParams = useSearchParams();
-  const initialProduct = searchParams ? searchParams.get('product') || '' : '';
+  const initialProductParam = searchParams
+    ? searchParams.get('product') || searchParams.get('fabric') || ''
+    : '';
+  const matchedInitial = matchFabricOption(initialProductParam);
 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    product: '',
+    product: matchedInitial,
     message: ''
   });
 
@@ -83,15 +123,13 @@ function EnquiryForm() {
   const widgetIdRef = useRef<number | null>(null);
   const recaptchaContainerRef = useRef<HTMLDivElement | null>(null);
 
-  // Auto-fill product from URL query params
+  // Auto-fill product if query param updates dynamically
   useEffect(() => {
-    if (initialProduct) {
-      const matched =
-        FABRIC_OPTIONS.find((opt) => opt.toLowerCase().includes(initialProduct.toLowerCase())) ||
-        initialProduct;
+    if (initialProductParam) {
+      const matched = matchFabricOption(initialProductParam);
       setFormData((prev) => ({ ...prev, product: matched }));
     }
-  }, [initialProduct]);
+  }, [initialProductParam]);
 
   // Google reCAPTCHA v2 initialization
   // Only activate real Google widget on production domain or when configured
@@ -316,6 +354,7 @@ function EnquiryForm() {
           <div className="relative">
             <Layers className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <select
+              name="product"
               required
               value={formData.product}
               onChange={(e) => setFormData({ ...formData, product: e.target.value })}
@@ -324,6 +363,11 @@ function EnquiryForm() {
               <option value="" disabled className="text-slate-400">
                 Select Product Enquiry
               </option>
+              {formData.product && !FABRIC_OPTIONS.includes(formData.product) && (
+                <option value={formData.product} className="text-slate-800 py-1.5">
+                  {formData.product}
+                </option>
+              )}
               {FABRIC_OPTIONS.map((fabric) => (
                 <option key={fabric} value={fabric} className="text-slate-800 py-1.5">
                   {fabric}
