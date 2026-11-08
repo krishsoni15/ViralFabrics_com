@@ -374,27 +374,27 @@ export default function AboutUsPage() {
           - Right: State-of-the-Art Manufacturing (Enlarged Luxury Scale, Button Removed)
           - Framed with Haute-Couture Torn Paper Borders & Crisp Pure White Canvas
          ================================================================= */}
-      <section className="relative w-full py-20 sm:py-24 lg:py-32 bg-white overflow-visible">
+      <section className="relative w-full py-12 sm:py-16 lg:py-20 bg-white overflow-visible">
         {/* Top Torn Paper Border Strip (Overlapping the top edge into Section 2A) */}
-        <div className="absolute -top-6 sm:-top-8 lg:-top-11 inset-x-0 h-16 sm:h-20 lg:h-26 z-20 pointer-events-none select-none">
+        <div className="absolute -top-3 sm:-top-4 lg:-top-5 inset-x-0 h-14 sm:h-18 lg:h-22 z-20 pointer-events-none select-none">
           <Image
-            src="/images/about/torn-paper-top.png"
+            src="/images/about/torn-paper-top.png?v=2"
             alt="Torn Paper Top Border"
             fill
             sizes="100vw"
-            className="w-full h-full object-fill object-top drop-shadow-[0_8px_18px_rgba(0,0,0,0.12)]"
+            className="w-full h-full object-fill object-top drop-shadow-[0_6px_14px_rgba(0,0,0,0.1)]"
             priority
           />
         </div>
 
         {/* Bottom Torn Paper Border Strip (Overlapping the bottom edge into Section 3) */}
-        <div className="absolute -bottom-6 sm:-bottom-8 lg:-bottom-11 inset-x-0 h-16 sm:h-20 lg:h-26 z-20 pointer-events-none select-none">
+        <div className="absolute -bottom-3 sm:-bottom-4 lg:-bottom-5 inset-x-0 h-14 sm:h-18 lg:h-22 z-20 pointer-events-none select-none">
           <Image
-            src="/images/about/torn-paper-bottom.png"
+            src="/images/about/torn-paper-bottom.png?v=2"
             alt="Torn Paper Bottom Border"
             fill
             sizes="100vw"
-            className="w-full h-full object-fill object-bottom drop-shadow-[0_-8px_18px_rgba(0,0,0,0.12)]"
+            className="w-full h-full object-fill object-bottom drop-shadow-[0_-6px_14px_rgba(0,0,0,0.1)]"
             priority
           />
         </div>
@@ -422,7 +422,7 @@ export default function AboutUsPage() {
                 />
               </svg>
 
-              {/* Left Side: Water-Jet Weaving Machinery (clipped to organic S-curve) */}
+              {/* Left Side: Water-Jet Weaving Machinery (properly positioned with full left detail) */}
               <div
                 className="absolute inset-y-0 left-0 w-[55%] overflow-hidden z-10"
                 style={{ clipPath: 'url(#infraLoomClip)', WebkitClipPath: 'url(#infraLoomClip)' }}
@@ -432,7 +432,7 @@ export default function AboutUsPage() {
                   alt="Viral Fabrics High Speed Water-Jet Weaving Machinery with Purple Fabric Roll"
                   fill
                   sizes="(max-width: 1024px) 100vw, 55vw"
-                  className="object-cover object-center"
+                  className="object-cover object-left lg:object-[4%_center]"
                   priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-[#0A2240]/40 pointer-events-none" />
