@@ -9,7 +9,6 @@ import {
   Truck,
   Calendar,
   Layers,
-  Users,
   Handshake,
 } from 'lucide-react';
 
@@ -40,21 +39,21 @@ export default function NetworkPage() {
         <div className="relative z-10 max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-14 xl:px-16 w-full flex-1 flex flex-col justify-between">
           
           {/* Top Section: Left Editorial + Right World Route Map */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center pt-2 sm:pt-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center pt-2 sm:pt-4">
             
-            {/* 1. Left Editorial Column */}
+            {/* 1. Left Editorial Column (Minimalist, High Readability) */}
             <div className="lg:col-span-5 xl:col-span-5 space-y-5 lg:pr-2">
               
               {/* Eyebrow Header */}
               <div className="flex items-center gap-2.5">
-                <span className="text-[11px] sm:text-[12px] font-bold tracking-[0.22em] text-[#006DB6] uppercase font-sans">
+                <span className="text-[11px] sm:text-[12px] font-bold tracking-[0.24em] text-[#006DB6] uppercase font-sans">
                   OUR GLOBAL PRESENCE
                 </span>
-                <span className="w-10 sm:w-12 h-[2px] bg-[#006DB6] inline-block rounded-full" />
+                <span className="w-10 sm:w-12 h-[1px] bg-[#006DB6]/40 inline-block" />
               </div>
 
               {/* Main Title */}
-              <h1 className="font-heading font-serif text-5xl sm:text-6xl lg:text-[70px] xl:text-[76px] font-normal text-[#0A192F] tracking-tight leading-[1.02]">
+              <h1 className="font-heading font-serif text-5xl sm:text-6xl lg:text-[68px] xl:text-[74px] font-bold text-[#0A192F] tracking-tight leading-[1.02]">
                 Network
               </h1>
 
@@ -63,46 +62,46 @@ export default function NetworkPage() {
                 At <strong className="font-semibold text-[#0A192F]">Viral Fabrics</strong>, we are proud to serve clients across the globe, supplying premium export-quality fabrics to regions including Europe, America, Dubai, and beyond. With efficient logistics, secure packaging, and strict quality control, we ensure our fabrics consistently meet global standards.
               </p>
 
-              {/* 4 Trust Feature Badges */}
-              <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-lg pt-3">
+              {/* 4 Minimalist Trust Feature Badges (No chunky square boxes, clean & readable) */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-3 border-t border-slate-300/40">
                 
-                {/* Badge 1: Global Client Base */}
-                <div className="flex flex-col items-center text-center group cursor-default">
-                  <div className="w-12 h-12 sm:w-13 sm:h-13 lg:w-14 lg:h-14 rounded-2xl bg-[#E0F2FE]/85 border border-[#BAE6FD] shadow-[0_2px_10px_rgba(0,109,182,0.08)] flex items-center justify-center text-[#006DB6] mb-2.5 transition-all duration-300 group-hover:scale-105 group-hover:bg-[#006DB6] group-hover:text-white group-hover:shadow-md">
-                    <Globe className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                {/* Feature 1: Global Client Base */}
+                <div className="flex items-center gap-2.5 group cursor-default">
+                  <div className="w-8 h-8 rounded-full bg-white/90 border border-slate-200/70 shadow-xs flex items-center justify-center text-[#006DB6] group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300 shrink-0">
+                    <Globe className="w-4 h-4 stroke-[1.6]" />
                   </div>
-                  <span className="text-[11px] sm:text-[12px] font-bold text-[#0A192F] leading-tight group-hover:text-[#006DB6] transition-colors">
-                    Global<br />Client Base
+                  <span className="text-[12px] sm:text-[12.5px] font-semibold text-[#0A192F] leading-snug">
+                    Global Client Base
                   </span>
                 </div>
 
-                {/* Badge 2: Consistent Quality */}
-                <div className="flex flex-col items-center text-center group cursor-default">
-                  <div className="w-12 h-12 sm:w-13 sm:h-13 lg:w-14 lg:h-14 rounded-2xl bg-[#E0F2FE]/85 border border-[#BAE6FD] shadow-[0_2px_10px_rgba(0,109,182,0.08)] flex items-center justify-center text-[#006DB6] mb-2.5 transition-all duration-300 group-hover:scale-105 group-hover:bg-[#006DB6] group-hover:text-white group-hover:shadow-md">
-                    <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                {/* Feature 2: Consistent Quality */}
+                <div className="flex items-center gap-2.5 group cursor-default">
+                  <div className="w-8 h-8 rounded-full bg-white/90 border border-slate-200/70 shadow-xs flex items-center justify-center text-[#006DB6] group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300 shrink-0">
+                    <ShieldCheck className="w-4 h-4 stroke-[1.6]" />
                   </div>
-                  <span className="text-[11px] sm:text-[12px] font-bold text-[#0A192F] leading-tight group-hover:text-[#006DB6] transition-colors">
-                    Consistent<br />Quality
+                  <span className="text-[12px] sm:text-[12.5px] font-semibold text-[#0A192F] leading-snug">
+                    Consistent Quality
                   </span>
                 </div>
 
-                {/* Badge 3: Secure Packaging */}
-                <div className="flex flex-col items-center text-center group cursor-default">
-                  <div className="w-12 h-12 sm:w-13 sm:h-13 lg:w-14 lg:h-14 rounded-2xl bg-[#E0F2FE]/85 border border-[#BAE6FD] shadow-[0_2px_10px_rgba(0,109,182,0.08)] flex items-center justify-center text-[#006DB6] mb-2.5 transition-all duration-300 group-hover:scale-105 group-hover:bg-[#006DB6] group-hover:text-white group-hover:shadow-md">
-                    <Package className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                {/* Feature 3: Secure Packaging */}
+                <div className="flex items-center gap-2.5 group cursor-default">
+                  <div className="w-8 h-8 rounded-full bg-white/90 border border-slate-200/70 shadow-xs flex items-center justify-center text-[#006DB6] group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300 shrink-0">
+                    <Package className="w-4 h-4 stroke-[1.6]" />
                   </div>
-                  <span className="text-[11px] sm:text-[12px] font-bold text-[#0A192F] leading-tight group-hover:text-[#006DB6] transition-colors">
-                    Secure<br />Packaging
+                  <span className="text-[12px] sm:text-[12.5px] font-semibold text-[#0A192F] leading-snug">
+                    Secure Packaging
                   </span>
                 </div>
 
-                {/* Badge 4: Timely Delivery */}
-                <div className="flex flex-col items-center text-center group cursor-default">
-                  <div className="w-12 h-12 sm:w-13 sm:h-13 lg:w-14 lg:h-14 rounded-2xl bg-[#E0F2FE]/85 border border-[#BAE6FD] shadow-[0_2px_10px_rgba(0,109,182,0.08)] flex items-center justify-center text-[#006DB6] mb-2.5 transition-all duration-300 group-hover:scale-105 group-hover:bg-[#006DB6] group-hover:text-white group-hover:shadow-md">
-                    <Truck className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                {/* Feature 4: Timely Delivery */}
+                <div className="flex items-center gap-2.5 group cursor-default">
+                  <div className="w-8 h-8 rounded-full bg-white/90 border border-slate-200/70 shadow-xs flex items-center justify-center text-[#006DB6] group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300 shrink-0">
+                    <Truck className="w-4 h-4 stroke-[1.6]" />
                   </div>
-                  <span className="text-[11px] sm:text-[12px] font-bold text-[#0A192F] leading-tight group-hover:text-[#006DB6] transition-colors">
-                    Timely<br />Delivery
+                  <span className="text-[12px] sm:text-[12.5px] font-semibold text-[#0A192F] leading-snug">
+                    Timely Delivery
                   </span>
                 </div>
 
@@ -112,7 +111,10 @@ export default function NetworkPage() {
 
             {/* 2. Right World Route Map Showcase */}
             <div className="lg:col-span-7 xl:col-span-7 relative flex items-center justify-center">
-              <div className="relative w-full aspect-[16/9] sm:aspect-[1.95/1] max-w-[880px]">
+              <div 
+                className="relative w-full max-w-[880px]"
+                style={{ aspectRatio: '1755 / 896' }}
+              >
                 
                 {/* High-Resolution Transparent Route Map Graphic */}
                 <Image
@@ -131,12 +133,13 @@ export default function NetworkPage() {
                   onMouseLeave={() => setHoveredHotspot(null)}
                 >
                   <span className="relative flex h-5 w-5 items-center justify-center">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#006DB6] opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#006DB6] shadow-[0_0_8px_rgba(0,109,182,0.8)]" />
+                    {/* Calm, smooth ambient breathing radar pulse (NO harsh pinging) */}
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-[#006DB6]/25 animate-pulse" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#006DB6] ring-2 ring-white/95 shadow-[0_0_8px_rgba(0,109,182,0.8)]" />
                   </span>
 
                   {hoveredHotspot === 'surat' && (
-                    <div className="absolute -top-16 left-1/2 -translate-x-1/2 bg-[#0A192F] text-white text-[11px] font-medium py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap z-30 pointer-events-none animate-fade-in">
+                    <div className="absolute -top-16 left-1/2 -translate-x-1/2 bg-[#0A192F]/95 backdrop-blur-md text-white text-[11px] font-medium py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap z-30 pointer-events-none border border-sky-400/20">
                       <span className="font-bold text-sky-400">Origin: Surat, Gujarat</span>
                       <br />Manufacturing Headquarter &amp; Looms
                       <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#0A192F]" />
@@ -151,12 +154,11 @@ export default function NetworkPage() {
                   onMouseLeave={() => setHoveredHotspot(null)}
                 >
                   <span className="relative flex h-4 w-4 items-center justify-center">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-60" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500 shadow-sm" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#006DB6] ring-2 ring-white/90 shadow-xs group-hover:scale-125 transition-transform duration-300" />
                   </span>
 
                   {hoveredHotspot === 'dubai' && (
-                    <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#0A192F] text-white text-[11px] font-medium py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap z-30 pointer-events-none animate-fade-in">
+                    <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#0A192F]/95 backdrop-blur-md text-white text-[11px] font-medium py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap z-30 pointer-events-none border border-sky-400/20">
                       <span className="font-bold text-sky-400">Dubai Hub</span>: 5–7 Days Maritime
                       <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#0A192F]" />
                     </div>
@@ -170,12 +172,11 @@ export default function NetworkPage() {
                   onMouseLeave={() => setHoveredHotspot(null)}
                 >
                   <span className="relative flex h-4 w-4 items-center justify-center">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-60" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500 shadow-sm" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#006DB6] ring-2 ring-white/90 shadow-xs group-hover:scale-125 transition-transform duration-300" />
                   </span>
 
                   {hoveredHotspot === 'europe' && (
-                    <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#0A192F] text-white text-[11px] font-medium py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap z-30 pointer-events-none animate-fade-in">
+                    <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#0A192F]/95 backdrop-blur-md text-white text-[11px] font-medium py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap z-30 pointer-events-none border border-sky-400/20">
                       <span className="font-bold text-sky-400">Europe &amp; UK</span>: High Street Fashion
                       <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#0A192F]" />
                     </div>
@@ -189,12 +190,11 @@ export default function NetworkPage() {
                   onMouseLeave={() => setHoveredHotspot(null)}
                 >
                   <span className="relative flex h-4 w-4 items-center justify-center">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-60" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500 shadow-sm" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#006DB6] ring-2 ring-white/90 shadow-xs group-hover:scale-125 transition-transform duration-300" />
                   </span>
 
                   {hoveredHotspot === 'america' && (
-                    <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#0A192F] text-white text-[11px] font-medium py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap z-30 pointer-events-none animate-fade-in">
+                    <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#0A192F]/95 backdrop-blur-md text-white text-[11px] font-medium py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap z-30 pointer-events-none border border-sky-400/20">
                       <span className="font-bold text-sky-400">The Americas</span>: Container Imports
                       <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#0A192F]" />
                     </div>
@@ -208,12 +208,11 @@ export default function NetworkPage() {
                   onMouseLeave={() => setHoveredHotspot(null)}
                 >
                   <span className="relative flex h-4 w-4 items-center justify-center">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-60" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500 shadow-sm" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#006DB6] ring-2 ring-white/90 shadow-xs group-hover:scale-125 transition-transform duration-300" />
                   </span>
 
                   {hoveredHotspot === 'srilanka' && (
-                    <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#0A192F] text-white text-[11px] font-medium py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap z-30 pointer-events-none animate-fade-in">
+                    <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#0A192F]/95 backdrop-blur-md text-white text-[11px] font-medium py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap z-30 pointer-events-none border border-sky-400/20">
                       <span className="font-bold text-sky-400">Sri Lanka</span>: Garment Hub Supply
                       <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#0A192F]" />
                     </div>
@@ -227,12 +226,11 @@ export default function NetworkPage() {
                   onMouseLeave={() => setHoveredHotspot(null)}
                 >
                   <span className="relative flex h-4 w-4 items-center justify-center">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-60" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500 shadow-sm" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#006DB6] ring-2 ring-white/90 shadow-xs group-hover:scale-125 transition-transform duration-300" />
                   </span>
 
                   {hoveredHotspot === 'australia' && (
-                    <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#0A192F] text-white text-[11px] font-medium py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap z-30 pointer-events-none animate-fade-in">
+                    <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#0A192F]/95 backdrop-blur-md text-white text-[11px] font-medium py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap z-30 pointer-events-none border border-sky-400/20">
                       <span className="font-bold text-sky-400">Australia Hub</span>: Sydney &amp; Melbourne
                       <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#0A192F]" />
                     </div>
@@ -244,65 +242,65 @@ export default function NetworkPage() {
 
           </div>
 
-          {/* 3. Bottom Floating Translucent Glass Stats Bar */}
-          <div className="mt-8 lg:mt-10 w-full bg-white/96 backdrop-blur-xl rounded-2xl sm:rounded-3xl border border-white/90 shadow-[0_15px_45px_rgba(0,109,182,0.08)] px-5 sm:px-8 py-5 sm:py-6 transition-all duration-300">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-4 divide-y sm:divide-y-0 lg:divide-x divide-slate-200/80">
+          {/* 3. Bottom Minimalist Stats Showcase (NO heavy card shell or awkward rounded card corners) */}
+          <div className="mt-8 lg:mt-10 w-full pt-6 sm:pt-7 border-t border-slate-300/50">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 divide-y sm:divide-y-0 lg:divide-x divide-slate-300/40">
               
               {/* Stat 1: Since 2012 */}
-              <div className="flex items-center gap-3.5 pt-3 sm:pt-0 lg:px-4 first:lg:pl-0">
-                <div className="w-10 h-10 rounded-xl bg-[#006DB6]/10 flex items-center justify-center text-[#006DB6] flex-shrink-0">
-                  <Calendar className="w-5 h-5 stroke-[2]" />
+              <div className="flex items-center gap-3.5 pt-3 sm:pt-0 lg:px-4 first:lg:pl-0 group">
+                <div className="w-9 h-9 rounded-full bg-white/90 border border-slate-200/70 shadow-xs flex items-center justify-center text-[#006DB6] flex-shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300">
+                  <Calendar className="w-4 h-4 stroke-[1.6]" />
                 </div>
                 <div>
-                  <h4 className="font-heading font-serif text-[16px] sm:text-[17px] font-bold text-[#0A192F] tracking-tight leading-tight">
+                  <h4 className="font-heading font-serif text-[15.5px] sm:text-[16.5px] font-bold text-[#0A192F] tracking-tight leading-tight">
                     Since 2012
                   </h4>
-                  <p className="text-slate-500 text-[12px] sm:text-[12.5px] font-normal leading-snug mt-0.5">
+                  <p className="text-slate-600 text-[12px] sm:text-[12.5px] font-normal leading-snug mt-0.5">
                     Surat, Gujarat, India
                   </p>
                 </div>
               </div>
 
               {/* Stat 2: Wide Product Range */}
-              <div className="flex items-center gap-3.5 pt-3 sm:pt-0 lg:px-4">
-                <div className="w-10 h-10 rounded-xl bg-[#006DB6]/10 flex items-center justify-center text-[#006DB6] flex-shrink-0">
-                  <Layers className="w-5 h-5 stroke-[2]" />
+              <div className="flex items-center gap-3.5 pt-3 sm:pt-0 lg:px-4 group">
+                <div className="w-9 h-9 rounded-full bg-white/90 border border-slate-200/70 shadow-xs flex items-center justify-center text-[#006DB6] flex-shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300">
+                  <Layers className="w-4 h-4 stroke-[1.6]" />
                 </div>
                 <div>
-                  <h4 className="font-heading font-serif text-[16px] sm:text-[17px] font-bold text-[#0A192F] tracking-tight leading-tight">
+                  <h4 className="font-heading font-serif text-[15.5px] sm:text-[16.5px] font-bold text-[#0A192F] tracking-tight leading-tight">
                     Wide Product Range
                   </h4>
-                  <p className="text-slate-500 text-[12px] sm:text-[12.5px] font-normal leading-snug mt-0.5">
+                  <p className="text-slate-600 text-[12px] sm:text-[12.5px] font-normal leading-snug mt-0.5">
                     Polyester, Viscose, Rayon, Cotton &amp; More
                   </p>
                 </div>
               </div>
 
               {/* Stat 3: Global Markets */}
-              <div className="flex items-center gap-3.5 pt-3 sm:pt-0 lg:px-4">
-                <div className="w-10 h-10 rounded-xl bg-[#006DB6]/10 flex items-center justify-center text-[#006DB6] flex-shrink-0">
-                  <Users className="w-5 h-5 stroke-[2]" />
+              <div className="flex items-center gap-3.5 pt-3 sm:pt-0 lg:px-4 group">
+                <div className="w-9 h-9 rounded-full bg-white/90 border border-slate-200/70 shadow-xs flex items-center justify-center text-[#006DB6] flex-shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300">
+                  <Globe className="w-4 h-4 stroke-[1.6]" />
                 </div>
                 <div>
-                  <h4 className="font-heading font-serif text-[16px] sm:text-[17px] font-bold text-[#0A192F] tracking-tight leading-tight">
+                  <h4 className="font-heading font-serif text-[15.5px] sm:text-[16.5px] font-bold text-[#0A192F] tracking-tight leading-tight">
                     Global Markets
                   </h4>
-                  <p className="text-slate-500 text-[12px] sm:text-[12.5px] font-normal leading-snug mt-0.5">
+                  <p className="text-slate-600 text-[12px] sm:text-[12.5px] font-normal leading-snug mt-0.5">
                     Europe, America, Dubai &amp; Beyond
                   </p>
                 </div>
               </div>
 
               {/* Stat 4: Long-Term Partnerships */}
-              <div className="flex items-center gap-3.5 pt-3 sm:pt-0 lg:px-4 last:lg:pr-0">
-                <div className="w-10 h-10 rounded-xl bg-[#006DB6]/10 flex items-center justify-center text-[#006DB6] flex-shrink-0">
-                  <Handshake className="w-5 h-5 stroke-[2]" />
+              <div className="flex items-center gap-3.5 pt-3 sm:pt-0 lg:px-4 last:lg:pr-0 group">
+                <div className="w-9 h-9 rounded-full bg-white/90 border border-slate-200/70 shadow-xs flex items-center justify-center text-[#006DB6] flex-shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300">
+                  <Handshake className="w-4 h-4 stroke-[1.6]" />
                 </div>
                 <div>
-                  <h4 className="font-heading font-serif text-[16px] sm:text-[17px] font-bold text-[#0A192F] tracking-tight leading-tight">
+                  <h4 className="font-heading font-serif text-[15.5px] sm:text-[16.5px] font-bold text-[#0A192F] tracking-tight leading-tight">
                     Long-Term Partnerships
                   </h4>
-                  <p className="text-slate-500 text-[12px] sm:text-[12.5px] font-normal leading-snug mt-0.5">
+                  <p className="text-slate-600 text-[12px] sm:text-[12.5px] font-normal leading-snug mt-0.5">
                     With Importers &amp; Garment Manufacturers
                   </p>
                 </div>
