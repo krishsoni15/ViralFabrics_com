@@ -255,21 +255,21 @@ export default function AboutUsPage() {
                   </p>
                 </div>
 
-                {/* 4 Distinct Rounded Pills (Enlarged Presence) */}
+                {/* 4 Distinct Rounded Glassmorphic Pills (Frosted Glass Aesthetics) */}
                 <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-3">
-                  <div className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-4.5 sm:py-2.2 rounded-full bg-white border border-slate-200/90 text-[12px] sm:text-[13px] font-medium text-slate-700 shadow-xs hover:border-[#9C5136]/40 transition-colors">
+                  <div className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-4.5 sm:py-2.2 rounded-full bg-white/40 backdrop-blur-md border border-white/70 text-[12px] sm:text-[13px] font-medium text-slate-800 shadow-[0_2px_10px_rgba(15,23,42,0.03)] hover:bg-white/70 hover:border-[#9C5136]/50 hover:shadow-xs transition-all">
                     <Calendar className="w-4 h-4 text-[#9C5136] stroke-[2.2]" />
                     <span>Est. 2012</span>
                   </div>
-                  <div className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-4.5 sm:py-2.2 rounded-full bg-white border border-slate-200/90 text-[12px] sm:text-[13px] font-medium text-slate-700 shadow-xs hover:border-[#9C5136]/40 transition-colors">
+                  <div className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-4.5 sm:py-2.2 rounded-full bg-white/40 backdrop-blur-md border border-white/70 text-[12px] sm:text-[13px] font-medium text-slate-800 shadow-[0_2px_10px_rgba(15,23,42,0.03)] hover:bg-white/70 hover:border-[#9C5136]/50 hover:shadow-xs transition-all">
                     <MapPin className="w-4 h-4 text-[#9C5136] stroke-[2.2]" />
                     <span>Surat, Gujarat, India</span>
                   </div>
-                  <div className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-4.5 sm:py-2.2 rounded-full bg-white border border-slate-200/90 text-[12px] sm:text-[13px] font-medium text-slate-700 shadow-xs hover:border-[#9C5136]/40 transition-colors">
+                  <div className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-4.5 sm:py-2.2 rounded-full bg-white/40 backdrop-blur-md border border-white/70 text-[12px] sm:text-[13px] font-medium text-slate-800 shadow-[0_2px_10px_rgba(15,23,42,0.03)] hover:bg-white/70 hover:border-[#9C5136]/50 hover:shadow-xs transition-all">
                     <Sparkles className="w-4 h-4 text-[#9C5136] stroke-[2.2]" />
                     <span>Make-to-Order Fabrics</span>
                   </div>
-                  <div className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-4.5 sm:py-2.2 rounded-full bg-white border border-slate-200/90 text-[12px] sm:text-[13px] font-medium text-slate-700 shadow-xs hover:border-[#9C5136]/40 transition-colors">
+                  <div className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-4.5 sm:py-2.2 rounded-full bg-white/40 backdrop-blur-md border border-white/70 text-[12px] sm:text-[13px] font-medium text-slate-800 shadow-[0_2px_10px_rgba(15,23,42,0.03)] hover:bg-white/70 hover:border-[#9C5136]/50 hover:shadow-xs transition-all">
                     <Globe className="w-4 h-4 text-[#9C5136] stroke-[2.2]" />
                     <span>Global Export</span>
                   </div>
@@ -278,15 +278,15 @@ export default function AboutUsPage() {
 
             </div>
 
-            {/* Lower Row: Vision & Mission Haute-Couture Cards (Enlarged Scale & Padding) */}
+            {/* Lower Row: Vision & Mission Frosted Glassmorphic Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 pt-10 sm:pt-14">
               
-              {/* Our Vision Card */}
-              <div className="relative p-8 sm:p-9 lg:p-11 rounded-[26px] sm:rounded-[28px] bg-white border border-slate-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col justify-between group hover:shadow-[0_12px_36px_rgba(30,95,168,0.1)] hover:-translate-y-1 transition-all duration-300">
+              {/* Our Vision Card - Frosted Glass Aesthetics */}
+              <div className="relative p-8 sm:p-9 lg:p-11 rounded-[26px] sm:rounded-[28px] bg-white/40 hover:bg-white/60 backdrop-blur-2xl border border-white/70 hover:border-[#1E5FA8]/40 shadow-[0_8px_32px_rgba(15,23,42,0.04),inset_0_1px_2px_rgba(255,255,255,0.8)] hover:shadow-[0_16px_45px_rgba(30,95,168,0.12)] hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col justify-between group">
                 {/* Subtle soft cool-blue wave watermark in bottom-right corner (1:1 Image 1) */}
-                <div className="absolute -bottom-8 -right-8 w-56 h-56 bg-[radial-gradient(circle_at_bottom_right,rgba(30,95,168,0.16)_0%,transparent_70%)] pointer-events-none rounded-full" />
+                <div className="absolute -bottom-8 -right-8 w-56 h-56 bg-[radial-gradient(circle_at_bottom_right,rgba(30,95,168,0.12)_0%,transparent_70%)] pointer-events-none rounded-full" />
                 <svg
-                  className="absolute -bottom-2 -right-2 w-44 h-36 pointer-events-none opacity-30 text-[#1E5FA8]"
+                  className="absolute -bottom-2 -right-2 w-44 h-36 pointer-events-none opacity-20 text-[#1E5FA8]"
                   viewBox="0 0 200 120"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -307,7 +307,7 @@ export default function AboutUsPage() {
 
                 <div className="relative z-10 space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-[#EBF3FC] border border-[#D0E2F7] flex items-center justify-center shrink-0 shadow-xs text-[#1665C1] group-hover:scale-105 transition-transform">
+                    <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-white/70 border border-white/80 shadow-xs flex items-center justify-center shrink-0 text-[#1665C1] group-hover:scale-105 transition-transform">
                       <Target className="w-6 h-6 stroke-[2.2]" />
                     </div>
                     <div>
@@ -325,12 +325,12 @@ export default function AboutUsPage() {
                 </div>
               </div>
 
-              {/* Our Mission Card */}
-              <div className="relative p-8 sm:p-9 lg:p-11 rounded-[26px] sm:rounded-[28px] bg-white border border-slate-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col justify-between group hover:shadow-[0_12px_36px_rgba(184,98,66,0.1)] hover:-translate-y-1 transition-all duration-300">
+              {/* Our Mission Card - Frosted Glass Aesthetics */}
+              <div className="relative p-8 sm:p-9 lg:p-11 rounded-[26px] sm:rounded-[28px] bg-white/40 hover:bg-white/60 backdrop-blur-2xl border border-white/70 hover:border-[#B86242]/40 shadow-[0_8px_32px_rgba(15,23,42,0.04),inset_0_1px_2px_rgba(255,255,255,0.8)] hover:shadow-[0_16px_45px_rgba(184,98,66,0.12)] hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col justify-between group">
                 {/* Subtle soft copper/terracotta wave watermark in bottom-right corner (1:1 Image 1) */}
-                <div className="absolute -bottom-8 -right-8 w-56 h-56 bg-[radial-gradient(circle_at_bottom_right,rgba(184,98,66,0.16)_0%,transparent_70%)] pointer-events-none rounded-full" />
+                <div className="absolute -bottom-8 -right-8 w-56 h-56 bg-[radial-gradient(circle_at_bottom_right,rgba(184,98,66,0.12)_0%,transparent_70%)] pointer-events-none rounded-full" />
                 <svg
-                  className="absolute -bottom-2 -right-2 w-44 h-36 pointer-events-none opacity-30 text-[#B86242]"
+                  className="absolute -bottom-2 -right-2 w-44 h-36 pointer-events-none opacity-20 text-[#B86242]"
                   viewBox="0 0 200 120"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -351,7 +351,7 @@ export default function AboutUsPage() {
 
                 <div className="relative z-10 space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-[#FDF2EC] border border-[#F5D5C3] flex items-center justify-center shrink-0 shadow-xs text-[#B86242] group-hover:scale-105 transition-transform">
+                    <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-white/70 border border-white/80 shadow-xs flex items-center justify-center shrink-0 text-[#B86242] group-hover:scale-105 transition-transform">
                       <Layers className="w-6 h-6 stroke-[2.2]" />
                     </div>
                     <div>
