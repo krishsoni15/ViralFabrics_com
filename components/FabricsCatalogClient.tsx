@@ -456,3 +456,4 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
     </>
   );
 }
+

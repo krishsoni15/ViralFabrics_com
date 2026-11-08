@@ -179,6 +179,8 @@ export default function ContactClient() {
       <PageHeroBanner
         title="Contact Us"
         subtitle="Surat Manufacturing Facility & Global Export Sourcing Desk"
+        bgVideo="/videos/contact-hero.mp4"
+        bgVideoPoster="/images/enquiry/enquiry-hero-bg.jpg"
         bgAlt="Viral Fabrics Sourcing & Consultation Desk"
       />
 

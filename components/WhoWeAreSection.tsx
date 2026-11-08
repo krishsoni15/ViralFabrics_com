@@ -1,10 +1,35 @@
 'use client';
-'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import gsap from 'gsap';
 import { ArrowRight } from 'lucide-react';
+
+// Word token structure for Sentence 1 directional unblur + blue reveal sweep
+interface HeadlineWord {
+  word: string;
+  isItalic: boolean;
+  isAccent: boolean;
+}
+
+const HEADLINE_WORDS: HeadlineWord[] = [
+  { word: 'Welcome', isItalic: false, isAccent: false },
+  { word: 'to', isItalic: false, isAccent: false },
+  { word: 'Viral', isItalic: true, isAccent: true },
+  { word: 'Fabrics,', isItalic: true, isAccent: true },
+  { word: 'we', isItalic: false, isAccent: false },
+  { word: 'are', isItalic: false, isAccent: false },
+  { word: 'here', isItalic: false, isAccent: false },
+  { word: 'to', isItalic: false, isAccent: false },
+  { word: 'provide', isItalic: false, isAccent: false },
+  { word: 'you', isItalic: false, isAccent: false },
+  { word: 'a', isItalic: false, isAccent: false },
+  { word: 'stunning', isItalic: true, isAccent: true },
+  { word: 'gamut', isItalic: true, isAccent: true },
+  { word: 'of', isItalic: true, isAccent: true },
+  { word: 'fabrics.', isItalic: true, isAccent: true },
+];
 
 // Word token structure for scroll reading animation
 interface SentenceWord {
@@ -154,11 +179,106 @@ function AnimatedCounter({
 
 export function WhoWeAreSection() {
   const p2Ref = useRef<HTMLParagraphElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const [p2Progress, setP2Progress] = useState(0);
 
   const targetProgressRef = useRef(0);
   const currentProgressRef = useRef(0);
+
+  // Agnes Toth Directional Left-to-Right + Top-to-Bottom Unblur & Luminous Blue Reveal Sweep
+  useEffect(() => {
+    const headline = headlineRef.current;
+    if (!headline) return;
+
+    let ctx: gsap.Context | null = null;
+    let hasAnimated = false;
+
+    const playReveal = () => {
+      if (hasAnimated) return;
+      hasAnimated = true;
+
+      const chars = headline.querySelectorAll<HTMLElement>('.who-we-are-headline-char');
+      if (!chars || chars.length === 0) return;
+
+      const data: { el: HTMLElement; x: number; y: number; isAccent: boolean }[] = [];
+      chars.forEach((c) => {
+        const r = c.getBoundingClientRect();
+        data.push({
+          el: c,
+          x: r.left,
+          y: r.top,
+          isAccent: c.dataset.accent === 'true',
+        });
+      });
+
+      const xs = data.map((d) => d.x);
+      const ys = data.map((d) => d.y);
+      const minX = Math.min(...xs);
+      const maxX = Math.max(...xs);
+      const spanX = Math.max(maxX - minX, 1);
+
+      const minY = Math.min(...ys);
+      const maxY = Math.max(...ys);
+      const spanY = Math.max(maxY - minY, 1);
+
+      // Stagger: Top-to-bottom lines (55%) + Left-to-right flow (45%)
+      const normalizedStagger = data.map((d) => {
+        const normY = spanY > 10 ? (d.y - minY) / spanY : 0;
+        const normX = (d.x - minX) / spanX;
+        return normY * 0.55 + normX * 0.45;
+      });
+
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          chars,
+          {
+            opacity: 0,
+            filter: 'blur(16px)',
+            y: -8, // directional top-to-bottom entrance
+            color: '#006DB6', // starts with rich vibrant brand blue
+            textShadow: '0 0 16px rgba(0, 109, 182, 0.4)',
+          },
+          {
+            opacity: 1,
+            filter: 'blur(0px)',
+            y: 0,
+            color: (i) => (data[i].isAccent ? '#1d3557' : '#0f172a'),
+            textShadow: 'none',
+            duration: 1.0,
+            ease: 'power2.out',
+            stagger: (i) => normalizedStagger[i] * 1.1,
+            clearProps: 'transform,willChange,filter',
+          }
+        );
+      }, headline);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            playReveal();
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(headline);
+
+    // If already in viewport on mount (e.g. reload or shallow scroll)
+    const rect = headline.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) {
+      setTimeout(playReveal, 120);
+    }
+
+    return () => {
+      observer.disconnect();
+      if (ctx) ctx.revert();
+    };
+  }, []);
 
   // Pure scroll-driven reading wave: advances word-by-word on every scroll, slow and silky smooth
   useEffect(() => {
@@ -263,9 +383,29 @@ export function WhoWeAreSection() {
             </svg>
           </div>
 
-          {/* Sentence 1: Opening Proclamation - 5% Larger Authoritative Headline */}
-          <h2 className="font-heading text-[25px] sm:text-[32px] md:text-[38px] lg:text-[44px] xl:text-[46px] font-medium leading-[1.26] text-[#0f172a] tracking-normal">
-            Welcome to <span className="font-serif italic font-semibold text-[#1d3557]">Viral Fabrics,</span> we are here to provide you a <span className="font-serif italic font-semibold text-[#1d3557]">stunning gamut of fabrics.</span>
+          {/* Sentence 1: Opening Proclamation - Directional Unblur & Luminous Blue Reveal Sweep */}
+          <h2
+            ref={headlineRef}
+            className="font-heading text-[25px] sm:text-[32px] md:text-[38px] lg:text-[44px] xl:text-[46px] font-medium leading-[1.26] tracking-normal cursor-default text-center"
+          >
+            {HEADLINE_WORDS.map((item, wIdx) => (
+              <span
+                key={`hw-${wIdx}`}
+                className={`inline-block whitespace-nowrap mr-[0.26em] last:mr-0 ${
+                  item.isItalic ? 'font-serif italic font-semibold text-[#1d3557]' : 'text-[#0f172a]'
+                }`}
+              >
+                {item.word.split('').map((char, cIdx) => (
+                  <span
+                    key={`hw-${wIdx}-c-${cIdx}`}
+                    data-accent={item.isAccent ? 'true' : 'false'}
+                    className="who-we-are-headline-char inline-block will-change-[transform,opacity,filter]"
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
+            ))}
           </h2>
 
           {/* Sentence 2: Craftsmanship & Quality Manifesto - Pure Scroll-Driven Reading Wave (Word-By-Word, Smooth and Tactile) */}
