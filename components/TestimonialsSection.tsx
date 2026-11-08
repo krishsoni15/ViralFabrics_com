@@ -267,10 +267,11 @@ export const TestimonialsSection: React.FC = () => {
       id="testimonials"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className="relative w-full py-16 sm:py-20 lg:py-24 bg-white overflow-hidden selection:bg-[#1E5FA8] selection:text-white"
+      className="relative w-full py-10 sm:py-12 lg:py-14 bg-white overflow-hidden selection:bg-[#1E5FA8] selection:text-white"
     >
       {/* =========================================================
           EXACT USER BACKGROUND: Minimal Blue Fabric Waves Canvas
+          - Soft aesthetic blur (blur-[2.5px] scale-105) for luxury editorial depth
           - Top-left: Icy white silk drape
           - Delicate fine blue line accents
           - Bottom-right: Deep vibrant royal blue fabric folds
@@ -281,7 +282,7 @@ export const TestimonialsSection: React.FC = () => {
           alt="Minimal Blue Fabric Waves Background"
           fill
           priority={true}
-          className="object-cover object-center"
+          className="object-cover object-center blur-[2.5px] scale-105"
         />
       </div>
 
@@ -293,7 +294,7 @@ export const TestimonialsSection: React.FC = () => {
         {/* -------------------------------------------------------------
             1. SECTION HEADER (Matching Exact Mockup Typography)
            ------------------------------------------------------------- */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
           {/* Eyebrow Pill */}
           <div className="inline-flex items-center justify-center gap-2.5 mb-2.5">
             <span className="w-10 sm:w-14 h-[1px] bg-[#1E5FA8]/40 inline-block" />
@@ -331,7 +332,7 @@ export const TestimonialsSection: React.FC = () => {
 
           {/* Carousel Stage Container (Unclipped, zero hard borders, centered) */}
           <div
-            className="relative flex-1 h-[370px] sm:h-[390px] lg:h-[400px] mx-1 sm:mx-2 lg:mx-3 overflow-visible"
+            className="relative flex-1 h-[310px] sm:h-[330px] lg:h-[340px] mx-1 sm:mx-2 lg:mx-3 overflow-visible"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
@@ -349,18 +350,18 @@ export const TestimonialsSection: React.FC = () => {
                     if (diff === -1) handlePrev();
                     if (diff === 1) handleNext();
                   }}
-                  className={`absolute top-1/2 w-[260px] sm:w-[275px] md:w-[280px] lg:w-[285px] xl:w-[335px] min-h-[265px] sm:min-h-[280px] flex flex-col justify-between p-5 sm:p-6 lg:p-7 select-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  className={`absolute top-1/2 w-[260px] sm:w-[275px] md:w-[280px] lg:w-[285px] xl:w-[335px] min-h-[235px] sm:min-h-[245px] flex flex-col justify-between p-4 sm:p-5 lg:p-6 select-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                     isCenter
                       ? 'bg-white border-2 border-[#60A5FA]/60 shadow-[0_16px_40px_rgba(30,95,168,0.14)] rounded-[22px] sm:rounded-[26px] z-20 opacity-100'
                       : 'bg-white border border-slate-200/80 shadow-[0_6px_22px_rgba(15,23,42,0.06)] hover:shadow-[0_10px_28px_rgba(15,23,42,0.10)] rounded-[20px] sm:rounded-[24px] hover:opacity-95 z-10 cursor-pointer'
                   }`}
                 >
                   {/* Top Row: Soft Blue Quote Icon + 5 Gold Stars (Exact Mockup Match) */}
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center justify-between mb-2">
                     {/* Sky Blue Quotation Icon */}
                     <div className="text-[#60A5FA] group-hover:scale-105 transition-transform duration-300">
                       <svg
-                        className="w-7 h-7 sm:w-8 sm:h-8 fill-[#60A5FA]"
+                        className="w-6 h-6 sm:w-7 sm:h-7 fill-[#60A5FA]"
                         viewBox="0 0 24 24"
                       >
                         <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
@@ -383,20 +384,20 @@ export const TestimonialsSection: React.FC = () => {
 
                   {/* Middle: Client Quote */}
                   <p
-                    className={`font-sans leading-[1.65] my-auto ${
+                    className={`font-sans leading-[1.6] my-auto ${
                       isCenter
-                        ? 'text-[13px] sm:text-[13.5px] lg:text-[14px] text-slate-700 font-normal'
-                        : 'text-[12.5px] sm:text-[13px] text-slate-600 font-normal line-clamp-4'
+                        ? 'text-[12.5px] sm:text-[13px] lg:text-[13.5px] text-slate-700 font-normal'
+                        : 'text-[12px] sm:text-[12.5px] text-slate-600 font-normal line-clamp-4'
                     }`}
                   >
                     &ldquo;{item.quote}&rdquo;
                   </p>
 
                   {/* Bottom: Client Profile with Round Avatar & Details (Exact Mockup Match) */}
-                  <div className="pt-3.5 mt-3 border-t border-slate-100 flex items-center gap-3">
+                  <div className="pt-3 mt-2.5 border-t border-slate-100 flex items-center gap-2.5">
                     {/* Circular Avatar / Monogram */}
                     <div
-                      className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-[12px] sm:text-[12.5px] tracking-wider shrink-0 transition-transform ${
+                      className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-[11px] sm:text-[12px] tracking-wider shrink-0 transition-transform ${
                         isCenter
                           ? 'bg-[#1E3A5F] text-white shadow-sm ring-2 ring-[#1E5FA8]/20'
                           : 'bg-[#E0F2FE] text-[#0369A1]'
@@ -407,10 +408,10 @@ export const TestimonialsSection: React.FC = () => {
 
                     {/* Name & Role */}
                     <div className="text-left min-w-0">
-                      <p className="font-heading text-[14px] sm:text-[15px] font-bold text-[#0A2540] tracking-tight truncate">
+                      <p className="font-heading text-[13.5px] sm:text-[14.5px] font-bold text-[#0A2540] tracking-tight truncate">
                         {item.author}
                       </p>
-                      <p className="font-sans text-[11.5px] sm:text-[12px] text-slate-500 font-normal truncate mt-0.5">
+                      <p className="font-sans text-[11px] sm:text-[11.5px] text-slate-500 font-normal truncate mt-0.5">
                         {item.role}
                       </p>
                     </div>
@@ -434,7 +435,7 @@ export const TestimonialsSection: React.FC = () => {
         {/* -------------------------------------------------------------
             3. PAGINATION DOTS (Exact Matching Circular Dots from Mockup)
            ------------------------------------------------------------- */}
-        <div className="flex items-center justify-center gap-2 mt-8 sm:mt-11">
+        <div className="flex items-center justify-center gap-2 mt-5 sm:mt-7">
           {TESTIMONIALS.map((_, dotIdx) => {
             const isActive = currentIndex === dotIdx;
             return (
