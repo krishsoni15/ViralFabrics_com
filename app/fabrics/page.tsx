@@ -1,17 +1,35 @@
 import React from 'react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { FABRICS } from '@/data/fabrics';
+import { getCatalogFabrics } from '@/lib/fabricsService';
 import { ArrowRight } from 'lucide-react';
 import { PageHeroBanner } from '@/components/PageHeroBanner';
 import { FabricsCatalogClient } from '@/components/FabricsCatalogClient';
 
 export const revalidate = 10; // Incremental Static Regeneration every 10s
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Fabrics Portfolio | Viral Fabrics Surat - Export Synthetic Textiles',
   description:
     'Explore the complete export-grade synthetic fabrics catalog produced by Viral Fabrics in Surat, Gujarat. BSY, Satin, Chiffon, Georgette, Crepe, Recycled PET, and Poly Dobby.',
+  alternates: {
+    canonical: 'https://viralfabrics.com/fabrics',
+  },
+  openGraph: {
+    title: 'Fabrics Portfolio | Viral Fabrics Surat - Export Synthetic Textiles',
+    description: 'BSY, Satin, Chiffon, Georgette, Crepe, Recycled PET, and Poly Dobby weaves on Make-to-Order basis.',
+    url: 'https://viralfabrics.com/fabrics',
+    siteName: 'Viral Fabrics',
+    images: [
+      {
+        url: '/assets/uploads/2025/09/bsy-fabrics-banner.png',
+        width: 1200,
+        height: 630,
+        alt: 'Viral Fabrics Portfolio',
+      },
+    ],
+  },
 };
 
 const FABRICS_PAGE_BADGES = [
@@ -20,7 +38,9 @@ const FABRICS_PAGE_BADGES = [
   { iconName: 'award', label: 'Solid & Digital Strike-Offs' },
 ];
 
-export default function FabricsPage() {
+export default async function FabricsPage() {
+  const fabrics = await getCatalogFabrics();
+
   return (
     <div className="min-h-screen bg-[#FAF8F5] selection:bg-[#006DB6] selection:text-white">
       
@@ -63,7 +83,7 @@ export default function FabricsPage() {
           </div>
 
           {/* Interactive Catalog with Search, Category Filter, Dynamic Grid & 2-in-1 Enquiry Modal */}
-          <FabricsCatalogClient fabrics={FABRICS} />
+          <FabricsCatalogClient fabrics={fabrics} />
 
           {/* Sampling Prompt Banner */}
           <div className="bg-white border border-slate-200/90 p-8 sm:p-12 rounded-[24px] shadow-[0_10px_35px_rgba(15,23,42,0.05)] flex flex-col md:flex-row items-center justify-between gap-6">

@@ -279,10 +279,10 @@ const InteractiveCard: React.FC<{
         <div className="w-8 sm:w-10 h-[2.5px] bg-gradient-to-r from-[#1E5FA8] via-[#3B82F6] to-[#60A5FA] mx-auto mt-4 rounded-full transition-all duration-300 group-hover:w-16 shadow-[0_1px_6px_rgba(30,95,168,0.3)]" />
       </div>
 
-      {/* 4. Sequential Pipeline Connector with Arrow to next card (Desktop) */}
+      {/* 4. Sequential Pipeline Connector with Arrow to next card (Desktop >= 1280px) */}
       {index < QUALITY_STEPS.length - 1 && (
         <div
-          className="hidden lg:flex items-center justify-center absolute -right-4 xl:-right-5 2xl:-right-6 top-[60%] -translate-y-1/2 z-20 w-8 xl:w-10 2xl:w-12 pointer-events-none"
+          className="hidden xl:flex items-center justify-center absolute -right-4 xl:-right-5 2xl:-right-6 top-[60%] -translate-y-1/2 z-20 w-8 xl:w-10 2xl:w-12 pointer-events-none"
           aria-hidden="true"
         >
           <div className="w-full relative flex items-center justify-end overflow-visible">
@@ -339,15 +339,14 @@ export const QualityPracticesSection: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Staggered Unblur Trigger
+  // Staggered Unblur Trigger with Mobile Eager Threshold & Safety Fallback
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
 
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.9) {
+    const safetyTimer = setTimeout(() => {
       setIsVisible(true);
-    }
+    }, 1000);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -355,11 +354,14 @@ export const QualityPracticesSection: React.FC = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.05, rootMargin: '150px 0px 100px 0px' }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(safetyTimer);
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -369,13 +371,15 @@ export const QualityPracticesSection: React.FC = () => {
       className="relative w-full py-10 sm:py-14 lg:py-24 xl:py-28 bg-[#FAF8F5] overflow-hidden selection:bg-[#1E5FA8] selection:text-white"
     >
       {/* =========================================================
-          FULL-BLEED LUXURY SILK BACKGROUND (EDGE-TO-EDGE 100vw)
-          - Exact user-uploaded silk drape artwork
-          - Parallax drift on scroll creates subtle 3D living depth
+          FULL-BLEED LUXURY SILK BACKGROUND (TABLET & DESKTOP >= 768px)
+          - On Tablet/Mini Tablet (< 1280px): object-right aligns to the luminous ivory/pearl silk fabric,
+            preventing the deep blue drape on the left from washing over manifesto text.
+          - On Large Desktop (>= 1280px): xl:object-left aligns the blue drape beneath the left laurel badge,
+            leaving the expansive ivory canvas beneath the editorial text and cards.
          ========================================================= */}
       <div
         ref={bgRef}
-        className="absolute inset-0 -top-6 -bottom-6 z-0 pointer-events-none select-none overflow-hidden will-change-transform"
+        className="hidden md:block absolute inset-0 -top-6 -bottom-6 z-0 pointer-events-none select-none overflow-hidden will-change-transform"
       >
         <Image
           src="/images/quality/quality-section-silk-bg.webp"
@@ -383,7 +387,25 @@ export const QualityPracticesSection: React.FC = () => {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-left-top lg:object-left"
+          className="object-cover object-right xl:object-left"
+        />
+      </div>
+
+      {/* Luminous veil on tablet viewports to guarantee 100% crystal-clear contrast under manifesto text */}
+      <div
+        className="hidden md:block xl:hidden absolute inset-0 bg-[#FAF8F5]/80 backdrop-blur-[2px] z-0 pointer-events-none"
+        aria-hidden="true"
+      />
+
+      {/* Mobile Elegant Minimal Silk Fabric Waves Background (< 768px) */}
+      <div className="md:hidden absolute inset-0 z-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
+        <Image
+          src="/images/quality/quality-mobile-bg.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-85"
         />
       </div>
 
@@ -399,12 +421,10 @@ export const QualityPracticesSection: React.FC = () => {
       <div className="relative z-10 w-full max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-10 xl:px-14">
         <div className="flex flex-col lg:flex-row items-stretch gap-6 sm:gap-8 lg:gap-6 xl:gap-8 2xl:gap-10">
 
-          {/* -------------------------------------------------------------
-              1. LEFT BLUE DRAPE PANEL (WITH 100% QUALITY ASSURANCE WREATH)
-             ------------------------------------------------------------- */}
+          {/* 1. 100% QUALITY ASSURANCE WREATH & 5-STAR RATING (CLEAN & TRANSPARENT CANVAS INTEGRATION) */}
           <div
             ref={badgeRef}
-            className="relative w-full lg:w-[21%] xl:w-[19%] 2xl:w-[18%] flex-shrink-0 flex flex-col items-center justify-center py-2 sm:py-3 lg:p-2 xl:p-4 overflow-hidden will-change-transform"
+            className="relative w-full lg:w-[220px] xl:w-[20%] 2xl:w-[18%] flex-shrink-0 flex flex-col sm:flex-row lg:flex-col items-center justify-center gap-4 sm:gap-6 lg:gap-0 py-3 sm:py-4 lg:py-6 px-4 bg-transparent border-none shadow-none overflow-visible will-change-transform"
             style={{
               transition: 'opacity 1100ms cubic-bezier(0.16, 1, 0.3, 1), filter 1100ms cubic-bezier(0.16, 1, 0.3, 1)',
               opacity: isVisible ? 1 : 0,
@@ -416,7 +436,7 @@ export const QualityPracticesSection: React.FC = () => {
               
               {/* Golden Ambient Luster Aura Glow */}
               <div
-                className="absolute inset-0 -m-6 sm:-m-8 rounded-full bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.3)_0%,rgba(30,95,168,0.18)_50%,transparent_75%)] blur-2xl pointer-events-none transition-all duration-700 group-hover:scale-120 group-hover:opacity-100 opacity-80"
+                className="absolute inset-0 -m-6 sm:-m-8 rounded-full bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.35)_0%,rgba(30,95,168,0.2)_50%,transparent_75%)] blur-2xl pointer-events-none transition-all duration-700 group-hover:scale-120 group-hover:opacity-100 opacity-80"
                 aria-hidden="true"
               />
 
@@ -426,19 +446,19 @@ export const QualityPracticesSection: React.FC = () => {
                 alt="Viral Fabrics 100% Quality Assurance Guarantee"
                 fill
                 priority
-                sizes="(max-width: 640px) 160px, (max-width: 1024px) 208px, 240px"
-                className="object-contain drop-shadow-[0_18px_36px_rgba(0,0,0,0.5)] drop-shadow-[0_4px_16px_rgba(212,175,55,0.4)]"
+                sizes="(max-width: 640px) 160px, (max-width: 1024px) 208px, 260px"
+                className="object-contain drop-shadow-[0_18px_36px_rgba(0,0,0,0.45)] drop-shadow-[0_4px_16px_rgba(212,175,55,0.4)]"
               />
             </div>
 
             {/* 5-Star Rated Authority Quality Pill Badge */}
-            <div className="relative z-10 mt-2.5 sm:mt-3 lg:mt-4 xl:mt-5 transition-transform duration-500 ease-out hover:scale-105">
-              <div className="relative w-32 sm:w-36 xl:w-48 aspect-[703/132] drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)] drop-shadow-[0_2px_8px_rgba(212,175,55,0.3)]">
+            <div className="relative z-10 mt-0 sm:mt-0 lg:mt-4 xl:mt-5 transition-transform duration-500 ease-out hover:scale-105">
+              <div className="relative w-36 sm:w-40 md:w-44 xl:w-48 aspect-[703/132] drop-shadow-[0_8px_24px_rgba(0,0,0,0.3)] drop-shadow-[0_2px_8px_rgba(212,175,55,0.3)]">
                 <Image
                   src="/images/quality/5-star-rated-badge-clean.png"
                   alt="Viral Fabrics 5-Star Rated Quality Seal"
                   fill
-                  sizes="190px"
+                  sizes="200px"
                   className="object-contain"
                 />
               </div>
@@ -460,11 +480,11 @@ export const QualityPracticesSection: React.FC = () => {
           {/* -------------------------------------------------------------
               2. RIGHT EXPANSIVE CONTENT AREA: HEADER + 4 ARCHED PROCESS CARDS
              ------------------------------------------------------------- */}
-          <div className="flex-1 flex flex-col justify-between py-2 lg:py-2">
+          <div className="flex-1 flex flex-col justify-between py-2 xl:py-2">
 
             {/* Editorial Header Block (Exact Complete User Manifesto Copy) */}
             <div
-              className="max-w-4xl mb-8 sm:mb-10 lg:mb-8 xl:mb-10 bg-[#FAF8F5]/90 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-5 sm:p-6 lg:p-0 rounded-2xl lg:rounded-none border border-white/80 lg:border-none shadow-[0_4px_24px_rgba(0,0,0,0.06)] lg:shadow-none text-center lg:text-left"
+              className="max-w-4xl mb-8 sm:mb-10 lg:mb-8 xl:mb-10 text-center lg:text-left mt-2 lg:mt-0"
               style={{
                 transition: 'opacity 1100ms cubic-bezier(0.16, 1, 0.3, 1) 100ms, transform 1100ms cubic-bezier(0.16, 1, 0.3, 1) 100ms, filter 1100ms cubic-bezier(0.16, 1, 0.3, 1) 100ms',
                 opacity: isVisible ? 1 : 0,
@@ -494,7 +514,7 @@ export const QualityPracticesSection: React.FC = () => {
 
             {/* 4 Arched Process Cards Pipeline Row with Line-by-Line Formatting */}
             <div className="relative">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-4 xl:gap-5 2xl:gap-6 items-stretch relative z-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 xl:gap-5 2xl:gap-6 items-stretch relative z-10">
                 {QUALITY_STEPS.map((step, index) => (
                   <InteractiveCard
                     key={step.id}

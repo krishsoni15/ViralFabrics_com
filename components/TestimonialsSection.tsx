@@ -324,7 +324,7 @@ export const TestimonialsSection: React.FC = () => {
           <button
             type="button"
             onClick={handlePrev}
-            className="w-10 h-10 sm:w-11 sm:h-11 xl:w-12 xl:h-12 rounded-full bg-white shadow-[0_4px_16px_rgba(15,23,42,0.10)] border border-slate-100 flex items-center justify-center text-[#1E5FA8] hover:bg-[#1E5FA8] hover:text-white hover:border-[#1E5FA8] transition-all duration-300 flex-shrink-0 z-30 cursor-pointer hover:scale-105 active:scale-95 focus:outline-none"
+            className="w-11 h-11 sm:w-11 sm:h-11 xl:w-12 xl:h-12 rounded-full bg-white shadow-[0_4px_16px_rgba(15,23,42,0.10)] border border-slate-100 flex items-center justify-center text-[#1E5FA8] hover:bg-[#1E5FA8] hover:text-white hover:border-[#1E5FA8] transition-all duration-300 flex-shrink-0 z-30 cursor-pointer hover:scale-105 active:scale-95 focus:outline-none"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
@@ -425,7 +425,7 @@ export const TestimonialsSection: React.FC = () => {
           <button
             type="button"
             onClick={handleNext}
-            className="w-10 h-10 sm:w-11 sm:h-11 xl:w-12 xl:h-12 rounded-full bg-white shadow-[0_4px_16px_rgba(15,23,42,0.10)] border border-slate-100 flex items-center justify-center text-[#1E5FA8] hover:bg-[#1E5FA8] hover:text-white hover:border-[#1E5FA8] transition-all duration-300 flex-shrink-0 z-30 cursor-pointer hover:scale-105 active:scale-95 focus:outline-none"
+            className="w-11 h-11 sm:w-11 sm:h-11 xl:w-12 xl:h-12 rounded-full bg-white shadow-[0_4px_16px_rgba(15,23,42,0.10)] border border-slate-100 flex items-center justify-center text-[#1E5FA8] hover:bg-[#1E5FA8] hover:text-white hover:border-[#1E5FA8] transition-all duration-300 flex-shrink-0 z-30 cursor-pointer hover:scale-105 active:scale-95 focus:outline-none"
             aria-label="Next testimonial"
           >
             <ChevronRight className="w-5 h-5 stroke-[2.2]" />
@@ -435,7 +435,7 @@ export const TestimonialsSection: React.FC = () => {
         {/* -------------------------------------------------------------
             3. PAGINATION DOTS (Exact Matching Circular Dots from Mockup)
            ------------------------------------------------------------- */}
-        <div className="flex items-center justify-center gap-2 mt-5 sm:mt-7">
+        <div className="flex items-center justify-center gap-1 mt-5 sm:mt-7">
           {TESTIMONIALS.map((_, dotIdx) => {
             const isActive = currentIndex === dotIdx;
             return (
@@ -443,13 +443,17 @@ export const TestimonialsSection: React.FC = () => {
                 key={dotIdx}
                 type="button"
                 onClick={() => goToSlide(dotIdx)}
-                className={`transition-all duration-300 rounded-full h-2.5 w-2.5 focus:outline-none cursor-pointer ${
-                  isActive
-                    ? 'bg-[#3B82F6] scale-110 shadow-sm'
-                    : 'bg-slate-300/80 hover:bg-slate-400'
-                }`}
+                className="p-2 flex items-center justify-center focus:outline-none cursor-pointer"
                 aria-label={`Go to testimonial ${dotIdx + 1}`}
-              />
+              >
+                <span
+                  className={`block transition-all duration-300 rounded-full h-2.5 w-2.5 ${
+                    isActive
+                      ? 'bg-[#3B82F6] scale-110 shadow-sm'
+                      : 'bg-slate-300/80 hover:bg-slate-400'
+                  }`}
+                />
+              </button>
             );
           })}
         </div>

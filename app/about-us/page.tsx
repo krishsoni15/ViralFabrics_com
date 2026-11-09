@@ -223,7 +223,7 @@ export default function AboutUsPage() {
               <div className="lg:col-span-5 flex justify-center lg:justify-start">
                 <div className="relative w-full max-w-[500px] xl:max-w-[560px] flex items-center justify-center group">
                   <Image
-                    src="/images/about/about-fabrics-arch.png?v=11"
+                    src="/images/about/about-fabrics-arch.png"
                     alt="Viral Fabrics Folded Fabric Collection"
                     width={560}
                     height={335}
@@ -525,7 +525,90 @@ export default function AboutUsPage() {
       <QualityPracticesSection />
 
       {/* =================================================================
-          4. HAUTE-COUTURE SHOWCASE: OUR TEAM - FULL HORIZONTAL WIDTH
+          4. COMPANY SPECIFICATIONS BAR (DARK LUXURY NAVY PILL ROW)
+             - Placed after Process (Quality Practices) and before Our Team
+             - Name of Owner: Mr. Viral Patel
+             - Year of Establishment: 2012
+             - Nature of Business: Manufacturer & Supplier
+             - Number of Employees: Above 15
+         ================================================================= */}
+      <section className="relative w-full py-14 sm:py-18 bg-[#FAF6F1] border-t border-[#EAE0D5] overflow-hidden">
+        <div className="w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
+          
+          {/* THE DARK NAVY COMPANY SPECIFICATIONS BAR (1:1 REPLICA OF USER REFERENCE IMAGE) */}
+          <EditorialBlock>
+            <div className="relative w-full rounded-2xl sm:rounded-[24px] bg-gradient-to-r from-[#0B1F38] via-[#0E2849] to-[#0B1F38] border border-white/10 shadow-[0_20px_45px_rgba(10,25,47,0.22)] py-6 sm:py-9 px-5 sm:px-10 lg:px-14">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-0 lg:divide-x lg:divide-white/15 items-center divide-y sm:divide-y-0 divide-white/10">
+                
+                {/* 1. Name of Owner: Mr. Viral Patel */}
+                <div className="flex items-center gap-4 lg:justify-center lg:px-4 pt-1 sm:pt-0">
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-white/[0.08] border border-white/15 flex items-center justify-center shrink-0 text-white/90">
+                    <UserCheck className="w-6 h-6 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <div className="font-serif text-xl sm:text-2xl lg:text-[28px] font-bold text-white tracking-tight leading-none whitespace-nowrap">
+                      Mr. Viral Patel
+                    </div>
+                    <div className="font-sans text-[12.5px] sm:text-[13.5px] text-slate-300 font-normal tracking-wide pt-1.5 whitespace-nowrap">
+                      Name of Owner
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. Year of Establishment: 2012 */}
+                <div className="flex items-center gap-4 lg:justify-center lg:px-4 pt-4 sm:pt-0">
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-white/[0.08] border border-white/15 flex items-center justify-center shrink-0 text-white/90">
+                    <Calendar className="w-6 h-6 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <div className="font-serif text-2xl sm:text-3xl lg:text-[38px] font-bold text-white tracking-tight leading-none whitespace-nowrap">
+                      2012
+                    </div>
+                    <div className="font-sans text-[12.5px] sm:text-[13.5px] text-slate-300 font-normal tracking-wide pt-1.5 whitespace-nowrap">
+                      Year of Establishment
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. Nature of Business: Manufacturer & Supplier */}
+                <div className="flex items-center gap-4 lg:justify-center lg:px-4 pt-4 sm:pt-0">
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-white/[0.08] border border-white/15 flex items-center justify-center shrink-0 text-white/90">
+                    <Building2 className="w-6 h-6 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <div className="font-serif text-base sm:text-lg lg:text-[22px] font-bold text-white tracking-tight leading-none whitespace-nowrap">
+                      Manufacturer &amp; Supplier
+                    </div>
+                    <div className="font-sans text-[12.5px] sm:text-[13.5px] text-slate-300 font-normal tracking-wide pt-1.5 whitespace-nowrap">
+                      Nature of Business
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. Number of Employees: Above 15 */}
+                <div className="flex items-center gap-4 lg:justify-center lg:px-4 pt-4 sm:pt-0">
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-white/[0.08] border border-white/15 flex items-center justify-center shrink-0 text-white/90">
+                    <Users className="w-6 h-6 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <div className="font-serif text-2xl sm:text-3xl lg:text-[38px] font-bold text-white tracking-tight leading-none whitespace-nowrap">
+                      Above 15
+                    </div>
+                    <div className="font-sans text-[12.5px] sm:text-[13.5px] text-slate-300 font-normal tracking-wide pt-1.5 whitespace-nowrap">
+                      Number of Employees
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </EditorialBlock>
+
+        </div>
+      </section>
+
+      {/* =================================================================
+          5. HAUTE-COUTURE SHOWCASE: OUR TEAM - FULL HORIZONTAL WIDTH
              - Authentic Flowing Silk Wave Background Canvas (100% Full Bleed)
              - Left: Our People Eyebrow + Our Team Headline + Manifesto + Action Button (Enlarged Scale)
              - Right: Dedicated Viral Fabrics Team Photo with Navy Blue Branded Polos in Mill
@@ -574,14 +657,22 @@ export default function AboutUsPage() {
                   We have a dedicated team of well-qualified professionals and skilled workers. All the employees of our company are very hard working and stand by the company’s vision of attaining complete client satisfaction. Moreover, we work in close coordination with our clients to ensure that they get what they expect.
                 </p>
 
-                {/* Action Button in dark luxury navy */}
+                {/* Action Button: Polygon Cut Brand Navy Button (matching Home Page READ MORE button) */}
                 <div className="pt-2 sm:pt-3">
                   <Link
                     href="/contact-us"
-                    className="inline-flex items-center gap-2.5 px-7 py-3 sm:px-8 sm:py-3.5 rounded-xl text-[13.5px] sm:text-[14px] font-medium tracking-wide text-white bg-[#0E2A47] hover:bg-[#163B66] transition-all duration-300 shadow-[0_2px_12px_rgba(14,42,71,0.25)] hover:shadow-[0_4px_18px_rgba(14,42,71,0.35)] hover:-translate-y-0.5 group"
+                    className="relative inline-flex items-center justify-center gap-2.5 h-11 pl-6 pr-8 text-[11.5px] font-semibold tracking-[0.16em] uppercase text-white bg-gradient-to-r from-[#2c4973] via-[#375785] to-[#436b9e] hover:from-[#375785] hover:via-[#436b9e] hover:to-[#5581ba] transition-all duration-300 group shadow-[0_2px_12px_rgba(55,87,133,0.3)] hover:shadow-[0_4px_18px_rgba(55,87,133,0.45)] hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap cursor-pointer overflow-hidden"
+                    style={{
+                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%)',
+                    }}
                   >
-                    <span>Connect With Our Team</span>
-                    <ArrowUpRight className="w-4 h-4 stroke-[2.2] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    {/* Smooth Luminous Shine Sweep */}
+                    <span
+                      className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12 pointer-events-none group-hover:translate-x-[250%] transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                      aria-hidden="true"
+                    />
+                    <span className="relative z-10 font-sans">CONNECT WITH OUR TEAM</span>
+                    <ArrowRight className="relative z-10 w-3.5 h-3.5 stroke-[2.2] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1" />
                   </Link>
                 </div>
 
@@ -605,88 +696,6 @@ export default function AboutUsPage() {
 
             </div>
           </EditorialBlock>
-        </div>
-      </section>
-
-      {/* =================================================================
-          5. COMPANY SPECIFICATIONS BAR (DARK LUXURY NAVY PILL ROW)
-             - Name of Owner: Mr. Viral Patel
-             - Year of Establishment: 2012
-             - Nature of Business: Manufacturer & Supplier
-             - Number of Employees: Above 15
-         ================================================================= */}
-      <section className="relative w-full py-14 sm:py-18 bg-[#FAF6F1] border-t border-[#EAE0D5] overflow-hidden">
-        <div className="w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-14">
-          
-          {/* THE DARK NAVY COMPANY SPECIFICATIONS BAR (1:1 REPLICA OF USER REFERENCE IMAGE) */}
-          <EditorialBlock>
-            <div className="relative w-full rounded-2xl sm:rounded-[24px] bg-gradient-to-r from-[#0B1F38] via-[#0E2849] to-[#0B1F38] border border-white/10 shadow-[0_20px_45px_rgba(10,25,47,0.22)] py-7 sm:py-9 px-6 sm:px-10 lg:px-14">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-white/15 items-center">
-                
-                {/* 1. Name of Owner: Mr. Viral Patel */}
-                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
-                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-white/[0.08] border border-white/15 flex items-center justify-center shrink-0 text-white/90">
-                    <UserCheck className="w-6 h-6 stroke-[1.8]" />
-                  </div>
-                  <div>
-                    <div className="font-serif text-2xl sm:text-3xl lg:text-[28px] font-bold text-white tracking-tight leading-none">
-                      Mr. Viral Patel
-                    </div>
-                    <div className="font-sans text-[13px] sm:text-[13.5px] text-slate-300 font-normal tracking-wide pt-1.5">
-                      Name of Owner
-                    </div>
-                  </div>
-                </div>
-
-                {/* 2. Year of Establishment: 2012 */}
-                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
-                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-white/[0.08] border border-white/15 flex items-center justify-center shrink-0 text-white/90">
-                    <Calendar className="w-6 h-6 stroke-[1.8]" />
-                  </div>
-                  <div>
-                    <div className="font-serif text-3xl sm:text-4xl lg:text-[38px] font-bold text-white tracking-tight leading-none">
-                      2012
-                    </div>
-                    <div className="font-sans text-[13px] sm:text-[13.5px] text-slate-300 font-normal tracking-wide pt-1.5">
-                      Year of Establishment
-                    </div>
-                  </div>
-                </div>
-
-                {/* 3. Nature of Business: Manufacturer & Supplier */}
-                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
-                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-white/[0.08] border border-white/15 flex items-center justify-center shrink-0 text-white/90">
-                    <Building2 className="w-6 h-6 stroke-[1.8]" />
-                  </div>
-                  <div>
-                    <div className="font-serif text-lg sm:text-xl lg:text-[22px] font-bold text-white tracking-tight leading-none">
-                      Manufacturer &amp; Supplier
-                    </div>
-                    <div className="font-sans text-[13px] sm:text-[13.5px] text-slate-300 font-normal tracking-wide pt-1.5">
-                      Nature of Business
-                    </div>
-                  </div>
-                </div>
-
-                {/* 4. Number of Employees: Above 15 */}
-                <div className="flex items-center gap-4 lg:justify-center lg:px-4">
-                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-white/[0.08] border border-white/15 flex items-center justify-center shrink-0 text-white/90">
-                    <Users className="w-6 h-6 stroke-[1.8]" />
-                  </div>
-                  <div>
-                    <div className="font-serif text-3xl sm:text-4xl lg:text-[38px] font-bold text-white tracking-tight leading-none">
-                      Above 15
-                    </div>
-                    <div className="font-sans text-[13px] sm:text-[13.5px] text-slate-300 font-normal tracking-wide pt-1.5">
-                      Number of Employees
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </EditorialBlock>
-
         </div>
       </section>
       </div>

@@ -1,25 +1,9 @@
 import { connectDB } from './mongodb';
 import WebsiteFabric from '@/models/WebsiteFabric';
-import { FABRICS, type FabricItem } from '@/data/fabrics';
+import { FABRICS } from '@/data/fabrics';
+import type { LiveFabric } from '@/types';
 
-export interface LiveFabric {
-  id: string;
-  name: string;
-  slug: string;
-  title: string;
-  subtitle: string;
-  shortDesc?: string;
-  description: string;
-  gsmRange: string;
-  applications: string[];
-  features: string[];
-  weaveType: string;
-  finishing: string[];
-  image: string;
-  banner: string;
-  isPublished: boolean;
-  displayOrder: number;
-}
+export type { LiveFabric };
 
 function cleanDescription(desc: string): string {
   return (desc || '')
@@ -28,10 +12,36 @@ function cleanDescription(desc: string): string {
     .trim();
 }
 
-function mapToLiveFabric(doc: any): LiveFabric {
+interface FabricDocumentLike {
+  _id?: unknown;
+  id?: string;
+  name?: string;
+  title?: string;
+  slug: string;
+  subtitle?: string;
+  shortDesc?: string;
+  description?: string;
+  gsmRange?: string;
+  applications?: string[];
+  features?: string[];
+  weaveType?: string;
+  finishing?: string[];
+  image?: string;
+  images?: string[];
+  banner?: string;
+  isPublished?: boolean;
+  showInCatalog?: boolean;
+  showInMenu?: boolean;
+  showOnHomepage?: boolean;
+  showInEnquiry?: boolean;
+  displayOrder?: number;
+  menuOrder?: number;
+}
+
+function mapToLiveFabric(doc: FabricDocumentLike): LiveFabric {
   const staticFound = FABRICS.find((f) => f.slug === doc.slug);
   return {
-    id: doc._id?.toString() || doc.id || doc.slug,
+    id: doc._id ? String(doc._id) : (doc.id || doc.slug),
     name: doc.name || doc.title || staticFound?.title || '',
     title: doc.name || doc.title || staticFound?.title || '',
     slug: doc.slug,
@@ -44,9 +54,17 @@ function mapToLiveFabric(doc: any): LiveFabric {
     weaveType: doc.weaveType || staticFound?.weaveType || '',
     finishing: (doc.finishing && doc.finishing.length > 0) ? doc.finishing : (staticFound?.finishing || []),
     image: doc.image || staticFound?.image || '/assets/uploads/2025/09/bsy-fabrics.png',
+    images: (doc.images && doc.images.length > 0)
+      ? doc.images
+      : (doc.image ? [doc.image] : (staticFound?.image ? [staticFound.image] : ['/assets/uploads/2025/09/bsy-fabrics.png'])),
     banner: doc.banner || staticFound?.banner || '/assets/uploads/2025/09/bsy-fabrics-banner.png',
     isPublished: doc.isPublished !== undefined ? doc.isPublished : true,
+    showInCatalog: doc.showInCatalog !== undefined ? doc.showInCatalog : true,
+    showInMenu: doc.showInMenu !== undefined ? doc.showInMenu : true,
+    showOnHomepage: doc.showOnHomepage !== undefined ? doc.showOnHomepage : true,
+    showInEnquiry: doc.showInEnquiry !== undefined ? doc.showInEnquiry : true,
     displayOrder: doc.displayOrder || 0,
+    menuOrder: doc.menuOrder || 0,
   };
 }
 
@@ -55,13 +73,15 @@ function mapToLiveFabric(doc: any): LiveFabric {
  */
 export async function getPublishedFabrics(): Promise<LiveFabric[]> {
   try {
-    await connectDB();
-    const docs = await WebsiteFabric.find({ isPublished: true })
-      .sort({ displayOrder: 1, createdAt: -1 })
-      .lean();
+    if (process.env.MONGODB_URI) {
+      await connectDB();
+      const docs = await WebsiteFabric.find({ isPublished: true })
+        .sort({ displayOrder: 1, createdAt: -1 })
+        .lean();
 
-    if (docs && docs.length > 0) {
-      return docs.map(mapToLiveFabric);
+      if (docs && docs.length > 0) {
+        return docs.map(mapToLiveFabric);
+      }
     }
   } catch (error) {
     console.warn('[Fabrics Service] MongoDB query failed, falling back to static catalogue:', error);
@@ -82,10 +102,120 @@ export async function getPublishedFabrics(): Promise<LiveFabric[]> {
     weaveType: f.weaveType,
     finishing: f.finishing,
     image: f.image,
+    images: [f.image],
     banner: f.banner,
     isPublished: true,
+    showInCatalog: true,
+    showInMenu: true,
+    showOnHomepage: true,
+    showInEnquiry: true,
     displayOrder: i + 1,
+    menuOrder: i + 1,
   }));
+}
+
+/**
+ * Fetch fabrics for main catalog directory (/fabrics)
+ */
+export async function getCatalogFabrics(): Promise<LiveFabric[]> {
+  try {
+    if (process.env.MONGODB_URI) {
+      await connectDB();
+      const docs = await WebsiteFabric.find({
+        isPublished: true,
+        showInCatalog: { $ne: false },
+      })
+        .sort({ displayOrder: 1, createdAt: -1 })
+        .lean();
+
+      if (docs && docs.length > 0) {
+        return docs.map(mapToLiveFabric);
+      }
+    }
+  } catch (error) {
+    console.warn('[Fabrics Service] Catalog query failed, falling back to published fabrics:', error);
+  }
+
+  const all = await getPublishedFabrics();
+  return all.filter((f) => f.showInCatalog !== false);
+}
+
+/**
+ * Fetch fabrics designated for navbar & footer menu dropdown with fallback
+ */
+export async function getMenuFabrics(): Promise<LiveFabric[]> {
+  try {
+    if (process.env.MONGODB_URI) {
+      await connectDB();
+      const docs = await WebsiteFabric.find({ 
+        isPublished: true, 
+        showInMenu: { $ne: false } 
+      })
+        .sort({ menuOrder: 1, displayOrder: 1, createdAt: -1 })
+        .lean();
+
+      if (docs && docs.length > 0) {
+        return docs.map(mapToLiveFabric);
+      }
+    }
+  } catch (error) {
+    console.warn('[Fabrics Service] Menu MongoDB query failed, falling back to published fabrics:', error);
+  }
+
+  const all = await getPublishedFabrics();
+  return all.filter((f) => f.showInMenu !== false);
+}
+
+/**
+ * Fetch fabrics for homepage portfolio section
+ */
+export async function getHomepageFabrics(): Promise<LiveFabric[]> {
+  try {
+    if (process.env.MONGODB_URI) {
+      await connectDB();
+      const docs = await WebsiteFabric.find({ 
+        isPublished: true, 
+        showOnHomepage: { $ne: false } 
+      })
+        .sort({ displayOrder: 1, createdAt: -1 })
+        .lean();
+
+      if (docs && docs.length > 0) {
+        return docs.map(mapToLiveFabric);
+      }
+    }
+  } catch (error) {
+    console.warn('[Fabrics Service] Homepage query failed, falling back to published fabrics:', error);
+  }
+
+  const all = await getPublishedFabrics();
+  return all.filter((f) => f.showOnHomepage !== false);
+}
+
+/**
+ * Fetch fabrics for enquiry form dropdown
+ */
+export async function getEnquiryFabrics(): Promise<LiveFabric[]> {
+  try {
+    if (process.env.MONGODB_URI) {
+      await connectDB();
+      const docs = await WebsiteFabric.find({ 
+        isPublished: true, 
+        showInEnquiry: { $ne: false } 
+      })
+        .sort({ menuOrder: 1, displayOrder: 1, createdAt: -1 })
+        .lean();
+
+      if (docs && docs.length > 0) {
+        return docs.map(mapToLiveFabric);
+      }
+    }
+  } catch (error) {
+    console.warn('[Fabrics Service] Enquiry query failed, falling back to published fabrics:', error);
+  }
+
+  const all = await getPublishedFabrics();
+  return all.filter((f) => f.showInEnquiry !== false);
 }
 
 /**
@@ -93,16 +223,17 @@ export async function getPublishedFabrics(): Promise<LiveFabric[]> {
  */
 export async function getFabricBySlug(slug: string): Promise<LiveFabric | null> {
   try {
-    await connectDB();
-    const doc = await WebsiteFabric.findOne({ slug, isPublished: true }).lean();
-    if (doc) {
-      return mapToLiveFabric(doc);
+    if (process.env.MONGODB_URI) {
+      await connectDB();
+      const doc = await WebsiteFabric.findOne({ slug, isPublished: true }).lean();
+      if (doc) {
+        return mapToLiveFabric(doc);
+      }
     }
   } catch (error) {
     console.warn(`[Fabrics Service] Error fetching slug "${slug}":`, error);
   }
 
-  // Fallback to static catalog
   const staticFound = FABRICS.find((f) => f.slug === slug);
   if (staticFound) {
     return {
@@ -121,7 +252,12 @@ export async function getFabricBySlug(slug: string): Promise<LiveFabric | null> 
       image: staticFound.image,
       banner: staticFound.banner,
       isPublished: true,
+      showInCatalog: true,
+      showInMenu: true,
+      showOnHomepage: true,
+      showInEnquiry: true,
       displayOrder: 1,
+      menuOrder: 1,
     };
   }
 

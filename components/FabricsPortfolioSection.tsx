@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { fetchPublishedFabrics } from '@/services/fabricsApi';
+import type { LiveFabric } from '@/types';
 
 interface PortfolioItem {
   id: string;
@@ -18,138 +20,27 @@ interface PortfolioItem {
   imageOnLeft: boolean;
 }
 
-const PORTFOLIO_ITEMS: PortfolioItem[] = [
-  // 1. Crepe Fabrics (Coral Rose)
-  {
-    id: 'crepe',
-    slug: 'crepe-fabrics',
-    title: 'Crepe Fabrics',
-    description:
-      'Soft/silky fabrics with smooth feel. Used for designing garments, scarves, and textile products. The weight falls in the range of 75-120 grams / meter. Our fabrics are available in solid dyed or printed forms on Make-to-Order base.',
-    gsm: '75 – 120 GSM',
-    imageSrc: '/assets/uploads/2025/09/crepe-fabrics-1.png',
-    circleColor: '#E25C6A',
-    circlePosition: 'top-right',
-    imageOnLeft: true,
-  },
-  // 2. Georgette Fabrics (Lavender Purple)
-  {
-    id: 'georgette',
-    slug: 'georgette-fabrics',
-    title: 'Georgette Fabrics',
-    description:
-      'The georgette fabrics are plain weave with a crinkle effect, excellent feel and good drapability. The weight falls in the range of 35-130 grams / meter. It is most preferred in garment industry for designer top wear, dresses, and gowns.',
-    gsm: '35 – 130 GSM',
-    imageSrc: '/assets/uploads/2025/09/georgette-fabrics-1.png',
-    circleColor: '#8B5CF6',
-    circlePosition: 'top-left',
-    imageOnLeft: false,
-  },
-  // 3. Chiffon Fabrics (Fresh Emerald)
-  {
-    id: 'chiffon',
-    slug: 'chiffon-fabrics',
-    title: 'Chiffon Fabrics',
-    description:
-      'Chiffon is a crinkle, lightweight, and fine translucent fabric. The weight falls in the range of 30-90 grams / meter. Poly Chiffon Fabric is used extensively in stoles, scarves, bridal wear, and layered apparel.',
-    gsm: '30 – 90 GSM',
-    imageSrc: '/assets/uploads/2025/09/chiffon-fabrics-1.png',
-    circleColor: '#10B981',
-    circlePosition: 'top-right',
-    imageOnLeft: true,
-  },
-  // 4. Satin Fabrics (Champagne Gold)
-  {
-    id: 'satin',
-    slug: 'satin-fabrics',
-    title: 'Satin Fabrics',
-    description:
-      'Polyester Satin Fabrics are ideally used for designing home decors, garments, and scarves. Luxurious smooth, silky, and glossy weave having one shiny and one dull side, appreciated for color fastness, vibrant patterns, and soft texture.',
-    gsm: '80 – 170 GSM',
-    imageSrc: '/assets/uploads/2025/09/satin-fabrics-1.png',
-    circleColor: '#F59E0B',
-    circlePosition: 'top-left',
-    imageOnLeft: false,
-  },
-  // 5. Poly Knit Fabrics (Electric Ocean Blue)
-  {
-    id: 'poly-knit',
-    slug: 'poly-knit-fabrics',
-    title: 'Poly Knit Fabrics',
-    description:
-      'Knitted Fabrics are widely used in lingerie, sportswear, dresses, lining, and winter garments. Highly valued for outstanding features like 4-way stretch elasticity, skin comfort, soft texture, and quick-dry breathability.',
-    gsm: '80 – 200 GSM',
-    imageSrc: '/assets/uploads/2025/09/poly-knit-fabrics-1.png',
-    circleColor: '#0284C7',
-    circlePosition: 'top-right',
-    imageOnLeft: true,
-  },
-  // 6. BSY Fabrics (Deep Teal)
-  {
-    id: 'bsy',
-    slug: 'bsy-fabrics',
-    title: 'BSY Fabrics',
-    description:
-      'BSY (Bi-Shrinkage Yarn) fabrics combine two filament yarns of differential shrinkage rates, producing a distinctive peach-skin touch, deep jet-black dye absorption, and superior drape retention for high-end modest fashion and abayas.',
-    gsm: '80 – 180 GSM',
-    imageSrc: '/assets/uploads/2025/09/bsy-fabrics.png',
-    circleColor: '#0D9488',
-    circlePosition: 'top-left',
-    imageOnLeft: false,
-  },
-  // 7. Poly Dobby Fabrics (Royal Indigo)
-  {
-    id: 'poly-dobby',
-    slug: 'poly-dobby-fabrics-jacquard',
-    title: 'Poly Dobby Fabrics',
-    description:
-      'Elegantly patterned Dobby & Jacquard weaves manufactured on advanced high-speed dobby water-jet looms. Features intricate geometric self-patterns, crisp structural hand-feel, and consistent dye absorption for shirts and textured kurtas.',
-    gsm: '70 – 160 GSM',
-    imageSrc: '/assets/uploads/2025/09/poly-dobby.png',
-    circleColor: '#6366F1',
-    circlePosition: 'top-right',
-    imageOnLeft: true,
-  },
-  // 8. Net & Mesh Fabrics (Rose Magenta)
-  {
-    id: 'net-mesh',
-    slug: 'net-mesh-fabrics',
-    title: 'Net & Mesh Fabrics',
-    description:
-      'Openwork geometric mesh engineered for maximum breathability, dimensional shape retention, and tear resistance. Suitable for activewear inserts, gown petticoats, interlinings, athletic apparel, and luxury decorative apparel.',
-    gsm: '40 – 150 GSM',
-    imageSrc: '/assets/uploads/2025/09/net-fabrics.png',
-    circleColor: '#EC4899',
-    circlePosition: 'top-left',
-    imageOnLeft: false,
-  },
-  // 9. Recycled Fabrics (Eco Forest Emerald)
-  {
-    id: 'recycled',
-    slug: 'recycled-fabrics',
-    title: 'Recycled Fabrics',
-    description:
-      'Eco-conscious sustainable synthetic textiles manufactured from GRS & OEKO-TEX certified post-consumer recycled PET bottle filament yarns. Delivering identical silky touch, high tensile strength, and reduced carbon footprint.',
-    gsm: '60 – 180 GSM',
-    imageSrc: '/assets/uploads/2025/09/recycled-fabrics.png',
-    circleColor: '#059669',
-    circlePosition: 'top-right',
-    imageOnLeft: true,
-  },
-  // 10. Viscose Fabrics (Amber Copper)
-  {
-    id: 'viscose',
-    slug: 'viscose-fabrics',
-    title: 'Viscose Fabrics',
-    description:
-      'Premium cellulose-blend weaves engineered for superior breathability, moisture absorption, and flowing drape. Favored for summer dresses, kurtis, tunics, and luxury scarves in compliance with international quality norms.',
-    gsm: '85 – 160 GSM',
-    imageSrc: '/assets/uploads/2025/09/viscose-fabrics.png',
-    circleColor: '#D97706',
-    circlePosition: 'top-left',
-    imageOnLeft: false,
-  },
+const ACCENT_COLORS = [
+  '#E25C6A', '#8B5CF6', '#10B981', '#F59E0B', 
+  '#0284C7', '#0D9488', '#6366F1', '#EC4899', 
+  '#059669', '#D97706'
 ];
+
+function mapLiveToPortfolioItems(fabrics: LiveFabric[]): PortfolioItem[] {
+  return fabrics.map((f, idx) => ({
+    id: f.slug || String(idx),
+    slug: f.slug,
+    title: f.name || f.title,
+    description: f.description,
+    gsm: f.gsmRange || 'Export Quality',
+    imageSrc: f.image || '/assets/uploads/2025/09/bsy-fabrics.png',
+    circleColor: ACCENT_COLORS[idx % ACCENT_COLORS.length],
+    circlePosition: idx % 2 === 0 ? 'top-right' : 'top-left',
+    imageOnLeft: idx % 2 === 0,
+  }));
+}
+
+const PORTFOLIO_ITEMS: PortfolioItem[] = [];
 
 // Interactive 3D Card with Mouse-Tracking Perspective Tilt & Specular Light Reflection
 function Interactive3DCard({
@@ -345,7 +236,7 @@ const PortfolioRow: React.FC<{
           }, rowRef);
         }
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.05, rootMargin: '120px 0px 60px 0px' }
     );
 
     observer.observe(el);
@@ -359,8 +250,8 @@ const PortfolioRow: React.FC<{
     <div
       id={`fabric-item-${index}`}
       ref={rowRef}
-      className={`grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center will-change-[transform,opacity,filter] ${
-        index > 0 ? 'mt-16 sm:mt-24 lg:mt-28' : ''
+      className={`grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10 md:gap-8 lg:gap-14 xl:gap-16 items-center will-change-[transform,opacity,filter] ${
+        index > 0 ? 'mt-14 sm:mt-18 md:mt-20 lg:mt-28' : ''
       }`}
     >
       {/* -------------------------------------------------------------
@@ -368,8 +259,8 @@ const PortfolioRow: React.FC<{
          ------------------------------------------------------------- */}
       <div
         ref={imageColRef}
-        className={`lg:col-span-6 relative flex justify-center will-change-[transform,opacity,filter] ${
-          item.imageOnLeft ? 'order-1' : 'order-1 lg:order-2'
+        className={`md:col-span-6 relative flex justify-center will-change-[transform,opacity,filter] ${
+          item.imageOnLeft ? 'order-1' : 'order-1 md:order-2'
         }`}
         style={{
           opacity: 0,
@@ -379,12 +270,12 @@ const PortfolioRow: React.FC<{
       >
         <div className="relative w-full max-w-[560px] group">
           
-          {/* Living 3D Orb with Diffuse Radial Gradient & Ambient Float */}
+          {/* Living 3D Orb with Diffuse Radial Gradient & Ambient Float (Visible on Tablet & Desktop) */}
           <div
-            className={`absolute w-32 h-32 sm:w-44 sm:h-44 rounded-full pointer-events-none transition-transform duration-700 ease-out group-hover:scale-115 z-0 animate-pulse ${
+            className={`hidden md:block absolute w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 rounded-full pointer-events-none transition-transform duration-700 ease-out group-hover:scale-115 z-0 animate-pulse ${
               item.circlePosition === 'top-right'
-                ? '-top-7 -right-6 sm:-top-9 sm:-right-8'
-                : '-top-7 -left-6 sm:-top-9 sm:-left-8'
+                ? '-top-6 -right-5 sm:-top-8 sm:-right-7'
+                : '-top-6 -left-5 sm:-top-8 sm:-left-7'
             }`}
             style={{
               background: `radial-gradient(circle at 35% 35%, ${item.circleColor}ee, ${item.circleColor}99 55%, ${item.circleColor}33 85%, transparent 100%)`,
@@ -415,8 +306,8 @@ const PortfolioRow: React.FC<{
          ------------------------------------------------------------- */}
       <div
         ref={textColRef}
-        className={`lg:col-span-6 flex flex-col justify-center will-change-[transform,opacity,filter] ${
-          item.imageOnLeft ? 'order-2 pl-0 lg:pl-4 xl:pl-8' : 'order-2 lg:order-1 pr-0 lg:pr-4 xl:pr-8'
+        className={`md:col-span-6 flex flex-col justify-center will-change-[transform,opacity,filter] ${
+          item.imageOnLeft ? 'order-2 pl-0 md:pl-4 lg:pl-6 xl:pl-8' : 'order-2 md:order-1 pr-0 md:pr-4 lg:pr-6 xl:pr-8'
         }`}
         style={{
           opacity: 0,
@@ -460,15 +351,32 @@ const PortfolioRow: React.FC<{
               {item.description}
             </p>
 
-            {/* Polygon Cut Brand Navy READ MORE Button (matching Who We Are standard) */}
+            {/* Polygon Cut Brand Navy READ MORE Button */}
             <div className="pt-2">
               <Link
                 href={`/fabrics/${item.slug}`}
                 className="relative inline-flex items-center justify-center gap-2.5 h-11 pl-6 pr-8 text-[11.5px] font-semibold tracking-[0.16em] uppercase text-white bg-gradient-to-r from-[#2c4973] via-[#375785] to-[#436b9e] hover:from-[#375785] hover:via-[#436b9e] hover:to-[#5581ba] transition-all duration-300 group shadow-[0_2px_12px_rgba(55,87,133,0.3)] hover:shadow-[0_4px_18px_rgba(55,87,133,0.45)] hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap cursor-pointer overflow-hidden"
                 style={{
-                  clipPath: 'polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%)',
+                  clipPath: 'polygon(0 0, 100% 0, 89% 100%, 0 100%)',
                 }}
               >
+                {/* SVG Continuous 1px Border Overlay (Zero line glitch) */}
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="0.5,0.5 99.5,0.5 89,99.5 0.5,99.5"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.4)"
+                    strokeWidth="1"
+                    vectorEffect="non-scaling-stroke"
+                    strokeLinejoin="miter"
+                  />
+                </svg>
+
                 {/* Smooth Luminous Shine Sweep */}
                 <span
                   className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12 pointer-events-none group-hover:translate-x-[250%] transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -486,11 +394,35 @@ const PortfolioRow: React.FC<{
   );
 };
 
-export const FabricsPortfolioSection: React.FC = () => {
+interface FabricsPortfolioSectionProps {
+  initialFabrics?: LiveFabric[];
+}
+
+export const FabricsPortfolioSection: React.FC<FabricsPortfolioSectionProps> = ({ initialFabrics }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const [visibleCount, setVisibleCount] = useState(5);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [items, setItems] = useState<PortfolioItem[]>(() => {
+    if (initialFabrics && initialFabrics.length > 0) {
+      return mapLiveToPortfolioItems(initialFabrics);
+    }
+    return PORTFOLIO_ITEMS;
+  });
+
+  // Fetch live dynamic fabrics from database with fallback (respects showOnHomepage)
+  useEffect(() => {
+    let mounted = true;
+    fetchPublishedFabrics('homepage').then((fabrics) => {
+      if (mounted && fabrics.length > 0) {
+        setItems(mapLiveToPortfolioItems(fabrics));
+      }
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -513,7 +445,7 @@ export const FabricsPortfolioSection: React.FC = () => {
   const handleLoadMore = () => {
     setIsLoadingMore(true);
     setTimeout(() => {
-      const nextCount = Math.min(visibleCount + 5, PORTFOLIO_ITEMS.length);
+      const nextCount = Math.min(visibleCount + 5, items.length);
       setVisibleCount(nextCount);
       setIsLoadingMore(false);
 
@@ -522,8 +454,8 @@ export const FabricsPortfolioSection: React.FC = () => {
         const newlyRevealedEl = document.getElementById(`fabric-item-${visibleCount}`);
         if (newlyRevealedEl) {
           const y = newlyRevealedEl.getBoundingClientRect().top + window.scrollY - 100;
-          if ((window as any).__lenis) {
-            (window as any).__lenis.scrollTo(y, { duration: 1.2 });
+          if (window.__lenis) {
+            window.__lenis.scrollTo(y, { duration: 1.2 });
           } else {
             window.scrollTo({ top: y, behavior: 'smooth' });
           }
@@ -532,13 +464,13 @@ export const FabricsPortfolioSection: React.FC = () => {
     }, 300);
   };
 
-  const hasMore = visibleCount < PORTFOLIO_ITEMS.length;
+  const hasMore = visibleCount < items.length;
 
   return (
     <section
       ref={sectionRef}
       id="fabrics-portfolio"
-      className="relative w-full pt-10 sm:pt-12 lg:pt-16 pb-20 sm:pb-24 lg:pb-28 xl:pb-32 bg-[#FAF8F5] text-[#0A192F] overflow-hidden selection:bg-[#006DB6] selection:text-white"
+      className="relative w-full -mt-[2px] pt-10 sm:pt-12 lg:pt-16 pb-20 sm:pb-24 lg:pb-28 xl:pb-32 bg-[#FAF8F5] text-[#0A192F] overflow-hidden selection:bg-[#006DB6] selection:text-white"
     >
       <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-14">
 
@@ -578,12 +510,18 @@ export const FabricsPortfolioSection: React.FC = () => {
         </div>
 
         {/* =========================================================
-            ALTERNATING FABRICS LIST (CREPE, GEORGETTE, CHIFFON, SATIN, POLY KNIT, BSY, DOBBY, NET, RECYCLED, VISCOSE)
+            ALTERNATING FABRICS LIST (DYNAMICALLY LOADED FROM DB)
            ========================================================= */}
         <div className="space-y-4">
-          {PORTFOLIO_ITEMS.slice(0, visibleCount).map((item, index) => (
-            <PortfolioRow key={item.id} item={item} index={index} />
-          ))}
+          {items.length === 0 ? (
+            <div className="py-16 text-center text-slate-400">
+              <p className="text-sm font-medium">Loading fabrics repertoire from mill database...</p>
+            </div>
+          ) : (
+            items.slice(0, visibleCount).map((item, index) => (
+              <PortfolioRow key={item.id} item={item} index={index} />
+            ))
+          )}
         </div>
 
         {/* =========================================================
@@ -597,9 +535,26 @@ export const FabricsPortfolioSection: React.FC = () => {
               disabled={isLoadingMore}
               className="relative inline-flex items-center justify-center gap-3 h-12 pl-8 pr-10 text-[12px] font-semibold tracking-[0.18em] uppercase text-white bg-gradient-to-r from-[#2c4973] via-[#375785] to-[#436b9e] hover:from-[#375785] hover:via-[#436b9e] hover:to-[#5581ba] transition-all duration-300 group shadow-[0_4px_16px_rgba(44,73,115,0.35)] hover:shadow-[0_6px_22px_rgba(44,73,115,0.5)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer overflow-hidden disabled:opacity-75"
               style={{
-                clipPath: 'polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%)',
+                clipPath: 'polygon(0 0, 100% 0, 89% 100%, 0 100%)',
               }}
             >
+              {/* SVG Continuous 1px Border Overlay (Zero line glitch) */}
+              <svg
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <polygon
+                  points="0.5,0.5 99.5,0.5 89,99.5 0.5,99.5"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.4)"
+                  strokeWidth="1"
+                  vectorEffect="non-scaling-stroke"
+                  strokeLinejoin="miter"
+                />
+              </svg>
+
               {/* Smooth Luminous Shine Sweep */}
               <span
                 className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12 pointer-events-none group-hover:translate-x-[250%] transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -622,9 +577,26 @@ export const FabricsPortfolioSection: React.FC = () => {
               href="/fabrics"
               className="relative inline-flex items-center justify-center gap-3 h-12 pl-8 pr-10 text-[12px] font-semibold tracking-[0.18em] uppercase text-white bg-gradient-to-r from-[#2c4973] via-[#375785] to-[#436b9e] hover:from-[#375785] hover:via-[#436b9e] hover:to-[#5581ba] transition-all duration-300 group shadow-[0_4px_16px_rgba(44,73,115,0.35)] hover:shadow-[0_6px_22px_rgba(44,73,115,0.5)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer overflow-hidden"
               style={{
-                clipPath: 'polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%)',
+                clipPath: 'polygon(0 0, 100% 0, 89% 100%, 0 100%)',
               }}
             >
+              {/* SVG Continuous 1px Border Overlay (Zero line glitch) */}
+              <svg
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <polygon
+                  points="0.5,0.5 99.5,0.5 89,99.5 0.5,99.5"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.4)"
+                  strokeWidth="1"
+                  vectorEffect="non-scaling-stroke"
+                  strokeLinejoin="miter"
+                />
+              </svg>
+
               <span
                 className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12 pointer-events-none group-hover:translate-x-[250%] transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 aria-hidden="true"

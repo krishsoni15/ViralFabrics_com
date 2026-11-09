@@ -31,12 +31,12 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     }
 
     animationFrameId = requestAnimationFrame(raf);
-    (window as any).__lenis = lenis;
+    window.__lenis = lenis;
 
     return () => {
       cancelAnimationFrame(animationFrameId);
       lenis.destroy();
-      delete (window as any).__lenis;
+      delete window.__lenis;
     };
   }, []);
 

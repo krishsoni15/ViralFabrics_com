@@ -37,8 +37,11 @@ const robotoSlab = Roboto_Slab({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://viralfabrics.com'),
+  alternates: {
+    canonical: 'https://viralfabrics.com',
+  },
   title: {
-    default: 'Viral Fabrics | Haute Synthetic Textile Manufacturer Surat',
+    default: 'Viral Fabrics | Quality Export Fabrics from Surat, Gujarat',
     template: '%s - Viral Fabrics',
   },
   description: 'Viral Fabrics Surat - Premier Manufacturer and Supplier of Export-Grade Fabrics in Surat, Gujarat. Specialist in BSY, Poly Dobby, Satin, Chiffon, Georgette, Crepe, Recycled, and Viscose fabrics on Make-To-Order basis.',

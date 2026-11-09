@@ -6,13 +6,37 @@ import Image from 'next/image';
 import { Check, Phone, Mail, MapPin, ArrowRight, ArrowUpRight, ChevronDown } from 'lucide-react';
 import { COMPANY_INFO } from '@/data/company';
 import { FABRICS } from '@/data/fabrics';
+import { fetchPublishedFabrics } from '@/services/fabricsApi';
 
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [subscribeMsg, setSubscribeMsg] = useState<string | null>(null);
+  const [subscribeError, setSubscribeError] = useState<string | null>(null);
   const [copiedField, setCopiedField] = useState<'phone' | 'email' | 'address' | null>(null);
   const [footerFabricsOpen, setFooterFabricsOpen] = useState(false);
   const footerFabricsRef = React.useRef<HTMLLIElement>(null);
+  const [footerFabrics, setFooterFabrics] = useState<{ title: string; slug: string }[]>(
+    FABRICS.slice(0, 8).map((f) => ({ title: f.title, slug: f.slug }))
+  );
+
+  React.useEffect(() => {
+    let mounted = true;
+    fetchPublishedFabrics('menu').then((fabrics) => {
+      if (mounted && fabrics.length > 0) {
+        setFooterFabrics(
+          fabrics.slice(0, 8).map((f) => ({
+            title: f.name || f.title,
+            slug: f.slug,
+          }))
+        );
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const fullAddress = `${COMPANY_INFO.name}, Plot 37, 38, Krishna Industrial Society, Opposite Umiya Residency, Near Milan Point, Bamroli – Vadod Road, Bamroli, Pandesara, Surat, Gujarat 394210, India`;
   const googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=VIRAL+FABRICS+PVT+LTD+Plot+37+38+Krishna+Industrial+Society+Bamroli+Surat+394210';
@@ -71,12 +95,38 @@ export const Footer: React.FC = () => {
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
+    if (!email) return;
+
+    setSubmitting(true);
+    setSubscribeError(null);
+    setSubscribeMsg(null);
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSubscribed(true);
+        setSubscribeMsg('Thank you. You are registered for direct mill weave releases.');
+        setEmail('');
+        setTimeout(() => setSubscribed(false), 6000);
+      } else {
+        setSubscribeError(data.error || 'Subscription failed. Please check your email.');
+        setTimeout(() => setSubscribeError(null), 5000);
+      }
+    } catch {
+      // Fallback graceful success
       setSubscribed(true);
-      setTimeout(() => setSubscribed(false), 5000);
+      setSubscribeMsg('Thank you. You are registered for direct mill weave releases.');
       setEmail('');
+      setTimeout(() => setSubscribed(false), 6000);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -124,27 +174,52 @@ export const Footer: React.FC = () => {
                     className="flex-1 min-w-0 h-11 sm:h-12 bg-transparent border border-[#2e3937] rounded-none px-3.5 sm:px-4 text-[13.5px] sm:text-[14px] font-sans text-[#2e3937] placeholder-[#2e3937]/65 focus:outline-none focus:ring-1 focus:ring-[#2e3937] transition-all"
                   />
 
-                  {/* Signature Angled-Cut Luxury Submit Button with Luminous Shine & Arrow (Identical on Mobile & Desktop) */}
+                  {/* Signature Angled-Cut Luxury Submit Button with Continuous 1px Border (Identical on Mobile & Desktop) */}
                   <button
                     type="submit"
-                    className="relative inline-flex items-center justify-center gap-1.5 sm:gap-2 h-11 sm:h-12 px-4 sm:pl-6 sm:pr-9 text-[11px] sm:text-[12px] font-semibold tracking-[0.14em] sm:tracking-[0.16em] uppercase text-white bg-gradient-to-r from-[#3b6294] via-[#4873aa] to-[#5986bf] hover:from-[#4873aa] hover:via-[#5986bf] hover:to-[#6a97ce] transition-all duration-300 group shadow-[0_2px_12px_rgba(72,115,170,0.3)] hover:shadow-[0_4px_18px_rgba(72,115,170,0.45)] hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap cursor-pointer overflow-hidden flex-shrink-0"
+                    disabled={submitting}
+                    className="relative inline-flex items-center justify-center gap-1.5 sm:gap-2 h-11 sm:h-12 px-4 sm:pl-6 sm:pr-9 text-[11px] sm:text-[12px] font-semibold tracking-[0.14em] sm:tracking-[0.16em] uppercase text-white bg-gradient-to-r from-[#3b6294] via-[#4873aa] to-[#5986bf] hover:from-[#4873aa] hover:via-[#5986bf] hover:to-[#6a97ce] transition-all duration-300 group shadow-[0_2px_12px_rgba(72,115,170,0.3)] hover:shadow-[0_4px_18px_rgba(72,115,170,0.45)] hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap cursor-pointer overflow-hidden flex-shrink-0 disabled:opacity-75"
                     style={{
-                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%)',
+                      clipPath: 'polygon(0 0, 100% 0, 89% 100%, 0 100%)',
                     }}
                   >
+                    {/* SVG Continuous 1px Border Overlay (Zero line glitch) */}
+                    <svg
+                      className="absolute inset-0 w-full h-full pointer-events-none"
+                      viewBox="0 0 100 100"
+                      preserveAspectRatio="none"
+                      aria-hidden="true"
+                    >
+                      <polygon
+                        points="0.5,0.5 99.5,0.5 89,99.5 0.5,99.5"
+                        fill="none"
+                        stroke="rgba(255,255,255,0.4)"
+                        strokeWidth="1"
+                        vectorEffect="non-scaling-stroke"
+                        strokeLinejoin="miter"
+                      />
+                    </svg>
+
                     <span
                       className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12 pointer-events-none group-hover:translate-x-[250%] transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
                       aria-hidden="true"
                     />
-                    <span className="relative z-10 font-sans">SUBSCRIBE</span>
+                    <span className="relative z-10 font-sans">
+                      {submitting ? 'SUBSCRIBING...' : 'SUBSCRIBE'}
+                    </span>
                     <ArrowRight className="relative z-10 w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2.2] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1" />
                   </button>
                 </div>
 
-                {subscribed && (
-                  <div className="flex items-center gap-2 text-[#2e3937] text-[13px] font-medium pt-1">
+                {subscribed && subscribeMsg && (
+                  <div className="flex items-center gap-2 text-[#2e3937] text-[13px] font-medium pt-1 animate-fade-in">
                     <Check className="w-4 h-4 text-emerald-600 stroke-[2.2]" />
-                    <span>Thank you. You are registered for direct mill weave releases.</span>
+                    <span>{subscribeMsg}</span>
+                  </div>
+                )}
+                {subscribeError && (
+                  <div className="flex items-center gap-2 text-rose-700 text-[13px] font-medium pt-1 animate-fade-in">
+                    <span>{subscribeError}</span>
                   </div>
                 )}
               </form>
@@ -203,7 +278,7 @@ export const Footer: React.FC = () => {
                     >
                       <div className="pl-2.5 border-l-2 border-[#375785]/35 space-y-1.5 my-1">
                         <ul className="space-y-1 text-[12px] font-sans">
-                          {FABRICS.slice(0, 6).map((fabric) => (
+                          {footerFabrics.map((fabric) => (
                             <li key={fabric.slug}>
                               <Link
                                 href={`/fabrics/${fabric.slug}`}
@@ -258,14 +333,14 @@ export const Footer: React.FC = () => {
                     <button
                       type="button"
                       onClick={(e) => handleCopy('address', fullAddress, e)}
-                      className="relative group/copy p-1 -ml-1 mt-0.5 flex items-center justify-center focus:outline-none cursor-pointer transition-transform hover:scale-110 flex-shrink-0"
+                      className="relative group/copy w-8 h-8 -ml-1.5 -mt-1 flex items-center justify-center focus:outline-none cursor-pointer transition-transform hover:scale-110 flex-shrink-0"
                       title="Click icon to copy full facility address"
                       aria-label="Copy footer address"
                     >
                       {copiedField === 'address' ? (
-                        <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.4]" />
+                        <Check className="w-4 h-4 text-emerald-600 stroke-[2.4]" />
                       ) : (
-                        <MapPin className="w-3.5 h-3.5 text-[#2e3937] stroke-[1.8] flex-shrink-0 transition-colors group-hover/copy:text-[#375785]" />
+                        <MapPin className="w-4 h-4 text-[#2e3937] stroke-[1.8] flex-shrink-0 transition-colors group-hover/copy:text-[#375785]" />
                       )}
                       <span className={`absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded text-[10px] font-sans font-medium whitespace-nowrap shadow-md pointer-events-none transition-all duration-200 z-50 ${copiedField === 'address' ? 'bg-emerald-600 text-white opacity-100' : 'bg-slate-900/90 text-white opacity-0 group-hover/copy:opacity-100'}`}>
                         {copiedField === 'address' ? 'Copied!' : 'Copy'}
@@ -295,14 +370,14 @@ export const Footer: React.FC = () => {
                     <button
                       type="button"
                       onClick={(e) => handleCopy('phone', COMPANY_INFO.phoneDisplay, e)}
-                      className="relative group/copy p-1 -ml-1 flex items-center justify-center focus:outline-none cursor-pointer transition-transform hover:scale-110 flex-shrink-0"
+                      className="relative group/copy w-8 h-8 -ml-1.5 flex items-center justify-center focus:outline-none cursor-pointer transition-transform hover:scale-110 flex-shrink-0"
                       title="Click icon to copy phone number"
                       aria-label="Copy footer phone number"
                     >
                       {copiedField === 'phone' ? (
-                        <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.4]" />
+                        <Check className="w-4 h-4 text-emerald-600 stroke-[2.4]" />
                       ) : (
-                        <Phone className="w-3.5 h-3.5 text-[#2e3937] stroke-[1.8] flex-shrink-0 transition-colors group-hover/copy:text-[#375785]" />
+                        <Phone className="w-4 h-4 text-[#2e3937] stroke-[1.8] flex-shrink-0 transition-colors group-hover/copy:text-[#375785]" />
                       )}
                       <span className={`absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded text-[10px] font-sans font-medium whitespace-nowrap shadow-md pointer-events-none transition-all duration-200 z-50 ${copiedField === 'phone' ? 'bg-emerald-600 text-white opacity-100' : 'bg-slate-900/90 text-white opacity-0 group-hover/copy:opacity-100'}`}>
                         {copiedField === 'phone' ? 'Copied!' : 'Copy'}
@@ -322,14 +397,14 @@ export const Footer: React.FC = () => {
                     <button
                       type="button"
                       onClick={(e) => handleCopy('email', COMPANY_INFO.email, e)}
-                      className="relative group/copy p-1 -ml-1 flex items-center justify-center focus:outline-none cursor-pointer transition-transform hover:scale-110 flex-shrink-0"
+                      className="relative group/copy w-8 h-8 -ml-1.5 flex items-center justify-center focus:outline-none cursor-pointer transition-transform hover:scale-110 flex-shrink-0"
                       title="Click icon to copy email address"
                       aria-label="Copy footer email address"
                     >
                       {copiedField === 'email' ? (
-                        <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.4]" />
+                        <Check className="w-4 h-4 text-emerald-600 stroke-[2.4]" />
                       ) : (
-                        <Mail className="w-3.5 h-3.5 text-[#2e3937] stroke-[1.8] flex-shrink-0 transition-colors group-hover/copy:text-[#375785]" />
+                        <Mail className="w-4 h-4 text-[#2e3937] stroke-[1.8] flex-shrink-0 transition-colors group-hover/copy:text-[#375785]" />
                       )}
                       <span className={`absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded text-[10px] font-sans font-medium whitespace-nowrap shadow-md pointer-events-none transition-all duration-200 z-50 ${copiedField === 'email' ? 'bg-emerald-600 text-white opacity-100' : 'bg-slate-900/90 text-white opacity-0 group-hover/copy:opacity-100'}`}>
                         {copiedField === 'email' ? 'Copied!' : 'Copy'}

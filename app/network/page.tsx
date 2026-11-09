@@ -100,10 +100,10 @@ export default function NetworkPage() {
         <div className="relative z-10 max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-14 w-full flex-1 flex flex-col justify-between">
           
           {/* Top Row: Left Narrative Story + Right Interactive Route Map */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center pt-2 sm:pt-4 my-auto">
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 xl:gap-16 items-center pt-2 sm:pt-4 my-auto">
             
             {/* 1. Left Editorial Narrative (Clean, Prestigious Typography matching About Us) */}
-            <div ref={narrativeRef} className="lg:col-span-5 xl:col-span-5 space-y-5 lg:pr-2 will-change-[transform,opacity,filter]">
+            <div ref={narrativeRef} className="xl:col-span-5 space-y-5 xl:pr-2 will-change-[transform,opacity,filter]">
               
               {/* Eyebrow Header */}
               <div className="flex items-center gap-3">
@@ -114,19 +114,21 @@ export default function NetworkPage() {
               </div>
 
               {/* Main Title */}
-              <h2 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-normal text-[#0A192F] tracking-tight leading-[1.12]">
+              <h2 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[44px] xl:text-[54px] font-normal text-[#0A192F] tracking-tight leading-[1.12]">
                 Worldwide <span className="text-[#006DB6] italic font-normal">Distribution</span>
               </h2>
 
               {/* Comprehensive Editorial Story Copy */}
               <div className="space-y-4 text-slate-600 font-sans text-[15px] sm:text-[16px] lg:text-[16.5px] font-normal leading-[1.8]">
-                <p>
-                  At <strong className="font-semibold text-[#0A192F]">Viral Fabrics</strong>, we are proud to serve clients across the globe, supplying premium export-quality fabrics to regions including Europe, America, Dubai, and beyond. Since our establishment in 2012 in Surat, Gujarat, India, we have built a strong reputation for quality, reliability, and timely delivery.
-                </p>
+                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-1 gap-4 lg:gap-6 xl:gap-0">
+                  <p>
+                    At <strong className="font-semibold text-[#0A192F]">Viral Fabrics</strong>, we are proud to serve clients across the globe, supplying premium export-quality fabrics to regions including Europe, America, Dubai, and beyond. Since our establishment in 2012 in Surat, Gujarat, India, we have built a strong reputation for quality, reliability, and timely delivery.
+                  </p>
 
-                <p>
-                  Our extensive product range—covering Polyester Dyed and Printed Fabrics, Viscose, Rayon, Cotton, and Digital Printed Fabrics—is trusted by international importers, wholesalers, and garment manufacturers. With efficient logistics, secure packaging, and strict quality control at every stage of production, we ensure that our fabrics consistently meet global standards.
-                </p>
+                  <p>
+                    Our extensive product range—covering Polyester Dyed and Printed Fabrics, Viscose, Rayon, Cotton, and Digital Printed Fabrics—is trusted by international importers, wholesalers, and garment manufacturers. With efficient logistics, secure packaging, and strict quality control at every stage of production, we ensure that our fabrics consistently meet global standards.
+                  </p>
+                </div>
 
                 <p className="text-slate-700 italic border-l-2 border-[#006DB6] pl-4 py-3 pr-4 text-[14px] sm:text-[15px] leading-[1.75] bg-[#006DB6]/5 rounded-r-lg">
                   This worldwide network, combined with our dedication to excellence and long-term partnerships, has made Viral Fabrics a trusted name in the international textile market.
@@ -136,9 +138,9 @@ export default function NetworkPage() {
             </div>
 
             {/* 2. Right Interactive World Route Map Showcase */}
-            <div ref={mapRef} className="lg:col-span-7 xl:col-span-7 relative flex items-center justify-center will-change-[transform,opacity,filter]">
+            <div ref={mapRef} className="xl:col-span-7 relative flex items-center justify-center will-change-[transform,opacity,filter] w-full">
               <div 
-                className="relative w-full max-w-[880px]"
+                className="relative w-full max-w-[920px]"
                 style={{ aspectRatio: '1755 / 896' }}
               >
                 
@@ -271,10 +273,10 @@ export default function NetworkPage() {
           {/* 3. Bottom Refined Credentials Glassmorphic Floating Bar */}
           <div ref={pillarsRef} className="mt-10 lg:mt-14 w-full will-change-[transform,opacity,filter]">
             <div className="bg-white/85 backdrop-blur-md border border-white/90 rounded-[22px] sm:rounded-[26px] shadow-[0_12px_36px_rgba(10,25,47,0.06)] px-6 sm:px-10 py-5 sm:py-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-6 divide-y sm:divide-y-0 lg:divide-x divide-slate-200/70">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 xl:gap-6 divide-y sm:divide-y-0 xl:divide-x divide-slate-200/70">
                 
                 {/* Pillar 1: Since 2012 */}
-                <div className="flex items-center gap-4 pt-2 sm:pt-0 lg:px-5 first:lg:pl-0 group cursor-default">
+                <div className="flex items-center gap-4 pt-2 sm:pt-0 xl:px-5 first:xl:pl-0 group cursor-default">
                   <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-2xl bg-[#EBF3FC] border border-[#D0E2F7] flex items-center justify-center text-[#006DB6] shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300 shadow-xs">
                     <Calendar className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
                   </div>
@@ -289,7 +291,7 @@ export default function NetworkPage() {
                 </div>
 
                 {/* Pillar 2: Wide Product Range */}
-                <div className="flex items-center gap-4 pt-4 sm:pt-0 lg:px-5 group cursor-default">
+                <div className="flex items-center gap-4 pt-4 sm:pt-0 xl:px-5 group cursor-default">
                   <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-2xl bg-[#EBF3FC] border border-[#D0E2F7] flex items-center justify-center text-[#006DB6] shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300 shadow-xs">
                     <Layers className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
                   </div>
@@ -304,7 +306,7 @@ export default function NetworkPage() {
                 </div>
 
                 {/* Pillar 3: Global Markets */}
-                <div className="flex items-center gap-4 pt-4 sm:pt-0 lg:px-5 group cursor-default">
+                <div className="flex items-center gap-4 pt-4 sm:pt-0 xl:px-5 group cursor-default">
                   <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-2xl bg-[#EBF3FC] border border-[#D0E2F7] flex items-center justify-center text-[#006DB6] shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300 shadow-xs">
                     <Globe2 className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
                   </div>
@@ -319,7 +321,7 @@ export default function NetworkPage() {
                 </div>
 
                 {/* Pillar 4: Long-Term Partnerships */}
-                <div className="flex items-center gap-4 pt-4 sm:pt-0 lg:px-5 last:lg:pr-0 group cursor-default">
+                <div className="flex items-center gap-4 pt-4 sm:pt-0 xl:px-5 last:xl:pr-0 group cursor-default">
                   <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-2xl bg-[#EBF3FC] border border-[#D0E2F7] flex items-center justify-center text-[#006DB6] shrink-0 group-hover:bg-[#006DB6] group-hover:text-white transition-all duration-300 shadow-xs">
                     <Users2 className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
                   </div>

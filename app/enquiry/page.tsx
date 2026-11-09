@@ -21,21 +21,10 @@ import {
   Home
 } from 'lucide-react';
 import gsap from 'gsap';
-
-// Fabric product categories
-const FABRIC_OPTIONS = [
-  'Polyester Dobby / Jacquard Fabrics',
-  'BSY Fabrics (Bi-Shrinkage Yarn)',
-  'Crepe Fabrics (Heavy Crepe, Moss Crepe)',
-  'Recycled Fabrics (Eco PET Certified)',
-  'Satin Fabrics (Silk Finish & Micro Satin)',
-  'Chiffon Fabrics',
-  'Georgette Fabrics',
-  'Viscose & Rayon Fabrics',
-  'Poly Knit Fabrics',
-  'Net & Mesh Fabrics',
-  'Custom Make-to-Order Weave',
-];
+import { submitEnquiry } from '@/services/enquiryApi';
+import { fetchPublishedFabrics } from '@/services/fabricsApi';
+import type { LiveFabric } from '@/types';
+import { CheckCircle2, Sparkles, Search, X } from 'lucide-react';
 
 // Production Google reCAPTCHA v2 Key for viralfabrics.com
 const PRODUCTION_RECAPTCHA_KEY =
@@ -64,47 +53,17 @@ declare global {
 // Helper to find best matching fabric option from URL query params
 function matchFabricOption(param: string): string {
   if (!param) return '';
-  const pLower = param.toLowerCase().trim();
-
-  // Exact match
-  const exact = FABRIC_OPTIONS.find((opt) => opt.toLowerCase() === pLower);
-  if (exact) return exact;
-
-  // Key fabric identifiers
-  const keywords = [
-    'dobby',
-    'crepe',
-    'bsy',
-    'recycled',
-    'satin',
-    'chiffon',
-    'georgette',
-    'viscose',
-    'knit',
-    'mesh',
-    'custom',
-  ];
-  for (const kw of keywords) {
-    if (pLower.includes(kw)) {
-      const matched = FABRIC_OPTIONS.find((opt) => opt.toLowerCase().includes(kw));
-      if (matched) return matched;
-    }
-  }
-
-  // Fallback includes
-  const fallback = FABRIC_OPTIONS.find(
-    (opt) => opt.toLowerCase().includes(pLower) || pLower.includes(opt.toLowerCase())
-  );
-  return fallback || param;
+  return param.trim();
 }
 
 function EnquiryForm() {
   const searchParams = useSearchParams();
   const initialProductParam = searchParams
-    ? searchParams.get('product') || searchParams.get('fabric') || ''
+    ? searchParams.get('product') || searchParams.get('fabric') || searchParams.get('quality') || ''
     : '';
   const matchedInitial = matchFabricOption(initialProductParam);
 
+  const [liveFabrics, setLiveFabrics] = useState<LiveFabric[]>([]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -112,6 +71,74 @@ function EnquiryForm() {
     product: matchedInitial,
     message: ''
   });
+
+  // State for Searchable Product Combobox
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const productDropdownRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Close product dropdown on outside click or escape
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (productDropdownRef.current && !productDropdownRef.current.contains(e.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  // Auto-focus search input when dropdown opens
+  useEffect(() => {
+    if (isDropdownOpen) {
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 60);
+    } else {
+      setSearchTerm('');
+    }
+  }, [isDropdownOpen]);
+
+  // Fetch live dynamic fabrics catalog from MongoDB Atlas
+  useEffect(() => {
+    let mounted = true;
+    fetchPublishedFabrics('enquiry').then((fabrics) => {
+      if (mounted && fabrics && fabrics.length > 0) {
+        setLiveFabrics(fabrics);
+
+        // If an initial param is present, attempt an exact match on live names/slugs
+        if (initialProductParam) {
+          const pLower = initialProductParam.toLowerCase().trim();
+          const liveMatch = fabrics.find(
+            (f) =>
+              f.slug.toLowerCase() === pLower ||
+              (f.name && f.name.toLowerCase() === pLower) ||
+              (f.title && f.title.toLowerCase() === pLower) ||
+              (f.name && f.name.toLowerCase().includes(pLower)) ||
+              pLower.includes(f.slug.toLowerCase())
+          );
+          if (liveMatch) {
+            setFormData((prev) => ({ ...prev, product: liveMatch.name || liveMatch.title }));
+          }
+        }
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, [initialProductParam]);
 
   const [captchaToken, setCaptchaToken] = useState('');
   const [humanVerified, setHumanVerified] = useState(false);
@@ -219,18 +246,16 @@ function EnquiryForm() {
     setErrorMsg('');
 
     try {
-      const res = await fetch('/api/enquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          captchaToken: token || 'verified-human'
-        })
+      const result = await submitEnquiry({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        product: formData.product,
+        message: formData.message,
       });
 
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Failed to submit enquiry');
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to submit enquiry');
       }
 
       setSubmitted(true);
@@ -240,10 +265,9 @@ function EnquiryForm() {
       if (window.grecaptcha && widgetIdRef.current !== null) {
         window.grecaptcha.reset(widgetIdRef.current);
       }
-    } catch (err: any) {
-      setErrorMsg(
-        err.message || 'Error transmitting your request. Please call our Surat mill desk directly.'
-      );
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Error transmitting your request. Please call our Surat mill desk directly.';
+      setErrorMsg(message);
     } finally {
       setLoading(false);
     }
@@ -270,10 +294,36 @@ function EnquiryForm() {
           <button
             type="button"
             onClick={() => setSubmitted(false)}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-[13.5px] font-semibold text-white bg-[#0E3B68] hover:bg-[#0A2E52] transition-colors cursor-pointer shadow-md"
+            className="relative inline-flex items-center justify-center gap-2.5 h-12 pl-7 pr-9 text-[12.5px] sm:text-[13px] font-semibold tracking-wider uppercase text-white bg-gradient-to-r from-[#0C2D50] via-[#0E3B68] to-[#164E87] hover:from-[#081F38] hover:via-[#0A2E52] hover:to-[#0F3B66] active:scale-[0.98] transition-all duration-300 shadow-[0_6px_20px_rgba(14,59,104,0.35)] hover:shadow-[0_8px_26px_rgba(14,59,104,0.5)] cursor-pointer group overflow-hidden"
+            style={{
+              clipPath: 'polygon(0 0, 100% 0, 89% 100%, 0 100%)',
+            }}
           >
-            Submit Another Enquiry
-            <ArrowRight className="w-4 h-4 stroke-[2]" />
+            {/* SVG Continuous 1px Border Overlay (Zero line glitch) */}
+            <svg
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <polygon
+                points="0.5,0.5 99.5,0.5 89,99.5 0.5,99.5"
+                fill="none"
+                stroke="rgba(255,255,255,0.4)"
+                strokeWidth="1"
+                vectorEffect="non-scaling-stroke"
+                strokeLinejoin="miter"
+              />
+            </svg>
+
+            {/* Smooth Luminous Shine Sweep */}
+            <span
+              className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12 pointer-events-none group-hover:translate-x-[250%] transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              aria-hidden="true"
+            />
+
+            <span className="relative z-10 font-sans">Submit Another Enquiry</span>
+            <ArrowRight className="relative z-10 w-4 h-4 stroke-[2.2] transition-transform duration-300 group-hover:translate-x-1" />
           </button>
         </div>
       </div>
@@ -348,34 +398,276 @@ function EnquiryForm() {
         </div>
 
         <div className="space-y-2">
-          <label className="block text-[12.5px] font-semibold text-slate-800 tracking-wide">
-            Product Enquiry <span className="text-red-500">*</span>
-          </label>
-          <div className="relative">
-            <Layers className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <select
-              name="product"
-              required
-              value={formData.product}
-              onChange={(e) => setFormData({ ...formData, product: e.target.value })}
-              className="w-full h-12 bg-white border border-slate-200/90 rounded-xl pl-10 pr-10 text-[14px] text-slate-800 appearance-none focus:outline-none focus:border-[#1E5FA8] focus:ring-2 focus:ring-[#1E5FA8]/15 transition-all cursor-pointer"
-            >
-              <option value="" disabled className="text-slate-400">
-                Select Product Enquiry
-              </option>
-              {formData.product && !FABRIC_OPTIONS.includes(formData.product) && (
-                <option value={formData.product} className="text-slate-800 py-1.5">
-                  {formData.product}
-                </option>
-              )}
-              {FABRIC_OPTIONS.map((fabric) => (
-                <option key={fabric} value={fabric} className="text-slate-800 py-1.5">
-                  {fabric}
-                </option>
-              ))}
-            </select>
-            <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2]" />
+          <div className="flex items-center justify-between">
+            <label className="block text-[12.5px] font-semibold text-slate-800 tracking-wide">
+              Product Enquiry <span className="text-red-500">*</span>
+            </label>
+            {formData.product && (
+              <span className="text-[11px] font-semibold text-[#1E5FA8] flex items-center gap-1">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                Quality Selected
+              </span>
+            )}
           </div>
+
+          {/* Custom Searchable Product Combobox */}
+          {(() => {
+            const filteredCatalogFabrics = liveFabrics.filter((f) => {
+              const title = (f.name || f.title || '').toLowerCase();
+              return title.includes(searchTerm.toLowerCase().trim());
+            });
+
+            const specialOptions = [
+              'Custom Make-to-Order Weave (Provide specs below)',
+              'Sampling & Swatch Book Consultation',
+              'Other Synthetic Textile Requirement',
+            ];
+            const filteredSpecialOptions = specialOptions.filter((opt) =>
+              opt.toLowerCase().includes(searchTerm.toLowerCase().trim())
+            );
+
+            const isExactMatch =
+              liveFabrics.some(
+                (f) => (f.name || f.title || '').toLowerCase() === searchTerm.toLowerCase().trim()
+              ) ||
+              specialOptions.some(
+                (opt) => opt.toLowerCase() === searchTerm.toLowerCase().trim()
+              );
+
+            return (
+              <div ref={productDropdownRef} className="relative">
+                {/* Hidden input for form submission & validation */}
+                <input
+                  type="text"
+                  name="product"
+                  required
+                  readOnly
+                  value={formData.product}
+                  className="sr-only"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                />
+
+                {/* Dropdown Toggle Trigger Button */}
+                <button
+                  type="button"
+                  onClick={() => setIsDropdownOpen((prev) => !prev)}
+                  className={`w-full h-12 bg-white border rounded-xl pl-10 pr-10 text-[14px] text-left transition-all cursor-pointer shadow-2xs flex items-center justify-between relative ${
+                    isDropdownOpen
+                      ? 'border-[#1E5FA8] ring-2 ring-[#1E5FA8]/15'
+                      : 'border-slate-200/90 hover:border-slate-300'
+                  }`}
+                  aria-expanded={isDropdownOpen}
+                  aria-haspopup="listbox"
+                >
+                  <Layers className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <span
+                    className={`truncate ${
+                      formData.product ? 'text-slate-800 font-medium' : 'text-slate-400'
+                    }`}
+                  >
+                    {formData.product || 'Select Product Enquiry'}
+                  </span>
+                  <ChevronDown
+                    className={`w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 transition-transform duration-200 stroke-[2] ${
+                      isDropdownOpen ? 'rotate-180 text-[#1E5FA8]' : ''
+                    }`}
+                  />
+                </button>
+
+                {/* Searchable Combobox Popover */}
+                {isDropdownOpen && (
+                  <div
+                    className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-2xl shadow-[0_20px_45px_rgba(15,23,42,0.14)] z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-150"
+                    style={{ backgroundColor: '#ffffff' }}
+                  >
+                    {/* Live Search Bar */}
+                    <div className="p-2.5 border-b border-slate-100 bg-slate-50/80 sticky top-0 z-10">
+                      <div className="relative flex items-center">
+                        <Search className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+                        <input
+                          ref={searchInputRef}
+                          type="text"
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          placeholder="Search fabric qualities or enter custom..."
+                          className="w-full h-9 pl-9 pr-8 text-[13px] bg-white border border-slate-200 rounded-lg text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#006DB6] focus:ring-1 focus:ring-[#006DB6] transition-all"
+                        />
+                        {searchTerm && (
+                          <button
+                            type="button"
+                            onClick={() => setSearchTerm('')}
+                            className="absolute right-2.5 p-1 text-slate-400 hover:text-slate-600 rounded-md transition-colors cursor-pointer"
+                            title="Clear search"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Scrollable Options List */}
+                    <div className="max-h-[300px] overflow-y-auto p-2 space-y-2 overscroll-contain">
+                      {/* Custom Typed Option (if user typed something that is not an exact match) */}
+                      {searchTerm.trim() && !isExactMatch && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setFormData((prev) => ({ ...prev, product: searchTerm.trim() }));
+                            setIsDropdownOpen(false);
+                          }}
+                          className="w-full flex items-center gap-2.5 p-2.5 rounded-xl bg-blue-50/90 hover:bg-blue-100 text-[#006DB6] transition-all text-left border border-blue-200/90 cursor-pointer"
+                        >
+                          <Sparkles className="w-4 h-4 shrink-0 text-[#006DB6]" />
+                          <div className="min-w-0 flex-1">
+                            <span className="text-[12.5px] font-semibold block truncate">
+                              Use custom: &quot;{searchTerm.trim()}&quot;
+                            </span>
+                            <span className="text-[10px] text-slate-500 font-normal">
+                              Specify custom fabric name or weave specs
+                            </span>
+                          </div>
+                          <ArrowRight className="w-3.5 h-3.5 shrink-0 text-[#006DB6]" />
+                        </button>
+                      )}
+
+                      {/* Export Fabrics (Catalog Qualities) */}
+                      {filteredCatalogFabrics.length > 0 && (
+                        <div className="space-y-1">
+                          <div className="px-2.5 py-1 text-[10px] font-bold tracking-[0.2em] text-[#006DB6] uppercase font-sans">
+                            Export Fabrics ({filteredCatalogFabrics.length})
+                          </div>
+                          {filteredCatalogFabrics.map((fabric) => {
+                            const title = fabric.name || fabric.title;
+                            const isSelected = formData.product === title;
+                            return (
+                              <button
+                                key={fabric.id || fabric.slug}
+                                type="button"
+                                onClick={() => {
+                                  setFormData((prev) => ({ ...prev, product: title }));
+                                  setIsDropdownOpen(false);
+                                }}
+                                className={`w-full flex items-center justify-between p-2 rounded-xl transition-all cursor-pointer text-left ${
+                                  isSelected
+                                    ? 'bg-[#006DB6]/10 text-[#006DB6] font-medium'
+                                    : 'hover:bg-slate-50 text-slate-800'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2.5 min-w-0">
+                                  <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200 shadow-2xs">
+                                    <img
+                                      src={fabric.image || '/assets/uploads/2025/09/bsy-fabrics.png'}
+                                      alt={title}
+                                      className="w-full h-full object-cover"
+                                      onError={(e) => {
+                                        (e.target as HTMLImageElement).src =
+                                          '/assets/uploads/2025/09/bsy-fabrics.png';
+                                      }}
+                                    />
+                                  </div>
+                                  <div className="truncate">
+                                    <p className="text-[13px] font-medium truncate">{title}</p>
+                                    <p className="text-[10px] text-slate-500">
+                                      Export Weave &bull; Surat Looms
+                                    </p>
+                                  </div>
+                                </div>
+                                {isSelected && (
+                                  <Check className="w-4 h-4 text-[#006DB6] shrink-0" />
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+
+                      {/* Special Production & Consulting Options */}
+                      {filteredSpecialOptions.length > 0 && (
+                        <div className="space-y-1 pt-1 border-t border-slate-100">
+                          <div className="px-2.5 py-1 text-[10px] font-bold tracking-[0.2em] text-slate-600 uppercase font-sans">
+                            Special Production &amp; Custom Options
+                          </div>
+                          {filteredSpecialOptions.map((opt) => {
+                            const isSelected = formData.product === opt;
+                            return (
+                              <button
+                                key={opt}
+                                type="button"
+                                onClick={() => {
+                                  setFormData((prev) => ({ ...prev, product: opt }));
+                                  setIsDropdownOpen(false);
+                                }}
+                                className={`w-full flex items-center justify-between p-2.5 rounded-xl transition-all cursor-pointer text-left ${
+                                  isSelected
+                                    ? 'bg-[#006DB6]/10 text-[#006DB6] font-medium'
+                                    : 'hover:bg-slate-50 text-slate-700'
+                                }`}
+                              >
+                                <span className="text-[12.5px] truncate flex-1">{opt}</span>
+                                {isSelected && (
+                                  <Check className="w-4 h-4 text-[#006DB6] shrink-0 ml-2" />
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+
+                      {/* Empty State when no results found */}
+                      {filteredCatalogFabrics.length === 0 &&
+                        filteredSpecialOptions.length === 0 &&
+                        !searchTerm.trim() && (
+                          <div className="py-6 text-center text-slate-400 text-[13px]">
+                            No qualities found.
+                          </div>
+                        )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+
+          {/* Luxury Selected Fabric Preview Pill when a quality is active */}
+          {(() => {
+            const matchedLive = liveFabrics.find(
+              (f) => (f.name || f.title) === formData.product || f.slug === formData.product
+            );
+            if (!matchedLive && !formData.product) return null;
+            return (
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/80 animate-in fade-in duration-200">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-8 h-8 rounded-lg overflow-hidden bg-slate-200 shrink-0 border border-slate-300 shadow-2xs">
+                    <img
+                      src={matchedLive?.image || '/assets/uploads/2025/09/bsy-fabrics.png'}
+                      alt={formData.product}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/assets/uploads/2025/09/bsy-fabrics.png';
+                      }}
+                    />
+                  </div>
+                  <div className="truncate">
+                    <p className="text-[12px] font-semibold text-slate-800 truncate">
+                      {formData.product}
+                    </p>
+                    <p className="text-[10px] text-slate-500 font-medium">
+                      Make-to-Order &bull; Surat Mill Direct
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setFormData((prev) => ({ ...prev, product: '' }))}
+                  className="text-[11px] font-medium text-slate-400 hover:text-red-500 transition-colors px-2 py-1 rounded-md hover:bg-white cursor-pointer shrink-0"
+                >
+                  Change
+                </button>
+              </div>
+            );
+          })()}
         </div>
       </div>
 
@@ -438,15 +730,24 @@ function EnquiryForm() {
           disabled={loading}
           className="relative inline-flex items-center justify-center gap-2.5 h-12 pl-7 pr-9 text-[13.5px] font-semibold text-white bg-gradient-to-r from-[#0C2D50] via-[#0E3B68] to-[#164E87] hover:from-[#081F38] hover:via-[#0A2E52] hover:to-[#0F3B66] active:scale-[0.98] transition-all duration-300 shadow-[0_6px_20px_rgba(14,59,104,0.35)] hover:shadow-[0_8px_26px_rgba(14,59,104,0.5)] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed group overflow-hidden"
           style={{
-            clipPath: 'polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)',
+            clipPath: 'polygon(0 0, 100% 0, 89% 100%, 0 100%)',
           }}
         >
-          {/* Razor-Sharp 1px Border Overlay Following Angled Cut */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
-            <line x1="0" y1="0.5" x2="100%" y2="0.5" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
-            <line x1="100%" y1="0" x2="calc(100% - 12px)" y2="100%" stroke="rgba(255,255,255,0.4)" strokeWidth="1.2" />
-            <line x1="calc(100% - 12px)" y1="calc(100% - 0.5px)" x2="0" y2="calc(100% - 0.5px)" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
-            <line x1="0.5" y1="100%" x2="0.5" y2="0" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
+          {/* SVG Continuous 1px Border Overlay (Zero line glitch) */}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <polygon
+              points="0.5,0.5 99.5,0.5 89,99.5 0.5,99.5"
+              fill="none"
+              stroke="rgba(255,255,255,0.4)"
+              strokeWidth="1"
+              vectorEffect="non-scaling-stroke"
+              strokeLinejoin="miter"
+            />
           </svg>
 
           {/* Smooth Luminous Shine Sweep */}

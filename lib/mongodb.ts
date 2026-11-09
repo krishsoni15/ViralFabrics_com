@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://krish1509soni:mqYQZaMl2qjtNkWL@cluster0.hb5hrbq.mongodb.net/CRM_AdminPanel?retryWrites=true&w=majority&appName=Cluster0';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 interface MongooseCache {
   conn: typeof mongoose | null;
@@ -18,6 +18,10 @@ if (!global.mongooseCache) {
 }
 
 export async function connectDB() {
+  if (!MONGODB_URI) {
+    throw new Error('MONGODB_URI environment variable is not configured. Falling back to static data.');
+  }
+
   if (cached.conn) {
     return cached.conn;
   }

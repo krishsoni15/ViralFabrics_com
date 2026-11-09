@@ -337,31 +337,70 @@ export function WhoWeAreSection() {
     <section
       id="who-we-are"
       ref={sectionRef}
-      className="relative w-full text-[#2e3937] pt-40 sm:pt-48 md:pt-56 lg:pt-60 xl:pt-64 pb-36 sm:pb-40 md:pb-44 lg:pb-48 overflow-hidden selection:bg-[#375785] selection:text-white"
+      className="relative w-full text-[#2e3937] pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-24 sm:pb-28 md:pb-36 lg:pb-40 overflow-hidden selection:bg-[#375785] selection:text-white"
     >
-      {/* Clean solid white backdrop behind the central image body */}
-      <div
-        className="absolute inset-x-0 top-20 sm:top-24 lg:top-28 bottom-32 sm:bottom-40 lg:bottom-48 bg-white z-0 pointer-events-none"
-        aria-hidden="true"
-      />
+      {/* 1. TABLET & DESKTOP: Authentic Torn Silk Canvas System (Seamless Multi-Layer Blend, Zero Dark Seams) */}
+      <div className="hidden md:block absolute inset-0 z-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
+        {/* Seamless transition underlay for the bottom torn edge into Fabrics Portfolio (#FAF8F5) */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-48 sm:h-56 md:h-64 bg-[#FAF8F5] z-0 pointer-events-none"
+          aria-hidden="true"
+        />
 
-      {/* Seamless transition underlay for the bottom torn edge into Fabrics Portfolio (#FAF8F5 golden tone) */}
-      <div
-        className="absolute inset-x-0 bottom-0 h-64 sm:h-72 lg:h-80 bg-[#FAF8F5] z-0 pointer-events-none"
-        aria-hidden="true"
-      />
+        {/* Solid Expandable Silk Canvas Body (Guaranteed 20px+ overlap behind both torn edges, zero gaps) */}
+        <div className="absolute top-[44px] md:top-[48px] lg:top-[52px] bottom-[44px] md:bottom-[48px] lg:bottom-[52px] inset-x-0 bg-[#F8F9FD] overflow-hidden z-[1]">
+          <Image
+            src="/images/who-we-are-body.png"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="w-full h-full object-fill pointer-events-none"
+          />
+        </div>
 
-      {/* Authentic One-Piece Torn Silk Canvas Background (Shifted slightly top for clean hero overlap) */}
-      <div className="absolute -top-8 sm:-top-12 lg:-top-16 inset-x-0 bottom-0 z-0 pointer-events-none select-none">
+        {/* Top Crisp Torn Edge (Fixed natural height, pinned to top, overlapping solid canvas body) */}
+        <div className="absolute top-0 inset-x-0 h-[60px] md:h-[68px] lg:h-[76px] z-10 overflow-hidden pointer-events-none">
+          <Image
+            src="/images/who-we-are-torn-top.png"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="w-full h-full object-fill pointer-events-none"
+          />
+        </div>
+
+        {/* Bottom Crisp Torn Edge (Fixed natural height, pinned to bottom with clean #FAF8F5 blend) */}
+        <div className="absolute -bottom-[2px] inset-x-0 h-[62px] md:h-[70px] lg:h-[78px] z-10 overflow-hidden pointer-events-none">
+          <Image
+            src="/images/who-we-are-torn-bottom.png"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="w-full h-full object-fill pointer-events-none"
+          />
+        </div>
+      </div>
+
+      {/* 2. MOBILE: Airy Blue Silk Wave Canvas (< 768px) */}
+      <div className="md:hidden absolute inset-0 z-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
         <Image
-          src="/images/who-we-are-bg.png"
-          alt="Viral Fabrics Who We Are Background Canvas"
+          src="/images/who-we-are-mobile-silk.jpg"
+          alt="Viral Fabrics Airy Blue Silk Wave Background"
           fill
           priority
           sizes="100vw"
-          className="w-full h-full object-cover sm:object-fill pointer-events-none"
+          className="w-full h-full object-cover object-center pointer-events-none"
         />
       </div>
+
+      {/* Subtle Ethereal Ambient Glow for Haute-Couture Depth */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(55,87,133,0.035)_0%,transparent_70%)] blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
 
       <div className="relative z-10 max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-14">
 

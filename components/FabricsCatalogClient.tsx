@@ -17,37 +17,15 @@ import {
   SlidersHorizontal,
 } from 'lucide-react';
 import type { FabricItem } from '@/data/fabrics';
+import type { LiveFabric } from '@/types';
 
 interface FabricsCatalogClientProps {
-  fabrics: FabricItem[];
-}
-
-function getCategoryForFabric(slug: string): string {
-  if (slug.includes('crepe') || slug.includes('georgette')) return 'Crepe & Georgette';
-  if (slug.includes('satin') || slug.includes('chiffon')) return 'Satin & Sheers';
-  if (slug.includes('knit') || slug.includes('net') || slug.includes('mesh')) return 'Knits & Mesh';
-  if (slug.includes('recycled')) return 'Eco / Sustainable';
-  if (slug.includes('dobby')) return 'Dobby & Jacquard';
-  return 'Crepe & Georgette';
-}
-
-function getAccentColorForFabric(slug: string): string {
-  if (slug.includes('crepe')) return '#E25C6A';
-  if (slug.includes('georgette')) return '#8B5CF6';
-  if (slug.includes('chiffon')) return '#10B981';
-  if (slug.includes('satin')) return '#F59E0B';
-  if (slug.includes('knit')) return '#0284C7';
-  if (slug.includes('bsy')) return '#0D9488';
-  if (slug.includes('dobby')) return '#6366F1';
-  if (slug.includes('net') || slug.includes('mesh')) return '#EC4899';
-  if (slug.includes('recycled')) return '#059669';
-  if (slug.includes('viscose')) return '#D97706';
-  return '#006DB6';
+  fabrics: (FabricItem | LiveFabric)[];
 }
 
 export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedFabricForEnquiry, setSelectedFabricForEnquiry] = useState<FabricItem | null>(null);
+  const [selectedFabricForEnquiry, setSelectedFabricForEnquiry] = useState<FabricItem | LiveFabric | null>(null);
 
   // Close modal on ESC key
   useEffect(() => {
@@ -64,21 +42,29 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
     const q = searchQuery.toLowerCase().trim();
 
     return fabrics.filter((fabric) => {
+      const title = (fabric.title || (fabric as any).name || '').toLowerCase();
+      const subtitle = (fabric.subtitle || '').toLowerCase();
+      const description = (fabric.description || '').toLowerCase();
+      const gsmRange = (fabric.gsmRange || '').toLowerCase();
+      const weaveType = (fabric.weaveType || '').toLowerCase();
+      const apps = Array.isArray(fabric.applications) ? fabric.applications : [];
+      const feats = Array.isArray(fabric.features) ? fabric.features : [];
+
       return (
-        fabric.title.toLowerCase().includes(q) ||
-        fabric.subtitle.toLowerCase().includes(q) ||
-        fabric.description.toLowerCase().includes(q) ||
-        fabric.gsmRange.toLowerCase().includes(q) ||
-        fabric.weaveType.toLowerCase().includes(q) ||
-        fabric.applications.some((app) => app.toLowerCase().includes(q)) ||
-        fabric.features.some((feat) => feat.toLowerCase().includes(q))
+        title.includes(q) ||
+        subtitle.includes(q) ||
+        description.includes(q) ||
+        gsmRange.includes(q) ||
+        weaveType.includes(q) ||
+        apps.some((app) => app.toLowerCase().includes(q)) ||
+        feats.some((feat) => feat.toLowerCase().includes(q))
       );
     });
   }, [fabrics, searchQuery]);
 
   // Construct direct WhatsApp enquiry URL
-  const getWhatsAppUrl = (fabric: FabricItem) => {
-    const message = `Hello Viral Fabrics,\n\nI am inquiring about *${fabric.title}* (${fabric.gsmRange || 'Export Quality'}).\n\nWeave: ${fabric.weaveType || 'Standard'}\n\nPlease share price per meter, available shades/prints, and minimum order quantity (MOQ).\n\nThank you!`;
+  const getWhatsAppUrl = (fabric: FabricItem | LiveFabric) => {
+    const message = `Hello Viral Fabrics,\n\nI am inquiring about *${fabric.title || (fabric as any).name}* (${fabric.gsmRange || 'Export Quality'}).\n\nWeave: ${fabric.weaveType || 'Standard'}\n\nPlease share price per meter, available shades/prints, and minimum order quantity (MOQ).\n\nThank you!`;
     return `https://wa.me/919427988999?text=${encodeURIComponent(message)}`;
   };
 
@@ -127,9 +113,6 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
       {filteredFabrics.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 pt-4">
           {filteredFabrics.map((fabric, index) => {
-            const accentColor = getAccentColorForFabric(fabric.slug);
-            const categoryName = getCategoryForFabric(fabric.slug);
-
             return (
               <div
                 key={fabric.slug}
@@ -153,20 +136,6 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
                 {/* Content Block */}
                 <div className="p-6 sm:p-7 flex flex-col flex-grow justify-between space-y-5">
                   <div className="space-y-3">
-                    
-                    {/* Category Eyebrow & Weave Type */}
-                    <div className="flex items-center justify-between gap-2">
-                      <span
-                        className="text-[11px] font-bold tracking-[0.2em] uppercase"
-                        style={{ color: accentColor }}
-                      >
-                        {categoryName}
-                      </span>
-                      <span className="text-[11.5px] text-slate-500 font-sans truncate max-w-[150px]">
-                        {fabric.weaveType || 'Water-Jet Weave'}
-                      </span>
-                    </div>
-
                     {/* Headline */}
                     <h3 className="font-heading font-serif text-2xl sm:text-[26px] font-normal text-[#0A192F] group-hover:text-[#006DB6] transition-colors leading-snug">
                       <Link href={`/fabrics/${fabric.slug}`}>
@@ -272,10 +241,14 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
                     <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#006DB6]">
                       QUICK ENQUIRY
                     </span>
-                    <span className="text-slate-300">&bull;</span>
-                    <span className="text-[11px] text-slate-500 font-medium">
-                      {selectedFabricForEnquiry.gsmRange}
-                    </span>
+                    {selectedFabricForEnquiry.gsmRange && (
+                      <>
+                        <span className="text-slate-300">&bull;</span>
+                        <span className="text-[11px] text-slate-500 font-medium">
+                          {selectedFabricForEnquiry.gsmRange}
+                        </span>
+                      </>
+                    )}
                   </div>
                   <h3 className="font-heading font-serif text-2xl sm:text-[26px] font-normal text-[#0A192F] leading-tight">
                     {selectedFabricForEnquiry.title}
@@ -287,7 +260,7 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
               <button
                 type="button"
                 onClick={() => setSelectedFabricForEnquiry(null)}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 transition-colors cursor-pointer shrink-0"
+                className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-900 transition-colors cursor-pointer shrink-0"
                 aria-label="Close modal"
               >
                 <X className="w-4 h-4 stroke-[2]" />
@@ -295,89 +268,82 @@ export function FabricsCatalogClient({ fabrics }: FabricsCatalogClientProps) {
 
             </div>
 
-            {/* Modal Body: The 2 Enquiry Channels */}
+            {/* Modal Body: 2 Primary Options (WhatsApp Instant Quote + Web Form) */}
             <div className="p-6 sm:p-7 space-y-4">
               
-              <p className="text-[13px] text-slate-600 font-normal leading-relaxed">
-                Choose how you would like to connect with our Surat manufacturing export desk:
+              <p className="text-[13px] text-slate-600 font-light leading-relaxed">
+                Connect directly with our Surat mill team. Choose how you would like to proceed with your sample request or bulk pricing:
               </p>
 
-              {/* OPTION 1: WhatsApp Instant Chat */}
+              {/* Option 1: WhatsApp Instant Quote */}
               <a
                 href={getWhatsAppUrl(selectedFabricForEnquiry)}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setSelectedFabricForEnquiry(null)}
-                className="group flex items-start gap-4 p-4.5 rounded-2xl border-2 border-[#25D366]/30 bg-[#25D366]/[0.06] hover:bg-[#25D366]/[0.12] hover:border-[#25D366] transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md"
+                className="group w-full flex items-center justify-between p-4 rounded-2xl bg-emerald-50/70 hover:bg-emerald-50 border border-emerald-200/80 hover:border-emerald-300 transition-all duration-200 cursor-pointer text-left"
               >
-                <div className="w-12 h-12 rounded-2xl bg-[#25D366] flex items-center justify-center text-white shrink-0 group-hover:scale-105 transition-transform shadow-[0_4px_14px_rgba(37,211,102,0.4)]">
-                  {/* Real Official WhatsApp Logo */}
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="w-6 h-6 fill-white"
-                    aria-hidden="true"
-                  >
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                  </svg>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-2">
-                    <h4 className="font-heading font-serif text-[17px] font-bold text-[#0A192F] group-hover:text-[#128C7E] transition-colors">
-                      Chat via WhatsApp
-                    </h4>
-                    <span className="bg-[#25D366]/20 text-[#128C7E] text-[9.5px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full shrink-0">
-                      INSTANT
-                    </span>
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-[#25D366] text-white flex items-center justify-center shadow-xs shrink-0 group-hover:scale-105 transition-transform">
+                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                    </svg>
                   </div>
-                  <p className="text-[12.5px] text-slate-600 leading-snug mt-1">
-                    Direct chat with Mr. Viral Patel. Pre-filled with fabric specs, GSM range, and quote request.
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-[#128C7E] tracking-wide mt-2">
-                    <span>Open WhatsApp Message</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </span>
+                  <div>
+                    <h4 className="text-[14px] font-semibold text-emerald-950 flex items-center gap-1.5">
+                      <span>Chat on WhatsApp</span>
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-200/80 text-emerald-800 uppercase tracking-wider">
+                        Fastest
+                      </span>
+                    </h4>
+                    <p className="text-[12px] text-emerald-800/80 font-light">
+                      Pre-filled quote message with {selectedFabricForEnquiry.title} specifications
+                    </p>
+                  </div>
                 </div>
+                <ArrowRight className="w-4 h-4 text-emerald-700 transition-transform group-hover:translate-x-1 shrink-0" />
               </a>
 
-              {/* OPTION 2: Official Web Enquiry Form (Pre-selected) */}
+              {/* Option 2: Web Enquiry Form */}
               <Link
                 href={`/enquiry?product=${encodeURIComponent(selectedFabricForEnquiry.title)}&fabric=${encodeURIComponent(selectedFabricForEnquiry.title)}`}
                 onClick={() => setSelectedFabricForEnquiry(null)}
-                className="group flex items-start gap-4 p-4.5 rounded-2xl border-2 border-[#1E5FA8]/20 bg-sky-50/40 hover:bg-sky-50 hover:border-[#1E5FA8] transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md"
+                className="group w-full flex items-center justify-between p-4 rounded-2xl bg-[#FAF8F5] hover:bg-[#F3EFEA] border border-slate-200/90 transition-all duration-200 cursor-pointer text-left"
               >
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-[#2c4973] to-[#436b9e] flex items-center justify-center text-white shrink-0 group-hover:scale-105 transition-transform shadow-[0_4px_14px_rgba(44,73,115,0.35)]">
-                  <FileText className="w-6 h-6 stroke-[2]" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-2">
-                    <h4 className="font-heading font-serif text-[17px] font-bold text-[#0A192F] group-hover:text-[#006DB6] transition-colors">
-                      Complete RFQ Form
-                    </h4>
-                    <span className="bg-sky-100 text-sky-800 text-[9.5px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full shrink-0">
-                      OFFICIAL
-                    </span>
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-[#006DB6] text-white flex items-center justify-center shadow-xs shrink-0 group-hover:scale-105 transition-transform">
+                    <FileText className="w-5 h-5" />
                   </div>
-                  <p className="text-[12.5px] text-slate-600 leading-snug mt-1">
-                    Fill out our detailed form. <strong>{selectedFabricForEnquiry.title}</strong> will be pre-selected in the enquiry dropdown.
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-[#006DB6] tracking-wide mt-2">
-                    <span>Go to Enquiry Page</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </span>
+                  <div>
+                    <h4 className="text-[14px] font-semibold text-[#0A192F]">
+                      Official Web Enquiry Form
+                    </h4>
+                    <p className="text-[12px] text-slate-500 font-light">
+                      Submit detailed specs, GSM requirements &amp; custom color matching
+                    </p>
+                  </div>
                 </div>
+                <ArrowRight className="w-4 h-4 text-slate-500 transition-transform group-hover:translate-x-1 shrink-0" />
               </Link>
 
-            </div>
+              {/* Quick Contact Info Strip */}
+              <div className="pt-2 flex items-center justify-between text-[11.5px] text-slate-500 border-t border-slate-100">
+                <a
+                  href="tel:+919427988999"
+                  className="hover:text-[#006DB6] transition-colors flex items-center gap-1"
+                >
+                  <Phone className="w-3 h-3 text-slate-400" />
+                  <span>+91 94279 88999</span>
+                </a>
+                <a
+                  href="mailto:viralfabrics@yahoo.com"
+                  className="hover:text-[#006DB6] transition-colors flex items-center gap-1"
+                >
+                  <Mail className="w-3 h-3 text-slate-400" />
+                  <span>viralfabrics@yahoo.com</span>
+                </a>
+              </div>
 
-            {/* Modal Footer Note */}
-            <div className="px-6 sm:px-7 py-3.5 bg-[#FAF8F5] border-t border-slate-100 flex items-center justify-between text-[11.5px] text-slate-500">
-              <span className="flex items-center gap-1.5 text-slate-600">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                100% Confidentiality &amp; Direct Loom Supply
-              </span>
-              <span className="hidden sm:inline font-mono font-medium text-slate-700">
-                +91 94279 88999
-              </span>
             </div>
 
           </div>

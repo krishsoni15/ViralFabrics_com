@@ -7,28 +7,22 @@ import {
   MapPin,
   Phone,
   Mail,
-  Home,
   Building2,
   ExternalLink,
   Copy,
   Check,
-  Plane,
-  Anchor,
-  TrainTrack,
   Gauge,
   Globe,
   ArrowRight,
   MessageCircle,
   Clock,
   QrCode,
-  X,
-  Share2,
-  Smartphone,
-  Navigation
 } from 'lucide-react';
 import QRCode from 'qrcode';
 import { COMPANY_INFO } from '@/data/company';
 import { PageHeroBanner } from '@/components/PageHeroBanner';
+import { ContactQrModal } from '@/components/contact/ContactQrModal';
+import { LogisticsTransitGrid } from '@/components/contact/LogisticsTransitGrid';
 
 const CONTACT_PAGE_BADGES = [
   { icon: Gauge, label: 'Quick Response' },
@@ -141,7 +135,8 @@ export default function ContactClient() {
   // Staggered reveal for contact cards as they scroll into view
   useEffect(() => {
     const el = cardsSectionRef.current;
-    if (!el) return;
+    const fallbackTimer = setTimeout(() => setCardsVisible(true), 1500);
+    if (!el) return () => clearTimeout(fallbackTimer);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -149,11 +144,14 @@ export default function ContactClient() {
           setCardsVisible(true);
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.05, rootMargin: '0px 0px -20px 0px' }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
   }, []);
 
   // Close modal on Escape key press
@@ -180,7 +178,7 @@ export default function ContactClient() {
 
   return (
     <main className="min-h-screen bg-white">
-      
+
       {/* Hero Banner with Agnes Toth directional unblur sweep & Breadcrumbs */}
       <PageHeroBanner
         title="Contact Us"
@@ -214,7 +212,7 @@ export default function ContactClient() {
         </div>
 
         <div className="relative z-10 w-full max-w-[1440px] xl:max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-12 space-y-12 sm:space-y-16">
-          
+
           {/* Centered Editorial Header Matching User Reference */}
           <div className="text-center max-w-2xl mx-auto space-y-3.5">
             <span className="text-[11px] sm:text-[12px] font-sans font-bold tracking-[0.24em] text-[#1665C1] uppercase block">
@@ -224,14 +222,20 @@ export default function ContactClient() {
             <h2 className="font-heading font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#113259] tracking-tight leading-tight">
               Commercial &amp; Export Sourcing Coordinates
             </h2>
-            
-            {/* Geometric Accent Line with Diamond Emblem */}
-            <div className="flex items-center justify-center gap-3 pt-0.5">
-              <div className="w-16 sm:w-24 h-[2px] bg-[#1665C1]" />
-              <div className="w-4 h-4 rotate-45 border-[2px] border-[#1665C1] bg-white flex items-center justify-center shadow-xs">
-                <div className="w-1.5 h-1.5 bg-[#1665C1]" />
+
+            {/* Geometric Accent Line with Authentic Viral Fabrics Diamond Logo Icon */}
+            <div className="flex items-center justify-center gap-3 pt-1">
+              <div className="w-12 sm:w-20 h-[2px] bg-gradient-to-r from-transparent to-[#1665C1]" />
+              <div className="relative w-6 h-6 flex items-center justify-center">
+                <Image
+                  src="/assets/brand/viral-mark.png"
+                  alt="Viral Fabrics Emblem"
+                  width={24}
+                  height={24}
+                  className="object-contain"
+                />
               </div>
-              <div className="w-16 sm:w-24 h-[2px] bg-[#1665C1]" />
+              <div className="w-12 sm:w-20 h-[2px] bg-gradient-to-l from-transparent to-[#1665C1]" />
             </div>
 
             <p className="font-sans text-[13.5px] sm:text-[14.5px] text-[#2C4A6F] font-normal leading-relaxed max-w-xl mx-auto pt-1">
@@ -242,11 +246,11 @@ export default function ContactClient() {
           {/* ===================================================================
               4. 3-COLUMN CHEVRON CONTACT CARDS (Staggered Scroll Entrance)
              =================================================================== */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 max-w-[1300px] mx-auto pt-6">
-            
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-[1300px] mx-auto pt-6 items-stretch">
+
             {/* ---------------- CARD 1: LOCATION / ADDRESS ---------------- */}
             <div
-              className="relative group transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2.5 flex flex-col items-center"
+              className="relative group transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2.5 flex flex-col items-center h-full"
               style={{
                 opacity: cardsVisible ? 1 : 0,
                 transform: cardsVisible ? 'translate3d(0, 0, 0)' : 'translate3d(0, 30px, 0)',
@@ -255,18 +259,18 @@ export default function ContactClient() {
               }}
             >
               {/* Circular Floating Blue Icon Badge */}
-              <div className="relative z-20 w-20 h-20 sm:w-22 sm:h-22 rounded-full bg-gradient-to-br from-[#1E6FC4] to-[#114E91] text-white flex items-center justify-center border-[5px] border-white shadow-[0_10px_24px_rgba(22,101,193,0.38)] -mb-10 sm:-mb-11 group-hover:scale-108 group-hover:shadow-[0_14px_30px_rgba(22,101,193,0.5)] transition-all duration-500">
+              <div className="relative z-20 w-20 h-20 sm:w-22 sm:h-22 rounded-full bg-gradient-to-br from-[#1E6FC4] to-[#114E91] text-white flex items-center justify-center border-[5px] border-white shadow-[0_10px_24px_rgba(22,101,193,0.38)] -mb-10 sm:-mb-11 group-hover:scale-108 group-hover:shadow-[0_14px_30px_rgba(22,101,193,0.5)] transition-all duration-500 flex-shrink-0">
                 <MapPin className="w-8 h-8 sm:w-9 sm:h-9 stroke-[2.2]" />
               </div>
 
               {/* Pointed Chevron Card Body */}
               <div
-                className="w-full bg-gradient-to-b from-[#F2F7FB] via-[#EBF3FA] to-[#DFEEF7] border-t border-x border-[#D2E4F2] pt-18 sm:pt-20 lg:pt-22 pb-12 sm:pb-14 px-6 sm:px-8 text-center flex flex-col items-center justify-between min-h-[440px] shadow-[0_12px_32px_rgba(17,50,89,0.06)] group-hover:shadow-[0_22px_48px_rgba(17,50,89,0.14)] transition-all duration-500"
+                className="w-full flex-1 bg-gradient-to-b from-[#F2F7FB] via-[#EBF3FA] to-[#DFEEF7] border-t border-x border-[#D2E4F2] pt-[72px] sm:pt-20 lg:pt-22 pb-12 sm:pb-14 px-5 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-between shadow-[0_12px_32px_rgba(17,50,89,0.06)] group-hover:shadow-[0_22px_48px_rgba(17,50,89,0.14)] transition-all duration-500"
                 style={{
                   clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 36px), 50% 100%, 0 calc(100% - 36px))',
                 }}
               >
-                <div className="space-y-3.5 w-full">
+                <div className="space-y-3.5 w-full flex-1 flex flex-col justify-center">
                   <span className="text-[11px] font-sans font-bold tracking-[0.24em] text-[#1665C1] uppercase block">
                     OUR FACILITY
                   </span>
@@ -304,14 +308,14 @@ export default function ContactClient() {
                 </div>
 
                 {/* Simplified & Unified Actions (Primary Action with Signature Angled Cut + QR Mobile Scan) */}
-                <div className="pt-5 pb-2 flex items-center justify-center gap-2.5 w-full">
+                <div className="pt-4 pb-2 flex items-center justify-center gap-2 w-full flex-shrink-0">
                   <a
                     href={COMPANY_INFO.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative inline-flex items-center justify-center gap-2 h-11 px-5 sm:px-6 bg-gradient-to-r from-[#113259] via-[#164273] to-[#1C518C] hover:from-[#0A223E] hover:to-[#143B66] text-white text-[13px] font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 overflow-hidden"
+                    className="relative inline-flex items-center justify-center gap-1.5 h-10 sm:h-11 px-3.5 sm:px-5 bg-gradient-to-r from-[#113259] via-[#164273] to-[#1C518C] hover:from-[#0A223E] hover:to-[#143B66] text-white text-[12px] sm:text-[13px] font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 overflow-hidden whitespace-nowrap"
                     style={{
-                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)',
+                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%)',
                     }}
                   >
                     <span>Get Directions</span>
@@ -321,21 +325,21 @@ export default function ContactClient() {
                   <button
                     type="button"
                     onClick={() => setActiveQrModal('location')}
-                    className="relative inline-flex items-center justify-center gap-1.5 h-11 px-3.5 sm:px-4 bg-white hover:bg-[#F0F6FB] text-[#113259] border border-[#C6DCED] text-[12px] font-semibold transition-all duration-300 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group/qr overflow-hidden"
+                    className="relative inline-flex items-center justify-center gap-1.5 h-10 sm:h-11 px-3 sm:px-4 bg-white hover:bg-[#F0F6FB] text-[#113259] border border-[#C6DCED] text-[11px] sm:text-[12px] font-semibold transition-all duration-300 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group/qr overflow-hidden whitespace-nowrap"
                     style={{
                       clipPath: 'polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%)',
                     }}
                     title="Scan QR on phone to navigate directly"
                   >
-                    <QrCode className="w-4 h-4 text-[#1665C1] group-hover/qr:scale-110 transition-transform" />
+                    <QrCode className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#1665C1] group-hover/qr:scale-110 transition-transform" />
                     <span>QR Code</span>
                   </button>
                 </div>
               </div>
 
-              {/* Floating Navy Chevron Accent Line Below Card */}
-              <div className="w-full flex justify-center mt-3.5">
-                <svg viewBox="0 0 340 44" className="w-full max-w-[380px] h-7 overflow-visible group-hover:translate-y-0.5 transition-transform duration-500" preserveAspectRatio="none">
+              {/* Floating Navy Chevron Accent Line Below Card (Visible on Mobile, Tablet & Desktop) */}
+              <div className="flex w-full justify-center mt-3 sm:mt-3.5 flex-shrink-0">
+                <svg viewBox="0 0 340 44" className="w-full max-w-[340px] sm:max-w-[380px] h-6 sm:h-7 overflow-visible group-hover:translate-y-0.5 transition-transform duration-500" preserveAspectRatio="none">
                   <polygon points="0,0 170,32 340,0 340,12 170,44 0,12" fill="#113259" />
                 </svg>
               </div>
@@ -343,7 +347,7 @@ export default function ContactClient() {
 
             {/* ---------------- CARD 2: CALL US ---------------- */}
             <div
-              className="relative group transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2.5 flex flex-col items-center"
+              className="relative group transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2.5 flex flex-col items-center h-full"
               style={{
                 opacity: cardsVisible ? 1 : 0,
                 transform: cardsVisible ? 'translate3d(0, 0, 0)' : 'translate3d(0, 30px, 0)',
@@ -352,18 +356,18 @@ export default function ContactClient() {
               }}
             >
               {/* Circular Floating Blue Icon Badge */}
-              <div className="relative z-20 w-20 h-20 sm:w-22 sm:h-22 rounded-full bg-gradient-to-br from-[#1E6FC4] to-[#114E91] text-white flex items-center justify-center border-[5px] border-white shadow-[0_10px_24px_rgba(22,101,193,0.38)] -mb-10 sm:-mb-11 group-hover:scale-108 group-hover:shadow-[0_14px_30px_rgba(22,101,193,0.5)] transition-all duration-500">
+              <div className="relative z-20 w-20 h-20 sm:w-22 sm:h-22 rounded-full bg-gradient-to-br from-[#1E6FC4] to-[#114E91] text-white flex items-center justify-center border-[5px] border-white shadow-[0_10px_24px_rgba(22,101,193,0.38)] -mb-10 sm:-mb-11 group-hover:scale-108 group-hover:shadow-[0_14px_30px_rgba(22,101,193,0.5)] transition-all duration-500 flex-shrink-0">
                 <Phone className="w-8 h-8 sm:w-9 sm:h-9 stroke-[2.2]" />
               </div>
 
               {/* Pointed Chevron Card Body */}
               <div
-                className="w-full bg-gradient-to-b from-[#F2F7FB] via-[#EBF3FA] to-[#DFEEF7] border-t border-x border-[#D2E4F2] pt-18 sm:pt-20 lg:pt-22 pb-12 sm:pb-14 px-6 sm:px-8 text-center flex flex-col items-center justify-between min-h-[440px] shadow-[0_12px_32px_rgba(17,50,89,0.06)] group-hover:shadow-[0_22px_48px_rgba(17,50,89,0.14)] transition-all duration-500"
+                className="w-full flex-1 bg-gradient-to-b from-[#F2F7FB] via-[#EBF3FA] to-[#DFEEF7] border-t border-x border-[#D2E4F2] pt-[72px] sm:pt-20 lg:pt-22 pb-12 sm:pb-14 px-5 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-between shadow-[0_12px_32px_rgba(17,50,89,0.06)] group-hover:shadow-[0_22px_48px_rgba(17,50,89,0.14)] transition-all duration-500"
                 style={{
                   clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 36px), 50% 100%, 0 calc(100% - 36px))',
                 }}
               >
-                <div className="space-y-3 w-full">
+                <div className="space-y-3 w-full flex-1 flex flex-col justify-center">
                   <span className="text-[11px] font-sans font-bold tracking-[0.24em] text-[#1665C1] uppercase block">
                     DIRECT SALES DESK
                   </span>
@@ -399,8 +403,8 @@ export default function ContactClient() {
                         >
                           {/* Official Real WhatsApp Brand Emblem */}
                           <svg viewBox="0 0 24 24" className="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-xs" aria-hidden="true">
-                            <path fill="#25D366" d="M12 0C5.373 0 0 5.373 0 12c0 2.118.552 4.108 1.517 5.836L.055 24l6.326-1.424A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
-                            <path fill="#FFF" fillRule="evenodd" clipRule="evenodd" d="M18.42 16.71c-.24.68-1.4 1.3-1.95 1.38-.5.07-1.12.1-3.23-.77-2.69-1.12-4.43-3.86-4.56-4.04-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.26.54-.33.72-.33.18 0 .36 0 .52.01.17.01.4-.06.62.48.23.54.78 1.9.85 2.04.07.14.12.3.02.49-.09.19-.14.3-.27.46-.14.16-.29.35-.42.47-.14.14-.29.29-.12.58.16.29.73 1.2 1.57 1.95 1.08.96 1.98 1.26 2.27 1.4.28.14.45.12.62-.07.17-.19.72-.84.92-1.13.19-.29.39-.24.65-.15.26.1.1.66 1.63 1.42.26.1.43.15.5.26.07.12.07.7-.17 1.38z"/>
+                            <path fill="#25D366" d="M12 0C5.373 0 0 5.373 0 12c0 2.118.552 4.108 1.517 5.836L.055 24l6.326-1.424A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z" />
+                            <path fill="#FFF" fillRule="evenodd" clipRule="evenodd" d="M18.42 16.71c-.24.68-1.4 1.3-1.95 1.38-.5.07-1.12.1-3.23-.77-2.69-1.12-4.43-3.86-4.56-4.04-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.26.54-.33.72-.33.18 0 .36 0 .52.01.17.01.4-.06.62.48.23.54.78 1.9.85 2.04.07.14.12.3.02.49-.09.19-.14.3-.27.46-.14.16-.29.35-.42.47-.14.14-.29.29-.12.58.16.29.73 1.2 1.57 1.95 1.08.96 1.98 1.26 2.27 1.4.28.14.45.12.62-.07.17-.19.72-.84.92-1.13.19-.29.39-.24.65-.15.26.1.1.66 1.63 1.42.26.1.43.15.5.26.07.12.07.7-.17 1.38z" />
                           </svg>
                         </a>
                       </div>
@@ -431,8 +435,8 @@ export default function ContactClient() {
                           className="text-[11px] font-semibold text-[#128C7E] hover:text-[#075E54] hover:underline inline-flex items-center gap-1"
                         >
                           <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" aria-hidden="true">
-                            <path fill="#25D366" d="M12 0C5.373 0 0 5.373 0 12c0 2.118.552 4.108 1.517 5.836L.055 24l6.326-1.424A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
-                            <path fill="#FFF" fillRule="evenodd" clipRule="evenodd" d="M18.42 16.71c-.24.68-1.4 1.3-1.95 1.38-.5.07-1.12.1-3.23-.77-2.69-1.12-4.43-3.86-4.56-4.04-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.26.54-.33.72-.33.18 0 .36 0 .52.01.17.01.4-.06.62.48.23.54.78 1.9.85 2.04.07.14.12.3.02.49-.09.19-.14.3-.27.46-.14.16-.29.35-.42.47-.14.14-.29.29-.12.58.16.29.73 1.2 1.57 1.95 1.08.96 1.98 1.26 2.27 1.4.28.14.45.12.62-.07.17-.19.72-.84.92-1.13.19-.29.39-.24.65-.15.26.1.1.66 1.63 1.42.26.1.43.15.5.26.07.12.07.7-.17 1.38z"/>
+                            <path fill="#25D366" d="M12 0C5.373 0 0 5.373 0 12c0 2.118.552 4.108 1.517 5.836L.055 24l6.326-1.424A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z" />
+                            <path fill="#FFF" fillRule="evenodd" clipRule="evenodd" d="M18.42 16.71c-.24.68-1.4 1.3-1.95 1.38-.5.07-1.12.1-3.23-.77-2.69-1.12-4.43-3.86-4.56-4.04-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.26.54-.33.72-.33.18 0 .36 0 .52.01.17.01.4-.06.62.48.23.54.78 1.9.85 2.04.07.14.12.3.02.49-.09.19-.14.3-.27.46-.14.16-.29.35-.42.47-.14.14-.29.29-.12.58.16.29.73 1.2 1.57 1.95 1.08.96 1.98 1.26 2.27 1.4.28.14.45.12.62-.07.17-.19.72-.84.92-1.13.19-.29.39-.24.65-.15.26.1.1.66 1.63 1.42.26.1.43.15.5.26.07.12.07.7-.17 1.38z" />
                           </svg>
                           <span>WhatsApp</span>
                           <ExternalLink className="w-2.5 h-2.5" />
@@ -448,36 +452,36 @@ export default function ContactClient() {
                 </div>
 
                 {/* Simplified & Unified Actions (Primary Action with Signature Angled Cut + QR Mobile Scan) */}
-                <div className="pt-5 pb-2 flex items-center justify-center gap-2.5 w-full">
+                <div className="pt-4 pb-2 flex items-center justify-center gap-2 w-full flex-shrink-0">
                   <a
                     href={`tel:${COMPANY_INFO.phoneTel}`}
-                    className="relative inline-flex items-center justify-center gap-2 h-11 px-5 sm:px-6 bg-gradient-to-r from-[#113259] via-[#164273] to-[#1C518C] hover:from-[#0A223E] hover:to-[#143B66] text-white text-[13px] font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 overflow-hidden"
+                    className="relative inline-flex items-center justify-center gap-1.5 h-10 sm:h-11 px-3.5 sm:px-5 bg-gradient-to-r from-[#113259] via-[#164273] to-[#1C518C] hover:from-[#0A223E] hover:to-[#143B66] text-white text-[12px] sm:text-[13px] font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 overflow-hidden whitespace-nowrap"
                     style={{
-                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)',
+                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%)',
                     }}
                   >
                     <Phone className="w-3.5 h-3.5 text-white/85" />
-                    <span>Call Sales Desk</span>
+                    <span>Call Desk</span>
                   </a>
 
                   <button
                     type="button"
                     onClick={() => setActiveQrModal('phone')}
-                    className="relative inline-flex items-center justify-center gap-1.5 h-11 px-3.5 sm:px-4 bg-white hover:bg-[#F0F6FB] text-[#113259] border border-[#C6DCED] text-[12px] font-semibold transition-all duration-300 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group/qr overflow-hidden"
+                    className="relative inline-flex items-center justify-center gap-1.5 h-10 sm:h-11 px-3 sm:px-4 bg-white hover:bg-[#F0F6FB] text-[#113259] border border-[#C6DCED] text-[11px] sm:text-[12px] font-semibold transition-all duration-300 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group/qr overflow-hidden whitespace-nowrap"
                     style={{
                       clipPath: 'polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%)',
                     }}
                     title="Scan QR to Call or WhatsApp directly on your phone"
                   >
-                    <QrCode className="w-4 h-4 text-[#1665C1] group-hover/qr:scale-110 transition-transform" />
+                    <QrCode className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#1665C1] group-hover/qr:scale-110 transition-transform" />
                     <span>QR Code</span>
                   </button>
                 </div>
               </div>
 
-              {/* Floating Navy Chevron Accent Line Below Card */}
-              <div className="w-full flex justify-center mt-3.5">
-                <svg viewBox="0 0 340 44" className="w-full max-w-[380px] h-7 overflow-visible group-hover:translate-y-0.5 transition-transform duration-500" preserveAspectRatio="none">
+              {/* Floating Navy Chevron Accent Line Below Card (Visible on Mobile, Tablet & Desktop) */}
+              <div className="flex w-full justify-center mt-3 sm:mt-3.5 flex-shrink-0">
+                <svg viewBox="0 0 340 44" className="w-full max-w-[340px] sm:max-w-[380px] h-6 sm:h-7 overflow-visible group-hover:translate-y-0.5 transition-transform duration-500" preserveAspectRatio="none">
                   <polygon points="0,0 170,32 340,0 340,12 170,44 0,12" fill="#113259" />
                 </svg>
               </div>
@@ -485,7 +489,7 @@ export default function ContactClient() {
 
             {/* ---------------- CARD 3: WRITE US / EMAIL ---------------- */}
             <div
-              className="relative group transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2.5 flex flex-col items-center"
+              className="relative group transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2.5 flex flex-col items-center h-full"
               style={{
                 opacity: cardsVisible ? 1 : 0,
                 transform: cardsVisible ? 'translate3d(0, 0, 0)' : 'translate3d(0, 30px, 0)',
@@ -494,18 +498,18 @@ export default function ContactClient() {
               }}
             >
               {/* Circular Floating Blue Icon Badge */}
-              <div className="relative z-20 w-20 h-20 sm:w-22 sm:h-22 rounded-full bg-gradient-to-br from-[#1E6FC4] to-[#114E91] text-white flex items-center justify-center border-[5px] border-white shadow-[0_10px_24px_rgba(22,101,193,0.38)] -mb-10 sm:-mb-11 group-hover:scale-108 group-hover:shadow-[0_14px_30px_rgba(22,101,193,0.5)] transition-all duration-500">
+              <div className="relative z-20 w-20 h-20 sm:w-22 sm:h-22 rounded-full bg-gradient-to-br from-[#1E6FC4] to-[#114E91] text-white flex items-center justify-center border-[5px] border-white shadow-[0_10px_24px_rgba(22,101,193,0.38)] -mb-10 sm:-mb-11 group-hover:scale-108 group-hover:shadow-[0_14px_30px_rgba(22,101,193,0.5)] transition-all duration-500 flex-shrink-0">
                 <Mail className="w-8 h-8 sm:w-9 sm:h-9 stroke-[2.2]" />
               </div>
 
               {/* Pointed Chevron Card Body */}
               <div
-                className="w-full bg-gradient-to-b from-[#F2F7FB] via-[#EBF3FA] to-[#DFEEF7] border-t border-x border-[#D2E4F2] pt-18 sm:pt-20 lg:pt-22 pb-12 sm:pb-14 px-6 sm:px-8 text-center flex flex-col items-center justify-between min-h-[440px] shadow-[0_12px_32px_rgba(17,50,89,0.06)] group-hover:shadow-[0_22px_48px_rgba(17,50,89,0.14)] transition-all duration-500"
+                className="w-full flex-1 bg-gradient-to-b from-[#F2F7FB] via-[#EBF3FA] to-[#DFEEF7] border-t border-x border-[#D2E4F2] pt-[72px] sm:pt-20 lg:pt-22 pb-12 sm:pb-14 px-5 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-between shadow-[0_12px_32px_rgba(17,50,89,0.06)] group-hover:shadow-[0_22px_48px_rgba(17,50,89,0.14)] transition-all duration-500"
                 style={{
                   clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 36px), 50% 100%, 0 calc(100% - 36px))',
                 }}
               >
-                <div className="space-y-3 w-full">
+                <div className="space-y-3 w-full flex-1 flex flex-col justify-center">
                   <span className="text-[11px] font-sans font-bold tracking-[0.24em] text-[#1665C1] uppercase block">
                     CORPORATE DESK
                   </span>
@@ -553,12 +557,12 @@ export default function ContactClient() {
                 </div>
 
                 {/* Simplified & Unified Actions (Primary Action with Signature Angled Cut + QR Mobile Scan) */}
-                <div className="pt-5 pb-2 flex items-center justify-center gap-2.5 w-full">
+                <div className="pt-4 pb-2 flex items-center justify-center gap-2 w-full flex-shrink-0">
                   <a
                     href={`mailto:${COMPANY_INFO.email}`}
-                    className="relative inline-flex items-center justify-center gap-2 h-11 px-5 sm:px-6 bg-gradient-to-r from-[#113259] via-[#164273] to-[#1C518C] hover:from-[#0A223E] hover:to-[#143B66] text-white text-[13px] font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 overflow-hidden"
+                    className="relative inline-flex items-center justify-center gap-1.5 h-10 sm:h-11 px-3.5 sm:px-5 bg-gradient-to-r from-[#113259] via-[#164273] to-[#1C518C] hover:from-[#0A223E] hover:to-[#143B66] text-white text-[12px] sm:text-[13px] font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 overflow-hidden whitespace-nowrap"
                     style={{
-                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)',
+                      clipPath: 'polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%)',
                     }}
                   >
                     <Mail className="w-3.5 h-3.5 text-white/85" />
@@ -568,21 +572,21 @@ export default function ContactClient() {
                   <button
                     type="button"
                     onClick={() => setActiveQrModal('email')}
-                    className="relative inline-flex items-center justify-center gap-1.5 h-11 px-3.5 sm:px-4 bg-white hover:bg-[#F0F6FB] text-[#113259] border border-[#C6DCED] text-[12px] font-semibold transition-all duration-300 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group/qr overflow-hidden"
+                    className="relative inline-flex items-center justify-center gap-1.5 h-10 sm:h-11 px-3 sm:px-4 bg-white hover:bg-[#F0F6FB] text-[#113259] border border-[#C6DCED] text-[11px] sm:text-[12px] font-semibold transition-all duration-300 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group/qr overflow-hidden whitespace-nowrap"
                     style={{
                       clipPath: 'polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%)',
                     }}
                     title="Scan QR to email directly from your phone"
                   >
-                    <QrCode className="w-4 h-4 text-[#1665C1] group-hover/qr:scale-110 transition-transform" />
+                    <QrCode className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#1665C1] group-hover/qr:scale-110 transition-transform" />
                     <span>QR Code</span>
                   </button>
                 </div>
               </div>
 
-              {/* Floating Navy Chevron Accent Line Below Card */}
-              <div className="w-full flex justify-center mt-3.5">
-                <svg viewBox="0 0 340 44" className="w-full max-w-[380px] h-7 overflow-visible group-hover:translate-y-0.5 transition-transform duration-500" preserveAspectRatio="none">
+              {/* Floating Navy Chevron Accent Line Below Card (Visible on Mobile, Tablet & Desktop) */}
+              <div className="flex w-full justify-center mt-3 sm:mt-3.5 flex-shrink-0">
+                <svg viewBox="0 0 340 44" className="w-full max-w-[340px] sm:max-w-[380px] h-6 sm:h-7 overflow-visible group-hover:translate-y-0.5 transition-transform duration-500" preserveAspectRatio="none">
                   <polygon points="0,0 170,32 340,0 340,12 170,44 0,12" fill="#113259" />
                 </svg>
               </div>
@@ -594,7 +598,7 @@ export default function ContactClient() {
               5. SURAT WEAVING PLANT INTERACTIVE GOOGLE MAP & TRANSIT SECTION
              =================================================================== */}
           <div className="max-w-[1360px] mx-auto space-y-6 pt-10 sm:pt-14">
-            
+
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D8E6F3] pb-4">
               <div>
                 <span className="font-sans text-[11px] font-bold tracking-[0.24em] uppercase text-[#1665C1] block">
@@ -635,53 +639,11 @@ export default function ContactClient() {
             </div>
 
             {/* Direct Transit & Ocean Port Connectivity Credentials */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#D8E6F3] flex items-center gap-4 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-[#1665C1]/40 transition-all duration-300">
-                <div className="w-11 h-11 rounded-xl bg-[#EAF2F8] text-[#1665C1] flex items-center justify-center shrink-0">
-                  <Plane className="w-5 h-5 stroke-[2]" />
-                </div>
-                <div>
-                  <p className="font-sans text-[12px] font-bold text-[#113259] uppercase tracking-wide">
-                    Surat Airport (STV)
-                  </p>
-                  <p className="font-sans text-[11.5px] text-slate-600">
-                    14 km &bull; 25 mins direct via Ring Road
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#D8E6F3] flex items-center gap-4 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-[#1665C1]/40 transition-all duration-300">
-                <div className="w-11 h-11 rounded-xl bg-[#EAF2F8] text-[#1665C1] flex items-center justify-center shrink-0">
-                  <Anchor className="w-5 h-5 stroke-[2]" />
-                </div>
-                <div>
-                  <p className="font-sans text-[12px] font-bold text-[#113259] uppercase tracking-wide">
-                    Hazira Ocean Port
-                  </p>
-                  <p className="font-sans text-[11.5px] text-slate-600">
-                    25 km &bull; Direct sea container sailings
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#D8E6F3] flex items-center gap-4 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-[#1665C1]/40 transition-all duration-300">
-                <div className="w-11 h-11 rounded-xl bg-[#EAF2F8] text-[#1665C1] flex items-center justify-center shrink-0">
-                  <TrainTrack className="w-5 h-5 stroke-[2]" />
-                </div>
-                <div>
-                  <p className="font-sans text-[12px] font-bold text-[#113259] uppercase tracking-wide">
-                    Surat Railway Station
-                  </p>
-                  <p className="font-sans text-[11.5px] text-slate-600">
-                    10 km &bull; Overnight express from Mumbai
-                  </p>
-                </div>
-              </div>
-            </div>
+            <LogisticsTransitGrid />
 
             {/* Quick Sourcing Bridge Callout */}
             <div className="mt-8 p-7 sm:p-9 rounded-[26px] bg-gradient-to-r from-[#07192F] via-[#0E3560] to-[#164D87] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_16px_40px_rgba(10,25,47,0.25)] border border-white/10 group/cta overflow-hidden relative">
-              
+
               {/* Animated Luminous Shine Sweep */}
               <span
                 className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 pointer-events-none group-hover/cta:translate-x-[250%] transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -702,12 +664,12 @@ export default function ContactClient() {
 
               <Link
                 href="/enquiry"
-                className="relative z-10 inline-flex items-center justify-center gap-2 h-12 px-7 text-[12.5px] font-bold tracking-wider uppercase text-[#0A192F] bg-white hover:bg-[#F0F7FF] transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 shrink-0"
+                className="relative z-10 inline-flex items-center justify-center gap-2 h-11 sm:h-12 px-5 sm:px-7 text-[11px] sm:text-[12.5px] font-bold tracking-wider uppercase text-[#0A192F] bg-white hover:bg-[#F0F7FF] transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 shrink-0 whitespace-nowrap"
                 style={{
                   clipPath: 'polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%)',
                 }}
               >
-                <span>Go To Sourcing Enquiry Desk</span>
+                <span>Sourcing Enquiry Desk</span>
                 <ArrowRight className="w-4 h-4 stroke-[2.4]" />
               </Link>
             </div>
@@ -720,183 +682,14 @@ export default function ContactClient() {
       {/* =====================================================================
           6. INTERACTIVE QR CODE "SCAN ON MOBILE" MODAL
          ===================================================================== */}
-      {activeQrModal && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-fade-in"
-          onClick={() => setActiveQrModal(null)}
-        >
-          <div
-            className="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-[0_25px_60px_rgba(17,50,89,0.3)] border border-slate-100 text-center space-y-6 animate-in fade-in zoom-in-95 duration-200"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              type="button"
-              onClick={() => setActiveQrModal(null)}
-              className="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 flex items-center justify-center transition-colors cursor-pointer"
-              aria-label="Close QR Modal"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            {/* Modal Title & Subtitle (Context-Aware to Clicked Card, No Cluttered Tabs) */}
-            <div className="space-y-1.5">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF2F8] text-[#1665C1] text-[11px] font-bold tracking-wider uppercase">
-                <Smartphone className="w-3.5 h-3.5" />
-                <span>
-                  {activeQrModal === 'location' && 'Surat Mill Navigation'}
-                  {activeQrModal === 'phone' && 'Sales Desk & WhatsApp'}
-                  {activeQrModal === 'email' && 'Corporate Email Sourcing'}
-                </span>
-              </div>
-              <h3 className="font-heading font-serif text-2xl font-bold text-[#113259] pt-0.5">
-                {activeQrModal === 'location' && 'Scan For GPS Directions'}
-                {activeQrModal === 'phone' && 'Scan For WhatsApp & Direct Call'}
-                {activeQrModal === 'email' && 'Scan To Compose Sourcing Email'}
-              </h3>
-              <p className="font-sans text-[12.5px] text-slate-500 max-w-xs mx-auto">
-                {activeQrModal === 'location' && 'Point your phone camera to launch turn-by-turn navigation in Google Maps.'}
-                {activeQrModal === 'phone' && 'Point your phone camera to start a direct WhatsApp inquiry or dial sales.'}
-                {activeQrModal === 'email' && 'Point your phone camera to draft a sourcing email to viralfabrics@yahoo.com.'}
-              </p>
-            </div>
-
-            {/* QR Code Graphic Frame with Official Viral Fabrics Logo Seal */}
-            <div className="relative mx-auto w-64 h-64 p-3.5 rounded-2xl bg-white border-2 border-[#D8E6F3] shadow-inner flex items-center justify-center">
-              {qrUrls[activeQrModal] ? (
-                <div className="relative w-full h-full">
-                  <Image
-                    src={qrUrls[activeQrModal]}
-                    alt={`Viral Fabrics ${activeQrModal} QR code`}
-                    fill
-                    className="object-contain"
-                  />
-                  {/* Central Branded Seal with Official Emblem */}
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-10 h-10 rounded-xl bg-white p-1.5 shadow-md border-2 border-[#1665C1]/30 flex items-center justify-center">
-                      <Image
-                        src="/assets/brand/viral-mark.png"
-                        alt="Viral Fabrics Emblem"
-                        width={26}
-                        height={26}
-                        className="object-contain"
-                      />
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center justify-center text-slate-400 gap-2">
-                  <QrCode className="w-8 h-8 animate-spin" />
-                  <span className="text-xs">Generating QR...</span>
-                </div>
-              )}
-            </div>
-
-            {/* Detail Explanation & Direct Actions */}
-            <div className="space-y-3 text-left bg-slate-50 p-4 rounded-2xl border border-slate-100">
-              {activeQrModal === 'location' && (
-                <div>
-                  <p className="font-sans text-[12.5px] font-bold text-[#113259]">
-                    Surat Mill Turn-by-Turn Navigation
-                  </p>
-                  <p className="font-sans text-[11.5px] text-slate-600 leading-relaxed mt-0.5">
-                    Krishna Industrial Society, Bamroli, Pandesara, Surat. Launches directly in Google Maps.
-                  </p>
-                  <div className="flex items-center gap-2 pt-3">
-                    <a
-                      href={COMPANY_INFO.mapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#113259] text-white text-[11.5px] font-semibold hover:bg-[#0C2544] transition-colors"
-                    >
-                      <span>Open Maps</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                    <button
-                      type="button"
-                      onClick={() => handleCopy('modal-address', fullAddress)}
-                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 text-[11.5px] font-medium hover:bg-slate-100 transition-colors cursor-pointer"
-                    >
-                      {copiedField === 'modal-address' ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-                      <span>{copiedField === 'modal-address' ? 'Copied' : 'Copy Address'}</span>
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {activeQrModal === 'phone' && (
-                <div>
-                  <p className="font-sans text-[12.5px] font-bold text-[#113259]">
-                    Commercial Sales &amp; WhatsApp Desk
-                  </p>
-                  <p className="font-sans text-[11.5px] text-slate-600 leading-relaxed mt-0.5">
-                    +91 94279 88999 &bull; Scans directly into WhatsApp chat with Viral Fabrics export team.
-                  </p>
-                  <div className="flex items-center gap-2 pt-3">
-                    <a
-                      href={`tel:${COMPANY_INFO.phoneTel}`}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#113259] text-white text-[11.5px] font-semibold hover:bg-[#0C2544] transition-colors"
-                    >
-                      <Phone className="w-3 h-3" />
-                      <span>Call Now</span>
-                    </a>
-                    <a
-                      href="https://wa.me/919427988999?text=Hello%20Viral%20Fabrics%2C%20I%20would%20like%20to%20inquire%20about%20export%20fabrics."
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#25D366] text-white text-[11.5px] font-semibold hover:bg-[#1EBE5D] transition-colors"
-                    >
-                      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-white" aria-hidden="true">
-                        <path d="M17.472 14.382c-.301-.15-1.777-.877-2.052-.977-.275-.1-.475-.15-.675.15-.2.3-.775.976-.95 1.176-.175.2-.35.225-.65.075-.3-.15-1.267-.467-2.413-1.488-.893-.796-1.496-1.78-1.671-2.08-.175-.3-.019-.462.131-.611.135-.134.3-.35.45-.525.15-.175.2-.3.3-.5.1-.2.05-.375-.025-.525-.075-.15-.675-1.625-.925-2.225-.244-.585-.492-.505-.675-.515-.175-.01-.375-.01-.575-.01-.2 0-.525.075-.8.375s-1.05 1.025-1.05 2.5 1.075 2.9 1.225 3.1c.15.2 2.117 3.233 5.129 4.534.716.31 1.275.495 1.71.634.72.23 1.375.197 1.893.12.578-.087 1.777-.726 2.027-1.426.25-.7.25-1.3.175-1.425-.075-.125-.275-.2-.575-.35zm-5.465 7.618h-.006a9.97 9.97 0 01-5.083-1.39l-.364-.216-3.778.99.99-3.68-.236-.375A9.97 9.97 0 012.015 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm0-22C5.383 0 0 5.383 0 12c0 2.112.553 4.18 1.603 6.008L0 24l6.166-1.564A11.954 11.954 0 0012.007 24C18.625 24 24 18.617 24 12 24 5.383 18.625 0 12.007 0z"/>
-                      </svg>
-                      <span>WhatsApp</span>
-                    </a>
-                    <button
-                      type="button"
-                      onClick={() => handleCopy('modal-phone', '91-9427988999')}
-                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 text-[11.5px] font-medium hover:bg-slate-100 transition-colors cursor-pointer"
-                    >
-                      {copiedField === 'modal-phone' ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-                      <span>{copiedField === 'modal-phone' ? 'Copied' : 'Copy'}</span>
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {activeQrModal === 'email' && (
-                <div>
-                  <p className="font-sans text-[12.5px] font-bold text-[#113259]">
-                    Corporate Email Correspondence
-                  </p>
-                  <p className="font-sans text-[11.5px] text-slate-600 leading-relaxed mt-0.5">
-                    viralfabrics@yahoo.com &bull; Scans directly into your mobile mail app ready to send.
-                  </p>
-                  <div className="flex items-center gap-2 pt-3">
-                    <a
-                      href={`mailto:${COMPANY_INFO.email}`}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#113259] text-white text-[11.5px] font-semibold hover:bg-[#0C2544] transition-colors"
-                    >
-                      <Mail className="w-3 h-3" />
-                      <span>Compose Mail</span>
-                    </a>
-                    <button
-                      type="button"
-                      onClick={() => handleCopy('modal-email', COMPANY_INFO.email)}
-                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 text-[11.5px] font-medium hover:bg-slate-100 transition-colors cursor-pointer"
-                    >
-                      {copiedField === 'modal-email' ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-                      <span>{copiedField === 'modal-email' ? 'Copied' : 'Copy'}</span>
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-
-          </div>
-        </div>
-      )}
+      <ContactQrModal
+        activeQrModal={activeQrModal}
+        onClose={() => setActiveQrModal(null)}
+        qrUrls={qrUrls}
+        copiedField={copiedField}
+        onCopy={handleCopy}
+        fullAddress={fullAddress}
+      />
 
     </main>
   );

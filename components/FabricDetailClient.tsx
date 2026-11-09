@@ -10,6 +10,8 @@ import {
   Phone,
   Mail,
   FileText,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import type { LiveFabric } from '@/lib/fabricsService';
 
@@ -35,14 +37,28 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
+  // Multi-photo gallery support
+  const photos = (fabric.images && fabric.images.length > 0)
+    ? fabric.images
+    : (fabric.image ? [fabric.image] : ['/assets/uploads/2025/09/bsy-fabrics.png']);
+  const [activePhotoIdx, setActivePhotoIdx] = useState(0);
+  const activePhoto = photos[activePhotoIdx] || photos[0];
+
   useEffect(() => {
     setIsMounted(true);
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setIsModalOpen(false);
+      if (photos.length > 1) {
+        if (e.key === 'ArrowLeft') {
+          setActivePhotoIdx((prev) => (prev - 1 + photos.length) % photos.length);
+        } else if (e.key === 'ArrowRight') {
+          setActivePhotoIdx((prev) => (prev + 1) % photos.length);
+        }
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [photos.length]);
 
   // WhatsApp enquiry deep link for the popup modal
   const getWhatsAppUrl = () => {
@@ -74,7 +90,7 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             
             {/* -------------------------------------------------------
-                1. LEFT COLUMN: PURE FABRIC PHOTO WITH SIGNATURE ACCENT DISC
+                1. LEFT COLUMN: PURE FABRIC PHOTO GALLERY WITH SIGNATURE ACCENT DISC
                ------------------------------------------------------- */}
             <div 
               className={`lg:col-span-6 relative transition-all duration-800 ease-out ${
@@ -88,12 +104,13 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
                 aria-hidden="true"
               />
 
-              {/* Main Pure Fabric Photo Frame (No badge clutter) */}
+              {/* Main Pure Fabric Photo Frame */}
               <div className="group relative w-full aspect-[4/3] rounded-[24px] sm:rounded-[30px] overflow-hidden bg-slate-100 border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.08)]">
                 
                 <Image
-                  src={fabric.image}
-                  alt={fabric.name}
+                  key={activePhoto}
+                  src={activePhoto}
+                  alt={`${fabric.name} - Photo ${activePhotoIdx + 1}`}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
@@ -103,7 +120,63 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
                 {/* Subtle Luxury Vignette */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent pointer-events-none" />
 
+                {/* Multi-Photo Carousel Controls (Only if multiple photos exist) */}
+                {photos.length > 1 && (
+                  <>
+                    {/* Counter Badge */}
+                    <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-slate-950/65 backdrop-blur-md text-white text-xs font-medium tracking-wider shadow-sm select-none">
+                      {activePhotoIdx + 1} / {photos.length}
+                    </div>
+
+                    {/* Prev Button */}
+                    <button
+                      type="button"
+                      onClick={() => setActivePhotoIdx((prev) => (prev - 1 + photos.length) % photos.length)}
+                      className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-slate-800 shadow-lg flex items-center justify-center transition-all duration-200 opacity-0 group-hover:opacity-100 focus:opacity-100 hover:scale-105 cursor-pointer backdrop-blur-xs"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+
+                    {/* Next Button */}
+                    <button
+                      type="button"
+                      onClick={() => setActivePhotoIdx((prev) => (prev + 1) % photos.length)}
+                      className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-slate-800 shadow-lg flex items-center justify-center transition-all duration-200 opacity-0 group-hover:opacity-100 focus:opacity-100 hover:scale-105 cursor-pointer backdrop-blur-xs"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </>
+                )}
+
               </div>
+
+              {/* Multi-photo Thumbnails Strip */}
+              {photos.length > 1 && (
+                <div className="mt-4 flex items-center gap-3 overflow-x-auto pb-1.5 scrollbar-thin">
+                  {photos.map((pUrl, idx) => (
+                    <button
+                      key={`${pUrl}-${idx}`}
+                      type="button"
+                      onClick={() => setActivePhotoIdx(idx)}
+                      className={`relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border-2 transition-all duration-300 shrink-0 cursor-pointer ${
+                        idx === activePhotoIdx
+                          ? 'border-[#006DB6] shadow-md scale-102 ring-2 ring-[#006DB6]/20'
+                          : 'border-slate-200 hover:border-slate-400 opacity-65 hover:opacity-100'
+                      }`}
+                      aria-label={`Select photo ${idx + 1}`}
+                    >
+                      <Image
+                        src={pUrl}
+                        alt={`${fabric.name} thumbnail ${idx + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
 
             </div>
 
@@ -196,7 +269,7 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
               <div className="flex items-center gap-3.5">
                 <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden border border-slate-200 shadow-xs shrink-0">
                   <Image
-                    src={fabric.image}
+                    src={activePhoto || fabric.image}
                     alt={fabric.name}
                     fill
                     className="object-cover"
@@ -226,10 +299,10 @@ export function FabricDetailClient({ fabric }: FabricDetailClientProps) {
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-900 transition-colors cursor-pointer shrink-0"
+                className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-900 transition-colors cursor-pointer shrink-0"
                 aria-label="Close modal"
               >
-                <X className="w-4 h-4" />
+                <X className="w-4 h-4 stroke-[2]" />
               </button>
             </div>
 
