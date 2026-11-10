@@ -412,27 +412,17 @@ function EnquiryForm() {
 
           {/* Custom Searchable Product Combobox */}
           {(() => {
+            const cleanSearch = searchTerm.toLowerCase().trim();
             const filteredCatalogFabrics = liveFabrics.filter((f) => {
               const title = (f.name || f.title || '').toLowerCase();
-              return title.includes(searchTerm.toLowerCase().trim());
+              return title.includes(cleanSearch);
             });
 
-            const specialOptions = [
-              'Custom Make-to-Order Weave (Provide specs below)',
-              'Sampling & Swatch Book Consultation',
-              'Other Synthetic Textile Requirement',
-            ];
-            const filteredSpecialOptions = specialOptions.filter((opt) =>
-              opt.toLowerCase().includes(searchTerm.toLowerCase().trim())
+            const isExactFabricMatch = liveFabrics.some(
+              (f) => (f.name || f.title || '').toLowerCase() === cleanSearch
             );
 
-            const isExactMatch =
-              liveFabrics.some(
-                (f) => (f.name || f.title || '').toLowerCase() === searchTerm.toLowerCase().trim()
-              ) ||
-              specialOptions.some(
-                (opt) => opt.toLowerCase() === searchTerm.toLowerCase().trim()
-              );
+            const showCustomOption = !cleanSearch || 'custom'.includes(cleanSearch);
 
             return (
               <div ref={productDropdownRef} className="relative">
@@ -478,11 +468,12 @@ function EnquiryForm() {
                 {/* Searchable Combobox Popover */}
                 {isDropdownOpen && (
                   <div
-                    className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-2xl shadow-[0_20px_45px_rgba(15,23,42,0.14)] z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-150"
+                    data-lenis-prevent
+                    className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-[0_16px_36px_rgba(15,23,42,0.12)] z-50 overflow-hidden animate-in fade-in duration-150"
                     style={{ backgroundColor: '#ffffff' }}
                   >
                     {/* Live Search Bar */}
-                    <div className="p-2.5 border-b border-slate-100 bg-slate-50/80 sticky top-0 z-10">
+                    <div className="p-2 border-b border-slate-100 bg-slate-50/80 sticky top-0 z-10">
                       <div className="relative flex items-center">
                         <Search className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
                         <input
@@ -490,8 +481,8 @@ function EnquiryForm() {
                           type="text"
                           value={searchTerm}
                           onChange={(e) => setSearchTerm(e.target.value)}
-                          placeholder="Search fabric qualities or enter custom..."
-                          className="w-full h-9 pl-9 pr-8 text-[13px] bg-white border border-slate-200 rounded-lg text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#006DB6] focus:ring-1 focus:ring-[#006DB6] transition-all"
+                          placeholder="Search fabric or choose Custom..."
+                          className="w-full h-9 pl-9 pr-8 text-[13px] bg-white border border-slate-200 rounded-lg text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#1E5FA8] focus:ring-1 focus:ring-[#1E5FA8] transition-all"
                         />
                         {searchTerm && (
                           <button
@@ -506,165 +497,86 @@ function EnquiryForm() {
                       </div>
                     </div>
 
-                    {/* Scrollable Options List */}
-                    <div className="max-h-[300px] overflow-y-auto p-2 space-y-2 overscroll-contain">
-                      {/* Custom Typed Option (if user typed something that is not an exact match) */}
-                      {searchTerm.trim() && !isExactMatch && (
+                    {/* Scrollable Options List - Scroll isolated from main screen */}
+                    <div
+                      data-lenis-prevent
+                      onWheel={(e) => e.stopPropagation()}
+                      className="max-h-[260px] overflow-y-auto p-1.5 overscroll-contain"
+                      style={{ overscrollBehavior: 'contain', touchAction: 'pan-y' }}
+                    >
+                      {/* Typed Custom Option (if typed text does not match any existing fabric) */}
+                      {cleanSearch && !isExactFabricMatch && cleanSearch !== 'custom' && (
                         <button
                           type="button"
                           onClick={() => {
                             setFormData((prev) => ({ ...prev, product: searchTerm.trim() }));
                             setIsDropdownOpen(false);
                           }}
-                          className="w-full flex items-center gap-2.5 p-2.5 rounded-xl bg-blue-50/90 hover:bg-blue-100 text-[#006DB6] transition-all text-left border border-blue-200/90 cursor-pointer"
+                          className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-left bg-blue-50/70 hover:bg-blue-100/80 text-[#1E5FA8] font-medium transition-colors cursor-pointer mb-1"
                         >
-                          <Sparkles className="w-4 h-4 shrink-0 text-[#006DB6]" />
-                          <div className="min-w-0 flex-1">
-                            <span className="text-[12.5px] font-semibold block truncate">
-                              Use custom: &quot;{searchTerm.trim()}&quot;
-                            </span>
-                            <span className="text-[10px] text-slate-500 font-normal">
-                              Specify custom fabric name or weave specs
-                            </span>
-                          </div>
-                          <ArrowRight className="w-3.5 h-3.5 shrink-0 text-[#006DB6]" />
+                          <span className="text-[13.5px] truncate">Custom: &quot;{searchTerm.trim()}&quot;</span>
+                          <ArrowRight className="w-3.5 h-3.5 shrink-0 ml-2 text-[#1E5FA8]" />
                         </button>
                       )}
 
-                      {/* Export Fabrics (Catalog Qualities) */}
-                      {filteredCatalogFabrics.length > 0 && (
-                        <div className="space-y-1">
-                          <div className="px-2.5 py-1 text-[10px] font-bold tracking-[0.2em] text-[#006DB6] uppercase font-sans">
-                            Export Fabrics ({filteredCatalogFabrics.length})
-                          </div>
-                          {filteredCatalogFabrics.map((fabric) => {
-                            const title = fabric.name || fabric.title;
-                            const isSelected = formData.product === title;
-                            return (
-                              <button
-                                key={fabric.id || fabric.slug}
-                                type="button"
-                                onClick={() => {
-                                  setFormData((prev) => ({ ...prev, product: title }));
-                                  setIsDropdownOpen(false);
-                                }}
-                                className={`w-full flex items-center justify-between p-2 rounded-xl transition-all cursor-pointer text-left ${
-                                  isSelected
-                                    ? 'bg-[#006DB6]/10 text-[#006DB6] font-medium'
-                                    : 'hover:bg-slate-50 text-slate-800'
-                                }`}
-                              >
-                                <div className="flex items-center gap-2.5 min-w-0">
-                                  <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200 shadow-2xs">
-                                    <img
-                                      src={fabric.image || '/assets/uploads/2025/09/bsy-fabrics.png'}
-                                      alt={title}
-                                      className="w-full h-full object-cover"
-                                      onError={(e) => {
-                                        (e.target as HTMLImageElement).src =
-                                          '/assets/uploads/2025/09/bsy-fabrics.png';
-                                      }}
-                                    />
-                                  </div>
-                                  <div className="truncate">
-                                    <p className="text-[13px] font-medium truncate">{title}</p>
-                                    <p className="text-[10px] text-slate-500">
-                                      Export Weave &bull; Surat Looms
-                                    </p>
-                                  </div>
-                                </div>
-                                {isSelected && (
-                                  <Check className="w-4 h-4 text-[#006DB6] shrink-0" />
-                                )}
-                              </button>
-                            );
-                          })}
+                      {/* Filtered Fabric Names: Only Name, No Images, No Subtitles */}
+                      {filteredCatalogFabrics.map((fabric) => {
+                        const title = fabric.name || fabric.title;
+                        const isSelected = formData.product === title;
+                        return (
+                          <button
+                            key={fabric.id || fabric.slug}
+                            type="button"
+                            onClick={() => {
+                              setFormData((prev) => ({ ...prev, product: title }));
+                              setIsDropdownOpen(false);
+                            }}
+                            className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors cursor-pointer ${
+                              isSelected
+                                ? 'bg-[#1E5FA8]/10 text-[#1E5FA8] font-semibold'
+                                : 'hover:bg-slate-50 text-slate-700 font-normal'
+                            }`}
+                          >
+                            <span className="text-[13.5px] truncate">{title}</span>
+                            {isSelected && (
+                              <Check className="w-4 h-4 text-[#1E5FA8] shrink-0 ml-2" />
+                            )}
+                          </button>
+                        );
+                      })}
+
+                      {/* Single "Custom" Option */}
+                      {showCustomOption && (
+                        <div className={filteredCatalogFabrics.length > 0 ? "pt-1 mt-1 border-t border-slate-100" : ""}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setFormData((prev) => ({ ...prev, product: 'Custom' }));
+                              setIsDropdownOpen(false);
+                            }}
+                            className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors cursor-pointer ${
+                              formData.product === 'Custom'
+                                ? 'bg-[#1E5FA8]/10 text-[#1E5FA8] font-semibold'
+                                : 'hover:bg-slate-50 text-slate-700 font-normal'
+                            }`}
+                          >
+                            <span className="text-[13.5px]">Custom</span>
+                            {formData.product === 'Custom' && (
+                              <Check className="w-4 h-4 text-[#1E5FA8] shrink-0 ml-2" />
+                            )}
+                          </button>
                         </div>
                       )}
 
-                      {/* Special Production & Consulting Options */}
-                      {filteredSpecialOptions.length > 0 && (
-                        <div className="space-y-1 pt-1 border-t border-slate-100">
-                          <div className="px-2.5 py-1 text-[10px] font-bold tracking-[0.2em] text-slate-600 uppercase font-sans">
-                            Special Production &amp; Custom Options
-                          </div>
-                          {filteredSpecialOptions.map((opt) => {
-                            const isSelected = formData.product === opt;
-                            return (
-                              <button
-                                key={opt}
-                                type="button"
-                                onClick={() => {
-                                  setFormData((prev) => ({ ...prev, product: opt }));
-                                  setIsDropdownOpen(false);
-                                }}
-                                className={`w-full flex items-center justify-between p-2.5 rounded-xl transition-all cursor-pointer text-left ${
-                                  isSelected
-                                    ? 'bg-[#006DB6]/10 text-[#006DB6] font-medium'
-                                    : 'hover:bg-slate-50 text-slate-700'
-                                }`}
-                              >
-                                <span className="text-[12.5px] truncate flex-1">{opt}</span>
-                                {isSelected && (
-                                  <Check className="w-4 h-4 text-[#006DB6] shrink-0 ml-2" />
-                                )}
-                              </button>
-                            );
-                          })}
+                      {/* Empty State */}
+                      {filteredCatalogFabrics.length === 0 && !showCustomOption && !cleanSearch && (
+                        <div className="py-4 text-center text-slate-400 text-[13px]">
+                          No qualities found.
                         </div>
                       )}
-
-                      {/* Empty State when no results found */}
-                      {filteredCatalogFabrics.length === 0 &&
-                        filteredSpecialOptions.length === 0 &&
-                        !searchTerm.trim() && (
-                          <div className="py-6 text-center text-slate-400 text-[13px]">
-                            No qualities found.
-                          </div>
-                        )}
                     </div>
                   </div>
                 )}
-              </div>
-            );
-          })()}
-
-          {/* Luxury Selected Fabric Preview Pill when a quality is active */}
-          {(() => {
-            const matchedLive = liveFabrics.find(
-              (f) => (f.name || f.title) === formData.product || f.slug === formData.product
-            );
-            if (!matchedLive && !formData.product) return null;
-            return (
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/80 animate-in fade-in duration-200">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-8 h-8 rounded-lg overflow-hidden bg-slate-200 shrink-0 border border-slate-300 shadow-2xs">
-                    <img
-                      src={matchedLive?.image || '/assets/uploads/2025/09/bsy-fabrics.png'}
-                      alt={formData.product}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/assets/uploads/2025/09/bsy-fabrics.png';
-                      }}
-                    />
-                  </div>
-                  <div className="truncate">
-                    <p className="text-[12px] font-semibold text-slate-800 truncate">
-                      {formData.product}
-                    </p>
-                    <p className="text-[10px] text-slate-500 font-medium">
-                      Make-to-Order &bull; Surat Mill Direct
-                    </p>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setFormData((prev) => ({ ...prev, product: '' }))}
-                  className="text-[11px] font-medium text-slate-400 hover:text-red-500 transition-colors px-2 py-1 rounded-md hover:bg-white cursor-pointer shrink-0"
-                >
-                  Change
-                </button>
               </div>
             );
           })()}
