@@ -68,6 +68,26 @@ function mapToLiveFabric(doc: FabricDocumentLike): LiveFabric {
   };
 }
 
+function sortFabricsBySequence<T extends FabricDocumentLike>(docs: T[]): T[] {
+  return [...docs].sort((a, b) => {
+    // If menuOrder is defined and > 0, it takes highest precedence, then displayOrder
+    const orderA = (typeof a.menuOrder === 'number' && a.menuOrder > 0)
+      ? a.menuOrder
+      : ((typeof a.displayOrder === 'number' && a.displayOrder > 0) ? a.displayOrder : 9999);
+    const orderB = (typeof b.menuOrder === 'number' && b.menuOrder > 0)
+      ? b.menuOrder
+      : ((typeof b.displayOrder === 'number' && b.displayOrder > 0) ? b.displayOrder : 9999);
+
+    if (orderA !== orderB) {
+      return orderA - orderB;
+    }
+
+    const dateA = (a as any).createdAt ? new Date((a as any).createdAt).getTime() : 0;
+    const dateB = (b as any).createdAt ? new Date((b as any).createdAt).getTime() : 0;
+    return dateB - dateA;
+  });
+}
+
 /**
  * Fetch all published fabrics from MongoDB Atlas with fallback
  */
@@ -76,11 +96,11 @@ export async function getPublishedFabrics(): Promise<LiveFabric[]> {
     if (process.env.MONGODB_URI) {
       await connectDB();
       const docs = await WebsiteFabric.find({ isPublished: true })
-        .sort({ displayOrder: 1, createdAt: -1 })
+        .sort({ menuOrder: 1, displayOrder: 1, createdAt: -1 })
         .lean();
 
       if (docs && docs.length > 0) {
-        return docs.map(mapToLiveFabric);
+        return sortFabricsBySequence(docs).map(mapToLiveFabric);
       }
     }
   } catch (error) {
@@ -125,11 +145,11 @@ export async function getCatalogFabrics(): Promise<LiveFabric[]> {
         isPublished: true,
         showInCatalog: { $ne: false },
       })
-        .sort({ displayOrder: 1, createdAt: -1 })
+        .sort({ menuOrder: 1, displayOrder: 1, createdAt: -1 })
         .lean();
 
       if (docs && docs.length > 0) {
-        return docs.map(mapToLiveFabric);
+        return sortFabricsBySequence(docs).map(mapToLiveFabric);
       }
     }
   } catch (error) {
@@ -155,7 +175,7 @@ export async function getMenuFabrics(): Promise<LiveFabric[]> {
         .lean();
 
       if (docs && docs.length > 0) {
-        return docs.map(mapToLiveFabric);
+        return sortFabricsBySequence(docs).map(mapToLiveFabric);
       }
     }
   } catch (error) {
@@ -177,11 +197,11 @@ export async function getHomepageFabrics(): Promise<LiveFabric[]> {
         isPublished: true, 
         showOnHomepage: { $ne: false } 
       })
-        .sort({ displayOrder: 1, createdAt: -1 })
+        .sort({ menuOrder: 1, displayOrder: 1, createdAt: -1 })
         .lean();
 
       if (docs && docs.length > 0) {
-        return docs.map(mapToLiveFabric);
+        return sortFabricsBySequence(docs).map(mapToLiveFabric);
       }
     }
   } catch (error) {
@@ -207,7 +227,7 @@ export async function getEnquiryFabrics(): Promise<LiveFabric[]> {
         .lean();
 
       if (docs && docs.length > 0) {
-        return docs.map(mapToLiveFabric);
+        return sortFabricsBySequence(docs).map(mapToLiveFabric);
       }
     }
   } catch (error) {
